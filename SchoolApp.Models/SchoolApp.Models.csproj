@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Problems\IdentityContextIssue.txt" />
+    <None Remove="Problems\ProblemIssue1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Problems\IdentityContextIssue.txt" />
+    <Compile Include="Problems\ProblemIssue1.txt" />
+  </ItemGroup>
+
+</Project>
