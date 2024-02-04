@@ -32,8 +32,8 @@ namespace SchoolApp.Models.Models
         public DateTime AdmissionUpdatedOn { get; set; }
 
         public int StudentId { get; set; } // Add this property
-        public virtual Student refStudent { get; set; }
-        public virtual AcademicYear refAcademicYear { get; set; }
+        public virtual Student Student { get; set; }
+        public virtual AcademicYear AcademicYear { get; set; }
 
         // this is rectified, due to recursion issue, to Enrollment
 
@@ -43,6 +43,6 @@ namespace SchoolApp.Models.Models
 
 
         public int EnrollmentId { get; set; }
-        public virtual Enrollment refEnrollment { get; set; }
+        public virtual Enrollment Enrollment { get; set; }
     }
 }

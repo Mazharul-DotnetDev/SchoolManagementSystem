@@ -24,9 +24,9 @@ namespace SchoolApp.Models.Models
         public string ExamStatus { get; set; }
         public DateTime ExamStatusDate { get; set; }
 
-        public virtual ICollection<Classes> refClasses { get; set; } = new List<Classes>();
-        public virtual ICollection<ExamSchedule> refExamSchedules { get; set; } = new List<ExamSchedule>();
-        public virtual ICollection<Subject> refSubjects { get; set; } = new List<Subject>();
+        public virtual ICollection<Classes> Classes { get; set; } 
+        public virtual ICollection<ExamSchedule> ExamSchedules { get; set; } 
+        public virtual ICollection<Subject> Subjects { get; set; } 
 
 
     }

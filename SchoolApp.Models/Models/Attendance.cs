@@ -34,8 +34,8 @@ namespace SchoolApp.Models.Models
         public DateTime attendanceTime { get; set; }
         public bool IsPresent { get; set; }
 
-        public virtual ICollection<Student> refStudents { get; set; }
-        public virtual ICollection<Employee> refEmployees { get; set; }
+        public virtual ICollection<Student> Students { get; set; }
+        public virtual ICollection<Employee> Employees { get; set; }
 
 
 

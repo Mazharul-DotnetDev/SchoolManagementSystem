@@ -30,8 +30,8 @@ namespace SchoolApp.Models.Models
         public string SessionStatus { get; set; }
         public DateTime StatusDate { get; set; }
 
-        public virtual ICollection<Subject> refSubjects { get; set; } = new List<Subject>();
-        public virtual ICollection<Classes> refClasses { get; set; } = new List<Classes>();
-        public virtual ICollection<Section> refSections { get; set; } = new List<Section>();
+        public virtual ICollection<Subject> Subjects { get; set; } 
+        public virtual ICollection<Classes> Classes { get; set; } 
+        public virtual ICollection<Section> Sections { get; set; } 
     }
 }

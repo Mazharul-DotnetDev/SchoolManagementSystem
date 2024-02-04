@@ -32,8 +32,8 @@ namespace SchoolApp.Models.Models
         public int FeeStructureId { get; set; }
         public string FeeStructureName { get; set; }
         public decimal AmountOfFee { get; set; }
-        public virtual Classes refClasses { get; set; }
-        public virtual FeeType refFeeType { get; set; }
+        public virtual Classes Classes { get; set; }
+        public virtual FeeType FeeType { get; set; }
 
     }
 }

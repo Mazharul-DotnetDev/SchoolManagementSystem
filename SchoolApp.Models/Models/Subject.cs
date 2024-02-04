@@ -22,9 +22,9 @@ namespace SchoolApp.Models.Models
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
 
-        public virtual ICollection<Employee> refEmployees { get; set; } = new List<Employee>();
-        public virtual ICollection<Classes> refClasses { get; set; } = new List<Classes>();
-        public virtual ICollection<Exam> refExams { get; set; } = new List<Exam>();
-        public virtual ICollection<Student> refStudents { get; set; } = new List<Student>();
+        public virtual ICollection<Employee> Employees { get; set; } 
+        public virtual ICollection<Classes> Classes { get; set; } 
+        public virtual ICollection<Exam> Exams { get; set; } 
+        public virtual ICollection<Student> Students { get; set; } 
     }
 }

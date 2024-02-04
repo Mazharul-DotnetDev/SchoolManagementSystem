@@ -38,14 +38,14 @@ namespace SchoolApp.Models.Models
 
         //public int AdmissionId { get; set; }
         //public virtual Admission refAdmission { get; set; }
-        public virtual ICollection<Enrollment> refEnrollments { get; set; } = new List<Enrollment>();
+        public virtual ICollection<Enrollment> Enrollments { get; set; } 
 
 
-        public virtual ICollection<Subject> refSubjects { get; set; } = new List<Subject>();
+        public virtual ICollection<Subject> Subjects { get; set; } 
 
-        public virtual ICollection<ExamSchedule> refExamSchedules { get; set; } = new List<ExamSchedule>();
-        public virtual ICollection<FeePayment> refFeePayments { get; set; } = new List<FeePayment>();
-        public virtual ICollection<Resource> refResources { get; set; } = new List<Resource>();
-        public virtual ICollection<Attendance> refAttendances { get; set; } = new List<Attendance>();
+        public virtual ICollection<ExamSchedule> ExamSchedules { get; set; } 
+        public virtual ICollection<FeePayment> FeePayments { get; set; } 
+        public virtual ICollection<Resource> Resources { get; set; } 
+        public virtual ICollection<Attendance> Attendances { get; set; } 
     }
 }

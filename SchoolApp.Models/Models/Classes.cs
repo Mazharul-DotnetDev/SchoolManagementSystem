@@ -28,13 +28,10 @@ namespace SchoolApp.Models.Models
         public string ClassStutus { get; set; }
         public DateTime ClassStutusDateTime { get; set; }
 
-        public virtual ICollection<Student> refStudents { get; set; } = new List<Student>();
-        public virtual ICollection<Section> refSections { get; set; } = new List<Section>();
-        public virtual ICollection<Subject> refSubjects { get; set; } = new List<Subject>();
-        public virtual ICollection<Resource> refResources { get; set; } = new List<Resource>();
-
-
-
-        public virtual ICollection<Enrollment> refEnrollments { get; set; } = new List<Enrollment>();
+        public virtual ICollection<Student> Students { get; set; } 
+        public virtual ICollection<Section> Sections { get; set; } 
+        public virtual ICollection<Subject> Subjects { get; set; } 
+        public virtual ICollection<Resource> Resources { get; set; } 
+        public virtual ICollection<Enrollment> Enrollments { get; set; } 
     }
 }

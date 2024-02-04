@@ -27,14 +27,16 @@ namespace SchoolApiService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetdbsEmployee()
         {
-            return await _context.dbsEmployee.ToListAsync();
+            return await _context.dbsEmployee.Include(e => e.EmployeeType).ToListAsync();
         }
 
         // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
-            var employee = await _context.dbsEmployee.FindAsync(id);
+            var employee = await _context.dbsEmployee
+                                 .Include(e => e.EmployeeType)
+                                 .FirstOrDefaultAsync(e => e.EmployeeId == id);
 
             if (employee == null)
             {
@@ -80,10 +82,22 @@ namespace SchoolApiService.Controllers
         [HttpPost]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
-            _context.dbsEmployee.Add(employee);
+            //_context.dbsEmployee.Add(employee);
+            //await _context.SaveChangesAsync();
+
+            //return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
+
+
+            // Attach the employee to the context first
+            _context.Attach(employee);
+
+            // Then include the related data
+            _context.Entry(employee).Reference(e => e.EmployeeType).Load();
+
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
+
         }
 
         // DELETE: api/Employees/5

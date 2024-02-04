@@ -42,8 +42,8 @@ namespace SchoolApp.Models.Models
 
 
 
-        public virtual List<FeeStructure> refFeeStructures { get; set; } = new List<FeeStructure>();
-        public virtual Student refStudent { get; set; }
+        public virtual List<FeeStructure> FeeStructures { get; set; } = new List<FeeStructure>();
+        public virtual Student Student { get; set; }
 
 
     }

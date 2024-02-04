@@ -25,6 +25,6 @@ namespace SchoolApp.Models.Models
         public string GuardianPhoneNumber { get; set; }
         public string GuardianEmail { get; set; }
 
-        public virtual List<Student> refStudents { get; set; } = new List<Student>();
+        public virtual List<Student> Students { get; set; } 
     }
 }

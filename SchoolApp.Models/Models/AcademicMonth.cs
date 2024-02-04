@@ -24,7 +24,7 @@ namespace SchoolApp.Models.Models
         public string AcademicMonthName { get; set; }
 
 
-        public virtual ICollection<FeePayment> refFeePayment { get; set; }
+        public virtual ICollection<FeePayment> FeePayments { get; set; }
 
 
     }

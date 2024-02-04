@@ -14,6 +14,13 @@ namespace SchoolApp.Models.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EmployeeTypeId { get; set; }
+
+
         public string EmployeeTypeName { get; set; }
+
+
+
+
+
     }
 }

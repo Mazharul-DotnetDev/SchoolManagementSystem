@@ -39,7 +39,7 @@ namespace SchoolApp.Models.Models
         public virtual Student Student { get; set; }
 
         public int ClassId { get; set; }
-        public virtual Classes Class { get; set; }
+        public virtual Classes Classes { get; set; }
 
         public int AdmissionId { get; set; }
         public virtual Admission Admission { get; set; }

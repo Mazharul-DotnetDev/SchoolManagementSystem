@@ -34,7 +34,8 @@ namespace SchoolApp.Models.Models
 
 
 
+        public int EmployeeTypeId { get; set; }
 
-        public virtual EmployeeType? refEmployeeType { get; set; }
+        public virtual EmployeeType? EmployeeType { get; set; }
     }
 }

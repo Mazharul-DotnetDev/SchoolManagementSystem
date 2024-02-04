@@ -34,9 +34,9 @@ namespace SchoolApp.Models.Models
 
 
 
-        public virtual ICollection<Admission> refAdmission { get; set; }
+        public virtual ICollection<Admission> Admissions { get; set; }
 
 
-        public virtual ICollection<AcademicMonth> refAcademicMonth { get; set; }
+        public virtual ICollection<AcademicMonth> AcademicMonths { get; set; }
     }
 }

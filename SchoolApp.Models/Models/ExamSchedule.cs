@@ -31,6 +31,6 @@ namespace SchoolApp.Models.Models
         public string ExamScheduleStatus { get; set; }
         public DateTime ExamScheduleStatusDate { get; set; }
 
-        public virtual Exam refExam { get; set; }
+        public virtual Exam Exam { get; set; }
     }
 }

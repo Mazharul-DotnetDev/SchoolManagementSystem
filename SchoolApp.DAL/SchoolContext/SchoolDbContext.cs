@@ -55,17 +55,17 @@ namespace SchoolApp.DAL.SchoolContext
         .HasKey(e => e.EnrollmentId);
 
             modelBuilder.Entity<Student>()
-              .HasMany(s => s.refEnrollments)
+              .HasMany(s => s.Enrollments)
               .WithOne(e => e.Student)
               .HasForeignKey(e => e.StudentId);
 
             modelBuilder.Entity<Classes>()
-              .HasMany(c => c.refEnrollments)
-              .WithOne(e => e.Class)
+              .HasMany(c => c.Enrollments)
+              .WithOne(e => e.Classes)
               .HasForeignKey(e => e.ClassId);
 
             modelBuilder.Entity<Admission>()
-              .HasOne(a => a.refEnrollment)
+              .HasOne(a => a.Enrollment)
               .WithOne(e => e.Admission)
               .HasForeignKey<Admission>(a => a.EnrollmentId);
 

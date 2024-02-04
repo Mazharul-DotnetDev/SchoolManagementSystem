@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolApp.DAL.SchoolContext;
 
@@ -11,9 +12,11 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240204122510_Mig6")]
+    partial class Mig6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,7 +449,7 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<int>("EmployeeNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("EmployeeTypeId")
+                    b.Property<int?>("EmployeeTypeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SubjectId")
@@ -1051,9 +1054,7 @@ namespace SchoolApp.DAL.Migrations
 
                     b.HasOne("SchoolApp.Models.Models.EmployeeType", "EmployeeType")
                         .WithMany()
-                        .HasForeignKey("EmployeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeTypeId");
 
                     b.HasOne("SchoolApp.Models.Models.Subject", null)
                         .WithMany("Employees")
