@@ -12,10 +12,6 @@ using System.Threading.Tasks;
 namespace SchoolApp.DAL.SchoolContext
 {
 
-   
-
-
-
     public class SchoolDbContext : IdentityDbContext
     {
 
@@ -49,15 +45,17 @@ namespace SchoolApp.DAL.SchoolContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Call the base class implementation of OnModelCreating
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Enrollment>()
-        .HasKey(e => e.EnrollmentId);
+        .HasKey(e => e.EnrollmentId); // Set EnrollmentId as the primary key for the Enrollment entity
 
             modelBuilder.Entity<Student>()
-              .HasMany(s => s.Enrollments)
-              .WithOne(e => e.Student)
-              .HasForeignKey(e => e.StudentId);
+              .HasMany(s => s.Enrollments) // One-to-Many relationship: One Student can have many Enrollments
+              .WithOne(e => e.Student) // One-to-One relationship: One Enrollment can have one Student
+              .HasForeignKey(e => e.StudentId); // Foreign key: Enrollment has a foreign key StudentId
 
             modelBuilder.Entity<Classes>()
               .HasMany(c => c.Enrollments)

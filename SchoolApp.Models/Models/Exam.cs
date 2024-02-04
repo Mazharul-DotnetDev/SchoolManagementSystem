@@ -8,11 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.Models
 {
-    /*
-    -- Further Improvement: Define the possible values for ExamStatus with an enum for better data integrity. 
-    */
-
-
+ 
     [Table("Exams")]
     public class Exam
     {

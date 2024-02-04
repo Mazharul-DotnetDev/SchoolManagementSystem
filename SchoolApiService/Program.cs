@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.AspNetCore.Identity;
@@ -18,56 +17,43 @@ namespace SchoolApiService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddControllers();
 
-            builder.Services.AddControllers()
-
-            //.AddJsonOptions(options =>
+            //// Or the following
+            //builder.Services.AddControllers().AddJsonOptions(options =>
             //{
-
             //    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
             //    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            //})
-            ;  // appended with 
-
-
-            builder.Services.Configure<JsonOptions>(opt =>
-            {
+            //});
+            
+            builder.Services.Configure<JsonOptions>(opt => {
                 opt.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             });
 
-
-
             var connectionString = builder.Configuration.GetConnectionString("LocalDbConnection");
             builder.Services.AddDbContext<SchoolDbContext>(options =>
-                options.UseSqlServer(connectionString));
-
+              options.UseSqlServer(connectionString));
 
             //builder.Services.AddDbContext<SchoolDbContext>(opt =>
             //{
             //    opt.UseSqlServer("server = DESKTOP-PQL41F3\\SQLEXPRESS; database = sCHHOLDbApi; trusted_connection =true; trust server certificate =true;");
             //});
 
-
-
             builder.Services.AddIdentity<IdentityUser, IdentityRole>(
-                //options => options.SignIn.RequireConfirmedAccount = true
-                )
-                .AddEntityFrameworkStores<SchoolDbContext>();
-         
 
+            // options => options.SignIn.RequireConfirmedAccount = true
+            //options => options.SignIn.RequireConfirmedAccount = true
+            ).AddEntityFrameworkStores<SchoolDbContext>();
 
-
-
-
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Demo API", Version = "v1" });
+            builder.Services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Demo API",
+                    Version = "v1"
+                });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -78,53 +64,43 @@ namespace SchoolApiService
                     Description = "Please insert JWT token into field"
                 });
 
-                c.AddSecurityRequirement(new OpenApiSecurityRequirement
-                    {
-                        {
-                            new OpenApiSecurityScheme
-                            {
-                                Reference = new OpenApiReference
-                                {
-                                    Type = ReferenceType.SecurityScheme,
-                                    Id = "Bearer"
-                                }
-                            },
-                            new string[] { }
-                        }
-                    });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+            {
+              new OpenApiSecurityScheme {
+                Reference = new OpenApiReference {
+                  Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+              },
+              new string[] {}
+            }
+          });
             });
-
-
 
             builder.Services.AddTokenService();
 
+            builder.Services.AddAuthentication(opt => {
 
-            builder.Services.AddAuthentication(opt =>
-            {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 //opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-.AddJwtBearer(opt =>
-{
+              .AddJwtBearer(opt => {
 
+                  var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SignKey"]);
+                  //opt.SaveToken = true;
 
-    var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SignKey"]);
-    //opt.SaveToken = true;
-    opt.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        RequireExpirationTime = true,
-        ValidateLifetime = true,
-    };
-    opt.UseSecurityTokenValidators = true;
-});
-
-
-
+                  opt.TokenValidationParameters = new TokenValidationParameters
+                  {
+                      ValidateIssuerSigningKey = true,
+                      IssuerSigningKey = new SymmetricSecurityKey(key),
+                      ValidateIssuer = false,
+                      ValidateAudience = false,
+                      RequireExpirationTime = true,
+                      ValidateLifetime = true,
+                  };
+                  opt.UseSecurityTokenValidators = true;
+              });
 
             var app = builder.Build();
 
@@ -135,11 +111,13 @@ namespace SchoolApiService
                 app.UseSwaggerUI();
             }
 
+            app.UseStaticFiles();
+
             app.UseHttpsRedirection();
+
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

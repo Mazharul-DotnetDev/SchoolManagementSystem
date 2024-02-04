@@ -8,11 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.Models
 {
-    /*
-    -- Further Improvement: Consider using separate properties for obtained marks and total marks for each subject instead of having them at the exam level.
-    */
-
-
+ 
     [Table("ExamSchedules")]
     public class ExamSchedule
     {

@@ -23,14 +23,14 @@ namespace SchoolApiService.Controllers
             _context = context;
         }
 
-        // GET: api/EmployeeTypes
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EmployeeType>>> GetdbsEmployeeType()
         {
             return await _context.dbsEmployeeType.ToListAsync();
         }
 
-        // GET: api/EmployeeTypes/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeType>> GetEmployeeType(int id)
         {
@@ -44,8 +44,7 @@ namespace SchoolApiService.Controllers
             return employeeType;
         }
 
-        // PUT: api/EmployeeTypes/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEmployeeType(int id, EmployeeType employeeType)
         {
@@ -75,8 +74,7 @@ namespace SchoolApiService.Controllers
             return NoContent();
         }
 
-        // POST: api/EmployeeTypes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        
         [HttpPost]
         public async Task<ActionResult<EmployeeType>> PostEmployeeType(EmployeeType employeeType)
         {
@@ -86,7 +84,7 @@ namespace SchoolApiService.Controllers
             return CreatedAtAction("GetEmployeeType", new { id = employeeType.EmployeeTypeId }, employeeType);
         }
 
-        // DELETE: api/EmployeeTypes/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployeeType(int id)
         {

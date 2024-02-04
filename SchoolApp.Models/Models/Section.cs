@@ -8,11 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.Models
 {
-    /*
-    -- Further Improvement: Consider adding a capacity limit for each section.
-    */
-
-
+ 
     [Table("Sections")]
     public class Section
     {

@@ -12,9 +12,10 @@ namespace SchoolApiService.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ITokenService tokenService;
+
         public AccountController(UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager,
-            ITokenService tokenService)
+          RoleManager<IdentityRole> roleManager,
+          ITokenService tokenService)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
@@ -22,18 +23,18 @@ namespace SchoolApiService.Controllers
 
         }
 
-
         [HttpGet]
         public async Task<ActionResult<string>> Login(LoginUser user)
         {
 
-
             return Ok(await this.tokenService.Get(user));
 
         }
+
         [HttpPost]
         public async Task<ActionResult<string>> RegisterUser(LoginUser user)
         {
+
             var identityUser = new IdentityUser()
             {
                 UserName = user.UserName,
@@ -42,11 +43,11 @@ namespace SchoolApiService.Controllers
 
             var result = await this.userManager.CreateAsync(identityUser, user.Password);
 
-
             if (result.Succeeded)
             {
                 return Ok(await this.tokenService.Get(user));
             }
+            // If user creation fails, return error details
             else
             {
                 return BadRequest(result.Errors);
@@ -54,14 +55,13 @@ namespace SchoolApiService.Controllers
 
         }
 
-
         [HttpPost("RoleCreate")]
         public async Task<ActionResult> CreateRole(string role)
         {
             try
             {
-                var identityRole = new IdentityRole(role);
 
+                var identityRole = new IdentityRole(role);
 
                 var result = await roleManager.CreateAsync(identityRole);
 
@@ -69,7 +69,6 @@ namespace SchoolApiService.Controllers
                 {
                     return Ok(identityRole);
                 }
-
                 else
                 {
                     return BadRequest(result.Errors);
@@ -81,7 +80,6 @@ namespace SchoolApiService.Controllers
 
                 return BadRequest(exc);
             }
-
 
         }
     }
