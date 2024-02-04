@@ -32,8 +32,6 @@ namespace SchoolApp.Models.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EmployeeDOB { get; set; }
 
-
-
         public int EmployeeTypeId { get; set; }
 
         public virtual EmployeeType? EmployeeType { get; set; }
