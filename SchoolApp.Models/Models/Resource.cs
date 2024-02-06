@@ -9,13 +9,7 @@ using System.Threading.Tasks;
 namespace SchoolApp.Models.Models
 {
 
-    /*
-    -- Purpose: Represents educational resources (e.g., textbooks, notes, videos) associated with classes or subjects.
-
-    -- Further Improvement: Add information about the resource type (book, video, etc.) and a link to the resource file or location.
-    */
-
-
+ 
     [Table("Resources")]
     public class Resource
     {

@@ -6,17 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolApp.Models.Models
+namespace SchoolApp.Models.DataModels
 {
- 
-    [Table("Sections")]
-    public class Section
+    public class ExamSubject
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SectionId { get; set; }
-        public string SectionName { get; set; }
+        public int ExamSubjectId { get; set; }
+        public DateTime ExamDate { get; set; } = DateTime.Now;
 
-
+        public int SubjectId { get; set; }      
+        public Subject Subject { get; set; }
+      
     }
 }

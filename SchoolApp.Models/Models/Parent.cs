@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 namespace SchoolApp.Models.Models
 {
 
-    /*
-    -- Purpose: Captures information about student parents or guardians, potentially used for communication or emergency contact.
-    */
-
-
+  
     [Table("Parents")]
     public class Parent
     {

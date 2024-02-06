@@ -6,11 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolApp.Models.Models
-{
 
-  
-    [Table("Subjects")]
+namespace SchoolApp.Models.DataModels
+{
     public class Subject
     {
         [Key]
@@ -18,9 +16,10 @@ namespace SchoolApp.Models.Models
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
 
-        public virtual ICollection<Employee> Employees { get; set; } 
-        public virtual ICollection<Classes> Classes { get; set; } 
-        public virtual ICollection<Exam> Exams { get; set; } 
-        public virtual ICollection<Student> Students { get; set; } 
+        //Add [Index(IsUnique = true)] using FluentAPI
+        public int SubjectCode { get; set; }
+
+        public int ClassRoomId { get; set; }
+        public ClassRoom ClassRoom { get; set; }       
     }
 }

@@ -7,13 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Problems\IdentityContextIssue.txt" />
     <None Remove="Problems\ProblemIssue1.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Include="Problems\IdentityContextIssue.txt" />
-    <Compile Include="Problems\ProblemIssue1.txt" />
   </ItemGroup>
 
 </Project>

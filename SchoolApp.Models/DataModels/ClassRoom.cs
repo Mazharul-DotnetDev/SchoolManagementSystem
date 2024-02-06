@@ -6,17 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolApp.Models.Models
+namespace SchoolApp.Models.DataModels
 {
- 
-    [Table("Sections")]
-    public class Section
+    // Class table, renamed for avoiding built-in keyword clash
+    public class ClassRoom
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SectionId { get; set; }
-        public string SectionName { get; set; }
-
+        public int ClassRoomId { get; set; }
+        public string ClassRoomName { get; set; }              
+        public string ClassRoomCapacity { get; set; }
 
     }
 }

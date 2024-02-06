@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolApiService.ImageHandle;
 using SchoolApp.DAL.SchoolContext;
-using SchoolApp.Models.Models;
+using SchoolApp.Models.DataModels;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace SchoolApiService.Controllers
 {
@@ -17,26 +19,46 @@ namespace SchoolApiService.Controllers
     public class EmployeesController : ControllerBase
     {
         private readonly SchoolDbContext _context;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
-        public EmployeesController(SchoolDbContext context)
+        public EmployeesController(SchoolDbContext context, IWebHostEnvironment hostEnvironment)
         {
             _context = context;
+            _hostEnvironment = hostEnvironment;
         }
 
-        // GET: api/Employees
+
+        //Asynchronously uploads an employee image to the "Upload" folder and sets the image path on the EmployeesImg object.
+        private async Task<string> UploadImage(EmployeesImg empPic)
+        {
+            string imagepath = "\\Upload\\" + empPic.file.FileName;
+
+
+            string filepath = _hostEnvironment.WebRootPath + imagepath;
+
+            using (FileStream filestream = System.IO.File.Create(filepath))
+            {
+                await empPic.file.CopyToAsync(filestream);
+                await filestream.FlushAsync();
+                //  return "\\Upload\\" + objFile.files.FileName;
+            }
+
+            empPic.ImagePath = imagepath;
+            return imagepath;
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Employee>>> GetdbsEmployee()
         {
             return await _context.dbsEmployee.Include(e => e.EmployeeType).ToListAsync();
         }
 
-        // GET: api/Employees/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Employee>> GetEmployee(int id)
         {
             var employee = await _context.dbsEmployee
-                                 .Include(e => e.EmployeeType)
-                                 .FirstOrDefaultAsync(e => e.EmployeeId == id);
+              .Include(e => e.EmployeeType)
+              .FirstOrDefaultAsync(e => e.EmployeeId == id);
 
             if (employee == null)
             {
@@ -46,17 +68,28 @@ namespace SchoolApiService.Controllers
             return employee;
         }
 
-        // PUT: api/Employees/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEmployee(int id, Employee employee)
+        public async Task<IActionResult> PutEmployee(int id, EmployeesImg empPic)
         {
-            if (id != employee.EmployeeId)
+            if (id != empPic.EmployeeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            if (empPic.file != null)
+            {
+                try
+                {
+                    empPic.ImagePath = await UploadImage(empPic);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
+            _context.Entry(empPic).State = EntityState.Modified;
+
 
             try
             {
@@ -73,34 +106,35 @@ namespace SchoolApiService.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
-        // POST: api/Employees
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPost]
-        public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
+        public async Task<ActionResult<Employee>> PostEmployee(EmployeesImg empPic)
         {
-            //_context.dbsEmployee.Add(employee);
-            //await _context.SaveChangesAsync();
+            if (empPic.file != null)
+            {
+                try
+                {
+                    empPic.ImagePath = await UploadImage(empPic);
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+            }
 
-            //return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
+            _context.Attach(empPic);
 
-
-            // Attach the employee to the context first
-            _context.Attach(employee);
-
-            // Then include the related data
-            _context.Entry(employee).Reference(e => e.EmployeeType).Load();
+            _context.Entry(empPic).Reference(e => e.EmployeeType).Load();
 
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetEmployee", new { id = employee.EmployeeId }, employee);
-
+            return CreatedAtAction("GetEmployee", new { id = empPic.EmployeeId }, empPic);
         }
 
-        // DELETE: api/Employees/5
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee(int id)
         {

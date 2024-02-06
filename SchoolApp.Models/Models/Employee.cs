@@ -9,12 +9,6 @@ using System.Threading.Tasks;
 namespace SchoolApp.Models.Models
 {
 
-    /*
-
-    -- Further Improvement: Consider adding contact information (email, phone number) and emergency contact details. Also add a JoinDate and LeavingDate for tracking employment history.
-    */
-
-
 
     [Table("Employees")]
     public class Employee
@@ -31,6 +25,8 @@ namespace SchoolApp.Models.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EmployeeDOB { get; set; }
+
+        public string? ImagePath { get; set; }
 
         public int EmployeeTypeId { get; set; }
 
