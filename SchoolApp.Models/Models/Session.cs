@@ -8,16 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.Models
 {
-    /*
-
-    ## Need more analysis
-
-    -- Should Purpose: Represents academic sessions (e.g., semesters, quarters) with duration, status, and status date. It's linked to subjects, classes, and sections.
-
-    -- Further Improvement: Clarify how sessions relate to academic years and how they impact enrollments, exams, and other entities. Consider using separate tables for session start and end dates instead of a single StatusDate.
-    */
-
-
+   
     [Table("Sessions")]
     public class Session
     {

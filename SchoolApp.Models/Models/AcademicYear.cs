@@ -9,13 +9,6 @@ using System.Threading.Tasks;
 namespace SchoolApp.Models.Models
 {
 
-    /*
-    -- Purpose: Represents an academic year (e.g., 2023-2024), used for grouping admissions, academic months, and potentially other year-specific data.
-
-    -- Further Improvement: Include a CurrentYear property to easily identify the active academic year.
-    */
-
-
 
     [Table("AcademicYears")]
     public class AcademicYear

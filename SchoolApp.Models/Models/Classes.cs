@@ -9,14 +9,7 @@ using static System.Collections.Specialized.BitVector32;
 
 namespace SchoolApp.Models.Models
 {
-    /*
-    -- Purpose: Represents different classes offered, including name, division, status, and associated students, sections, subjects, resources, and enrollments.
-
-    -- Further Improvement: Define the possible values for ClassStutus with an enum or separate table for better data integrity.
-    */
-
-
-
+ 
     [Table("classes")]
     public class Classes
     {

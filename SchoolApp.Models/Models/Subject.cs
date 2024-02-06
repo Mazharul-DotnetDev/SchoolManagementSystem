@@ -9,11 +9,7 @@ using System.Threading.Tasks;
 namespace SchoolApp.Models.Models
 {
 
-    /*
-    -- Further Improvement: Consider adding a subject code or abbreviation for easier reference. 
-    */
-
-
+  
     [Table("Subjects")]
     public class Subject
     {

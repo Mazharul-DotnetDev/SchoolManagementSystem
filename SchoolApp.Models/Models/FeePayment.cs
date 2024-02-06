@@ -21,7 +21,6 @@ namespace SchoolApp.Models.Models
     */
 
 
-
     [Table("FeePayments")]
     public class FeePayment
     {

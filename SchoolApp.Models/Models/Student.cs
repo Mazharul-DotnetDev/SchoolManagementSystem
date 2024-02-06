@@ -30,16 +30,14 @@ namespace SchoolApp.Models.Models
 
         public int ParentId { get; set; }
         public virtual Parent Parent { get; set; }
-     // the following Navigation reference is rectified, due to recursion issue, to Enrollment entity
 
+        // the following Navigation reference is rectified, due to recursion issue, to Enrollment entity
         //public virtual Classes Classses { get; set; }
         public virtual Section Section { get; set; }
        // the following Navigation reference is rectified, due to recursion issue, to Enrollment entity
-
         //public int AdmissionId { get; set; }
         //public virtual Admission refAdmission { get; set; }
         public virtual ICollection<Enrollment> Enrollments { get; set; } 
-
 
         public virtual ICollection<Subject> Subjects { get; set; } 
 

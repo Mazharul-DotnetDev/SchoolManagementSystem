@@ -9,14 +9,7 @@ using System.Threading.Tasks;
 namespace SchoolApp.Models.Models
 {
      
-    /*
-    -- Purpose: Tracks student and employee attendance details, including date, time, and presence status.
-
-
-    */
-
-
-
+ 
     [Table("Attendances")]
     public class Attendance
     {

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\SchoolApp.DAL\SchoolApp.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Upload\" />
+  </ItemGroup>
+
 </Project>

@@ -8,12 +8,7 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.Models
 {
-    /*
-    -- Purpose: Used for tracking fee payments or other time-bound activities. Multiple fee payments can be associated with an academic month.
-
-    -- Further Improvement: Consider adding a StartDate and EndDate property for each month to clearly define its timeframe.
-    */
-
+    
 
     [Table("AcademicMonths")]
     public class AcademicMonth

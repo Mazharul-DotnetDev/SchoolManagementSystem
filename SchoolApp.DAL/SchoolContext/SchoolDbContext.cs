@@ -12,10 +12,6 @@ using System.Threading.Tasks;
 namespace SchoolApp.DAL.SchoolContext
 {
 
-   
-
-
-
     public class SchoolDbContext : IdentityDbContext
     {
 
