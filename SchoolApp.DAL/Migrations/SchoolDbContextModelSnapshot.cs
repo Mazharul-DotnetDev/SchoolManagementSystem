@@ -17,55 +17,10 @@ namespace SchoolApp.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AttendanceStudent", b =>
-                {
-                    b.Property<int>("AttendancesAttendanceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentsStudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AttendancesAttendanceId", "StudentsStudentId");
-
-                    b.HasIndex("StudentsStudentId");
-
-                    b.ToTable("AttendanceStudent");
-                });
-
-            modelBuilder.Entity("ClassesSubject", b =>
-                {
-                    b.Property<int>("ClassesClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectsSubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClassesClassId", "SubjectsSubjectId");
-
-                    b.HasIndex("SubjectsSubjectId");
-
-                    b.ToTable("ClassesSubject");
-                });
-
-            modelBuilder.Entity("ExamSubject", b =>
-                {
-                    b.Property<int>("ExamsExamID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectsSubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExamsExamID", "SubjectsSubjectId");
-
-                    b.HasIndex("SubjectsSubjectId");
-
-                    b.ToTable("ExamSubject");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -211,6 +166,9 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("LoginProvider")
                         .HasColumnType("nvarchar(450)");
 
@@ -220,13 +178,7 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
+                    b.HasKey("UserId", "LoginProvider", "ProviderKey");
 
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
@@ -265,95 +217,7 @@ namespace SchoolApp.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.AcademicMonth", b =>
-                {
-                    b.Property<int>("AcademicMonthId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademicMonthId"));
-
-                    b.Property<string>("AcademicMonthName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("AcademicYearId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AcademicMonthId");
-
-                    b.HasIndex("AcademicYearId");
-
-                    b.ToTable("AcademicMonths");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.AcademicYear", b =>
-                {
-                    b.Property<int>("AcademicYearId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademicYearId"));
-
-                    b.Property<DateTime>("Year")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("AcademicYearId");
-
-                    b.ToTable("AcademicYears");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Admission", b =>
-                {
-                    b.Property<int>("AdmissionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdmissionId"));
-
-                    b.Property<int>("AcademicYearId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AdmissionDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AdmissionStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("AdmissionStatusDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AdmissionUpdatedBy")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("AdmissionUpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("EnrollmentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Section")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdmissionId");
-
-                    b.HasIndex("AcademicYearId");
-
-                    b.HasIndex("EnrollmentId")
-                        .IsUnique();
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("Admissions");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Attendance", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Attendance", b =>
                 {
                     b.Property<int>("AttendanceId")
                         .ValueGeneratedOnAdd()
@@ -361,178 +225,67 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AttendanceId"));
 
-                    b.Property<bool>("IsPresent")
+                    b.Property<bool?>("IsPresent")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("attendanceDate")
-                        .HasColumnType("datetime2");
+                    b.Property<TimeSpan?>("SignInTime")
+                        .HasColumnType("Time");
 
-                    b.Property<DateTime>("attendanceTime")
+                    b.Property<TimeSpan?>("SignOutTime")
+                        .HasColumnType("Time");
+
+                    b.Property<DateTime?>("WorkingDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("AttendanceId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendance");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Classes", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Department", b =>
                 {
-                    b.Property<int>("ClassId")
+                    b.Property<int>("DepartmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ClassId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
 
-                    b.Property<string>("ClassName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DepartmentName")
+                        .HasColumnType("int");
 
-                    b.Property<string>("ClassStutus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("NumberOfStaff")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("ClassStutusDateTime")
+                    b.HasKey("DepartmentId");
+
+                    b.ToTable("Department");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.DueBalance", b =>
+                {
+                    b.Property<int>("DueBalanceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DueBalanceId"));
+
+                    b.Property<decimal?>("DueBalanceAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("LastUpdate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Division")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("ExamID")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SessionID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClassId");
-
-                    b.HasIndex("ExamID");
-
-                    b.HasIndex("SessionID");
-
-                    b.ToTable("classes");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Employee", b =>
-                {
-                    b.Property<int>("EmployeeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeId"));
-
-                    b.Property<int?>("AttendanceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("EmployeeAdress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EmployeeDOB")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("EmployeeDesignation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeGender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<int>("EmployeeTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EmployeeId");
-
-                    b.HasIndex("AttendanceId");
-
-                    b.HasIndex("EmployeeTypeId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.EmployeeType", b =>
-                {
-                    b.Property<int>("EmployeeTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EmployeeTypeId"));
-
-                    b.Property<string>("EmployeeTypeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("EmployeeTypeId");
-
-                    b.ToTable("EmployeeTypes");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Enrollment", b =>
-                {
-                    b.Property<int>("EnrollmentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EnrollmentId"));
-
-                    b.Property<int>("AdmissionId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ClassId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("EnrollmentId");
-
-                    b.HasIndex("ClassId");
+                    b.HasKey("DueBalanceId");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Enrollments");
+                    b.ToTable("DueBalance");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Exam", b =>
-                {
-                    b.Property<int>("ExamID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamID"));
-
-                    b.Property<string>("ExamStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("ExamStatusDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PassingMarks")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExamID");
-
-                    b.ToTable("Exams");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.ExamSchedule", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
                 {
                     b.Property<int>("ExamScheduleId")
                         .ValueGeneratedOnAdd()
@@ -540,55 +293,66 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamScheduleId"));
 
-                    b.Property<TimeSpan>("Duration")
-                        .HasColumnType("time");
-
-                    b.Property<DateTime>("ExamDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ExamID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ExamScheduleEndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExamScheduleStartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ExamScheduleStatus")
-                        .IsRequired()
+                    b.Property<string>("ExamScheduleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("ExamScheduleStatusDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ObtainedMarks")
+                    b.Property<int?>("ExamTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Remarks")
-                        .IsRequired()
+                    b.Property<string>("SubjectId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Result")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalMarks")
-                        .HasColumnType("int");
 
                     b.HasKey("ExamScheduleId");
 
-                    b.HasIndex("ExamID");
+                    b.HasIndex("ExamTypeId");
 
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("ExamSchedules");
+                    b.ToTable("ExamSchedule");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.FeePayment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSubject", b =>
+                {
+                    b.Property<int>("ExamSubjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamSubjectId"));
+
+                    b.Property<DateTime?>("ExamDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("ExamScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExamSubjectId");
+
+                    b.HasIndex("ExamScheduleId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("ExamSubject");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamType", b =>
+                {
+                    b.Property<int>("ExamTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamTypeId"));
+
+                    b.Property<string>("ExamTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExamTypeId");
+
+                    b.ToTable("ExamType");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
                 {
                     b.Property<int>("FeePaymentId")
                         .ValueGeneratedOnAdd()
@@ -596,57 +360,69 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeePaymentId"));
 
-                    b.Property<int?>("AcademicMonthId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("DiscountAmt")
+                    b.Property<decimal>("AmountAfterDiscount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("DiscountPercent")
+                    b.Property<decimal>("AmountPaid")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("Fine")
+                    b.Property<decimal>("AmountRemaining")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("GrandTotal")
+                    b.Property<decimal>("Discount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("ModeOfPayment")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("PaymentDue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("PaymentModeDetails")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("PreviousDue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("StudentId")
+                    b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("TotalFee")
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalPaid")
+                    b.Property<decimal>("TotalFeeAmount")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("FeePaymentId");
 
-                    b.HasIndex("AcademicMonthId");
-
                     b.HasIndex("StudentId");
 
-                    b.ToTable("FeePayments");
+                    b.ToTable("FeePayment");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.FeeStructure", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePaymentDetail", b =>
+                {
+                    b.Property<int>("FeePaymentDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeePaymentDetailId"));
+
+                    b.Property<decimal>("FeeAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("FeePaymentId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FeeTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FeePaymentDetailId");
+
+                    b.HasIndex("FeePaymentId");
+
+                    b.ToTable("FeePaymentDetail");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeeStructure", b =>
                 {
                     b.Property<int>("FeeStructureId")
                         .ValueGeneratedOnAdd()
@@ -654,171 +430,310 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeeStructureId"));
 
-                    b.Property<decimal>("AmountOfFee")
+                    b.Property<decimal>("FeeAmount")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("ClassesClassId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("FeePaymentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("FeeStructureName")
-                        .IsRequired()
+                    b.Property<int>("FeeTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("Monthly")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("StandardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StandardName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FeetypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("TypeName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Yearly")
+                        .HasColumnType("bit");
 
                     b.HasKey("FeeStructureId");
 
-                    b.HasIndex("ClassesClassId");
-
                     b.HasIndex("FeePaymentId");
 
-                    b.HasIndex("FeetypeId");
+                    b.HasIndex("FeeTypeId");
 
-                    b.ToTable("FeeStructures");
+                    b.HasIndex("StandardId");
+
+                    b.ToTable("FeeStructure");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.FeeType", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeeType", b =>
                 {
-                    b.Property<int>("FeetypeId")
+                    b.Property<int>("FeeTypeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeetypeId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeeTypeId"));
 
-                    b.Property<string>("FeeTypeName")
-                        .IsRequired()
+                    b.Property<string>("TypeName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FeeTypeStatus")
-                        .IsRequired()
+                    b.HasKey("FeeTypeId");
+
+                    b.ToTable("FeeType");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Mark", b =>
+                {
+                    b.Property<int>("MarkId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarkId"));
+
+                    b.Property<int?>("ExamPaperScore")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Feedback")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("FeeTypeStatusDate")
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("MarkEntryDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("FeetypeId");
-
-                    b.ToTable("FeeTypes");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Parent", b =>
-                {
-                    b.Property<int>("ParentId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("MarkEntryId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParentId"));
-
-                    b.Property<string>("FatherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GuardianEmail")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("GuardianPhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MotherName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ParentId");
-
-                    b.ToTable("Parents");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Resource", b =>
-                {
-                    b.Property<int>("ResourceId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("ObtainedScore")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ResourceId"));
-
-                    b.Property<int?>("ClassesClassId")
+                    b.Property<int?>("PassMarks")
                         .HasColumnType("int");
 
-                    b.Property<bool>("IsAvailable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("ResourceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PassStatus")
+                        .HasColumnType("int");
 
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
-                    b.HasKey("ResourceId");
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("ClassesClassId");
+                    b.HasKey("MarkId");
+
+                    b.HasIndex("MarkEntryId");
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Resources");
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("Mark");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Section", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
                 {
-                    b.Property<int>("SectionId")
+                    b.Property<int>("MarkEntryId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SectionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarkEntryId"));
 
-                    b.Property<int?>("ClassesClassId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SectionName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("SessionID")
-                        .HasColumnType("int");
-
-                    b.HasKey("SectionId");
-
-                    b.HasIndex("ClassesClassId");
-
-                    b.HasIndex("SessionID");
-
-                    b.ToTable("Sections");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Session", b =>
-                {
-                    b.Property<int>("SessionID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SessionID"));
-
-                    b.Property<TimeSpan>("SessionDuration")
-                        .HasColumnType("time");
-
-                    b.Property<string>("SessionName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SessionStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StatusDate")
+                    b.Property<DateTime?>("MarkEntryDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("SessionID");
+                    b.Property<int?>("StaffId")
+                        .HasColumnType("int");
 
-                    b.ToTable("Sessions");
+                    b.Property<int?>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MarkEntryId");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("MarkEntry");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Student", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
+                {
+                    b.Property<int>("StaffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
+
+                    b.Property<int?>("AttendanceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankAccountName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BankAccountNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("BankBranch")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BankName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DOB")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Designation")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FatherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("JoiningDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MotherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermanentAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Qualifications")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StaffName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StaffSalaryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemporaryAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StaffId");
+
+                    b.HasIndex("AttendanceId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.HasIndex("StaffSalaryId");
+
+                    b.ToTable("Staff");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.StaffExperience", b =>
+                {
+                    b.Property<int>("StaffExperienceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffExperienceId"));
+
+                    b.Property<string>("Achievements")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Designation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("JoiningDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LeavingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Responsibilities")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StaffId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StaffExperienceId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("StaffExperience");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.StaffSalary", b =>
+                {
+                    b.Property<int>("StaffSalaryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffSalaryId"));
+
+                    b.Property<decimal?>("Allowance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("BasicSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("FestivalBonus")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("HousingAllowance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("MedicalAllowance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("NetSalary")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("SavingFund")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("Taxes")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TransportationAllowance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("StaffSalaryId");
+
+                    b.ToTable("StaffSalary");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Standard", b =>
+                {
+                    b.Property<int>("StandardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StandardId"));
+
+                    b.Property<string>("StandardCapacity")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StandardName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StandardId");
+
+                    b.ToTable("Standard");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Student", b =>
                 {
                     b.Property<int>("StudentId")
                         .ValueGeneratedOnAdd()
@@ -826,49 +741,99 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
 
-                    b.Property<int?>("ClassesClassId")
+                    b.Property<int?>("AdmissionNo")
                         .HasColumnType("int");
 
-                    b.Property<int>("ParentId")
+                    b.Property<int?>("AttendanceId")
                         .HasColumnType("int");
 
-                    b.Property<int>("RollNumber")
+                    b.Property<int?>("EnrollmentNo")
                         .HasColumnType("int");
 
-                    b.Property<int>("SectionId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentAddress")
-                        .IsRequired()
+                    b.Property<string>("FatherContactNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FatherNID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FatherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LocalGuardianContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LocalGuardianName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MotherContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MotherNID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MotherName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PermanentAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StandardId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentBloodGroup")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentContactNumber1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentContactNumber2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StudentCurrentAge")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StudentDOB")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("StudentGender")
-                        .IsRequired()
+                    b.Property<string>("StudentEamil")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("StudentGender")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("StudentNIDNumber")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StudentStatus")
-                        .IsRequired()
+                    b.Property<string>("StudentNationality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentReligion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TemporaryAddress")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("ClassesClassId");
+                    b.HasIndex("AdmissionNo")
+                        .IsUnique()
+                        .HasFilter("[AdmissionNo] IS NOT NULL");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("AttendanceId");
 
-                    b.HasIndex("SectionId");
+                    b.HasIndex("EnrollmentNo")
+                        .IsUnique()
+                        .HasFilter("[EnrollmentNo] IS NOT NULL");
 
-                    b.ToTable("Students");
+                    b.HasIndex("StandardId");
+
+                    b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Subject", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
                 {
                     b.Property<int>("SubjectId")
                         .ValueGeneratedOnAdd()
@@ -876,78 +841,24 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubjectId"));
 
-                    b.Property<int?>("SessionID")
+                    b.Property<int?>("StandardId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubjectCode")
                         .HasColumnType("int");
 
                     b.Property<string>("SubjectName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SubjectId");
 
-                    b.HasIndex("SessionID");
+                    b.HasIndex("StandardId");
 
-                    b.ToTable("Subjects");
-                });
+                    b.HasIndex("SubjectCode")
+                        .IsUnique()
+                        .HasFilter("[SubjectCode] IS NOT NULL");
 
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.Property<int>("StudentsStudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SubjectsSubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentsStudentId", "SubjectsSubjectId");
-
-                    b.HasIndex("SubjectsSubjectId");
-
-                    b.ToTable("StudentSubject");
-                });
-
-            modelBuilder.Entity("AttendanceStudent", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Attendance", null)
-                        .WithMany()
-                        .HasForeignKey("AttendancesAttendanceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Student", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ClassesSubject", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Classes", null)
-                        .WithMany()
-                        .HasForeignKey("ClassesClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsSubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ExamSubject", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Exam", null)
-                        .WithMany()
-                        .HasForeignKey("ExamsExamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsSubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Subject");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1001,283 +912,195 @@ namespace SchoolApp.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.AcademicMonth", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.DueBalance", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.AcademicYear", null)
-                        .WithMany("AcademicMonths")
-                        .HasForeignKey("AcademicYearId");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Admission", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.AcademicYear", "AcademicYear")
-                        .WithMany("Admissions")
-                        .HasForeignKey("AcademicYearId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Enrollment", "Enrollment")
-                        .WithOne("Admission")
-                        .HasForeignKey("SchoolApp.Models.Models.Admission", "EnrollmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Student", "Student")
+                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AcademicYear");
-
-                    b.Navigation("Enrollment");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Classes", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Exam", null)
-                        .WithMany("Classes")
-                        .HasForeignKey("ExamID");
-
-                    b.HasOne("SchoolApp.Models.Models.Session", null)
-                        .WithMany("Classes")
-                        .HasForeignKey("SessionID");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Employee", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Attendance", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("AttendanceId");
-
-                    b.HasOne("SchoolApp.Models.Models.EmployeeType", "EmployeeType")
-                        .WithMany()
-                        .HasForeignKey("EmployeeTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Subject", null)
-                        .WithMany("Employees")
-                        .HasForeignKey("SubjectId");
-
-                    b.Navigation("EmployeeType");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Enrollment", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Classes", "Classes")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("ClassId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Student", "Student")
-                        .WithMany("Enrollments")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Classes");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.ExamSchedule", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Exam", "Exam")
-                        .WithMany("ExamSchedules")
-                        .HasForeignKey("ExamID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Student", null)
-                        .WithMany("ExamSchedules")
                         .HasForeignKey("StudentId");
 
-                    b.Navigation("Exam");
+                    b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.FeePayment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.AcademicMonth", null)
-                        .WithMany("FeePayments")
-                        .HasForeignKey("AcademicMonthId");
+                    b.HasOne("SchoolApp.Models.DataModels.ExamType", "ExamType")
+                        .WithMany()
+                        .HasForeignKey("ExamTypeId");
 
-                    b.HasOne("SchoolApp.Models.Models.Student", "Student")
-                        .WithMany("FeePayments")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("ExamType");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSubject", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.ExamSchedule", "ExamSchedule")
+                        .WithMany("ExamSubjects")
+                        .HasForeignKey("ExamScheduleId");
+
+                    b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId");
+
+                    b.Navigation("ExamSchedule");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
 
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.FeeStructure", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePaymentDetail", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.Classes", "Classes")
-                        .WithMany()
-                        .HasForeignKey("ClassesClassId")
+                    b.HasOne("SchoolApp.Models.DataModels.FeePayment", null)
+                        .WithMany("FeePaymentDetails")
+                        .HasForeignKey("FeePaymentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("SchoolApp.Models.Models.FeePayment", null)
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeeStructure", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.FeePayment", "FeePayment")
                         .WithMany("FeeStructures")
                         .HasForeignKey("FeePaymentId");
 
-                    b.HasOne("SchoolApp.Models.Models.FeeType", "FeeType")
+                    b.HasOne("SchoolApp.Models.DataModels.FeeType", "FeeType")
                         .WithMany()
-                        .HasForeignKey("FeetypeId")
+                        .HasForeignKey("FeeTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Classes");
+                    b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
+                        .WithMany()
+                        .HasForeignKey("StandardId");
+
+                    b.Navigation("FeePayment");
 
                     b.Navigation("FeeType");
+
+                    b.Navigation("Standard");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Resource", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Mark", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.Classes", null)
-                        .WithMany("Resources")
-                        .HasForeignKey("ClassesClassId");
+                    b.HasOne("SchoolApp.Models.DataModels.MarkEntry", null)
+                        .WithMany("Marks")
+                        .HasForeignKey("MarkEntryId");
 
-                    b.HasOne("SchoolApp.Models.Models.Student", null)
-                        .WithMany("Resources")
+                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
+                        .WithMany()
                         .HasForeignKey("StudentId");
+
+                    b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Section", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.Classes", null)
-                        .WithMany("Sections")
-                        .HasForeignKey("ClassesClassId");
+                    b.HasOne("SchoolApp.Models.DataModels.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId");
 
-                    b.HasOne("SchoolApp.Models.Models.Session", null)
-                        .WithMany("Sections")
-                        .HasForeignKey("SessionID");
+                    b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId");
+
+                    b.Navigation("Staff");
+
+                    b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Student", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.Classes", null)
+                    b.HasOne("SchoolApp.Models.DataModels.Attendance", null)
+                        .WithMany("Staffs")
+                        .HasForeignKey("AttendanceId");
+
+                    b.HasOne("SchoolApp.Models.DataModels.Department", "Department")
+                        .WithMany("Staffs")
+                        .HasForeignKey("DepartmentId");
+
+                    b.HasOne("SchoolApp.Models.DataModels.StaffSalary", "StaffSalary")
+                        .WithMany()
+                        .HasForeignKey("StaffSalaryId");
+
+                    b.Navigation("Department");
+
+                    b.Navigation("StaffSalary");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.StaffExperience", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.Staff", null)
+                        .WithMany("StaffExperiences")
+                        .HasForeignKey("StaffId");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Student", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.Attendance", null)
                         .WithMany("Students")
-                        .HasForeignKey("ClassesClassId");
+                        .HasForeignKey("AttendanceId");
 
-                    b.HasOne("SchoolApp.Models.Models.Parent", "Parent")
-                        .WithMany("Students")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SchoolApp.Models.Models.Section", "Section")
+                    b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
                         .WithMany()
-                        .HasForeignKey("SectionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StandardId");
 
-                    b.Navigation("Parent");
-
-                    b.Navigation("Section");
+                    b.Navigation("Standard");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Subject", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
                 {
-                    b.HasOne("SchoolApp.Models.Models.Session", null)
-                        .WithMany("Subjects")
-                        .HasForeignKey("SessionID");
-                });
-
-            modelBuilder.Entity("StudentSubject", b =>
-                {
-                    b.HasOne("SchoolApp.Models.Models.Student", null)
+                    b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
                         .WithMany()
-                        .HasForeignKey("StudentsStudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StandardId");
 
-                    b.HasOne("SchoolApp.Models.Models.Subject", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsSubjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Standard");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.AcademicMonth", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Attendance", b =>
                 {
-                    b.Navigation("FeePayments");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.AcademicYear", b =>
-                {
-                    b.Navigation("AcademicMonths");
-
-                    b.Navigation("Admissions");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Attendance", b =>
-                {
-                    b.Navigation("Employees");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Classes", b =>
-                {
-                    b.Navigation("Enrollments");
-
-                    b.Navigation("Resources");
-
-                    b.Navigation("Sections");
+                    b.Navigation("Staffs");
 
                     b.Navigation("Students");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Enrollment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Department", b =>
                 {
-                    b.Navigation("Admission")
-                        .IsRequired();
+                    b.Navigation("Staffs");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Exam", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
                 {
-                    b.Navigation("Classes");
-
-                    b.Navigation("ExamSchedules");
+                    b.Navigation("ExamSubjects");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.FeePayment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
                 {
+                    b.Navigation("FeePaymentDetails");
+
                     b.Navigation("FeeStructures");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Parent", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("Marks");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.Models.Session", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
                 {
-                    b.Navigation("Classes");
-
-                    b.Navigation("Sections");
-
-                    b.Navigation("Subjects");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Student", b =>
-                {
-                    b.Navigation("Enrollments");
-
-                    b.Navigation("ExamSchedules");
-
-                    b.Navigation("FeePayments");
-
-                    b.Navigation("Resources");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.Models.Subject", b =>
-                {
-                    b.Navigation("Employees");
+                    b.Navigation("StaffExperiences");
                 });
 #pragma warning restore 612, 618
         }

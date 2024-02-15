@@ -1,0 +1,108 @@
+﻿Post method
+new StudentId, jta exist nai, diye add korte chaile, seta successfully add kore fele.. which is not expected
+
+>>> Solved
+----------------------------------
+
+PostMark method of MarksController.cs:
+
+[HttpPut("{id}")]
+        public async Task<IActionResult> PutMark(int id, Mark mark)
+        {
+            if (id != mark.MarkId)
+            {
+                return BadRequest("The ID in the request body does not match the ID in the route parameter.");
+            }
+
+            // Inside PutMark method
+            var existingMark = await _context.dbsMark
+                .Include(m => m.Student)
+                .Include(m => m.Subject)
+                .FirstOrDefaultAsync(m => m.MarkId == id);
+
+            if (existingMark == null)
+            {
+                return NotFound("Mark not found.");
+            }
+
+            // Update properties of Mark entity
+            existingMark.ExamPaperScore = mark.ExamPaperScore;
+            existingMark.PassMarks = mark.PassMarks;
+            existingMark.ObtainedScore = mark.ObtainedScore;
+            existingMark.Grade = mark.Grade;
+            existingMark.PassStatus = mark.PassStatus;
+            existingMark.MarkEntryDate = mark.MarkEntryDate;
+            existingMark.Feedback = mark.Feedback;
+
+            // Update related Student entity if StudentId is provided
+            if (mark.StudentId != null && mark.StudentId != existingMark.StudentId)
+            {
+                
+                var student = await _context.dbsStudent.FindAsync(mark.StudentId);
+                if (student != null)
+                {
+                    existingMark.StudentId = mark.StudentId;
+                    existingMark.Student = student;
+                    // Update student properties if needed
+                    existingMark.Student.StudentName = mark.Student.StudentName;
+                    existingMark.Student.EnrollmentNo = mark.Student.EnrollmentNo;
+                    // Update other properties as needed
+                }
+            }
+
+
+            // Update related Subject entity if SubjectId is provided
+            if (mark.SubjectId != null && mark.SubjectId != existingMark.SubjectId)
+            {
+                var subject = await _context.dbsSubject.FindAsync(mark.SubjectId);
+                if (subject != null)
+                {
+                    existingMark.SubjectId = mark.SubjectId;
+                    existingMark.Subject = subject;
+                    // Update subject properties if needed
+                    existingMark.Subject.SubjectName = mark.Subject.SubjectName;
+                    existingMark.Subject.SubjectCode = mark.Subject.SubjectCode;
+                    // Update other properties as needed
+                }
+            }
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MarkExists(id))
+                {
+                    return NotFound("Mark not found.");
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok("Mark updated successfully!");
+
+        }
+
+
+
+
+
+Here, the following block is not hitting debug point:
+
+if (mark.StudentId != null && mark.StudentId != existingMark.StudentId)
+            {
+                
+                var student = await _context.dbsStudent.FindAsync(mark.StudentId);
+                if (student != null)
+                {
+                    existingMark.StudentId = mark.StudentId;
+                    existingMark.Student = student;
+                    // Update student properties if needed
+                    existingMark.Student.StudentName = mark.Student.StudentName;
+                    existingMark.Student.EnrollmentNo = mark.Student.EnrollmentNo;
+                    // Update other properties as needed
+                }
+            }

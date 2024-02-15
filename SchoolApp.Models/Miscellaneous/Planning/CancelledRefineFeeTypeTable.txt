@@ -1,0 +1,12 @@
+﻿Potential Ambiguity or Clash between FeeType and FeeStructure entities:
+
+The potential ambiguity may arise if the FeeStructures table references FeeType, but FeeType itself is insufficiently detailed for the specific fee structure. The FeeType table primarily focuses on the category of fees and its status, but it might lack detailed attributes required for a comprehensive fee structure.
+Redundancy:
+
+There could be redundancy if the FeeType table contains information duplicated in the FeeStructures table, especially if attributes in FeeType are specific to a particular fee structure.
+
+
+
+Refine FeeType Table:
+
+Enhance the FeeType table to include detailed attributes that are specific to a fee structure (e.g., late fee, installment options). This eliminates the need to reference FeeType in the FeeStructures table for detailed information.

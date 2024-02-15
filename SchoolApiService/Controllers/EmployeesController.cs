@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolApiService.ImageHandle;
 using SchoolApp.DAL.SchoolContext;
-using SchoolApp.Models.Models;
+using SchoolApp.Models.DataModels;
 using static NuGet.Packaging.PackagingConstants;
 
 namespace SchoolApiService.Controllers
