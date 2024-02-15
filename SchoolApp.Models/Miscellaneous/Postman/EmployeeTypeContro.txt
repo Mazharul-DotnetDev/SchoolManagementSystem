@@ -1,0 +1,20 @@
+﻿/*
+
+>> EmployeeType Controller >>
+
+-- Post method:
+{
+ "employeeTypeName": "LabAssistant"
+} 
+-----------------
+-- Put method:
+Id number in the URL and the following:
+{
+    "employeeTypeId": 1,
+    "employeeTypeName": "HeadTeacher Update"
+}
+----------------
+-- Delete method:
+Only Id number in the URL.
+
+*/

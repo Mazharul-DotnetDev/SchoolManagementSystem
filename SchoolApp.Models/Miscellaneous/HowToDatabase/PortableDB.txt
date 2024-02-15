@@ -1,0 +1,19 @@
+﻿How to add Database in the project:
+
+-- 1st, find out the project where DbContext is defined (SchoolApp.DAL).
+-- 2nd, create a folder.
+-- 3rd, right click on the created folder, select New item, find out 'Service based Database', name it with a name, then click ok. The name must be the same with connection string defined in the Appsettings.json file and dncontextFactory file. 
+-- 4th, do 'add-migration' and 'update-database'. 
+
+-- 5th, in the .gitignore file, find out the following:
+# SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+and replace it with the following (commenting out):
+
+# SQL Server files
+# *.mdf
+# *.ldf
+# *.ndf

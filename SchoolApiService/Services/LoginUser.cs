@@ -1,5 +1,8 @@
-﻿namespace SchoolApiService.Services
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace SchoolApiService.Services
 {
+    //[Keyless]
     public class LoginUser
     {
         public string UserName { get; set; }

@@ -1,0 +1,27 @@
+﻿/*
+  Unable to create a 'DbContext' of type ''. The exception 'Theentity type 'IdentityUserLogin<string>' requires a primarykey to be defined. If you intended to use a keyless entitytype, call 'HasNoKey' in 'OnModelCreating'. For moreinformation on keyless entity types, see https:/go.microsoft.com/fwlink/?linkid=2141943.' was thrown whileattempting to create an instance.For the different patternssupported at design time, see https://go.microsoft.comfwlink/?linkid=851728
+
+
+
+  SOLUTIONS:
+
+  In the SchoolDbContext.cs file, add the following:
+
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityUserLogin<string>>()
+            .HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });
+
+            modelBuilder.Entity<IdentityUserRole<string>>()
+        .HasKey(r => new { r.UserId, r.RoleId });
+}
+------------------------------------
+
+Nota bene: If this [base.OnModelCreating(modelBuilder);] is not added, it will show error.
+
+
+  */
+
+
