@@ -7,13 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Problems\IdentityContextIssue.txt" />
-    <None Remove="Problems\ProblemIssue1.txt" />
+    <Compile Remove="Miscellaneous\CancelledModels\**" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Miscellaneous\CancelledModels\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Miscellaneous\CancelledModels\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Problems\IdentityContextIssue.txt" />
-    <Compile Include="Problems\ProblemIssue1.txt" />
+    <None Remove="Miscellaneous\Planning\CancelledRefineFeeTypeTable.txt" />
+    <None Remove="Miscellaneous\Planning\RefineFeeTypeTable.txt" />
+    <None Remove="Miscellaneous\Problems\CancelledProblemIssue1.txt" />
+    <None Remove="Miscellaneous\Problems\IdentityContextIssue.txt" />
+    <None Remove="Miscellaneous\Problems\ProblemIssue1.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Miscellaneous\Problems\IdentityContextIssue.txt" />
   </ItemGroup>
 
 </Project>

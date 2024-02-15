@@ -1,0 +1,41 @@
+﻿Problem:
+
+Failed executing DbCommand (56ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+CREATE TABLE [dbsMark] (
+    [MarkId] int NOT NULL IDENTITY,
+    [ExamPaperScore] int NOT NULL,
+    [PassMarks] int NOT NULL,
+    [ObtainedScore] int NOT NULL,
+    [Grade] int NULL,
+    [PassStatus] int NOT NULL,
+    [MarkEntryDate] datetime2 NOT NULL,
+    [Feedback] nvarchar(max) NOT NULL,
+    [StudentId] int NOT NULL,
+    [SubjectId] int NOT NULL,
+    [MarkEntryId] int NULL,
+    CONSTRAINT [PK_dbsMark] PRIMARY KEY ([MarkId]),
+    CONSTRAINT [FK_dbsMark_dbsMarkEntry_MarkEntryId] FOREIGN KEY ([MarkEntryId]) REFERENCES [dbsMarkEntry] ([MarkEntryId]),
+    CONSTRAINT [FK_dbsMark_dbsStudent_StudentId] FOREIGN KEY ([StudentId]) REFERENCES [dbsStudent] ([StudentId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_dbsMark_dbsSubject_SubjectId] FOREIGN KEY ([SubjectId]) REFERENCES [dbsSubject] ([SubjectId]) ON DELETE CASCADE
+);
+
+Introducing FOREIGN KEY constraint 'FK_dbsMark_dbsSubject_SubjectId' on table 'dbsMark' may cause cycles or multiple cascade paths. Specify ON DELETE NO ACTION or ON UPDATE NO ACTION, or modify other FOREIGN KEY constraints.
+Could not create constraint or index. See previous errors.
+
+
+
+Solution:
+
+In the SchoolDbContext.cs file, add the following: (Fluent API)
+
+// Configure the foreign key constraint for dbsMark referencing dbsSubject
+
+            modelBuilder.Entity<Mark>()
+                .HasOne(m => m.Subject)
+                .WithMany()
+                .HasForeignKey(m => m.SubjectId)
+                .OnDelete(DeleteBehavior.NoAction)
+                ; // Specify ON DELETE NO ACTION
+
+
+If any migration error occurs, then after solving, whole migration folder must be deleted.....

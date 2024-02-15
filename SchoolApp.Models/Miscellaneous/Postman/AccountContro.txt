@@ -1,0 +1,11 @@
+﻿/*
+
+>> Account Controller >>
+
+-- Post method:
+{
+ "UserName": "LabAssistant",
+ "Password": "LabAssistant@123"
+} 
+
+*/
