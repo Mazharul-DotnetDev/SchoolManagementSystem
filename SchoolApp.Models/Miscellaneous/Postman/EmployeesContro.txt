@@ -1,0 +1,45 @@
+﻿/*
+
+>> Employees Controller >>
+
+-- Post method:
+
+  { 
+    "employeeName": "Raihan Khan 4",
+    "employeeNumber": 8343844,
+    "employeeDesignation": "Developer",
+    "employeeGender": "Male",
+    "employeeAdress": "Dhaka",
+    "employeeDOB": "2023-02-04",
+    "employeeTypeId": 2
+  }
+  
+-- Put method:
+Id number in the URL and the following:
+{
+  "employeeId": 1,
+  "employeeName": "Updated Name",
+  "employeeNumber": 23424230,
+  "employeeDesignation": "Softwar Updated",
+  "employeeGender": "Male",
+  "employeeAdress": "Sylhet Updated",
+  "employeeDOB": "2024-09-04",
+  "employeeTypeId": 2
+    
+}
+
+-- Delete method:
+       ## Delete with foreign table: Just give Id number in the URL.
+	   ## Delete without foreign table: 
+	   give Id number in the URL and :
+	   {
+		  "employeeId": 2,
+		  "employeeName": "Updated Name",
+		  "employeeNumber": 23424230,
+		  "employeeDesignation": "Softwar Updated",
+		  "employeeGender": "Male",
+		  "employeeAdress": "Sylhet Updated",
+		  "employeeDOB": "2024-09-04"   
+       }
+
+*/

@@ -1,8 +1,7 @@
-﻿
-
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SchoolApp.Models.Models;
+using SchoolApp.Models.DataModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,27 +14,24 @@ namespace SchoolApp.DAL.SchoolContext
     public class SchoolDbContext : IdentityDbContext
     {
 
-        public DbSet<AcademicMonth> dbsAcademicMonth { get; set; }
-        public DbSet<AcademicYear> dbsAcademicYear { get; set; }
-        public DbSet<Admission> dbsAdmission { get; set; }
         public DbSet<Attendance> dbsAttendance { get; set; }
-        public DbSet<Classes> dbsClasses { get; set; }
-        public DbSet<Employee> dbsEmployee { get; set; }
-        public DbSet<EmployeeType> dbsEmployeeType { get; set; }
-        public DbSet<Exam> dbsExam { get; set; }
+        public DbSet<Standard> dbsStandard { get; set; }
+        public DbSet<Department> dbsDepartment { get; set; }
         public DbSet<ExamSchedule> dbsExamSchedule { get; set; }
-        public DbSet<FeePayment> dbsFeePayment { get; set; }
-        public DbSet<FeeStructure> dbsFeeStructure { get; set; }
-        public DbSet<FeeType> dbsFeeType { get; set; }
-        public DbSet<Parent> dbsParent { get; set; }
-        public DbSet<Resource> dbsResource { get; set; }
-        public DbSet<Section> dbsSection { get; set; }
-        public DbSet<Session> dbsSession { get; set; }
+        public DbSet<ExamSubject> dbsExamSubject { get; set; }
+        public DbSet<ExamType> dbsExamType { get; set; }
+        public DbSet<Mark> dbsMark { get; set; }
+        public DbSet<MarkEntry> dbsMarkEntry { get; set; }
+        public DbSet<Staff> dbsStaff { get; set; }
+        public DbSet<StaffExperience> dbsStaffExperience { get; set; }
+        public DbSet<StaffSalary> dbsStaffSalary { get; set; }
         public DbSet<Student> dbsStudent { get; set; }
         public DbSet<Subject> dbsSubject { get; set; }
-        public DbSet<Enrollment> dbsEnrollment { get; set; }
-
-
+        public DbSet<FeeType> dbsFeeType { get; set; }
+        public DbSet<FeeStructure> dbsFeeStructure { get; set; }
+        public DbSet<FeePayment> dbsFeePayment { get; set; }
+        public DbSet<DueBalance> dbsDueBalance { get; set; }
+        public DbSet<FeePaymentDetail> dbsfeePaymentDetails { get; set; }
 
 
         public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options)
@@ -43,33 +39,76 @@ namespace SchoolApp.DAL.SchoolContext
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        //This SaveChanges() method is implemented for inserting Computed column [NetSalary column from StaffSalary Table] into Database.
+        public override int SaveChanges()
         {
-            // Call the base class implementation of OnModelCreating
+            // Calculate NetSalary before saving changes
+            foreach (var entry in ChangeTracker.Entries<StaffSalary>())
+            {
+                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+                {
+                    var staffSalary = entry.Entity;
+                    staffSalary.CalculateNetSalary();
+                }
+            }
+            
 
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Enrollment>()
-        .HasKey(e => e.EnrollmentId); // Set EnrollmentId as the primary key for the Enrollment entity
-
-            modelBuilder.Entity<Student>()
-              .HasMany(s => s.Enrollments) // One-to-Many relationship: One Student can have many Enrollments
-              .WithOne(e => e.Student) // One-to-One relationship: One Enrollment can have one Student
-              .HasForeignKey(e => e.StudentId); // Foreign key: Enrollment has a foreign key StudentId
-
-            modelBuilder.Entity<Classes>()
-              .HasMany(c => c.Enrollments)
-              .WithOne(e => e.Classes)
-              .HasForeignKey(e => e.ClassId);
-
-            modelBuilder.Entity<Admission>()
-              .HasOne(a => a.Enrollment)
-              .WithOne(e => e.Admission)
-              .HasForeignKey<Admission>(a => a.EnrollmentId);
-
+            return base.SaveChanges();
         }
 
 
 
+
+        
+
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<IdentityUserLogin<string>>()
+            .HasKey(u => new { u.UserId, u.LoginProvider, u.ProviderKey });
+
+            modelBuilder.Entity<IdentityUserRole<string>>()
+        .HasKey(r => new { r.UserId, r.RoleId });
+
+
+        
+            // Configure the foreign key constraint for dbsMark referencing dbsSubject
+
+            modelBuilder.Entity<Mark>()
+                .HasOne(m => m.Subject)
+                .WithMany()
+                .HasForeignKey(m => m.SubjectId)
+                .OnDelete(DeleteBehavior.NoAction);
+                // Specify ON DELETE NO ACTION
+
+
+
+
+            //    modelBuilder.Entity<StaffExperience>()
+            //.Property(p => p.ServiceDuration)
+            //.HasComputedColumnSql("DATEDIFF(year, JoiningDate, ISNULL(LeavingDate, GETDATE()))"); // Calculate duration in years
+
+
+
+            modelBuilder.Entity<Subject>()
+        .HasIndex(s => s.SubjectCode)
+        .IsUnique();
+
+
+            modelBuilder.Entity<Student>()
+        .HasIndex(s => s.AdmissionNo)
+        .IsUnique();
+
+
+            modelBuilder.Entity<Student>()
+        .HasIndex(s => s.EnrollmentNo)
+        .IsUnique();
+
+
+        }
     }
 }

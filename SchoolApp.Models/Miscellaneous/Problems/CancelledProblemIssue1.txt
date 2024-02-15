@@ -1,0 +1,20 @@
+﻿/*
+  Problem1:
+
+     Your data model has a circular relationship:
+
+     Admission references Classes through refClass.
+     Classes references Student through refStudents.
+     Student references Classes through Classses.
+     This creates a loop where a change in one table couldtrigger cascading changes in the others, leading toinfinite recursion.
+
+
+ Solution1: 
+  Restructuring Relationships with an Intermediate Entity:
+
+ Create an Enrollment entity with properties like EnrollmentId,StudentId, ClassId, and AdmissionId. Then:
+
+ Modify Student and Classes to have a one-to-many relationshipwith Enrollment.
+ Update Admission to reference Enrollment instead of Classes.
+ This effectively breaks the circular dependency and providesfiner-grained control over student association with classes.
+ */

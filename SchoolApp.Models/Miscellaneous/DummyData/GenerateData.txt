@@ -1,0 +1,113 @@
+﻿### Class: Mark ###
+
+INSERT INTO [dbo].[Mark] 
+(ExamPaperScore, PassMarks, ObtainedScore, Grade, PassStatus, MarkEntryDate, Feedback)
+VALUES
+(75, 60, 82, 2, 1, '2024-03-25 00:00:00.000', 'Excellent work!'),  -- Math, Student 1
+(88, 70, 91, 1, 1, '2024-03-25 00:00:00.000', 'Great understanding of the concepts!'), -- Science, Student 2
+(62, 55, 58, 3, 0, '2024-03-25 00:00:00.000', 'Needs some revision on Chapter 3.'), -- History, Student 3
+(95, 85, 97, 1, 1, '2024-03-25 00:00:00.000', 'Outstanding performance!'), -- English, Student 1
+(50, 45, 42, 4, 0, '2024-03-25 00:00:00.000', 'Consider attending extra help sessions.'), -- Math, Student 2 
+(78, 70, 84, 2, 1, '2024-03-25 00:00:00.000', 'Solid understanding, keep practicing!'), -- Science, Student 3
+(82, 75, 79, 2, 1, '2024-03-25 00:00:00.000', 'Well done, keep up the good work!'), -- History, Student 4 (New Student)
+(90, 80, 88, 1, 1, '2024-03-25 00:00:00.000', 'A very strong performance!'), -- New Subject for Student 1 (Art)
+(65, 60, 63, 3, 0, '2024-03-25 00:00:00.000', 'Could benefit from studying vocabulary lists.'), -- English, Student 2
+(48, 40, 45, 4, 0, '2024-03-25 00:00:00.000', 'Dont hesitate to ask questions in class.'), -- New Subject for Student 4 (Art)
+
+-- Additional 10 rows with variations
+(85, 78, 82, 2, 1, '2024-03-26 00:00:00.000', 'Strong grasp of the material.'),  -- Math, Student 3
+(68, 60, 71, 3, 1, '2024-03-26 00:00:00.000', 'Good progress, keep it up!'), -- Science, Student 1
+(92, 85, 94, 1, 1, '2024-03-26 00:00:00.000', 'Exceptional work!'), -- History, Student 2 
+(79, 70, 75, 2, 1, '2024-03-26 00:00:00.000', 'Solid understanding of the concepts.'), -- English, Student 4 (New Subject)
+(45, 40, 38, 4, 0, '2024-03-26 00:00:00.000', 'Recommend visiting teacher during office hours.');
+
+
+
+----------------------------------------------------
+
+### Class: Student ###
+
+
+INSERT INTO [dbo].[Student]
+(AdmissionNo, EnrollmentNo, StudentName, StudentDOB, StudentGender, StudentNationality, StudentContactNumber1, StudentEamil)
+VALUES
+(12345, 123, 'John Doe', '2008-08-15 00:00:00.000', 1, 'American', '+1234567890', 'john.doe@email.com'), -- Male, Standard 1
+(54321, 124, 'Jane Smith', '2007-12-21 00:00:00.000', 2, 'British', '+9876543210', 'jane.smith@email.com'), -- Female, Standard 2
+(67890, 125, 'David Lee', '2009-03-04 00:00:00.000', 1, 'Korean', '+8212345678', 'david.lee@email.com'), -- Male, Standard 1
+(24680, 126, 'Aisha Khan', '2008-01-31 00:00:00.000', 2, 'Pakistani', '+9245678910', 'aisha.khan@email.com'), -- Female, Standard 3
+(85210, 127, 'Omar Ahmed', '2009-05-12 00:00:00.000', 1, 'Egyptian', '+2010987654', 'omar.ahmed@email.com'), -- Male, Standard 2
+
+-- Additional 10 rows with some missing data
+(564564, 128, 'Maria Garcia', '2008-02-09 00:00:00.000', NULL, 'Spanish', '+3465432190', 'maria.garcia@email.com'), -- Missing Gender, Standard 1
+(56345634, 129, 'Chen Wei', '2007-10-26 00:00:00.000', 2, 'Chinese', NULL, 'chen.wei@email.com'), -- Missing Contact Number 1, Standard 3 
+(19837, 130,  'Ibrahim Hassan', '2009-09-20 00:00:00.000', 1, 'Indian', '+9187654321', NULL), -- Missing Enrollment Number, Standard 2
+(37512, 131, 'Natalia Petrova', '2008-06-18 00:00:00.000', 2, 'Russian', '+7112345678', 'natalia.petrova@email.com'), -- Missing Standard 
+(46298, 132, 'Kevin Lee', '2007-04-07 00:00:00.000', 1, 'Canadian', '+1647234567', 'kevin.lee@email.com'); -- Missing Standard
+
+-- Remember to replace these values with your actual data
+
+----------------------------------------------------
+
+### Class: Subject ###
+
+
+INSERT INTO [dbo].[Subject] (
+    [SubjectName],
+    [SubjectCode]
+)
+VALUES
+    -- Example values for 15 subjects
+    ('Mathematics', 101),
+    ('Science', 102),
+    ('English', 103),
+    ('History', 104),
+    ('Geography', 105),
+    ('Physics', 106),
+    ('Chemistry', 107),
+    ('Biology', 108),
+    ('Computer Science', 109),
+    ('Economics', 110),
+    ('Literature', 111),
+    ('Art', 112),
+    ('Music', 113),
+    ('Physical Education', 114),
+    ('Foreign Language', 115);
+    -- Insert more rows as needed
+    -- Remember to adjust values according to your requirements
+    -- Make sure StandardId corresponds to existing values in the related table
+
+
+----------------------------------------------------
+
+### Class: Standard ###
+
+
+INSERT INTO [dbo].[Standard] (
+    [StandardName],
+    [StandardCapacity]
+)
+VALUES
+    -- Example values for 15 standards
+    ('Grade 1', '30'),
+    ('Grade 2', '32'),
+    ('Grade 3', '28'),
+    ('Grade 4', '31'),
+    ('Grade 5', '29'),
+    ('Grade 6', '30'),
+    ('Grade 7', '28'),
+    ('Grade 8', '31'),
+    ('Grade 9', '29'),
+    ('Grade 10', '30'),
+    ('Grade 11', '28'),
+    ('Grade 12', '31'),
+    ('Kindergarten', '25'),
+    ('Pre-K', '25'),
+    ('Nursery', '25')
+    -- Insert more rows as needed
+    -- Remember to adjust values according to your requirements
+
+
+----------------------------------------------------
+
+### Class: Mark (Adding Foreign Key Values) ###
+
