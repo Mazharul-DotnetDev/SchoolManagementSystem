@@ -17,21 +17,22 @@ namespace SchoolApiService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            //builder.Services.AddControllers();
 
-            //// Or the following
-            //builder.Services.AddControllers().AddJsonOptions(options =>
-            //{
-            //    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-            //    options.JsonSerializerOptions.PropertyNamingPolicy = null;
-            //});
-              
-
-
-            builder.Services.Configure<JsonOptions>(opt =>
+            // Or the following
+            builder.Services.AddControllers().AddJsonOptions(options =>
             {
-                opt.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                //options.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
+
+
+
+            //builder.Services.Configure<JsonOptions>(opt =>
+            //{
+            //	opt.SerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+            //});
 
             var connectionString = builder.Configuration.GetConnectionString("LocalDbConnection");
             builder.Services.AddDbContext<SchoolDbContext>(options =>
@@ -54,7 +55,8 @@ namespace SchoolApiService
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSwaggerGen(c => {
+            builder.Services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Demo API",
@@ -99,18 +101,18 @@ namespace SchoolApiService
             {
 
 
-            var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SignKey"]);
-            //opt.SaveToken = true;
-            opt.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                RequireExpirationTime = true,
-                ValidateLifetime = true,
-            };
-            opt.UseSecurityTokenValidators = true;
+                var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:SignKey"]);
+                //opt.SaveToken = true;
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                };
+                opt.UseSecurityTokenValidators = true;
             });
 
             var app = builder.Build();

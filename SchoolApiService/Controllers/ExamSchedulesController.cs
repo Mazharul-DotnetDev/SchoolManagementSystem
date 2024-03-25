@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolApp.DAL.SchoolContext;
 using SchoolApp.Models.DataModels;
+//using SchoolApp.Models.ViewModels;
 
 namespace SchoolApiService.Controllers
 {
@@ -21,23 +22,20 @@ namespace SchoolApiService.Controllers
             _context = context;
         }
 
-        // GET: api/ExamSchedules
-        [HttpGet]
+        // GET: api/ExamSchedules/GetExamSchedules
+        [HttpGet("GetExamSchedules")]
         public async Task<ActionResult<IEnumerable<ExamSchedule>>> GetExamSchedules()
         {
             var examSchedules = await _context.dbsExamSchedule
                 .Include(es => es.ExamType)
+                .Include(es => es.Standard)
                 .Include(es => es.ExamSubjects)
+                    .ThenInclude(es => es.Subject)
                 .ToListAsync();
 
-            // Load Subjects for each ExamSubject
-            foreach (var examSchedule in examSchedules)
+            if (examSchedules == null)
             {
-                await _context.Entry(examSchedule)
-                    .Collection(es => es.ExamSubjects)
-                    .Query()
-                    .Include(es => es.Subject)
-                    .LoadAsync();
+                return NotFound(); // 404 Not Found
             }
 
             return examSchedules;
@@ -49,8 +47,10 @@ namespace SchoolApiService.Controllers
         {
             var examSchedule = await _context.dbsExamSchedule
                 .Include(es => es.ExamType)
+                .Include(es => es.Standard)
                 .Include(es => es.ExamSubjects)
-                .AsNoTracking() // Use AsNoTracking for read-only operations
+                    .ThenInclude(es => es.Subject) // Include related Subject entities
+                .AsNoTracking()
                 .FirstOrDefaultAsync(es => es.ExamScheduleId == id);
 
             if (examSchedule == null)
@@ -58,125 +58,127 @@ namespace SchoolApiService.Controllers
                 return NotFound();
             }
 
-            // Explicitly load related subjects
-            if (examSchedule.ExamSubjects != null && examSchedule.ExamSubjects.Any())
-            {
-                foreach (var examSubject in examSchedule.ExamSubjects)
-                {
-                    await _context.Entry(examSubject)
-                        .Reference(es => es.Subject)
-                        .LoadAsync();
-                }
-            }
-
             return examSchedule;
         }
 
 
-        // POST: api/ExamSchedules
-        [HttpPost]
-        public async Task<ActionResult<ExamSchedule>> PostExamSchedule(ExamSchedule examScheduleRequest)
-        {
-            // Create a new ExamSchedule object
-            var examSchedule = new ExamSchedule
-            {
-                ExamScheduleName = examScheduleRequest.ExamScheduleName,
-                ExamTypeId = examScheduleRequest.ExamTypeId,
-                SubjectId = examScheduleRequest.SubjectId
-            };
-
-            // Add the ExamSchedule to the context
-            _context.dbsExamSchedule.Add(examSchedule);
-
-            try
-            {
-                // Save changes to the database
-                await _context.SaveChangesAsync();
-
-                // Add ExamSubjects if SubjectIds are provided
-                if (examScheduleRequest.SubjectId != null && examScheduleRequest.SubjectId.Any())
-                {
-                    foreach (var subjectId in examScheduleRequest.SubjectId)
-                    {
-                        var examSubject = new ExamSubject
-                        {
-                            SubjectId = subjectId,
-                            ExamScheduleId = examSchedule.ExamScheduleId
-                        };
-                        _context.dbsExamSubject.Add(examSubject);
-                    }
-                    await _context.SaveChangesAsync();
-                }
-
-                // Return a 201 Created response with the created ExamSchedule
-                return CreatedAtAction(nameof(GetExamSchedule), new { id = examSchedule.ExamScheduleId }, examSchedule);
-            }
-            catch (DbUpdateException ex)
-            {
-                // Log the exception or handle it as per your application's requirement
-                // For example, you can return a specific error message to the client
-                return StatusCode(500, $"An error occurred while saving the ExamSchedule: {ex.Message}");
-            }
-        }
-
         // PUT: api/ExamSchedules/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExamSchedule(int id, [FromBody] ExamSchedule updatedExamSchedule)
+        public async Task<IActionResult> UpdateExamSchedule(int id, ExamSchedule updatedExamSchedule)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            using (var transaction = _context.Database.BeginTransaction())
+            try
             {
-                try
+                var existingExamSchedule = await _context.dbsExamSchedule
+                    .Include(es => es.ExamSubjects)
+                    .FirstOrDefaultAsync(es => es.ExamScheduleId == id);
+
+                if (existingExamSchedule == null)
                 {
-                    var existingExamSchedule = await _context.dbsExamSchedule
-                        .Include(es => es.ExamSubjects)
-                        .FirstOrDefaultAsync(es => es.ExamScheduleId == id);
+                    return NotFound($"ExamSchedule with ID {id} not found.");
+                }
 
-                    if (existingExamSchedule == null)
-                    {
-                        return NotFound($"ExamSchedule with ID {id} not found.");
-                    }
-
-                    // Update properties of the existing exam schedule
+                // Update properties of the existing exam schedule if provided
+                if (!string.IsNullOrEmpty(updatedExamSchedule.ExamScheduleName))
+                {
                     existingExamSchedule.ExamScheduleName = updatedExamSchedule.ExamScheduleName;
-                    existingExamSchedule.ExamTypeId = updatedExamSchedule.ExamTypeId;
-                    existingExamSchedule.SubjectId = updatedExamSchedule.SubjectId;
-
-                    // Clear existing ExamSubjects
-                    existingExamSchedule.ExamSubjects.Clear();
-
-                    // Add new ExamSubjects if SubjectId is provided
-                    if (updatedExamSchedule.SubjectId != null && updatedExamSchedule.SubjectId.Any())
-                    {
-                        foreach (var subjectId in updatedExamSchedule.SubjectId)
-                        {
-                            existingExamSchedule.ExamSubjects.Add(new ExamSubject { SubjectId = subjectId });
-                        }
-                    }
-
-                    // Save changes to the database
-                    await _context.SaveChangesAsync();
-
-                    transaction.Commit();
-
-                    return Ok(existingExamSchedule);
                 }
-                catch (Exception ex)
+                if (updatedExamSchedule.ExamTypeId.HasValue)
                 {
-                    Console.WriteLine($"Exception: {ex}");
-
-                    transaction.Rollback();
-                    return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                    existingExamSchedule.ExamTypeId = updatedExamSchedule.ExamTypeId;
                 }
+
+                // Update ExamSubjects if ExamSubjects collection is provided
+                if (updatedExamSchedule.ExamSubjects != null && updatedExamSchedule.ExamSubjects.Any())
+                {
+                    existingExamSchedule.ExamSubjects.Clear(); // Clear existing ExamSubjects
+
+                    foreach (var examSubject in updatedExamSchedule.ExamSubjects)
+                    {
+                        // Ensure ExamScheduleId is set correctly for each ExamSubject
+                        examSubject.ExamScheduleId = id;
+                        existingExamSchedule.ExamSubjects.Add(examSubject);
+                    }
+                }
+
+                // Update Standard if provided
+                if (updatedExamSchedule.StandardId != 0)
+                {
+                    existingExamSchedule.StandardId = updatedExamSchedule.StandardId;
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(existingExamSchedule);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex}");
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
         }
 
+        [HttpPost]
+        public async Task<ActionResult<ExamSchedule>> PostExamSchedule(ExamSchedule examSchedule)
+        {
+            // Check if ExamType exists
+            if (examSchedule.ExamTypeId.HasValue &&
+                !await _context.dbsExamType.AnyAsync(e => e.ExamTypeId == examSchedule.ExamTypeId))
+            {
+                return BadRequest("Invalid ExamTypeId provided.");
+            }
 
+            // Check if Standard exists
+            if (!await _context.dbsStandard.AnyAsync(s => s.StandardId == examSchedule.StandardId))
+            {
+                return BadRequest("Invalid StandardId provided.");
+            }
 
+            // Validate ExamSubjects (assuming GetExamSubjectsByIdsAsync retrieves ExamSubject objects based on IDs)
+            var existingExamSubjects = await GetExamSubjectsByIdsAsync(examSchedule.ExamSubjects.Select(es => es.ExamSubjectId).ToList());
+
+            // Check if the number of retrieved ExamSubjects matches the number of requested ExamSubjectIds
+            if (existingExamSubjects.Count != examSchedule.ExamSubjects.Count)
+            {
+                return BadRequest("One or more invalid ExamSubjectIds provided.");
+            }
+
+            // Create a new ExamSchedule object
+            var newExamSchedule = new ExamSchedule
+            {
+                ExamScheduleName = examSchedule.ExamScheduleName,
+                ExamTypeId = examSchedule.ExamTypeId,
+                StandardId = examSchedule.StandardId
+            };
+
+            // Add retrieved ExamSubject objects to the new ExamSchedule's ExamSubjects collection
+            newExamSchedule.ExamSubjects = existingExamSubjects;
+
+            // Save the ExamSchedule object
+            _context.dbsExamSchedule.Add(newExamSchedule);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Handle potential database update exceptions (optional)
+                // You can log the exception details here for debugging purposes
+                return BadRequest("An error occurred while saving the exam schedule. Please contact the administrator.");
+            }
+
+            return CreatedAtAction("GetExamSchedule", new { id = newExamSchedule.ExamScheduleId }, newExamSchedule);
+        }
+
+        // Helper method (PostExamSchedule Method) to retrieve ExamSubjects by IDs (replace with your actual implementation)
+        private async Task<List<ExamSubject>> GetExamSubjectsByIdsAsync(List<int> examSubjectIds)
+        {
+            return await _context.dbsExamSubject.Where(es => examSubjectIds.Contains(es.ExamSubjectId)).ToListAsync();
+        }
 
         // DELETE: api/ExamSchedules/5
         [HttpDelete("{id}")]
@@ -194,9 +196,6 @@ namespace SchoolApiService.Controllers
             return NoContent();
         }
 
-        private bool ExamScheduleExists(int id)
-        {
-            return _context.dbsExamSchedule.Any(es => es.ExamScheduleId == id);
-        }
+
     }
 }

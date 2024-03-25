@@ -16,7 +16,7 @@ namespace SchoolApp.Models.DataModels
         public int ExamTypeId { get; set; }
 
         [Required]
-        public string ExamTypeName { get; set; }
+        public string? ExamTypeName { get; set; }
     }
 
     //public enum ExamTypeName

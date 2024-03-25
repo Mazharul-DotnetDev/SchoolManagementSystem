@@ -38,5 +38,12 @@ namespace SchoolApp.Models.DataModels
         //    SignOutTime = new TimeSpan(0, 0, 0);
         //}
 
+
+
+
+
+        //Testing purpose
+        //public int MyProperty { get; set; }
+
     }
 }

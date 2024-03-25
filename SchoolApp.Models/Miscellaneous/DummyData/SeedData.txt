@@ -1,68 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using SchoolApp.Models.DataModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SchoolApp.DAL.SchoolContext
-{
-
-    public class SchoolDbContext : IdentityDbContext
-    {
-
-        #region DbSets
-        public DbSet<Attendance> dbsAttendance { get; set; }
-        public DbSet<Standard> dbsStandard { get; set; }
-        public DbSet<Department> dbsDepartment { get; set; }
-        public DbSet<ExamSchedule> dbsExamSchedule { get; set; }
-        public DbSet<ExamSubject> dbsExamSubject { get; set; }
-        public DbSet<ExamType> dbsExamType { get; set; }
-        public DbSet<Mark> dbsMark { get; set; }
-
-        //public DbSet<MarkEntry> dbsMarkEntry { get; set; }
-        public DbSet<Staff> dbsStaff { get; set; }
-        public DbSet<StaffExperience> dbsStaffExperience { get; set; }
-        public DbSet<StaffSalary> dbsStaffSalary { get; set; }
-        public DbSet<Student> dbsStudent { get; set; }
-        public DbSet<Subject> dbsSubject { get; set; }
-        public DbSet<FeeType> dbsFeeType { get; set; }
-        public DbSet<FeeStructure> dbsFeeStructure { get; set; }
-        public DbSet<FeePayment> dbsFeePayment { get; set; }
-        public DbSet<DueBalance> dbsDueBalance { get; set; }
-        public DbSet<FeePaymentDetail> dbsfeePaymentDetails { get; set; }
-        #endregion
-
-        #region Constructor
-        public SchoolDbContext(DbContextOptions<SchoolDbContext> options) : base(options)
-        {
-
-        } 
-        #endregion
-
-        //This SaveChanges() method is implemented for inserting Computed column [NetSalary column from StaffSalary Table] into Database.
-        public override int SaveChanges()
-        {
-            // Calculate NetSalary before saving changes
-            foreach (var entry in ChangeTracker.Entries<StaffSalary>())
-            {
-                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
-                {
-                    var staffSalary = entry.Entity;
-                    staffSalary.CalculateNetSalary();
-                }
-            }
-
-
-            return base.SaveChanges();
-        }
-
-
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+﻿protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
@@ -92,23 +28,25 @@ namespace SchoolApp.DAL.SchoolContext
 
 
 
-            #region Index
             modelBuilder.Entity<Subject>()
-            .HasIndex(s => s.SubjectCode)
-            .IsUnique();
+        .HasIndex(s => s.SubjectCode)
+        .IsUnique();
+
 
             modelBuilder.Entity<Student>()
         .HasIndex(s => s.AdmissionNo)
         .IsUnique();
 
+
             modelBuilder.Entity<Student>()
         .HasIndex(s => s.EnrollmentNo)
-        .IsUnique(); 
-            #endregion
+        .IsUnique();
 
+
+           
 
             // ----------------------------------------------- //
-            #region Attendance
+
             // Seed Attendance data
             modelBuilder.Entity<Attendance>().HasData(
                 new Attendance
@@ -159,27 +97,29 @@ namespace SchoolApp.DAL.SchoolContext
                     //}
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region Department
+
+            // ----------------------------------------------- //
+
             // Seed Department data
             modelBuilder.Entity<Department>().HasData(
                 new Department { DepartmentId = 1, DepartmentName = "IT" },
                 new Department { DepartmentId = 2, DepartmentName = "HR" },
                 new Department { DepartmentId = 3, DepartmentName = "Finance" }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region DueBalance
+
+
+            // ----------------------------------------------- //
+
             // Seed DueBalance data
             modelBuilder.Entity<DueBalance>().HasData(
                 new DueBalance { DueBalanceId = 1, StudentId = 1 },
                 new DueBalance { DueBalanceId = 2, StudentId = 2 },
                 new DueBalance { DueBalanceId = 3, StudentId = 3 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region ExamSubjects
+
+
+            // ----------------------------------------------- //
+
             // Seed ExamSchedule data along with associated ExamSubjects
             modelBuilder.Entity<ExamSchedule>().HasData(
                 new ExamSchedule
@@ -219,30 +159,35 @@ namespace SchoolApp.DAL.SchoolContext
                     //}
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region ExamSubject
+
+
+
+            // ----------------------------------------------- //
+
+
             // Seed ExamSubject data
             modelBuilder.Entity<ExamSubject>().HasData(
                 new ExamSubject { ExamSubjectId = 1, SubjectId = 1, ExamScheduleId = 1 },
-                new ExamSubject { ExamSubjectId = 2, SubjectId = 2, ExamScheduleId = 2 },
-                new ExamSubject { ExamSubjectId = 3, SubjectId = 3, ExamScheduleId = 3 },
-                new ExamSubject { ExamSubjectId = 4, SubjectId = 1, ExamScheduleId = 1 },
-                new ExamSubject { ExamSubjectId = 5, SubjectId = 2, ExamScheduleId = 2 },
+                new ExamSubject { ExamSubjectId = 2, SubjectId = 2, ExamScheduleId = 1 },
+                new ExamSubject { ExamSubjectId = 3, SubjectId = 3, ExamScheduleId = 2 },
+                new ExamSubject { ExamSubjectId = 4, SubjectId = 1, ExamScheduleId = 2 },
+                new ExamSubject { ExamSubjectId = 5, SubjectId = 2, ExamScheduleId = 3 },
                 new ExamSubject { ExamSubjectId = 6, SubjectId = 3, ExamScheduleId = 3 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region ExamType
+
+
+            // ----------------------------------------------- //
+
             // Seed ExamType data
             modelBuilder.Entity<ExamType>().HasData(
                 new ExamType { ExamTypeId = 1, ExamTypeName = "Midterm" },
                 new ExamType { ExamTypeId = 2, ExamTypeName = "Final" },
                 new ExamType { ExamTypeId = 3, ExamTypeName = "Practical" }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region FeePaymentDetail
+
+
+            // ----------------------------------------------- //
+
             // Seed FeePaymentDetail data
             modelBuilder.Entity<FeePaymentDetail>().HasData(
                 new FeePaymentDetail
@@ -255,29 +200,29 @@ namespace SchoolApp.DAL.SchoolContext
                 new FeePaymentDetail
                 {
                     FeePaymentDetailId = 2,
-                    FeePaymentId = 2,
+                    FeePaymentId = 1,
                     FeeTypeName = "Library Fee",
                     FeeAmount = 100
                 },
                 new FeePaymentDetail
                 {
                     FeePaymentDetailId = 3,
-                    FeePaymentId = 3,
-                    FeeTypeName = "Sports Fee",
+                    FeePaymentId = 2,
+                    FeeTypeName = "Tuition Fee",
                     FeeAmount = 600
                 },
                 new FeePaymentDetail
                 {
                     FeePaymentDetailId = 4,
-                    FeePaymentId = 1,
-                    FeeTypeName = "Picnic Fee",
+                    FeePaymentId = 2,
+                    FeeTypeName = "Sports Fee",
                     FeeAmount = 200
                 },
                 new FeePaymentDetail
                 {
                     FeePaymentDetailId = 5,
-                    FeePaymentId = 2,
-                    FeeTypeName = "Party Fee",
+                    FeePaymentId = 3,
+                    FeeTypeName = "Tuition Fee",
                     FeeAmount = 700
                 },
                 new FeePaymentDetail
@@ -288,9 +233,10 @@ namespace SchoolApp.DAL.SchoolContext
                     FeeAmount = 250
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region FeePayment
+
+           
+            // ----------------------------------------------- //
+
             // Seed FeePayment data
             modelBuilder.Entity<FeePayment>().HasData(
                 new FeePayment
@@ -372,9 +318,13 @@ namespace SchoolApp.DAL.SchoolContext
                     //}
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region FeeStructure
+
+            // ----------------------------------------------- //
+
+
+            
+
+
             // Seed FeeStructure data
             modelBuilder.Entity<FeeStructure>().HasData(
                 new FeeStructure
@@ -411,9 +361,9 @@ namespace SchoolApp.DAL.SchoolContext
                     FeeAmount = 200
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region FeeType
+
+            // ----------------------------------------------- //
+
             // Seed FeeType data
             modelBuilder.Entity<FeeType>().HasData(
                 new FeeType
@@ -432,126 +382,110 @@ namespace SchoolApp.DAL.SchoolContext
                     TypeName = "Library Fee"
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region Mark
+
+            // ----------------------------------------------- //
+
             // Seed Mark data
             modelBuilder.Entity<Mark>().HasData(
                 new Mark
                 {
                     MarkId = 1,
-                    TotalMarks = 80,
+                    ExamPaperScore = 80,
                     PassMarks = 40,
                     ObtainedScore = 65,
                     Grade = Grade.B,
                     PassStatus = Pass.Passed,
                     MarkEntryDate = DateTime.Now,
                     Feedback = "Good job!",
-                    StaffId = 1,
                     StudentId = 1,
                     SubjectId = 1
                 },
                 new Mark
                 {
                     MarkId = 2,
-                    TotalMarks = 90,
+                    ExamPaperScore = 90,
                     PassMarks = 40,
                     ObtainedScore = 75,
                     Grade = Grade.A,
                     PassStatus = Pass.Passed,
                     MarkEntryDate = DateTime.Now,
                     Feedback = "Excellent work!",
-                    StaffId = 2,
                     StudentId = 2,
-                    SubjectId = 2
-                },
-                new Mark
-                {
-                    MarkId = 3,
-                    TotalMarks = 90,
-                    PassMarks = 40,
-                    ObtainedScore = 75,
-                    Grade = Grade.A,
-                    PassStatus = Pass.Passed,
-                    MarkEntryDate = DateTime.Now,
-                    Feedback = "Excellent work!",
-                    StaffId = 3,
-                    StudentId = 3,
-                    SubjectId = 3
+                    SubjectId = 1
                 }
                 // Add more seed data as needed
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region MarkEntry_Excluded
+
+            // ----------------------------------------------- //
+
             // Seed MarkEntry data along with associated Marks
-            //modelBuilder.Entity<MarkEntry>().HasData(
-            //    new MarkEntry
-            //    {
-            //        MarkEntryId = 1,
-            //        MarkEntryDate = DateTime.Now,
-            //        StaffId = 1,
-            //        SubjectId = 1
-            //        //    , 
-            //        //    Marks = new List<Mark>
-            //        //    {
-            //        //new Mark
-            //        //{
-            //        //    MarkId = 1
-            //        //},
-            //        //new Mark
-            //        //{
-            //        //    MarkId = 2
-            //        //}
-            //        //    }
-            //    }
-            //    ,
-            //    new MarkEntry
-            //    {
-            //        MarkEntryId = 2,
-            //        MarkEntryDate = DateTime.Now,
-            //        StaffId = 2,
-            //        SubjectId = 2
-            //        //    , 
-            //        //    Marks = new List<Mark>
-            //        //    {
-            //        //new Mark
-            //        //{
-            //        //    MarkId = 2
-            //        //}
+            modelBuilder.Entity<MarkEntry>().HasData(
+                new MarkEntry
+                {
+                    MarkEntryId = 1,
+                    MarkEntryDate = DateTime.Now,
+                    StaffId = 1,
+                    SubjectId = 1
+                //    , 
+                //    Marks = new List<Mark>
+                //    {
+                //new Mark
+                //{
+                //    MarkId = 1
+                //},
+                //new Mark
+                //{
+                //    MarkId = 2
+                //}
+                //    }
+                }
+                ,
+                new MarkEntry
+                {
+                    MarkEntryId = 2,
+                    MarkEntryDate = DateTime.Now,
+                    StaffId = 2,
+                    SubjectId = 2
+                //    , 
+                //    Marks = new List<Mark>
+                //    {
+                //new Mark
+                //{
+                //    MarkId = 2
+                //}
+                       
+                //    }
+                }
+                ,
+                new MarkEntry
+                {
+                    MarkEntryId = 3,
+                    MarkEntryDate = DateTime.Now,
+                    StaffId = 2,
+                    SubjectId = 2
+                //    ,
+                //    Marks = new List<Mark>
+                //    {
+                //new Mark
+                //{
+                //    MarkId = 2
+                //}
 
-            //        //    }
-            //    }
-            //    ,
-            //    new MarkEntry
-            //    {
-            //        MarkEntryId = 3,
-            //        MarkEntryDate = DateTime.Now,
-            //        StaffId = 3,
-            //        SubjectId = 3
-            //        //    ,
-            //        //    Marks = new List<Mark>
-            //        //    {
-            //        //new Mark
-            //        //{
-            //        //    MarkId = 2
-            //        //}
+                //    }
+                }
 
-            //        //    }
-            //    }
+            );
 
-            //);
-            #endregion
-     // ----------------------------------------------- //
-            #region Staff
+            // ----------------------------------------------- //
+
             // Seed Staff data if required
             modelBuilder.Entity<Staff>().HasData(
                 new Staff
                 {
                     StaffId = 1,
                     StaffName = "John Doe",
-                    Gender = Gender.Male,
-                    DepartmentId = 1,
+                    Gender = Gender.Male,                    
+                    DepartmentId = 1, 
                     Status = "Active",
                     StaffSalaryId = 1
                     //,
@@ -566,11 +500,11 @@ namespace SchoolApp.DAL.SchoolContext
                 {
                     StaffId = 2,
                     StaffName = "Jane Smith",
-                    Gender = Gender.Female,
-                    DepartmentId = 2,
+                    Gender = Gender.Female,                    
+                    DepartmentId = 2, 
                     Status = "Active",
                     StaffSalaryId = 2
-
+                    
                     //,
                     //StaffExperiences = new List<StaffExperience>
                     //{
@@ -584,9 +518,9 @@ namespace SchoolApp.DAL.SchoolContext
                     StaffId = 3,
                     StaffName = "Jane Smith",
                     Gender = Gender.Female,
-                    DepartmentId = 3,
+                    DepartmentId = 2,
                     Status = "Active",
-                    StaffSalaryId = 3
+                    StaffSalaryId = 2
                     //,
                     //StaffExperiences = new List<StaffExperience>
                     //{
@@ -596,16 +530,16 @@ namespace SchoolApp.DAL.SchoolContext
 
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region StaffExperience
+
+            // ----------------------------------------------- //
+
             // Seed StaffExperience data if required
             modelBuilder.Entity<StaffExperience>().HasData(
                 new StaffExperience
                 {
                     StaffExperienceId = 1,
                     CompanyName = "ABC School",
-                    Designation = "Teacher",
+                    Designation = "Teacher",                    
                     Responsibilities = "Teaching Mathematics and Physics",
                     Achievements = "Improved student performance by 20%",
                 },
@@ -627,9 +561,9 @@ namespace SchoolApp.DAL.SchoolContext
                 }
 
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region StaffSalary
+
+            // ----------------------------------------------- //
+
             // Seed StaffSalary data if required
             modelBuilder.Entity<StaffSalary>().HasData(
                 new StaffSalary
@@ -669,9 +603,9 @@ namespace SchoolApp.DAL.SchoolContext
                    Taxes = 500,
                }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region Standard
+
+            // ----------------------------------------------- //
+
             // Seed Standard data if required
             modelBuilder.Entity<Standard>().HasData(
                 new Standard
@@ -692,11 +626,11 @@ namespace SchoolApp.DAL.SchoolContext
                      StandardName = "Standard 2",
                      StandardCapacity = "35 students",
                  }
-
+            
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region Student
+
+            // ----------------------------------------------- //
+
             // Seed Student data if required
             modelBuilder.Entity<Student>().HasData(
                 new Student
@@ -705,25 +639,25 @@ namespace SchoolApp.DAL.SchoolContext
                     AdmissionNo = 1000,
                     EnrollmentNo = 2000,
                     StudentName = "John Doe",
-
+                    
                     StudentGender = GenderList.Male,
-
+                    
                     StudentBloodGroup = "A+",
                     StudentNationality = "American",
-                    StudentNIDNumber = "17948678987654320",
+                    StudentNIDNumber = 123456789,
                     StudentContactNumber1 = "1234567890",
-                    StudentEmail = "john.doe@example.com",
+                    StudentEamil = "john.doe@example.com",
                     PermanentAddress = "123 Main Street, City, Country",
                     TemporaryAddress = "456 Elm Street, City, Country",
                     FatherName = "Michael Doe",
-                    FatherNID = "17948678987624322",
+                    FatherNID = 987654321,
                     FatherContactNumber = "9876543210",
                     MotherName = "Alice Doe",
-                    MotherNID = "17948678987754322",
+                    MotherNID = 987654322,
                     MotherContactNumber = "9876543220",
                     LocalGuardianName = "Jane Smith",
                     LocalGuardianContactNumber = "9876543230",
-                    StandardId = 1,
+                    StandardId = 1, 
                 },
 
                 new Student
@@ -737,16 +671,16 @@ namespace SchoolApp.DAL.SchoolContext
 
                     StudentBloodGroup = "A+",
                     StudentNationality = "American",
-                    StudentNIDNumber = "17948678987654322",
+                    StudentNIDNumber = 123456789,
                     StudentContactNumber1 = "1234567890",
-                    StudentEmail = "john.doe@example.com",
+                    StudentEamil = "john.doe@example.com",
                     PermanentAddress = "123 Main Street, City, Country",
                     TemporaryAddress = "456 Elm Street, City, Country",
                     FatherName = "Michael Doe",
-                    FatherNID = "17948578987654322",
+                    FatherNID = 987654321,
                     FatherContactNumber = "9876543210",
                     MotherName = "Alice Doe",
-                    MotherNID = "17948674987654322",
+                    MotherNID = 987654322,
                     MotherContactNumber = "9876543220",
                     LocalGuardianName = "Jane Smith",
                     LocalGuardianContactNumber = "9876543230",
@@ -763,25 +697,26 @@ namespace SchoolApp.DAL.SchoolContext
 
                     StudentBloodGroup = "A+",
                     StudentNationality = "American",
-                    StudentNIDNumber = "17945678987654322",
+                    StudentNIDNumber = 123456789,
                     StudentContactNumber1 = "1234567890",
-                    StudentEmail = "john.doe@example.com",
+                    StudentEamil = "john.doe@example.com",
                     PermanentAddress = "123 Main Street, City, Country",
                     TemporaryAddress = "456 Elm Street, City, Country",
                     FatherName = "Michael Doe",
-                    FatherNID = "17345678987654322",
+                    FatherNID = 987654321,
                     FatherContactNumber = "9876543210",
                     MotherName = "Alice Doe",
-                    MotherNID = "12345678987654322",
+                    MotherNID = 987654322,
                     MotherContactNumber = "9876543220",
                     LocalGuardianName = "Jane Smith",
                     LocalGuardianContactNumber = "9876543230",
-                    StandardId = 3,
+                    StandardId = 1,
                 }
             );
-            #endregion
-     // ----------------------------------------------- //
-            #region Subject
+
+
+            // ----------------------------------------------- //
+
             // Seed Subject data if required
             modelBuilder.Entity<Subject>().HasData(
                 new Subject
@@ -789,7 +724,7 @@ namespace SchoolApp.DAL.SchoolContext
                     SubjectId = 1,
                     SubjectName = "Mathematics",
                     SubjectCode = 101,
-                    StandardId = 1
+                    StandardId = 1 
                 },
                 new Subject
                 {
@@ -803,14 +738,14 @@ namespace SchoolApp.DAL.SchoolContext
                     SubjectId = 3,
                     SubjectName = "Chemistry",
                     SubjectCode = 103,
-                    StandardId = 3
+                    StandardId = 2
                 },
                 new Subject
                 {
                     SubjectId = 4,
                     SubjectName = "Biology",
                     SubjectCode = 104,
-                    StandardId = 1
+                    StandardId = 2
                 },
                 new Subject
                 {
@@ -824,12 +759,8 @@ namespace SchoolApp.DAL.SchoolContext
                     SubjectId = 6,
                     SubjectName = "Electronics",
                     SubjectCode = 106,
-                    StandardId = 3
+                    StandardId = 1
                 }
-
+           
             );
-            #endregion
-     // ----------------------------------------------- //
         }
-    }
-}

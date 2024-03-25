@@ -9,10 +9,17 @@
   <ItemGroup>
     <Compile Remove="Miscellaneous\CancelledModels\**" />
     <Compile Remove="Models\**" />
+    <Compile Remove="ViewModels\**" />
     <EmbeddedResource Remove="Miscellaneous\CancelledModels\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
     <None Remove="Miscellaneous\CancelledModels\**" />
     <None Remove="Models\**" />
+    <None Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="DataModels\MarkEntry.cs" />
   </ItemGroup>
 
   <ItemGroup>

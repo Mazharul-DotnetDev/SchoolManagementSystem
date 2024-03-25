@@ -10,6 +10,7 @@
   <ItemGroup>
     <Compile Remove="Controllers\EmployeesController.cs" />
     <Compile Remove="Controllers\EmployeeTypesController.cs" />
+    <Compile Remove="Controllers\MarkEntriesController.cs" />
     <Compile Remove="ImageModel\EmployeesImg.cs" />
   </ItemGroup>
 

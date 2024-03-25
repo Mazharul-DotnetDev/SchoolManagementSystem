@@ -21,19 +21,18 @@ namespace SchoolApiService.Controllers
             _context = context;
         }
 
-        // GET: api/ExamSubject
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExamSubject>>> GetExamSubjects()
+        // GET: api/dbsExamSubject
+        [HttpGet("GetExamSubject")]
+        public async Task<ActionResult<IEnumerable<ExamSubject>>> GetExamSubject()
         {
             var examSubjects = await _context.dbsExamSubject
                 .Include(es => es.Subject)
                 .AsNoTracking()
                 .ToListAsync();
-
             return examSubjects;
         }
 
-        // GET: api/ExamSubject/5
+        // GET: api/dbsExamSubject/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ExamSubject>> GetExamSubject(int id)
         {
@@ -50,9 +49,9 @@ namespace SchoolApiService.Controllers
             return examSubject;
         }
 
-
+        // PUT: api/dbsExamSubject/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateExamSubject(int id, [FromBody] ExamSubject updatedExamSubject)
+        public async Task<IActionResult> PutExamSubject(int id, ExamSubject updatedExamSubject)
         {
             if (!ModelState.IsValid)
             {
@@ -71,10 +70,35 @@ namespace SchoolApiService.Controllers
                         return NotFound($"ExamSubject with ID {id} not found.");
                     }
 
-                    // Update properties of the existing exam subject
-                    existingExamSubject.ExamDate = updatedExamSubject.ExamDate;
-                    existingExamSubject.SubjectId = updatedExamSubject.SubjectId;
-                    existingExamSubject.ExamScheduleId = updatedExamSubject.ExamScheduleId;
+                    bool isExamDateProvided = updatedExamSubject.ExamDate != default;
+                    bool isSubjectIdProvided = updatedExamSubject.SubjectId != default;
+                    bool isExamScheduleIdProvided = updatedExamSubject.ExamScheduleId != default;
+
+                    // Update properties of the existing exam subject only if they are provided in the updatedExamSubject
+                    if (isExamDateProvided)
+                    {
+                        existingExamSubject.ExamDate = updatedExamSubject.ExamDate;
+                    }
+
+                    if (isSubjectIdProvided)
+                    {
+                        existingExamSubject.SubjectId = updatedExamSubject.SubjectId;
+                    }
+
+                    if (isExamScheduleIdProvided)
+                    {
+                        // Check if the updated ExamScheduleId already exists
+                        var existingExamSchedule = await _context.dbsExamSchedule
+                            .FirstOrDefaultAsync(es => es.ExamScheduleId == updatedExamSubject.ExamScheduleId);
+
+                        if (existingExamSchedule == null)
+                        {
+                            // The provided ExamScheduleId doesn't exist, so return BadRequest
+                            return BadRequest($"ExamScheduleId {updatedExamSubject.ExamScheduleId} does not exist.");
+                        }
+
+                        existingExamSubject.ExamScheduleId = updatedExamSubject.ExamScheduleId;
+                    }
 
                     // Save changes to the database
                     await _context.SaveChangesAsync();
@@ -93,9 +117,8 @@ namespace SchoolApiService.Controllers
             }
         }
 
-
-        // POST: api/ExamSubject
-        [HttpPost]
+        // POST: api/dbsExamSubject
+        [HttpPost("PostExamSubject")]
         public async Task<ActionResult<ExamSubject>> PostExamSubject(ExamSubject examSubjectRequest)
         {
             if (!ModelState.IsValid)
@@ -105,6 +128,18 @@ namespace SchoolApiService.Controllers
 
             try
             {
+                if (examSubjectRequest.ExamScheduleId != null)
+                {
+                    // Check if the ExamScheduleId provided in the request exists
+                    var existingExamSchedule = await _context.dbsExamSchedule.FindAsync(examSubjectRequest.ExamScheduleId);
+
+                    if (existingExamSchedule == null)
+                    {
+                        // If the ExamScheduleId doesn't exist, return a bad request
+                        return BadRequest("Invalid ExamScheduleId. It does not exist.");
+                    }
+                }
+
                 // Create a new ExamSubject object
                 var examSubject = new ExamSubject
                 {
@@ -129,9 +164,7 @@ namespace SchoolApiService.Controllers
                 return StatusCode(500, $"An error occurred while saving the ExamSubject: {ex.Message}");
             }
         }
-
-
-        // DELETE: api/ExamSubject/5
+        // DELETE: api/dbsExamSubject/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExamSubject(int id)
         {
@@ -147,9 +180,7 @@ namespace SchoolApiService.Controllers
             return NoContent();
         }
 
-        private bool ExamSubjectExists(int id)
-        {
-            return _context.dbsExamSubject.Any(e => e.ExamSubjectId == id);
-        }
+
     }
+
 }

@@ -20,7 +20,6 @@ namespace SchoolApp.Models.DataModels
         public int? ExamScheduleId { get; set; }
 
         public Subject? Subject { get; set; }
-        public ExamSchedule? ExamSchedule { get; set; } 
-
+        public ExamSchedule? ExamSchedule { get; set; }
     }
 }

@@ -240,6 +240,25 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("AttendanceId");
 
                     b.ToTable("Attendance");
+
+                    b.HasData(
+                        new
+                        {
+                            AttendanceId = 1,
+                            IsPresent = true,
+                            WorkingDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(4666)
+                        },
+                        new
+                        {
+                            AttendanceId = 2,
+                            IsPresent = true,
+                            WorkingDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(4695)
+                        },
+                        new
+                        {
+                            AttendanceId = 3,
+                            WorkingDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(4697)
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Department", b =>
@@ -250,15 +269,30 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
 
-                    b.Property<int>("DepartmentName")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("NumberOfStaff")
-                        .HasColumnType("int");
+                    b.Property<string>("DepartmentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DepartmentId");
 
                     b.ToTable("Department");
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentId = 1,
+                            DepartmentName = "IT"
+                        },
+                        new
+                        {
+                            DepartmentId = 2,
+                            DepartmentName = "HR"
+                        },
+                        new
+                        {
+                            DepartmentId = 3,
+                            DepartmentName = "Finance"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.DueBalance", b =>
@@ -283,6 +317,26 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("DueBalance");
+
+                    b.HasData(
+                        new
+                        {
+                            DueBalanceId = 1,
+                            LastUpdate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5328),
+                            StudentId = 1
+                        },
+                        new
+                        {
+                            DueBalanceId = 2,
+                            LastUpdate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5334),
+                            StudentId = 2
+                        },
+                        new
+                        {
+                            DueBalanceId = 3,
+                            LastUpdate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5336),
+                            StudentId = 3
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
@@ -299,14 +353,36 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<int?>("ExamTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("SubjectId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("StandardId")
+                        .HasColumnType("int");
 
                     b.HasKey("ExamScheduleId");
 
                     b.HasIndex("ExamTypeId");
 
+                    b.HasIndex("StandardId");
+
                     b.ToTable("ExamSchedule");
+
+                    b.HasData(
+                        new
+                        {
+                            ExamScheduleId = 1,
+                            ExamScheduleName = "Midterm Exam",
+                            ExamTypeId = 1
+                        },
+                        new
+                        {
+                            ExamScheduleId = 2,
+                            ExamScheduleName = "Final Exam",
+                            ExamTypeId = 2
+                        },
+                        new
+                        {
+                            ExamScheduleId = 3,
+                            ExamScheduleName = "Practical Exam",
+                            ExamTypeId = 3
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSubject", b =>
@@ -333,6 +409,50 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("SubjectId");
 
                     b.ToTable("ExamSubject");
+
+                    b.HasData(
+                        new
+                        {
+                            ExamSubjectId = 1,
+                            ExamDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5491),
+                            ExamScheduleId = 1,
+                            SubjectId = 1
+                        },
+                        new
+                        {
+                            ExamSubjectId = 2,
+                            ExamDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5497),
+                            ExamScheduleId = 2,
+                            SubjectId = 2
+                        },
+                        new
+                        {
+                            ExamSubjectId = 3,
+                            ExamDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5499),
+                            ExamScheduleId = 3,
+                            SubjectId = 3
+                        },
+                        new
+                        {
+                            ExamSubjectId = 4,
+                            ExamDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5502),
+                            ExamScheduleId = 1,
+                            SubjectId = 1
+                        },
+                        new
+                        {
+                            ExamSubjectId = 5,
+                            ExamDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5504),
+                            ExamScheduleId = 2,
+                            SubjectId = 2
+                        },
+                        new
+                        {
+                            ExamSubjectId = 6,
+                            ExamDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5507),
+                            ExamScheduleId = 3,
+                            SubjectId = 3
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamType", b =>
@@ -350,6 +470,23 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("ExamTypeId");
 
                     b.ToTable("ExamType");
+
+                    b.HasData(
+                        new
+                        {
+                            ExamTypeId = 1,
+                            ExamTypeName = "Midterm"
+                        },
+                        new
+                        {
+                            ExamTypeId = 2,
+                            ExamTypeName = "Final"
+                        },
+                        new
+                        {
+                            ExamTypeId = 3,
+                            ExamTypeName = "Practical"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
@@ -395,6 +532,50 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("StudentId");
 
                     b.ToTable("FeePayment");
+
+                    b.HasData(
+                        new
+                        {
+                            FeePaymentId = 1,
+                            AmountAfterDiscount = 900m,
+                            AmountPaid = 500m,
+                            AmountRemaining = 400m,
+                            Discount = 10m,
+                            PaymentDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5876),
+                            PreviousDue = 0m,
+                            StudentId = 1,
+                            StudentName = "John Doe",
+                            TotalAmount = 900m,
+                            TotalFeeAmount = 1000m
+                        },
+                        new
+                        {
+                            FeePaymentId = 2,
+                            AmountAfterDiscount = 1300m,
+                            AmountPaid = 1400m,
+                            AmountRemaining = 0m,
+                            Discount = 200m,
+                            PaymentDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5884),
+                            PreviousDue = 100m,
+                            StudentId = 2,
+                            StudentName = "Jane Doe",
+                            TotalAmount = 1400m,
+                            TotalFeeAmount = 1500m
+                        },
+                        new
+                        {
+                            FeePaymentId = 3,
+                            AmountAfterDiscount = 1200m,
+                            AmountPaid = 1250m,
+                            AmountRemaining = 0m,
+                            Discount = 0m,
+                            PaymentDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5892),
+                            PreviousDue = 50m,
+                            StudentId = 3,
+                            StudentName = "Alice Smith",
+                            TotalAmount = 1250m,
+                            TotalFeeAmount = 1200m
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.FeePaymentDetail", b =>
@@ -420,6 +601,50 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("FeePaymentId");
 
                     b.ToTable("FeePaymentDetail");
+
+                    b.HasData(
+                        new
+                        {
+                            FeePaymentDetailId = 1,
+                            FeeAmount = 500m,
+                            FeePaymentId = 1,
+                            FeeTypeName = "Tuition Fee"
+                        },
+                        new
+                        {
+                            FeePaymentDetailId = 2,
+                            FeeAmount = 100m,
+                            FeePaymentId = 2,
+                            FeeTypeName = "Library Fee"
+                        },
+                        new
+                        {
+                            FeePaymentDetailId = 3,
+                            FeeAmount = 600m,
+                            FeePaymentId = 3,
+                            FeeTypeName = "Sports Fee"
+                        },
+                        new
+                        {
+                            FeePaymentDetailId = 4,
+                            FeeAmount = 200m,
+                            FeePaymentId = 1,
+                            FeeTypeName = "Picnic Fee"
+                        },
+                        new
+                        {
+                            FeePaymentDetailId = 5,
+                            FeeAmount = 700m,
+                            FeePaymentId = 2,
+                            FeeTypeName = "Party Fee"
+                        },
+                        new
+                        {
+                            FeePaymentDetailId = 6,
+                            FeeAmount = 250m,
+                            FeePaymentId = 3,
+                            FeeTypeName = "Exam Fee"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.FeeStructure", b =>
@@ -463,6 +688,41 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("StandardId");
 
                     b.ToTable("FeeStructure");
+
+                    b.HasData(
+                        new
+                        {
+                            FeeStructureId = 1,
+                            FeeAmount = 500m,
+                            FeeTypeId = 1,
+                            Monthly = false,
+                            StandardId = 1,
+                            StandardName = "Grade 1",
+                            TypeName = "Registration Fee",
+                            Yearly = true
+                        },
+                        new
+                        {
+                            FeeStructureId = 2,
+                            FeeAmount = 1000m,
+                            FeeTypeId = 2,
+                            Monthly = true,
+                            StandardId = 2,
+                            StandardName = "Grade 2",
+                            TypeName = "Tuition Fee",
+                            Yearly = false
+                        },
+                        new
+                        {
+                            FeeStructureId = 3,
+                            FeeAmount = 200m,
+                            FeeTypeId = 3,
+                            Monthly = false,
+                            StandardId = 3,
+                            StandardName = "Grade 3",
+                            TypeName = "Library Fee",
+                            Yearly = true
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.FeeType", b =>
@@ -479,6 +739,23 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("FeeTypeId");
 
                     b.ToTable("FeeType");
+
+                    b.HasData(
+                        new
+                        {
+                            FeeTypeId = 1,
+                            TypeName = "Registration Fee"
+                        },
+                        new
+                        {
+                            FeeTypeId = 2,
+                            TypeName = "Tuition Fee"
+                        },
+                        new
+                        {
+                            FeeTypeId = 3,
+                            TypeName = "Library Fee"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Mark", b =>
@@ -489,9 +766,6 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarkId"));
 
-                    b.Property<int?>("ExamPaperScore")
-                        .HasColumnType("int");
-
                     b.Property<string>("Feedback")
                         .HasColumnType("nvarchar(max)");
 
@@ -500,9 +774,6 @@ namespace SchoolApp.DAL.Migrations
 
                     b.Property<DateTime?>("MarkEntryDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("MarkEntryId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("ObtainedScore")
                         .HasColumnType("int");
@@ -513,47 +784,71 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<int?>("PassStatus")
                         .HasColumnType("int");
 
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.Property<int?>("SubjectId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TotalMarks")
+                        .HasColumnType("int");
+
                     b.HasKey("MarkId");
 
-                    b.HasIndex("MarkEntryId");
+                    b.HasIndex("StaffId");
 
                     b.HasIndex("StudentId");
 
                     b.HasIndex("SubjectId");
 
                     b.ToTable("Mark");
-                });
 
-            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
-                {
-                    b.Property<int>("MarkEntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarkEntryId"));
-
-                    b.Property<DateTime?>("MarkEntryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("StaffId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SubjectId")
-                        .HasColumnType("int");
-
-                    b.HasKey("MarkEntryId");
-
-                    b.HasIndex("StaffId");
-
-                    b.HasIndex("SubjectId");
-
-                    b.ToTable("MarkEntry");
+                    b.HasData(
+                        new
+                        {
+                            MarkId = 1,
+                            Feedback = "Good job!",
+                            Grade = 1,
+                            MarkEntryDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6281),
+                            ObtainedScore = 65,
+                            PassMarks = 40,
+                            PassStatus = 0,
+                            StaffId = 1,
+                            StudentId = 1,
+                            SubjectId = 1,
+                            TotalMarks = 80
+                        },
+                        new
+                        {
+                            MarkId = 2,
+                            Feedback = "Excellent work!",
+                            Grade = 0,
+                            MarkEntryDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6289),
+                            ObtainedScore = 75,
+                            PassMarks = 40,
+                            PassStatus = 0,
+                            StaffId = 2,
+                            StudentId = 2,
+                            SubjectId = 2,
+                            TotalMarks = 90
+                        },
+                        new
+                        {
+                            MarkId = 3,
+                            Feedback = "Excellent work!",
+                            Grade = 0,
+                            MarkEntryDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6297),
+                            ObtainedScore = 75,
+                            PassMarks = 40,
+                            PassStatus = 0,
+                            StaffId = 3,
+                            StudentId = 3,
+                            SubjectId = 3,
+                            TotalMarks = 90
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
@@ -636,6 +931,35 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("StaffSalaryId");
 
                     b.ToTable("Staff");
+
+                    b.HasData(
+                        new
+                        {
+                            StaffId = 1,
+                            DepartmentId = 1,
+                            Gender = 0,
+                            StaffName = "John Doe",
+                            StaffSalaryId = 1,
+                            Status = "Active"
+                        },
+                        new
+                        {
+                            StaffId = 2,
+                            DepartmentId = 2,
+                            Gender = 1,
+                            StaffName = "Jane Smith",
+                            StaffSalaryId = 2,
+                            Status = "Active"
+                        },
+                        new
+                        {
+                            StaffId = 3,
+                            DepartmentId = 3,
+                            Gender = 1,
+                            StaffName = "Jane Smith",
+                            StaffSalaryId = 3,
+                            Status = "Active"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.StaffExperience", b =>
@@ -672,6 +996,38 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("StaffId");
 
                     b.ToTable("StaffExperience");
+
+                    b.HasData(
+                        new
+                        {
+                            StaffExperienceId = 1,
+                            Achievements = "Improved student performance by 20%",
+                            CompanyName = "ABC School",
+                            Designation = "Teacher",
+                            JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LeavingDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6453),
+                            Responsibilities = "Teaching Mathematics and Physics"
+                        },
+                        new
+                        {
+                            StaffExperienceId = 2,
+                            Achievements = "Improved student performance by 20%",
+                            CompanyName = "ABC School",
+                            Designation = "Teacher",
+                            JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LeavingDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6459),
+                            Responsibilities = "Teaching Mathematics and Physics"
+                        },
+                        new
+                        {
+                            StaffExperienceId = 3,
+                            Achievements = "Improved student performance by 20%",
+                            CompanyName = "ABC School",
+                            Designation = "Teacher",
+                            JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LeavingDate = new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6462),
+                            Responsibilities = "Teaching Mathematics and Physics"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.StaffSalary", b =>
@@ -712,6 +1068,44 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("StaffSalaryId");
 
                     b.ToTable("StaffSalary");
+
+                    b.HasData(
+                        new
+                        {
+                            StaffSalaryId = 1,
+                            Allowance = 500m,
+                            BasicSalary = 5000m,
+                            FestivalBonus = 1000m,
+                            HousingAllowance = 800m,
+                            MedicalAllowance = 300m,
+                            SavingFund = 200m,
+                            Taxes = 500m,
+                            TransportationAllowance = 200m
+                        },
+                        new
+                        {
+                            StaffSalaryId = 2,
+                            Allowance = 500m,
+                            BasicSalary = 5000m,
+                            FestivalBonus = 1000m,
+                            HousingAllowance = 800m,
+                            MedicalAllowance = 300m,
+                            SavingFund = 200m,
+                            Taxes = 500m,
+                            TransportationAllowance = 200m
+                        },
+                        new
+                        {
+                            StaffSalaryId = 3,
+                            Allowance = 500m,
+                            BasicSalary = 5000m,
+                            FestivalBonus = 1000m,
+                            HousingAllowance = 800m,
+                            MedicalAllowance = 300m,
+                            SavingFund = 200m,
+                            Taxes = 500m,
+                            TransportationAllowance = 200m
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Standard", b =>
@@ -731,6 +1125,26 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("StandardId");
 
                     b.ToTable("Standard");
+
+                    b.HasData(
+                        new
+                        {
+                            StandardId = 1,
+                            StandardCapacity = "30 students",
+                            StandardName = "Standard 1"
+                        },
+                        new
+                        {
+                            StandardId = 2,
+                            StandardCapacity = "35 students",
+                            StandardName = "Standard 2"
+                        },
+                        new
+                        {
+                            StandardId = 3,
+                            StandardCapacity = "35 students",
+                            StandardName = "Standard 2"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Student", b =>
@@ -742,19 +1156,21 @@ namespace SchoolApp.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
 
                     b.Property<int?>("AdmissionNo")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<int?>("AttendanceId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EnrollmentNo")
+                    b.Property<int>("EnrollmentNo")
                         .HasColumnType("int");
 
                     b.Property<string>("FatherContactNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("FatherNID")
-                        .HasColumnType("int");
+                    b.Property<string>("FatherNID")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
 
                     b.Property<string>("FatherName")
                         .HasColumnType("nvarchar(max)");
@@ -768,8 +1184,9 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<string>("MotherContactNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MotherNID")
-                        .HasColumnType("int");
+                    b.Property<string>("MotherNID")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
 
                     b.Property<string>("MotherName")
                         .HasColumnType("nvarchar(max)");
@@ -778,6 +1195,7 @@ namespace SchoolApp.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StandardId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("StudentBloodGroup")
@@ -792,14 +1210,15 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<DateTime>("StudentDOB")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("StudentEamil")
+                    b.Property<string>("StudentEmail")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StudentGender")
                         .HasColumnType("int");
 
-                    b.Property<int?>("StudentNIDNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("StudentNIDNumber")
+                        .HasMaxLength(17)
+                        .HasColumnType("nvarchar(17)");
 
                     b.Property<string>("StudentName")
                         .HasColumnType("nvarchar(max)");
@@ -816,18 +1235,93 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("StudentId");
 
                     b.HasIndex("AdmissionNo")
-                        .IsUnique()
-                        .HasFilter("[AdmissionNo] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("AttendanceId");
 
                     b.HasIndex("EnrollmentNo")
-                        .IsUnique()
-                        .HasFilter("[EnrollmentNo] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("StandardId");
 
                     b.ToTable("Student");
+
+                    b.HasData(
+                        new
+                        {
+                            StudentId = 1,
+                            AdmissionNo = 1000,
+                            EnrollmentNo = 2000,
+                            FatherContactNumber = "9876543210",
+                            FatherNID = "17948678987624322",
+                            FatherName = "Michael Doe",
+                            LocalGuardianContactNumber = "9876543230",
+                            LocalGuardianName = "Jane Smith",
+                            MotherContactNumber = "9876543220",
+                            MotherNID = "17948678987754322",
+                            MotherName = "Alice Doe",
+                            PermanentAddress = "123 Main Street, City, Country",
+                            StandardId = 1,
+                            StudentBloodGroup = "A+",
+                            StudentContactNumber1 = "1234567890",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "john.doe@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "17948678987654320",
+                            StudentName = "John Doe",
+                            StudentNationality = "American",
+                            TemporaryAddress = "456 Elm Street, City, Country"
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            AdmissionNo = 1001,
+                            EnrollmentNo = 2001,
+                            FatherContactNumber = "9876543210",
+                            FatherNID = "17948578987654322",
+                            FatherName = "Michael Doe",
+                            LocalGuardianContactNumber = "9876543230",
+                            LocalGuardianName = "Jane Smith",
+                            MotherContactNumber = "9876543220",
+                            MotherNID = "17948674987654322",
+                            MotherName = "Alice Doe",
+                            PermanentAddress = "123 Main Street, City, Country",
+                            StandardId = 2,
+                            StudentBloodGroup = "A+",
+                            StudentContactNumber1 = "1234567890",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "john.doe@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "17948678987654322",
+                            StudentName = "John Doe",
+                            StudentNationality = "American",
+                            TemporaryAddress = "456 Elm Street, City, Country"
+                        },
+                        new
+                        {
+                            StudentId = 3,
+                            AdmissionNo = 1002,
+                            EnrollmentNo = 2002,
+                            FatherContactNumber = "9876543210",
+                            FatherNID = "17345678987654322",
+                            FatherName = "Michael Doe",
+                            LocalGuardianContactNumber = "9876543230",
+                            LocalGuardianName = "Jane Smith",
+                            MotherContactNumber = "9876543220",
+                            MotherNID = "12345678987654322",
+                            MotherName = "Alice Doe",
+                            PermanentAddress = "123 Main Street, City, Country",
+                            StandardId = 3,
+                            StudentBloodGroup = "A+",
+                            StudentContactNumber1 = "1234567890",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "john.doe@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "17945678987654322",
+                            StudentName = "John Doe",
+                            StudentNationality = "American",
+                            TemporaryAddress = "456 Elm Street, City, Country"
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
@@ -856,6 +1350,50 @@ namespace SchoolApp.DAL.Migrations
                         .HasFilter("[SubjectCode] IS NOT NULL");
 
                     b.ToTable("Subject");
+
+                    b.HasData(
+                        new
+                        {
+                            SubjectId = 1,
+                            StandardId = 1,
+                            SubjectCode = 101,
+                            SubjectName = "Mathematics"
+                        },
+                        new
+                        {
+                            SubjectId = 2,
+                            StandardId = 2,
+                            SubjectCode = 102,
+                            SubjectName = "Physics"
+                        },
+                        new
+                        {
+                            SubjectId = 3,
+                            StandardId = 3,
+                            SubjectCode = 103,
+                            SubjectName = "Chemistry"
+                        },
+                        new
+                        {
+                            SubjectId = 4,
+                            StandardId = 1,
+                            SubjectCode = 104,
+                            SubjectName = "Biology"
+                        },
+                        new
+                        {
+                            SubjectId = 5,
+                            StandardId = 2,
+                            SubjectCode = 105,
+                            SubjectName = "Computer Science"
+                        },
+                        new
+                        {
+                            SubjectId = 6,
+                            StandardId = 3,
+                            SubjectCode = 106,
+                            SubjectName = "Electronics"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -924,7 +1462,13 @@ namespace SchoolApp.DAL.Migrations
                         .WithMany()
                         .HasForeignKey("ExamTypeId");
 
+                    b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
+                        .WithMany()
+                        .HasForeignKey("StandardId");
+
                     b.Navigation("ExamType");
+
+                    b.Navigation("Standard");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSubject", b =>
@@ -985,9 +1529,11 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Mark", b =>
                 {
-                    b.HasOne("SchoolApp.Models.DataModels.MarkEntry", null)
-                        .WithMany("Marks")
-                        .HasForeignKey("MarkEntryId");
+                    b.HasOne("SchoolApp.Models.DataModels.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
                         .WithMany()
@@ -998,22 +1544,9 @@ namespace SchoolApp.DAL.Migrations
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.Navigation("Student");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
-                {
-                    b.HasOne("SchoolApp.Models.DataModels.Staff", "Staff")
-                        .WithMany()
-                        .HasForeignKey("StaffId");
-
-                    b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId");
-
                     b.Navigation("Staff");
+
+                    b.Navigation("Student");
 
                     b.Navigation("Subject");
                 });
@@ -1025,7 +1558,7 @@ namespace SchoolApp.DAL.Migrations
                         .HasForeignKey("AttendanceId");
 
                     b.HasOne("SchoolApp.Models.DataModels.Department", "Department")
-                        .WithMany("Staffs")
+                        .WithMany()
                         .HasForeignKey("DepartmentId");
 
                     b.HasOne("SchoolApp.Models.DataModels.StaffSalary", "StaffSalary")
@@ -1052,7 +1585,9 @@ namespace SchoolApp.DAL.Migrations
 
                     b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
                         .WithMany()
-                        .HasForeignKey("StandardId");
+                        .HasForeignKey("StandardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Standard");
                 });
@@ -1073,11 +1608,6 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("Students");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.DataModels.Department", b =>
-                {
-                    b.Navigation("Staffs");
-                });
-
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
                 {
                     b.Navigation("ExamSubjects");
@@ -1088,11 +1618,6 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("FeePaymentDetails");
 
                     b.Navigation("FeeStructures");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
-                {
-                    b.Navigation("Marks");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
