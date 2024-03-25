@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace SchoolApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MarksController : ControllerBase
     {
         private readonly SchoolDbContext _context;
@@ -74,7 +76,23 @@ namespace SchoolApiService.Controllers
                 return BadRequest($"Invalid SubjectId: {mark.SubjectId}. The specified subject does not exist in the database.");
             }
 
-            _context.Entry(mark).State = EntityState.Modified;
+            //_context.Entry(mark).State = EntityState.Modified;
+
+            // Update only the properties that are provided in the request
+            //_context.Entry(mark).CurrentValues.SetValues(mark);
+
+            // Why the following lines of code instead of the above two approaches? Answer: If the mark is updated without giving values of StudentId and SubjectId, it updates the Mark but it sets the StudentId and SubjectId to 'Null'.
+            // Update only the received properties
+            _context.Entry(mark).Property(p => p.ExamPaperScore).IsModified = mark.ExamPaperScore != null;
+            _context.Entry(mark).Property(p => p.PassMarks).IsModified = mark.PassMarks != null;
+            _context.Entry(mark).Property(p => p.ObtainedScore).IsModified = mark.ObtainedScore != null;
+            _context.Entry(mark).Property(p => p.Grade).IsModified = mark.Grade != null;
+            _context.Entry(mark).Property(p => p.PassStatus).IsModified = mark.PassStatus != null;
+            _context.Entry(mark).Property(p => p.MarkEntryDate).IsModified = mark.MarkEntryDate != null;
+            _context.Entry(mark).Property(p => p.Feedback).IsModified = mark.Feedback != null;
+            _context.Entry(mark).Property(p => p.StudentId).IsModified = mark.StudentId != null;
+            _context.Entry(mark).Property(p => p.SubjectId).IsModified = mark.SubjectId != null;
+
 
             try
             {
@@ -107,14 +125,14 @@ namespace SchoolApiService.Controllers
                 var existingStudent = await _context.dbsStudent.FindAsync(mark.StudentId);
                 if (existingStudent == null)
                 {
-                    return BadRequest("Invalid StudentId. Please provide a valid StudentId.");
+                    return BadRequest("Invalid / Not given StudentId. Please provide a valid StudentId.");
                 }
 
                 // Check if the provided SubjectId exists in the database
                 var existingSubject = await _context.dbsSubject.FindAsync(mark.SubjectId);
                 if (existingSubject == null)
                 {
-                    return BadRequest("Invalid SubjectId. Please provide a valid SubjectId.");
+                    return BadRequest("Invalid / Not given SubjectId. Please provide a valid SubjectId.");
                 }
 
                 // If both StudentId and SubjectId are valid, proceed with adding the mark
@@ -148,6 +166,7 @@ namespace SchoolApiService.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+            //return Ok($"Mark with ID {id} has been successfully deleted.");
         }
 
         private bool MarkExists(int id)

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.DataModels
 {
+    //The purpose of creating This table is to entry individual marks of an individual student. [And then, all of the marks of every individuals will be added to MarksEntry class.] So, the values of StudentId and SubjectId must be given.
+
+
     [Table("Mark")]
     public class Mark
     {
@@ -25,7 +28,10 @@ namespace SchoolApp.Models.DataModels
         public Student? Student { get; set; }
         public int? SubjectId { get; set; }
         public Subject? Subject { get; set; }
-        
+
+        // Feature: Soft Delete Approach
+        //public bool IsDeleted { get; set; }
+
     }
 
     public enum Grade

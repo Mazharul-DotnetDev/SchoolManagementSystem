@@ -325,6 +325,7 @@ namespace SchoolApp.DAL.Migrations
                     EnrollmentNo = table.Column<int>(type: "int", nullable: true),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentCurrentAge = table.Column<int>(type: "int", nullable: true),
                     StudentGender = table.Column<int>(type: "int", nullable: true),
                     StudentReligion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentBloodGroup = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -484,8 +485,8 @@ namespace SchoolApp.DAL.Migrations
                     MarkEntryId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MarkEntryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    StaffId = table.Column<int>(type: "int", nullable: true),
-                    SubjectId = table.Column<int>(type: "int", nullable: true)
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -494,12 +495,14 @@ namespace SchoolApp.DAL.Migrations
                         name: "FK_MarkEntry_Staff_StaffId",
                         column: x => x.StaffId,
                         principalTable: "Staff",
-                        principalColumn: "StaffId");
+                        principalColumn: "StaffId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_MarkEntry_Subject_SubjectId",
                         column: x => x.SubjectId,
                         principalTable: "Subject",
-                        principalColumn: "SubjectId");
+                        principalColumn: "SubjectId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

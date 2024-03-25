@@ -22,6 +22,11 @@ VALUES
 (45, 40, 38, 4, 0, '2024-03-26 00:00:00.000', 'Recommend visiting teacher during office hours.');
 
 
+----------------------------------------------------
+
+### Class: Mark (Adding Foreign Key Values) ###
+
+
 
 ----------------------------------------------------
 
@@ -45,6 +50,13 @@ VALUES
 (46298, 132, 'Kevin Lee', '2007-04-07 00:00:00.000', 1, 'Canadian', '+1647234567', 'kevin.lee@email.com'); -- Missing Standard
 
 -- Remember to replace these values with your actual data
+
+
+----------------------------------------------------
+
+### Class: Student (Adding Foreign Key Values) ###
+
+
 
 ----------------------------------------------------
 
@@ -75,6 +87,12 @@ VALUES
     -- Insert more rows as needed
     -- Remember to adjust values according to your requirements
     -- Make sure StandardId corresponds to existing values in the related table
+
+
+
+----------------------------------------------------
+
+### Class: Subject (Adding Foreign Key Values) ###
 
 
 ----------------------------------------------------
@@ -109,5 +127,58 @@ VALUES
 
 ----------------------------------------------------
 
-### Class: Mark (Adding Foreign Key Values) ###
+### Class: Staff ###
 
+
+INSERT INTO [dbo].[Staff] ([StaffName], [Gender], [DOB], [FatherName], [MotherName], [TemporaryAddress], [PermanentAddress], [ContactNumber1], [Email], [ImagePath], [Qualifications], [JoiningDate], [Designation], [BankAccountName], [BankAccountNumber], [BankName], [BankBranch], [Status])
+VALUES 
+('John Doe', 1, '1980-05-15', 'Michael Doe', 'Emily Doe', '123 Main St, Anytown', '456 Elm St, Anytown', '123-456-7890', 'john.doe@example.com', NULL, 'Bachelor of Science in Education', '2005-09-01', 1, 'John Doe', 123460, 'Bank of America', 'Anytown Branch', 'Active'),
+('Jane Smith', 2, '1985-10-20', 'David Smith', 'Sarah Smith', '789 Oak St, Anycity', '321 Maple St, Anycity', '987-654-3210', 'jane.smith@example.com', NULL, 'Master of Arts in Literature', '2010-07-15', 2, 'Jane Smith', 098721, 'Wells Fargo', 'Anycity Branch', 'Active'),
+('Michael Johnson', 1, '1976-03-28', 'James Johnson', 'Linda Johnson', '456 Pine St, Anystate', '789 Cedar St, Anystate', '456-789-0123', 'michael.johnson@example.com', NULL, 'Bachelor of Science in Computer Science', '2000-12-10', 3, 'Michael Johnson', 90123, 'Chase', 'Anystate Branch', 'Active'),
+('Emily Brown', 2, '1990-12-05', 'William Brown', 'Jennifer Brown', '789 Walnut St, Anycity', '123 Birch St, Anycity', '789-012-3456', 'emily.brown@example.com', NULL, 'Bachelor of Arts in History', '2015-05-20', 4, 'Emily Brown', 23456, 'Citibank', 'Anycity Branch', 'Active'),
+('David Lee', 1, '1982-08-17', 'Richard Lee', 'Karen Lee', '321 Oak St, Anystate', '456 Pine St, Anystate', '234-567-8901', 'david.lee@example.com', NULL, 'Master of Business Administration', '2007-11-30', 5, 'David Lee', 78901, 'Bank of America', 'Anystate Branch', 'Active'),
+('Sarah Wilson', 2, '1979-06-25', 'Robert Wilson', 'Patricia Wilson', '123 Maple St, Anycity', '789 Elm St, Anycity', '345-678-9012', 'sarah.wilson@example.com', NULL, 'Bachelor of Science in Nursing', '2003-04-18', 6, 'Sarah Wilson', 89012, 'Wells Fargo', 'Anycity Branch', 'Active'),
+('James Martinez', 1, '1987-09-30', 'John Martinez', 'Barbara Martinez', '456 Cedar St, Anystate', '123 Walnut St, Anystate', '456-789-0123', 'james.martinez@example.com', NULL, 'Bachelor of Science in Engineering', '2012-08-25', 7, 'James Martinez', 901234, 'Chase', 'Anystate Branch', 'Active'),
+('Linda Thompson', 2, '1984-02-12', 'Thomas Thompson', 'Helen Thompson', '789 Birch St, Anycity', '321 Oak St, Anycity', '567-890-1234', 'linda.thompson@example.com', NULL, 'Master of Science in Mathematics', '2009-03-05', 8, 'Linda Thompson', 012345, 'Citibank', 'Anycity Branch', 'Active'),
+('William Davis', 1, '1975-11-08', 'Daniel Davis', 'Maria Davis', '123 Cedar St, Anystate', '456 Pine St, Anystate', '678-901-2345', 'william.davis@example.com', NULL, 'Bachelor of Arts in Psychology', '2001-10-12', 9, 'William Davis', 123456, 'Bank of America', 'Anystate Branch', 'Active'),
+('Karen Garcia', 2, '1989-04-22', 'George Garcia', 'Margaret Garcia', '789 Elm St, Anycity', '123 Oak St, Anycity', '890-123-4567', 'karen.garcia@example.com', NULL, 'Master of Education', '2014-09-15', 10, 'Karen Garcia', 34567, 'Wells Fargo', 'Anycity Branch', 'Active');
+
+
+----------------------------------------------------
+
+### Class: Staff (Adding Foreign Key Values) ###
+
+
+----------------------------------------------------
+
+### Class: MarkEntry  ###
+
+
+INSERT INTO [dbo].[MarkEntry] ([MarkEntryDate])
+VALUES
+    ('2024-03-26'),
+    ('2024-03-27'),
+    ('2024-03-28'),
+    ('2024-03-29'),
+    ('2024-03-30'),
+    ('2024-03-31'),
+    ('2024-04-01'),
+    ('2024-04-02'),
+    ('2024-04-03'),
+    ('2024-04-04');
+
+
+----------------------------------------------------
+
+### Class: MarkEntry (Adding Foreign Key Values) ###
+
+
+-- Update all rows with [StaffId] and [SubjectId] values
+
+UPDATE [dbo].[MarkEntry]
+SET [StaffId] = 4, [SubjectId] = 1;
+
+
+----------------------------------------------------
+
+### Class:   ###

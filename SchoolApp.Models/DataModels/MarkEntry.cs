@@ -16,9 +16,9 @@ namespace SchoolApp.Models.DataModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MarkEntryId { get; set; }
         public DateTime? MarkEntryDate { get; set; } = DateTime.Now;
-        public int? StaffId { get; set; }
-        public Staff? Staff { get; set; }       
-        public int? SubjectId { get; set; }
+        public int StaffId { get; set; }            
+        public int SubjectId { get; set; }
+        public Staff? Staff { get; set; }
         public Subject? Subject { get; set; }
         public IList<Mark>? Marks { get; set; }
     }

@@ -14,14 +14,27 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
-        //Must be Unique
+        //The value of this property must be Unique (See in the SchoolDbContext.cs file)
         public int? AdmissionNo { get; set; }
-        //Must be Unique
+        //The value of this property must be Unique (See in the SchoolDbContext.cs file)
         public int? EnrollmentNo { get; set; }
         public string? StudentName { get; set; }
         public DateTime StudentDOB { get; set; }
 
-        //private int _studentCurrentAge;
+        private int _studentCurrentAge;
+
+        // Expose the age through a public property
+        public int? StudentCurrentAge
+        {
+            get
+            {
+                // Calculate the age based on StudentDOB
+                TimeSpan span = DateTime.Today - StudentDOB;
+                _studentCurrentAge = (int)(span.TotalDays / 365.25);
+                return _studentCurrentAge;
+            }
+            private set { _studentCurrentAge = (int)value; } 
+        }
 
         //// Expose the age through a public property
         //public int? StudentCurrentAge

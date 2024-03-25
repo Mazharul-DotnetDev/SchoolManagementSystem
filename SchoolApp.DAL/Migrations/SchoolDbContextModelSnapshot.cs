@@ -541,10 +541,10 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<DateTime?>("MarkEntryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("StaffId")
+                    b.Property<int>("StaffId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("MarkEntryId");
@@ -789,6 +789,9 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<string>("StudentContactNumber2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("StudentCurrentAge")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StudentDOB")
                         .HasColumnType("datetime2");
 
@@ -1007,11 +1010,15 @@ namespace SchoolApp.DAL.Migrations
                 {
                     b.HasOne("SchoolApp.Models.DataModels.Staff", "Staff")
                         .WithMany()
-                        .HasForeignKey("StaffId");
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
                         .WithMany()
-                        .HasForeignKey("SubjectId");
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Staff");
 
