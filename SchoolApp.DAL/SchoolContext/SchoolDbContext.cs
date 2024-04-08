@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SchoolApp.Models.DataModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,24 +17,32 @@ namespace SchoolApp.DAL.SchoolContext
 
         #region DbSets
         public DbSet<Attendance> dbsAttendance { get; set; }
+
+        //public DbSet<StudentAttendance> dbsStudentAttendance { get; set; }
+        //public DbSet<StaffAttendance> dbsStaffAttendance { get; set; }
+
         public DbSet<Standard> dbsStandard { get; set; }
         public DbSet<Department> dbsDepartment { get; set; }
         public DbSet<ExamSchedule> dbsExamSchedule { get; set; }
         public DbSet<ExamSubject> dbsExamSubject { get; set; }
         public DbSet<ExamType> dbsExamType { get; set; }
-        public DbSet<Mark> dbsMark { get; set; }
-
-        //public DbSet<MarkEntry> dbsMarkEntry { get; set; }
+        public DbSet<Mark> dbsMark { get; set; }       
         public DbSet<Staff> dbsStaff { get; set; }
         public DbSet<StaffExperience> dbsStaffExperience { get; set; }
         public DbSet<StaffSalary> dbsStaffSalary { get; set; }
         public DbSet<Student> dbsStudent { get; set; }
         public DbSet<Subject> dbsSubject { get; set; }
-        public DbSet<FeeType> dbsFeeType { get; set; }
-        public DbSet<FeeStructure> dbsFeeStructure { get; set; }
-        public DbSet<FeePayment> dbsFeePayment { get; set; }
-        public DbSet<DueBalance> dbsDueBalance { get; set; }
-        public DbSet<FeePaymentDetail> dbsfeePaymentDetails { get; set; }
+        public DbSet<FeeType> dbsFeeType { get; set; }       
+        public DbSet<DueBalance> dbsDueBalance { get; set; }        
+        public DbSet<AcademicMonth> dbsAcademicMonths { get; set; }
+        public DbSet<AcademicYear> dbsAcademicYears { get; set; }
+        public DbSet<Fee> fees { get; set; }
+        public DbSet<MonthlyPayment> monthlyPayments { get; set; }
+        public DbSet<OthersPayment> othersPayments { get; set; }
+        public DbSet<PaymentDetail> PaymentDetails { get; set; }
+        public DbSet<OtherPaymentDetail> otherPaymentDetails { get; set; }
+        public DbSet<PaymentMonth> paymentMonths { get; set; }
+
         #endregion
 
         #region Constructor
@@ -56,10 +65,22 @@ namespace SchoolApp.DAL.SchoolContext
                 }
             }
 
+            #region Testing_Purpose
+            // Validation logic before saving changes
+
+            //var validationErrors = GetValidationErrors();
+            //if (validationErrors.Any())
+            //{
+            //    // Rollback changes
+            //    // You can use transaction rollback or any other mechanism here
+            //    throw new InvalidOperationException("Validation failed. Changes rolled back.");
+            //}
+
+            // Save changes if validation passes 
+            #endregion
 
             return base.SaveChanges();
         }
-
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -73,7 +94,6 @@ namespace SchoolApp.DAL.SchoolContext
         .HasKey(r => new { r.UserId, r.RoleId });
 
 
-
             // Configure the foreign key constraint for dbsMark referencing dbsSubject
 
             modelBuilder.Entity<Mark>()
@@ -84,12 +104,18 @@ namespace SchoolApp.DAL.SchoolContext
             // Specify ON DELETE NO ACTION
 
 
-
-
             //    modelBuilder.Entity<StaffExperience>()
             //.Property(p => p.ServiceDuration)
             //.HasComputedColumnSql("DATEDIFF(year, JoiningDate, ISNULL(LeavingDate, GETDATE()))"); // Calculate duration in years
 
+
+            //    modelBuilder.Entity<StaffAttendance>()
+            //.Property(e => e.WorkingDate)
+            //.HasDefaultValueSql("GETUTCDATE()");
+
+            //modelBuilder.Entity<StudentAttendance>()
+            //.Property(e => e.WorkingDate)
+            //.HasDefaultValueSql("GETUTCDATE()");
 
 
             #region Index
@@ -97,23 +123,32 @@ namespace SchoolApp.DAL.SchoolContext
             .HasIndex(s => s.SubjectCode)
             .IsUnique();
 
-            modelBuilder.Entity<Student>()
-        .HasIndex(s => s.AdmissionNo)
-        .IsUnique();
+                modelBuilder.Entity<Student>()
+            .HasIndex(s => s.AdmissionNo)
+            .IsUnique();
 
+                modelBuilder.Entity<Student>()
+            .HasIndex(s => s.EnrollmentNo)
+            .IsUnique();
+            
             modelBuilder.Entity<Student>()
-        .HasIndex(s => s.EnrollmentNo)
-        .IsUnique(); 
+                .HasIndex(s => s.UniqueStudentAttendanceNumber)
+                .IsUnique();
+          
+            modelBuilder.Entity<Staff>()
+                .HasIndex(s => s.UniqueStaffAttendanceNumber)
+                .IsUnique();
+
             #endregion
 
 
-            // ----------------------------------------------- //
+     // ----------------------------------------------- //
             #region Attendance
             // Seed Attendance data
             modelBuilder.Entity<Attendance>().HasData(
                 new Attendance
                 {
-                    AttendanceId = 1,
+                    AttendanceId = 1,                  
                     IsPresent = true
                     //,
                     //Staffs = new Staff[]
@@ -129,7 +164,7 @@ namespace SchoolApp.DAL.SchoolContext
                 },
                 new Attendance
                 {
-                    AttendanceId = 2,
+                    AttendanceId = 2,                    
                     IsPresent = true
                     //,
                     //Staffs = new Staff[]
@@ -145,7 +180,8 @@ namespace SchoolApp.DAL.SchoolContext
                 },
                 new Attendance
                 {
-                    AttendanceId = 3
+                    AttendanceId = 3,
+                    IsPresent = true
                     //,
                     //Staffs = new List<Staff>
                     //{
@@ -155,6 +191,22 @@ namespace SchoolApp.DAL.SchoolContext
                     //Students = new List<Student>
                     //{
                     //new Student { StudentId = 1},
+                    //new Student { StudentId = 2 }
+                    //}
+                },
+                new Attendance
+                {
+                    AttendanceId = 4,                   
+                    IsPresent = true
+                    //,
+                    //Staffs = new Staff[]
+                    //{
+                    //new Staff { StaffId = 1},
+                    //new Staff { StaffId = 2}
+                    //},
+                    //Students = new Student[]
+                    //{
+                    //new Student { StudentId = 1 },
                     //new Student { StudentId = 2 }
                     //}
                 }
@@ -244,173 +296,173 @@ namespace SchoolApp.DAL.SchoolContext
      // ----------------------------------------------- //
             #region FeePaymentDetail
             // Seed FeePaymentDetail data
-            modelBuilder.Entity<FeePaymentDetail>().HasData(
-                new FeePaymentDetail
-                {
-                    FeePaymentDetailId = 1,
-                    FeePaymentId = 1,
-                    FeeTypeName = "Tuition Fee",
-                    FeeAmount = 500
-                },
-                new FeePaymentDetail
-                {
-                    FeePaymentDetailId = 2,
-                    FeePaymentId = 2,
-                    FeeTypeName = "Library Fee",
-                    FeeAmount = 100
-                },
-                new FeePaymentDetail
-                {
-                    FeePaymentDetailId = 3,
-                    FeePaymentId = 3,
-                    FeeTypeName = "Sports Fee",
-                    FeeAmount = 600
-                },
-                new FeePaymentDetail
-                {
-                    FeePaymentDetailId = 4,
-                    FeePaymentId = 1,
-                    FeeTypeName = "Picnic Fee",
-                    FeeAmount = 200
-                },
-                new FeePaymentDetail
-                {
-                    FeePaymentDetailId = 5,
-                    FeePaymentId = 2,
-                    FeeTypeName = "Party Fee",
-                    FeeAmount = 700
-                },
-                new FeePaymentDetail
-                {
-                    FeePaymentDetailId = 6,
-                    FeePaymentId = 3,
-                    FeeTypeName = "Exam Fee",
-                    FeeAmount = 250
-                }
-            );
+            //modelBuilder.Entity<FeePaymentDetail>().HasData(
+            //    new FeePaymentDetail
+            //    {
+            //        FeePaymentDetailId = 1,
+            //        FeePaymentId = 1,
+            //        FeeTypeName = "Tuition Fee",
+            //        FeeAmount = 500
+            //    },
+            //    new FeePaymentDetail
+            //    {
+            //        FeePaymentDetailId = 2,
+            //        FeePaymentId = 2,
+            //        FeeTypeName = "Library Fee",
+            //        FeeAmount = 100
+            //    },
+            //    new FeePaymentDetail
+            //    {
+            //        FeePaymentDetailId = 3,
+            //        FeePaymentId = 3,
+            //        FeeTypeName = "Sports Fee",
+            //        FeeAmount = 600
+            //    },
+            //    new FeePaymentDetail
+            //    {
+            //        FeePaymentDetailId = 4,
+            //        FeePaymentId = 1,
+            //        FeeTypeName = "Picnic Fee",
+            //        FeeAmount = 200
+            //    },
+            //    new FeePaymentDetail
+            //    {
+            //        FeePaymentDetailId = 5,
+            //        FeePaymentId = 2,
+            //        FeeTypeName = "Party Fee",
+            //        FeeAmount = 700
+            //    },
+            //    new FeePaymentDetail
+            //    {
+            //        FeePaymentDetailId = 6,
+            //        FeePaymentId = 3,
+            //        FeeTypeName = "Exam Fee",
+            //        FeeAmount = 250
+            //    }
+            //);
             #endregion
      // ----------------------------------------------- //
             #region FeePayment
             // Seed FeePayment data
-            modelBuilder.Entity<FeePayment>().HasData(
-                new FeePayment
-                {
-                    FeePaymentId = 1,
-                    StudentId = 1,
-                    StudentName = "John Doe",
-                    TotalFeeAmount = 1000,
-                    Discount = 10,
-                    AmountAfterDiscount = 900,
-                    PreviousDue = 0,
-                    TotalAmount = 900,
-                    AmountPaid = 500,
-                    AmountRemaining = 400,
-                    PaymentDate = DateTime.Now
-                    //,
-                    //FeeStructures = new List<FeeStructure>
-                    //{
-                    //new FeeStructure { FeeStructureId = 1},
-                    //new FeeStructure { FeeStructureId = 2}
-                    //}
-                    //,
-                    //FeePaymentDetails = new List<FeePaymentDetail>
-                    //{
-                    //new FeePaymentDetail { FeePaymentDetailId = 1},
-                    //new FeePaymentDetail { FeePaymentDetailId = 2 }
-                    //}
-                },
-                new FeePayment
-                {
-                    FeePaymentId = 2,
-                    StudentId = 2,
-                    StudentName = "Jane Doe",
-                    TotalFeeAmount = 1500,
-                    Discount = 200,
-                    AmountAfterDiscount = 1300,
-                    PreviousDue = 100,
-                    TotalAmount = 1400,
-                    AmountPaid = 1400,
-                    AmountRemaining = 0,
-                    PaymentDate = DateTime.Now
-                    //,
-                    //FeeStructures = new List<FeeStructure>
-                    //{
-                    //new FeeStructure { FeeStructureId = 1},
-                    //new FeeStructure { FeeStructureId = 2}
-                    //}
-                    //,
-                    //FeePaymentDetails = new List<FeePaymentDetail>
-                    //{
-                    //new FeePaymentDetail { FeePaymentDetailId = 1},
-                    //new FeePaymentDetail { FeePaymentDetailId = 2 }
-                    //}
-                },
-                new FeePayment
-                {
-                    FeePaymentId = 3,
-                    StudentId = 3,
-                    StudentName = "Alice Smith",
-                    TotalFeeAmount = 1200,
-                    Discount = 0,
-                    AmountAfterDiscount = 1200,
-                    PreviousDue = 50,
-                    TotalAmount = 1250,
-                    AmountPaid = 1250,
-                    AmountRemaining = 0,
-                    PaymentDate = DateTime.Now
-                    //,
-                    //FeeStructures = new List<FeeStructure>
-                    //{
-                    //new FeeStructure { FeeStructureId = 1},
-                    //new FeeStructure { FeeStructureId = 2}
-                    //}
-                    //,
-                    //FeePaymentDetails = new List<FeePaymentDetail>
-                    //{
-                    //new FeePaymentDetail { FeePaymentDetailId = 1},
-                    //new FeePaymentDetail { FeePaymentDetailId = 2 }
-                    //}
-                }
-            );
+            //modelBuilder.Entity<FeePayment>().HasData(
+            //    new FeePayment
+            //    {
+            //        FeePaymentId = 1,
+            //        StudentId = 1,
+            //        StudentName = "John Doe",
+            //        TotalFeeAmount = 1000,
+            //        Discount = 10,
+            //        AmountAfterDiscount = 900,
+            //        PreviousDue = 0,
+            //        TotalAmount = 900,
+            //        AmountPaid = 500,
+            //        AmountRemaining = 400,
+            //        PaymentDate = DateTime.Now
+            //        //,
+            //        //FeeStructures = new List<FeeStructure>
+            //        //{
+            //        //new FeeStructure { FeeStructureId = 1},
+            //        //new FeeStructure { FeeStructureId = 2}
+            //        //}
+            //        //,
+            //        //FeePaymentDetails = new List<FeePaymentDetail>
+            //        //{
+            //        //new FeePaymentDetail { FeePaymentDetailId = 1},
+            //        //new FeePaymentDetail { FeePaymentDetailId = 2 }
+            //        //}
+            //    },
+            //    new FeePayment
+            //    {
+            //        FeePaymentId = 2,
+            //        StudentId = 2,
+            //        StudentName = "Jane Doe",
+            //        TotalFeeAmount = 1500,
+            //        Discount = 200,
+            //        AmountAfterDiscount = 1300,
+            //        PreviousDue = 100,
+            //        TotalAmount = 1400,
+            //        AmountPaid = 1400,
+            //        AmountRemaining = 0,
+            //        PaymentDate = DateTime.Now
+            //        //,
+            //        //FeeStructures = new List<FeeStructure>
+            //        //{
+            //        //new FeeStructure { FeeStructureId = 1},
+            //        //new FeeStructure { FeeStructureId = 2}
+            //        //}
+            //        //,
+            //        //FeePaymentDetails = new List<FeePaymentDetail>
+            //        //{
+            //        //new FeePaymentDetail { FeePaymentDetailId = 1},
+            //        //new FeePaymentDetail { FeePaymentDetailId = 2 }
+            //        //}
+            //    },
+            //    new FeePayment
+            //    {
+            //        FeePaymentId = 3,
+            //        StudentId = 3,
+            //        StudentName = "Alice Smith",
+            //        TotalFeeAmount = 1200,
+            //        Discount = 0,
+            //        AmountAfterDiscount = 1200,
+            //        PreviousDue = 50,
+            //        TotalAmount = 1250,
+            //        AmountPaid = 1250,
+            //        AmountRemaining = 0,
+            //        PaymentDate = DateTime.Now
+            //        //,
+            //        //FeeStructures = new List<FeeStructure>
+            //        //{
+            //        //new FeeStructure { FeeStructureId = 1},
+            //        //new FeeStructure { FeeStructureId = 2}
+            //        //}
+            //        //,
+            //        //FeePaymentDetails = new List<FeePaymentDetail>
+            //        //{
+            //        //new FeePaymentDetail { FeePaymentDetailId = 1},
+            //        //new FeePaymentDetail { FeePaymentDetailId = 2 }
+            //        //}
+            //    }
+            //);
             #endregion
      // ----------------------------------------------- //
             #region FeeStructure
             // Seed FeeStructure data
-            modelBuilder.Entity<FeeStructure>().HasData(
-                new FeeStructure
-                {
-                    FeeStructureId = 1,
-                    FeeTypeId = 1,
-                    TypeName = "Registration Fee",
-                    StandardId = 1,
-                    StandardName = "Grade 1",
-                    Monthly = false,
-                    Yearly = true,
-                    FeeAmount = 500
-                },
-                new FeeStructure
-                {
-                    FeeStructureId = 2,
-                    FeeTypeId = 2,
-                    TypeName = "Tuition Fee",
-                    StandardId = 2,
-                    StandardName = "Grade 2",
-                    Monthly = true,
-                    Yearly = false,
-                    FeeAmount = 1000
-                },
-                new FeeStructure
-                {
-                    FeeStructureId = 3,
-                    FeeTypeId = 3,
-                    TypeName = "Library Fee",
-                    StandardId = 3,
-                    StandardName = "Grade 3",
-                    Monthly = false,
-                    Yearly = true,
-                    FeeAmount = 200
-                }
-            );
+            //modelBuilder.Entity<FeeStructure>().HasData(
+            //    new FeeStructure
+            //    {
+            //        FeeStructureId = 1,
+            //        FeeTypeId = 1,
+            //        TypeName = "Registration Fee",
+            //        StandardId = 1,
+            //        StandardName = "Grade 1",
+            //        Monthly = false,
+            //        Yearly = true,
+            //        FeeAmount = 500
+            //    },
+            //    new FeeStructure
+            //    {
+            //        FeeStructureId = 2,
+            //        FeeTypeId = 2,
+            //        TypeName = "Tuition Fee",
+            //        StandardId = 2,
+            //        StandardName = "Grade 2",
+            //        Monthly = true,
+            //        Yearly = false,
+            //        FeeAmount = 1000
+            //    },
+            //    new FeeStructure
+            //    {
+            //        FeeStructureId = 3,
+            //        FeeTypeId = 3,
+            //        TypeName = "Library Fee",
+            //        StandardId = 3,
+            //        StandardName = "Grade 3",
+            //        Monthly = false,
+            //        Yearly = true,
+            //        FeeAmount = 200
+            //    }
+            //);
             #endregion
      // ----------------------------------------------- //
             #region FeeType
@@ -550,6 +602,7 @@ namespace SchoolApp.DAL.SchoolContext
                 {
                     StaffId = 1,
                     StaffName = "John Doe",
+                    UniqueStaffAttendanceNumber = 2000,
                     Gender = Gender.Male,
                     DepartmentId = 1,
                     Status = "Active",
@@ -566,6 +619,7 @@ namespace SchoolApp.DAL.SchoolContext
                 {
                     StaffId = 2,
                     StaffName = "Jane Smith",
+                    UniqueStaffAttendanceNumber = 2001,
                     Gender = Gender.Female,
                     DepartmentId = 2,
                     Status = "Active",
@@ -583,6 +637,7 @@ namespace SchoolApp.DAL.SchoolContext
                 {
                     StaffId = 3,
                     StaffName = "Jane Smith",
+                    UniqueStaffAttendanceNumber = 2002,
                     Gender = Gender.Female,
                     DepartmentId = 3,
                     Status = "Active",
@@ -704,10 +759,9 @@ namespace SchoolApp.DAL.SchoolContext
                     StudentId = 1,
                     AdmissionNo = 1000,
                     EnrollmentNo = 2000,
+                    UniqueStudentAttendanceNumber = 1000,
                     StudentName = "John Doe",
-
                     StudentGender = GenderList.Male,
-
                     StudentBloodGroup = "A+",
                     StudentNationality = "American",
                     StudentNIDNumber = "17948678987654320",
@@ -731,10 +785,9 @@ namespace SchoolApp.DAL.SchoolContext
                     StudentId = 2,
                     AdmissionNo = 1001,
                     EnrollmentNo = 2001,
+                    UniqueStudentAttendanceNumber = 1001,
                     StudentName = "John Doe",
-
                     StudentGender = GenderList.Male,
-
                     StudentBloodGroup = "A+",
                     StudentNationality = "American",
                     StudentNIDNumber = "17948678987654322",
@@ -757,10 +810,9 @@ namespace SchoolApp.DAL.SchoolContext
                     StudentId = 3,
                     AdmissionNo = 1002,
                     EnrollmentNo = 2002,
+                    UniqueStudentAttendanceNumber = 1002,
                     StudentName = "John Doe",
-
                     StudentGender = GenderList.Male,
-
                     StudentBloodGroup = "A+",
                     StudentNationality = "American",
                     StudentNIDNumber = "17945678987654322",
@@ -830,6 +882,75 @@ namespace SchoolApp.DAL.SchoolContext
             );
             #endregion
      // ----------------------------------------------- //
+            #region StudentAttendance_Excluded
+            // Seed StudentAttendance data if required
+            //modelBuilder.Entity<StudentAttendance>().HasData(
+            //    new StudentAttendance
+            //    {
+            //        StudentAttendanceId = 1,
+            //        WorkingDate = new DateOnly(2024, 04, 08)
+            //    },
+
+            //    new StudentAttendance
+            //    {
+            //        StudentAttendanceId = 2,
+            //        WorkingDate = new DateOnly(2024, 04, 09)
+            //    },
+            //    new StudentAttendance
+            //    {
+            //        StudentAttendanceId = 3,
+            //        WorkingDate = new DateOnly(2024, 04, 10)
+            //    },
+            //    new StudentAttendance
+            //    {
+            //        StudentAttendanceId = 4
+            //    },
+            //    new StudentAttendance
+            //    {
+            //        StudentAttendanceId = 5
+            //    },
+            //    new StudentAttendance
+            //    {
+            //        StudentAttendanceId = 6
+            //    }
+
+            //);
+            #endregion
+     // ----------------------------------------------- //
+            #region StaffAttendance_Excluded
+            // Seed StaffAttendance data if required
+            //modelBuilder.Entity<StaffAttendance>().HasData(
+            //    new StaffAttendance
+            //    {
+            //        StaffAttendanceId = 1,
+            //        WorkingDate = new DateOnly(2024, 04, 08)
+            //    },
+            //    new StaffAttendance
+            //    {
+            //        StaffAttendanceId = 2,
+            //        WorkingDate = new DateOnly(2024, 04, 09)
+            //    },
+            //    new StaffAttendance
+            //    {
+            //        StaffAttendanceId = 3,
+            //        WorkingDate = new DateOnly(2024, 04, 10)
+            //    },
+            //    new StaffAttendance
+            //    {
+            //        StaffAttendanceId = 4
+            //    },
+            //    new StaffAttendance
+            //    {
+            //        StaffAttendanceId = 5
+            //    },
+            //    new StaffAttendance
+            //    {
+            //        StaffAttendanceId = 6
+            //    }
+
+            //); 
+            #endregion
+
         }
     }
 }

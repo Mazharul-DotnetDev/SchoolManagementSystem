@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>Marks List</h1>
+
+  <br />
+  <hr />
+
+  <a routerLink="/marks/add" class="btn btn-primary mb-3">Add New Mark</a> 
+
+  <div class="container">
+    <h1>Marks List</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Mark ID</th>
+          <th>Total Marks</th>
+          <th>Pass Marks</th>
+          <th>Obtained Score</th>
+          <th>Grade</th>
+          <th>Pass Status</th>
+          <th>Mark Entry Date</th>
+          <th>Feedback</th>
+          <th>Staff ID</th>
+          <th>Student ID</th>
+          <th>Subject ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let mark of marks">
+          <td>{{ mark.markId }}</td>
+          <td>{{ mark.totalMarks }}</td>
+          <td>{{ mark.passMarks }}</td>
+          <td>{{ mark.obtainedScore }}</td>
+          <td>{{ mark.grade }}</td>
+          <td>{{ mark.passStatus }}</td>
+          <td>{{ mark.markEntryDate | date:'medium' }}</td>
+          <td>{{ mark.feedback }}</td>
+          <td>{{ mark.staffId }}</td>
+          <td>{{ mark.studentId }}</td>
+          <td>{{ mark.subjectId }}</td>
+          <td><a routerLink="/marks/edit/{{ mark.markId }}" class="btn btn-primary">Edit</a></td>
+          <td><a routerLink="/marks/delete/{{ mark.markId }}" class="btn btn-danger">Delete</a></td>          
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,0 +1,19 @@
+<div>
+  <h2>Delete Mark</h2>
+  <div>
+    <p>Mark ID: {{ mark.markId }}</p>
+    <p>Total Marks: {{ mark.totalMarks }}</p>
+    <p>Pass Marks: {{ mark.passMarks }}</p>
+    <p>Obtaained Score: {{ mark.obtainedScore }}</p>
+    <p>Grade: {{ mark.grade }}</p>
+    <p>Pass Status: {{ mark.passStatus }}</p>
+    <p>Mark Entry Date: {{ mark.markEntryDate }}</p>
+    <p>Feedback: {{ mark.feedback }}</p>
+    <p>Staff Id: {{ mark.staffId }}</p>
+    <p>Student Id: {{ mark.studentId }}</p>
+    <p>Subject Id: {{ mark.subjectId }}</p>
+    
+  </div>
+  <button (click)="deleteMark()">Delete</button>
+  <button (click)="goBack()">Back to List</button>
+</div>

@@ -16,7 +16,7 @@ namespace SchoolApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MarksController : ControllerBase
     {
         private readonly SchoolDbContext _context;
@@ -122,7 +122,7 @@ namespace SchoolApiService.Controllers
                 }
             }
 
-            return Ok("Mark updated successfully!");
+            return Ok();
         } 
         #endregion
 
@@ -157,7 +157,7 @@ namespace SchoolApiService.Controllers
                 _context.dbsMark.Add(mark);
                 await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetMark", new { id = mark.MarkId }, new
+                return CreatedAtAction("GetdbsMark", new { id = mark.MarkId }, new
                 {
                     mark = mark,
                     message = $"You have just inserted ID: {mark.MarkId}"
@@ -186,7 +186,7 @@ namespace SchoolApiService.Controllers
             await _context.SaveChangesAsync();
 
             //return NoContent();
-            return Ok($"Mark with ID {id} has been successfully deleted.");
+            return Ok();
         } 
         #endregion
 

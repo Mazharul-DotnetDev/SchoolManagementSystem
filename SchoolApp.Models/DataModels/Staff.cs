@@ -16,6 +16,9 @@ namespace SchoolApp.Models.DataModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StaffId { get; set; }
         public string? StaffName { get; set; }
+
+        [Required]
+        public int UniqueStaffAttendanceNumber { get; set; }
         public Gender? Gender { get; set; }
         public DateTime? DOB { get; set; }
         public string? FatherName { get; set; }
@@ -47,7 +50,20 @@ namespace SchoolApp.Models.DataModels
         public StaffSalary? StaffSalary { get; set; }
 
         public IList<StaffExperience>? StaffExperiences { get; set; }
-      
+
+
+        //// Constructor to initialize UniqueAttendanceId
+        //public Staff()
+        //{
+        //    UniqueStaffAttendanceId = "STF-" + GenerateFixedNumbers(); // Generate fixed numbers
+        //}
+
+        //private string GenerateFixedNumbers()
+        //{
+        //    // You can generate a random or sequential number here
+        //    // For simplicity, let's generate a sequential number for demonstration
+        //    return (2000 + StaffId).ToString(); // Example: STF-2001, STF-2002, etc.
+        //}
     }
 
 

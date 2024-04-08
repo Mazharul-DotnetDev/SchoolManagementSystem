@@ -15,18 +15,26 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MarkId { get; set; }
-        public int? TotalMarks { get; set; }       
-        public int? PassMarks { get; set; }        
-        public int? ObtainedScore { get; set; }
-        public Grade? Grade { get; set; }
-        public Pass? PassStatus { get; set; }      
+        [Required]
+        public int TotalMarks { get; set; } 
+        [Required]
+        public int PassMarks { get; set; } 
+        [Required]
+        public int ObtainedScore { get; set; } 
+        [Required]
+        public Grade Grade { get; set; } 
+        [Required]
+        public Pass PassStatus { get; set; } 
         public DateTime? MarkEntryDate { get; set; } = DateTime.Now;
         public string? Feedback { get; set; }
+        [Required]
         public int StaffId { get; set; }
         public Staff? Staff { get; set; }
-        public int? StudentId { get; set; }
+        [Required]
+        public int StudentId { get; set; }
         public Student? Student { get; set; }
-        public int? SubjectId { get; set; }
+        [Required]
+        public int SubjectId { get; set; }
         public Subject? Subject { get; set; }
 
         // Feature: Soft Delete Approach

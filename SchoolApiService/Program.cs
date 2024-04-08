@@ -17,6 +17,24 @@ namespace SchoolApiService
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+            //builder.Services.AddCors();
+
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  policy =>
+                                  {
+                                      policy
+                                      .AllowAnyOrigin()                
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod();
+                                  });
+            });
+
+
             //builder.Services.AddControllers();
 
             // Or the following
@@ -25,6 +43,9 @@ namespace SchoolApiService
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 //options.JsonSerializerOptions.PropertyNamingPolicy = null;
+
+                //support string to enum converter
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
 
 
@@ -122,15 +143,27 @@ namespace SchoolApiService
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+                app.UseStatusCodePages();
             }
 
             app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
+            app.UseCors(MyAllowSpecificOrigins);
+
+
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            //app.UseCors(opt => {
+            //    opt.AllowAnyHeader();
+            //    opt.AllowAnyMethod();
+            //    opt.AllowAnyOrigin();
+            //});
+
+
 
             app.MapControllers();
 

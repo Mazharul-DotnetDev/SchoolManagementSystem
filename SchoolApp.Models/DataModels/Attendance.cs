@@ -13,37 +13,23 @@ namespace SchoolApp.Models.DataModels
     {
         // Per day attendance record
 
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]        
         public int AttendanceId { get; set; }
-        public DateTime? WorkingDate { get; set; } = DateTime.Now;
+        public DateTime Date { get; set; } = DateTime.Now;
 
-        [Column(TypeName = "Time")]
-        public TimeSpan? SignInTime { get; set; } 
+        [Required]
+        public AttendanceType Type { get; set; } = AttendanceType.Student;
 
-        [Column(TypeName = "Time")]
-        public TimeSpan? SignOutTime { get; set; } 
-        public bool? IsPresent { get; set; }
+        [Required]
+        public int AttendanceIdentificationNumber { get; set; } = 111;
+        public string? Description { get; set; }
+        public bool IsPresent { get; set; } = true;          
 
-        public IList<Staff>? Staffs { get; set; }
-        public IList<Student>? Students { get; set; }
+    }
 
-
-        // In this approach, the Attendance class constructor initializes the default values 
-
-        //public Attendance()
-        //{
-        //    WorkingDate = DateTime.Now.Date;
-        //    SignInTime = new TimeSpan(0, 0, 0);
-        //    SignOutTime = new TimeSpan(0, 0, 0);
-        //}
-
-
-
-
-
-        //Testing purpose
-        //public int MyProperty { get; set; }
-
+    public enum AttendanceType
+    {
+        Student,
+        Staff
     }
 }

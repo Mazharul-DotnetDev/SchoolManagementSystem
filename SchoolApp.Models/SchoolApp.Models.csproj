@@ -20,6 +20,8 @@
 
   <ItemGroup>
     <Compile Remove="DataModels\MarkEntry.cs" />
+    <Compile Remove="DataModels\StaffAttendance.cs" />
+    <Compile Remove="DataModels\StudentAttendance.cs" />
   </ItemGroup>
 
   <ItemGroup>

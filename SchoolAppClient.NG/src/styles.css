@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+.text-danger{
+    color:red;
+    font-style:italic;
+}
+
+.required::after{
+    content:" *";
+    color:red;
+    font-size:large;
+}

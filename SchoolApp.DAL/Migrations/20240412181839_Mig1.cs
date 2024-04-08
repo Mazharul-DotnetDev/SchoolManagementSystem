@@ -58,10 +58,11 @@ namespace SchoolApp.DAL.Migrations
                 {
                     AttendanceId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WorkingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    SignInTime = table.Column<TimeSpan>(type: "Time", nullable: true),
-                    SignOutTime = table.Column<TimeSpan>(type: "Time", nullable: true),
-                    IsPresent = table.Column<bool>(type: "bit", nullable: true)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    AttendanceIdentificationNumber = table.Column<int>(type: "int", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsPresent = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -255,6 +256,7 @@ namespace SchoolApp.DAL.Migrations
                     StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StaffName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UniqueStaffAttendanceNumber = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: true),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: true),
                     FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -273,17 +275,11 @@ namespace SchoolApp.DAL.Migrations
                     BankBranch = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepartmentId = table.Column<int>(type: "int", nullable: true),
-                    StaffSalaryId = table.Column<int>(type: "int", nullable: true),
-                    AttendanceId = table.Column<int>(type: "int", nullable: true)
+                    StaffSalaryId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Staff", x => x.StaffId);
-                    table.ForeignKey(
-                        name: "FK_Staff_Attendance_AttendanceId",
-                        column: x => x.AttendanceId,
-                        principalTable: "Attendance",
-                        principalColumn: "AttendanceId");
                     table.ForeignKey(
                         name: "FK_Staff_Department_DepartmentId",
                         column: x => x.DepartmentId,
@@ -329,6 +325,7 @@ namespace SchoolApp.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdmissionNo = table.Column<int>(type: "int", nullable: false),
                     EnrollmentNo = table.Column<int>(type: "int", nullable: false),
+                    UniqueStudentAttendanceNumber = table.Column<int>(type: "int", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StudentGender = table.Column<int>(type: "int", nullable: true),
@@ -349,17 +346,11 @@ namespace SchoolApp.DAL.Migrations
                     MotherContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocalGuardianName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LocalGuardianContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StandardId = table.Column<int>(type: "int", nullable: false),
-                    AttendanceId = table.Column<int>(type: "int", nullable: true)
+                    StandardId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Student", x => x.StudentId);
-                    table.ForeignKey(
-                        name: "FK_Student_Attendance_AttendanceId",
-                        column: x => x.AttendanceId,
-                        principalTable: "Attendance",
-                        principalColumn: "AttendanceId");
                     table.ForeignKey(
                         name: "FK_Student_Standard_StandardId",
                         column: x => x.StandardId,
@@ -490,16 +481,16 @@ namespace SchoolApp.DAL.Migrations
                 {
                     MarkId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TotalMarks = table.Column<int>(type: "int", nullable: true),
-                    PassMarks = table.Column<int>(type: "int", nullable: true),
-                    ObtainedScore = table.Column<int>(type: "int", nullable: true),
-                    Grade = table.Column<int>(type: "int", nullable: true),
-                    PassStatus = table.Column<int>(type: "int", nullable: true),
+                    TotalMarks = table.Column<int>(type: "int", nullable: false),
+                    PassMarks = table.Column<int>(type: "int", nullable: false),
+                    ObtainedScore = table.Column<int>(type: "int", nullable: false),
+                    Grade = table.Column<int>(type: "int", nullable: false),
+                    PassStatus = table.Column<int>(type: "int", nullable: false),
                     MarkEntryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StaffId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: true),
-                    SubjectId = table.Column<int>(type: "int", nullable: true)
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -514,7 +505,8 @@ namespace SchoolApp.DAL.Migrations
                         name: "FK_Mark_Student_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Student",
-                        principalColumn: "StudentId");
+                        principalColumn: "StudentId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Mark_Subject_SubjectId",
                         column: x => x.SubjectId,
@@ -581,12 +573,13 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Attendance",
-                columns: new[] { "AttendanceId", "IsPresent", "SignInTime", "SignOutTime", "WorkingDate" },
+                columns: new[] { "AttendanceId", "AttendanceIdentificationNumber", "Date", "Description", "IsPresent", "Type" },
                 values: new object[,]
                 {
-                    { 1, true, null, null, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(4666) },
-                    { 2, true, null, null, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(4695) },
-                    { 3, null, null, null, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(4697) }
+                    { 1, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9531), null, true, 0 },
+                    { 2, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9558), null, true, 0 },
+                    { 3, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9563), null, true, 0 },
+                    { 4, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9565), null, true, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -624,9 +617,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "StaffExperienceId", "Achievements", "CompanyName", "Designation", "JoiningDate", "LeavingDate", "Responsibilities", "StaffId" },
                 values: new object[,]
                 {
-                    { 1, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6453), "Teaching Mathematics and Physics", null },
-                    { 2, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6459), "Teaching Mathematics and Physics", null },
-                    { 3, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6462), "Teaching Mathematics and Physics", null }
+                    { 1, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2316), "Teaching Mathematics and Physics", null },
+                    { 2, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2326), "Teaching Mathematics and Physics", null },
+                    { 3, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2330), "Teaching Mathematics and Physics", null }
                 });
 
             migrationBuilder.InsertData(
@@ -671,22 +664,22 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Staff",
-                columns: new[] { "StaffId", "AttendanceId", "BankAccountName", "BankAccountNumber", "BankBranch", "BankName", "ContactNumber1", "DOB", "DepartmentId", "Designation", "Email", "FatherName", "Gender", "ImagePath", "JoiningDate", "MotherName", "PermanentAddress", "Qualifications", "StaffName", "StaffSalaryId", "Status", "TemporaryAddress" },
+                columns: new[] { "StaffId", "BankAccountName", "BankAccountNumber", "BankBranch", "BankName", "ContactNumber1", "DOB", "DepartmentId", "Designation", "Email", "FatherName", "Gender", "ImagePath", "JoiningDate", "MotherName", "PermanentAddress", "Qualifications", "StaffName", "StaffSalaryId", "Status", "TemporaryAddress", "UniqueStaffAttendanceNumber" },
                 values: new object[,]
                 {
-                    { 1, null, null, null, null, null, null, null, 1, null, null, null, 0, null, null, null, null, null, "John Doe", 1, "Active", null },
-                    { 2, null, null, null, null, null, null, null, 2, null, null, null, 1, null, null, null, null, null, "Jane Smith", 2, "Active", null },
-                    { 3, null, null, null, null, null, null, null, 3, null, null, null, 1, null, null, null, null, null, "Jane Smith", 3, "Active", null }
+                    { 1, null, null, null, null, null, null, 1, null, null, null, 0, null, null, null, null, null, "John Doe", 1, "Active", null, 2000 },
+                    { 2, null, null, null, null, null, null, 2, null, null, null, 1, null, null, null, null, null, "Jane Smith", 2, "Active", null, 2001 },
+                    { 3, null, null, null, null, null, null, 3, null, null, null, 1, null, null, null, null, null, "Jane Smith", 3, "Active", null, 2002 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Student",
-                columns: new[] { "StudentId", "AdmissionNo", "AttendanceId", "EnrollmentNo", "FatherContactNumber", "FatherNID", "FatherName", "LocalGuardianContactNumber", "LocalGuardianName", "MotherContactNumber", "MotherNID", "MotherName", "PermanentAddress", "StandardId", "StudentBloodGroup", "StudentContactNumber1", "StudentContactNumber2", "StudentDOB", "StudentEmail", "StudentGender", "StudentNIDNumber", "StudentName", "StudentNationality", "StudentReligion", "TemporaryAddress" },
+                columns: new[] { "StudentId", "AdmissionNo", "EnrollmentNo", "FatherContactNumber", "FatherNID", "FatherName", "LocalGuardianContactNumber", "LocalGuardianName", "MotherContactNumber", "MotherNID", "MotherName", "PermanentAddress", "StandardId", "StudentBloodGroup", "StudentContactNumber1", "StudentContactNumber2", "StudentDOB", "StudentEmail", "StudentGender", "StudentNIDNumber", "StudentName", "StudentNationality", "StudentReligion", "TemporaryAddress", "UniqueStudentAttendanceNumber" },
                 values: new object[,]
                 {
-                    { 1, 1000, null, 2000, "9876543210", "17948678987624322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "17948678987754322", "Alice Doe", "123 Main Street, City, Country", 1, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "17948678987654320", "John Doe", "American", null, "456 Elm Street, City, Country" },
-                    { 2, 1001, null, 2001, "9876543210", "17948578987654322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "17948674987654322", "Alice Doe", "123 Main Street, City, Country", 2, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "17948678987654322", "John Doe", "American", null, "456 Elm Street, City, Country" },
-                    { 3, 1002, null, 2002, "9876543210", "17345678987654322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "12345678987654322", "Alice Doe", "123 Main Street, City, Country", 3, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "17945678987654322", "John Doe", "American", null, "456 Elm Street, City, Country" }
+                    { 1, 1000, 2000, "9876543210", "17948678987624322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "17948678987754322", "Alice Doe", "123 Main Street, City, Country", 1, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "17948678987654320", "John Doe", "American", null, "456 Elm Street, City, Country", 1000 },
+                    { 2, 1001, 2001, "9876543210", "17948578987654322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "17948674987654322", "Alice Doe", "123 Main Street, City, Country", 2, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "17948678987654322", "John Doe", "American", null, "456 Elm Street, City, Country", 1001 },
+                    { 3, 1002, 2002, "9876543210", "17345678987654322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "12345678987654322", "Alice Doe", "123 Main Street, City, Country", 3, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "17945678987654322", "John Doe", "American", null, "456 Elm Street, City, Country", 1002 }
                 });
 
             migrationBuilder.InsertData(
@@ -707,9 +700,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "DueBalanceId", "DueBalanceAmount", "LastUpdate", "StudentId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5328), 1 },
-                    { 2, null, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5334), 2 },
-                    { 3, null, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5336), 3 }
+                    { 1, null, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(792), 1 },
+                    { 2, null, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(805), 2 },
+                    { 3, null, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(808), 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -717,12 +710,12 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "ExamSubjectId", "ExamDate", "ExamScheduleId", "SubjectId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5491), 1, 1 },
-                    { 2, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5497), 2, 2 },
-                    { 3, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5499), 3, 3 },
-                    { 4, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5502), 1, 1 },
-                    { 5, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5504), 2, 2 },
-                    { 6, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5507), 3, 3 }
+                    { 1, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1070), 1, 1 },
+                    { 2, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1080), 2, 2 },
+                    { 3, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1086), 3, 3 },
+                    { 4, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1090), 1, 1 },
+                    { 5, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1097), 2, 2 },
+                    { 6, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1101), 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -730,9 +723,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "FeePaymentId", "AmountAfterDiscount", "AmountPaid", "AmountRemaining", "Discount", "PaymentDate", "PreviousDue", "StudentId", "StudentName", "TotalAmount", "TotalFeeAmount" },
                 values: new object[,]
                 {
-                    { 1, 900m, 500m, 400m, 10m, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5876), 0m, 1, "John Doe", 900m, 1000m },
-                    { 2, 1300m, 1400m, 0m, 200m, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5884), 100m, 2, "Jane Doe", 1400m, 1500m },
-                    { 3, 1200m, 1250m, 0m, 0m, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(5892), 50m, 3, "Alice Smith", 1250m, 1200m }
+                    { 1, 900m, 500m, 400m, 10m, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1573), 0m, 1, "John Doe", 900m, 1000m },
+                    { 2, 1300m, 1400m, 0m, 200m, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1587), 100m, 2, "Jane Doe", 1400m, 1500m },
+                    { 3, 1200m, 1250m, 0m, 0m, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1599), 50m, 3, "Alice Smith", 1250m, 1200m }
                 });
 
             migrationBuilder.InsertData(
@@ -740,9 +733,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "MarkId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "StudentId", "SubjectId", "TotalMarks" },
                 values: new object[,]
                 {
-                    { 1, "Good job!", 1, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6281), 65, 40, 0, 1, 1, 1, 80 },
-                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6289), 75, 40, 0, 2, 2, 2, 90 },
-                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 8, 23, 15, 15, 533, DateTimeKind.Local).AddTicks(6297), 75, 40, 0, 3, 3, 3, 90 }
+                    { 1, "Good job!", 1, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2050), 65, 40, 0, 1, 1, 1, 80 },
+                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2061), 75, 40, 0, 2, 2, 2, 90 },
+                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2070), 75, 40, 0, 3, 3, 3, 90 }
                 });
 
             migrationBuilder.InsertData(
@@ -858,11 +851,6 @@ namespace SchoolApp.DAL.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Staff_AttendanceId",
-                table: "Staff",
-                column: "AttendanceId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Staff_DepartmentId",
                 table: "Staff",
                 column: "DepartmentId");
@@ -871,6 +859,12 @@ namespace SchoolApp.DAL.Migrations
                 name: "IX_Staff_StaffSalaryId",
                 table: "Staff",
                 column: "StaffSalaryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Staff_UniqueStaffAttendanceNumber",
+                table: "Staff",
+                column: "UniqueStaffAttendanceNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_StaffExperience_StaffId",
@@ -884,11 +878,6 @@ namespace SchoolApp.DAL.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Student_AttendanceId",
-                table: "Student",
-                column: "AttendanceId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Student_EnrollmentNo",
                 table: "Student",
                 column: "EnrollmentNo",
@@ -898,6 +887,12 @@ namespace SchoolApp.DAL.Migrations
                 name: "IX_Student_StandardId",
                 table: "Student",
                 column: "StandardId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_UniqueStudentAttendanceNumber",
+                table: "Student",
+                column: "UniqueStudentAttendanceNumber",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Subject_StandardId",
@@ -929,6 +924,9 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Attendance");
 
             migrationBuilder.DropTable(
                 name: "DueBalance");
@@ -980,9 +978,6 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "StaffSalary");
-
-            migrationBuilder.DropTable(
-                name: "Attendance");
 
             migrationBuilder.DropTable(
                 name: "Standard");

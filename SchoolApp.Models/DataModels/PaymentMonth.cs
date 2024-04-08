@@ -8,15 +8,13 @@ using System.Threading.Tasks;
 
 namespace SchoolApp.Models.DataModels
 {
-    [Table("DueBalance")]
-    public class DueBalance
+    [Table("PaymentMonth")]
+    public class PaymentMonth
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int DueBalanceId { get; set; }
-        public int? StudentId { get; set; }
-        public decimal? DueBalanceAmount { get; set; }
-        public DateTime? LastUpdate { get; set; } = DateTime.Now;
-        public Student? Student { get; set; }
+        public int PaymentMonthId { get; set; }
+        public int MonthlyPaymentId { get; set; }
+        public string MonthName { get; set; }
     }
 }

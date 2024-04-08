@@ -1,0 +1,61 @@
+/* marks-delete.component.css */
+
+.container {
+  margin: 50px auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+  .container:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: calc(100% + 40px);
+    height: calc(100% + 40px);
+    background: linear-gradient(135deg, #007bff, #00d4ff);
+    z-index: -1;
+    border-radius: 15px;
+  }
+
+  .container:hover {
+    transform: translateY(-5px);
+  }
+
+h2 {
+  color: #ffffff;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+p {
+  color: #333333;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #ffffff;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+}
+
+  button:hover {
+    background-color: #0056b3;
+  }

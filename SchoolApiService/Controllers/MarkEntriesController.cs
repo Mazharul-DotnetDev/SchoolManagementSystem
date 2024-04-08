@@ -25,7 +25,7 @@ namespace SchoolApiService.Controllers
             _context = context;
         }
 
-        // GET: api/MarkEntries
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MarkEntry>>> GetdbsMarkEntry()
         {
@@ -36,7 +36,7 @@ namespace SchoolApiService.Controllers
                 .ToListAsync();
         }
 
-        // GET: api/MarkEntries/5
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<MarkEntry>> GetMarkEntry(int id)
         {

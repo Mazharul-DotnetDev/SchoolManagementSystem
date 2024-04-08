@@ -6,6 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
+
 namespace SchoolApp.Models.DataModels
 {
     [Table("Student")]
@@ -20,6 +23,10 @@ namespace SchoolApp.Models.DataModels
 
         [Required(ErrorMessage = "Enrollment number is required")]
         public int EnrollmentNo { get; set; }
+
+        [Required(ErrorMessage = "Unique Student Attendance Number is required")]
+        //[Index (IsUnique = true)]
+        public int UniqueStudentAttendanceNumber { get; set; }
 
         public string? StudentName { get; set; }
 
@@ -72,6 +79,20 @@ namespace SchoolApp.Models.DataModels
         public int? StandardId { get; set; }
 
         public Standard? Standard { get; set; }
+
+
+        //// Constructor to initialize UniqueAttendanceId
+        //public Student()
+        //{
+        //    UniqueStudentAttendanceId = "STD-" + GenerateFixedNumbers(); // Generate fixed numbers
+        //}
+
+        //private string GenerateFixedNumbers()
+        //{
+        //    // You can generate a random or sequential number here
+        //    // For simplicity, let's generate a sequential number for demonstration
+        //    return "STD-" + (1000 + StudentId).ToString(); // Example: STD-1001, STD-1002, etc.
+        //}
     }
 
     public enum GenderList
@@ -80,8 +101,4 @@ namespace SchoolApp.Models.DataModels
         Female,
         Other
     }
-
-
-
-
 }
