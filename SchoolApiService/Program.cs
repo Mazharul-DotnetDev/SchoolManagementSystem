@@ -17,22 +17,22 @@ namespace SchoolApiService
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
-            //builder.Services.AddCors();
+            builder.Services.AddCors();
 
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy(name: MyAllowSpecificOrigins,
-                                  policy =>
-                                  {
-                                      policy
-                                      .AllowAnyOrigin()                
-                                      .AllowAnyHeader()
-                                      .AllowAnyMethod();
-                                  });
-            });
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      policy =>
+            //                      {
+            //                          policy
+            //                          .AllowAnyOrigin()                
+            //                          .AllowAnyHeader()
+            //                          .AllowAnyMethod();
+            //                      });
+            //});
 
 
             //builder.Services.AddControllers();
@@ -150,18 +150,19 @@ namespace SchoolApiService
 
             app.UseHttpsRedirection();
 
-            app.UseCors(MyAllowSpecificOrigins);
+            //app.UseCors(MyAllowSpecificOrigins);
 
 
             app.UseAuthentication();
 
             app.UseAuthorization();
 
-            //app.UseCors(opt => {
-            //    opt.AllowAnyHeader();
-            //    opt.AllowAnyMethod();
-            //    opt.AllowAnyOrigin();
-            //});
+            app.UseCors(opt =>
+            {
+                opt.AllowAnyHeader();
+                opt.AllowAnyMethod();
+                opt.AllowAnyOrigin();
+            });
 
 
 

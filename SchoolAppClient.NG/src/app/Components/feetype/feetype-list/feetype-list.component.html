@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Fee Types</h2>
+    <a class="btn btn-success" routerLink="/fee-types/create">Create Fee Type</a>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let feeType of feeTypes">
+                <td>{{ feeType.feeTypeId }}</td>
+                <td>{{ feeType.typeName }}</td> <!-- Corrected property name to feeTypeName -->
+                <td>
+                    <a class="btn btn-primary" [routerLink]="['/fee-types', feeType.feeTypeId, 'edit']">Edit</a>
+                    <button class="btn btn-danger" (click)="deleteFeeType(feeType.feeTypeId)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

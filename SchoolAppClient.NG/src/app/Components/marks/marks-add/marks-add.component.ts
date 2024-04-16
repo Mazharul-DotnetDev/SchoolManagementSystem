@@ -11,7 +11,7 @@ import { Grade, Mark, Pass } from '../../../Models/marks';
 })
 
 export class MarksAddComponent implements OnInit {
-  mark: Mark = new Mark(); // Initialize an empty mark object
+  mark: Mark = new Mark(); 
   errorMessage!: string;
   grades = Object.keys(Grade).map(key => key);
   passes = Object.keys(Pass).map(key => key);
@@ -24,10 +24,6 @@ export class MarksAddComponent implements OnInit {
   }
 
   onSubmit() {
-
-
-
-
 
     this.markService.addMark(this.mark)
       .subscribe(

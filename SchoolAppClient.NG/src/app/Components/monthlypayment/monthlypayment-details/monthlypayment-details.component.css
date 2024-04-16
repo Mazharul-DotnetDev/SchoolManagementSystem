@@ -1,0 +1,13 @@
+@media print {
+  .btn {
+    display: none !important;
+  }
+
+  @page {
+    size: A4;
+  }
+
+  tr, td {
+    page-break-inside: avoid;
+  }
+}

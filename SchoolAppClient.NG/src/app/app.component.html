@@ -1,1 +1,30 @@
-<router-outlet></router-outlet>
+<main class="main row">
+    <header class="header col-md-12">
+        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #d9534f; background-image: linear-gradient(315deg, #d9534f 0%, #3f7cac 74%);">
+            <div class="container-fluid">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a routerLink="/fee-types" class="nav-link">Fee Types</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/fees" class="nav-link">Fees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/monthlypayment" class="nav-link">Monthly Payment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/marksList" class="nav-link">Marks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/attendanceList" class="nav-link">Attendance</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <article class="content col-md-12">
+        <router-outlet></router-outlet>
+    </article>
+</main>

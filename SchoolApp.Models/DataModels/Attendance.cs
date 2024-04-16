@@ -14,17 +14,14 @@ namespace SchoolApp.Models.DataModels
         // Per day attendance record
 
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]        
-        public int AttendanceId { get; set; }
+        public int AttendanceId { get; set; }       
         public DateTime Date { get; set; } = DateTime.Now;
-
         [Required]
         public AttendanceType Type { get; set; } = AttendanceType.Student;
-
         [Required]
         public int AttendanceIdentificationNumber { get; set; } = 111;
         public string? Description { get; set; }
         public bool IsPresent { get; set; } = true;          
-
     }
 
     public enum AttendanceType

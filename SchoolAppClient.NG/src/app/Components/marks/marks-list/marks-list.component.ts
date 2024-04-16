@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 export class MarksListComponent implements OnInit {
   marks: Mark[] = [];
   
-
   constructor(private markService: MarksService, private router: Router) { }
 
   ngOnInit(): void {

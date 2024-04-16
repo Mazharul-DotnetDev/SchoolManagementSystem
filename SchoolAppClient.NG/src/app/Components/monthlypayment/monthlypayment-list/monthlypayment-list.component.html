@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>Monthly Payments</h2>
+    <a class="btn btn-success" routerLink="/monthlypayment/create">Create Fee Type</a>
+    <div class="form-group">
+        <input type="text" class="form-control short-input" placeholder="Search by Student Name" [(ngModel)]="searchName">
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Monthly Payment ID</th>
+                    <th>Student Name</th>
+                    <th>Enrollment No</th>
+                    <th>Total Amount</th>
+                    <th>Amount Paid</th>
+                    <th>Amount Remaining</th>
+                    <th>Payment Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let monthlyPayment of filteredPayments">
+                    <td>{{ monthlyPayment.monthlyPaymentId }}</td>
+                    <td>{{ monthlyPayment.student.studentName }}</td>
+                    <td>{{ monthlyPayment.student.enrollmentNo }}</td>
+                    <td>{{ monthlyPayment.totalAmount }}</td>
+                    <td>{{ monthlyPayment.amountPaid }}</td>
+                    <td>{{ monthlyPayment.amountRemaining }}</td>
+                    <td>{{ monthlyPayment.paymentDate | date }}</td>
+                    <td>
+                        <a class="btn btn-info" [routerLink]="['/monthlypayment', monthlyPayment.monthlyPaymentId, 'details']">Details</a>
+                        <a class="btn btn-primary" [routerLink]="['/monthlypayment', monthlyPayment.monthlyPaymentId, 'edit']">Edit</a>
+                        <button class="btn btn-danger" (click)="deleteMonthlyPayment(monthlyPayment.monthlyPaymentId)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

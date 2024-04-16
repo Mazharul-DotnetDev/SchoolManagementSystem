@@ -1,0 +1,84 @@
+<div class="container">
+    <h2>Update Monthly Payment</h2>
+    <form (submit)="onSubmit()">
+        <!-- Monthly Payment ID -->
+        <div class="form-group">
+            <label for="monthlyPaymentId">Monthly Payment ID:</label>
+            <input type="text" class="form-control" id="monthlyPaymentId" [(ngModel)]="model.monthlyPaymentId" name="monthlyPaymentId" required>
+        </div>
+
+        <!-- Filter by Standard -->
+        <!--<div class="form-group row">
+          <label for="standardFilter" class="col-md-4 col-form-label">Filter by Standard:</label>
+          <div class="col-md-8">
+            <select id="standardFilter" name="standardFilter" class="form-control" [(ngModel)]="selectedStandardId">
+              <option value="">All</option>-->
+        <!-- Option to show all students -->
+        <!--<option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
+            </select>
+          </div>
+        </div>-->
+        <!-- Student Selection -->
+        <div class="form-group row">
+            <label for="studentId" class="col-md-4 col-form-label">Student Name:</label>
+            <div class="col-md-8">
+                <select id="studentId"
+                        name="studentId"
+                        class="form-control"
+                        required
+                        [(ngModel)]="model.studentId"
+                        #patID="ngModel">
+                    <option *ngFor="let student of filteredData.students" [value]="student.studentId">
+                        {{ student.enrollmentNo }} - {{ student.studentName }}
+                    </option>
+                </select>
+                <div *ngIf="patID.invalid && (patID.dirty || patID.touched)" class="invalid-feedback">
+                    Select a student name.
+                </div>
+            </div>
+        </div>
+
+        <!-- Fees Selection -->
+        <div class="form-group">
+            <label for="fees">Fees:</label>
+            <select multiple class="form-control" id="fees" [(ngModel)]="model.fees" name="fees" required>
+                <option *ngFor="let fee of filteredData.fees" [ngValue]="fee">{{ fee.feeType.typeName }}  - {{ fee.amount }}</option>
+            </select>
+        </div>
+
+        <!-- Academic Months Selection -->
+        <div class="mb-3">
+            <label for="academicMonths" class="form-label">Academic Months:</label>
+            <select multiple [(ngModel)]="model.academicMonths" name="academicMonths" class="form-control">
+                <option *ngFor="let month of academicMonthList" [ngValue]="month">{{ month.monthId }} {{ month.monthName }}</option>
+            </select>
+            <div class="invalid-feedback">At least one Academic Month must be selected.</div>
+        </div>
+
+        <!-- Waver -->
+        <div class="form-group">
+            <label for="waver">Waver (%):</label>
+            <input type="number" class="form-control" id="waver" [(ngModel)]="model.waver" name="waver" required>
+        </div>
+
+        <!-- Previous Due -->
+        <div class="form-group">
+            <label for="previousDue">Previous Due:</label>
+            <input type="number" class="form-control" id="previousDue" [(ngModel)]="model.previousDue" name="previousDue" required>
+        </div>
+
+        <!-- Amount Paid -->
+        <div class="form-group">
+            <label for="amountPaid">Amount Paid:</label>
+            <input type="number" class="form-control" id="amountPaid" [(ngModel)]="model.amountPaid" name="amountPaid" required>
+        </div>
+
+        <!-- Payment Date -->
+        <div class="form-group">
+            <label for="paymentDate">Payment Date:</label>
+            <input type="date" class="form-control" id="paymentDate" [(ngModel)]="model.paymentDate" name="paymentDate" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Monthly Payment</button>
+    </form>
+</div>

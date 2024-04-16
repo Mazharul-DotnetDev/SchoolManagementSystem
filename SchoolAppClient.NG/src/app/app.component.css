@@ -1,0 +1,27 @@
+.main {
+  padding: 20px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.content {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.navbar-nav .nav-link {
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px;
+}
+
+.navbar-nav .nav-item {
+  border: 1px solid #fff;
+}
+
+  .navbar-nav .nav-item:hover .nav-link {
+    background-color: rgba(255, 255, 255, 0.2);
+  }

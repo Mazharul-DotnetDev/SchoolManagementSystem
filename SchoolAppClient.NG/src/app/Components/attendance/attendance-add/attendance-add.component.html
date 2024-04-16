@@ -1,0 +1,61 @@
+<div class="container">
+    <h2 class="mt-4 mb-3">Add Attendance</h2>
+    <span *ngIf="errormessage" class="alert alert-danger">
+        {{errormessage}}
+    </span>
+    <form [formGroup]="attendanceForm" (ngSubmit)="addAttendance()">
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" class="form-control" id="date" formControlName="date">
+            <div *ngIf="attendanceForm.get('date')?.invalid && attendanceForm.get('date')?.touched" class="text-danger">
+                Date is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <select class="form-control" id="type" formControlName="type" (change)="LoadListData()">
+                <option value="0">Student</option>
+                <option value="1">Staff</option>
+            </select>
+            <div *ngIf="attendanceForm.get('type')?.invalid && attendanceForm.get('type')?.touched" class="text-danger">
+                Type is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="attendanceIdentificationNumber">Identification Number:</label>
+          <!--   <input type="number" class="form-control" id="attendanceIdentificationNumber" formControlName="attendanceIdentificationNumber"> -->
+
+            <select class="form-control" id="attendanceIdentificationNumber" formControlName="attendanceIdentificationNumber" >
+                <option *ngFor="let att of listData" [value]="att.attId">{{att.name}}</option>
+            </select>
+
+
+            <div *ngIf="attendanceForm.get('attendanceIdentificationNumber')?.invalid && attendanceForm.get('attendanceIdentificationNumber')?.touched" class="text-danger">
+                <div *ngIf="getError('attendanceIdentificationNumber', 'required')">
+                    Identification Number is required. And your Identification Number must be match...
+                </div>
+                <div *ngIf="getError('attendanceIdentificationNumber', 'notUnique')">
+                    Identification Number must be unique.
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="isPresent" formControlName="isPresent">
+                <label class="form-check-label" for="isPresent">Is Present</label>
+            </div>
+        </div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary" [disabled]="attendanceForm.invalid">Submit</button>
+    </form>
+</div>

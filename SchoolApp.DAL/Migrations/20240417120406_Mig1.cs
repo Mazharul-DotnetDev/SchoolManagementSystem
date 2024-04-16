@@ -14,6 +14,19 @@ namespace SchoolApp.DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "AcademicYear",
+                columns: table => new
+                {
+                    AcademicYearId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AcademicYear", x => x.AcademicYearId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -404,36 +417,14 @@ namespace SchoolApp.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DueBalance",
+                name: "MonthlyPayment",
                 columns: table => new
                 {
-                    DueBalanceId = table.Column<int>(type: "int", nullable: false)
+                    MonthlyPaymentId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StudentId = table.Column<int>(type: "int", nullable: true),
-                    DueBalanceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    LastUpdate = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DueBalance", x => x.DueBalanceId);
-                    table.ForeignKey(
-                        name: "FK_DueBalance_Student_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Student",
-                        principalColumn: "StudentId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "FeePayment",
-                columns: table => new
-                {
-                    FeePaymentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    StudentId = table.Column<int>(type: "int", nullable: true),
-                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TotalFeeAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Discount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AmountAfterDiscount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Waver = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PreviousDue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -442,9 +433,31 @@ namespace SchoolApp.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FeePayment", x => x.FeePaymentId);
+                    table.PrimaryKey("PK_MonthlyPayment", x => x.MonthlyPaymentId);
                     table.ForeignKey(
-                        name: "FK_FeePayment_Student_StudentId",
+                        name: "FK_MonthlyPayment_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Student",
+                        principalColumn: "StudentId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OthersPayment",
+                columns: table => new
+                {
+                    OthersPaymentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<int>(type: "int", nullable: true),
+                    TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    AmountRemaining = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OthersPayment", x => x.OthersPaymentId);
+                    table.ForeignKey(
+                        name: "FK_OthersPayment_Student_StudentId",
                         column: x => x.StudentId,
                         principalTable: "Student",
                         principalColumn: "StudentId");
@@ -515,60 +528,228 @@ namespace SchoolApp.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FeePaymentDetail",
+                name: "AcademicMonth",
                 columns: table => new
                 {
-                    FeePaymentDetailId = table.Column<int>(type: "int", nullable: false)
+                    MonthId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FeePaymentId = table.Column<int>(type: "int", nullable: false),
-                    FeeTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MonthName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MonthlyPaymentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AcademicMonth", x => x.MonthId);
+                    table.ForeignKey(
+                        name: "FK_AcademicMonth_MonthlyPayment_MonthlyPaymentId",
+                        column: x => x.MonthlyPaymentId,
+                        principalTable: "MonthlyPayment",
+                        principalColumn: "MonthlyPaymentId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DueBalance",
+                columns: table => new
+                {
+                    DueBalanceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    StudentId = table.Column<int>(type: "int", nullable: true),
+                    DueBalanceAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    LastUpdate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    MonthlyPaymentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DueBalance", x => x.DueBalanceId);
+                    table.ForeignKey(
+                        name: "FK_DueBalance_MonthlyPayment_MonthlyPaymentId",
+                        column: x => x.MonthlyPaymentId,
+                        principalTable: "MonthlyPayment",
+                        principalColumn: "MonthlyPaymentId");
+                    table.ForeignKey(
+                        name: "FK_DueBalance_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Student",
+                        principalColumn: "StudentId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PaymentDetail",
+                columns: table => new
+                {
+                    PaymentDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MonthlyPaymentId = table.Column<int>(type: "int", nullable: false),
+                    FeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FeeAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FeePaymentDetail", x => x.FeePaymentDetailId);
+                    table.PrimaryKey("PK_PaymentDetail", x => x.PaymentDetailId);
                     table.ForeignKey(
-                        name: "FK_FeePaymentDetail_FeePayment_FeePaymentId",
-                        column: x => x.FeePaymentId,
-                        principalTable: "FeePayment",
-                        principalColumn: "FeePaymentId",
+                        name: "FK_PaymentDetail_MonthlyPayment_MonthlyPaymentId",
+                        column: x => x.MonthlyPaymentId,
+                        principalTable: "MonthlyPayment",
+                        principalColumn: "MonthlyPaymentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FeeStructure",
+                name: "PaymentMonth",
                 columns: table => new
                 {
-                    FeeStructureId = table.Column<int>(type: "int", nullable: false)
+                    PaymentMonthId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FeeTypeId = table.Column<int>(type: "int", nullable: false),
-                    TypeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StandardId = table.Column<int>(type: "int", nullable: true),
-                    StandardName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Monthly = table.Column<bool>(type: "bit", nullable: true),
-                    Yearly = table.Column<bool>(type: "bit", nullable: true),
-                    FeeAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    FeePaymentId = table.Column<int>(type: "int", nullable: true)
+                    MonthlyPaymentId = table.Column<int>(type: "int", nullable: false),
+                    MonthName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FeeStructure", x => x.FeeStructureId);
+                    table.PrimaryKey("PK_PaymentMonth", x => x.PaymentMonthId);
                     table.ForeignKey(
-                        name: "FK_FeeStructure_FeePayment_FeePaymentId",
-                        column: x => x.FeePaymentId,
-                        principalTable: "FeePayment",
-                        principalColumn: "FeePaymentId");
+                        name: "FK_PaymentMonth_MonthlyPayment_MonthlyPaymentId",
+                        column: x => x.MonthlyPaymentId,
+                        principalTable: "MonthlyPayment",
+                        principalColumn: "MonthlyPaymentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fee",
+                columns: table => new
+                {
+                    FeeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FeeTypeId = table.Column<int>(type: "int", nullable: false),
+                    StandardId = table.Column<int>(type: "int", nullable: false),
+                    PaymentFrequency = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MonthlyPaymentId = table.Column<int>(type: "int", nullable: true),
+                    OthersPaymentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fee", x => x.FeeId);
                     table.ForeignKey(
-                        name: "FK_FeeStructure_FeeType_FeeTypeId",
+                        name: "FK_Fee_FeeType_FeeTypeId",
                         column: x => x.FeeTypeId,
                         principalTable: "FeeType",
                         principalColumn: "FeeTypeId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FeeStructure_Standard_StandardId",
+                        name: "FK_Fee_MonthlyPayment_MonthlyPaymentId",
+                        column: x => x.MonthlyPaymentId,
+                        principalTable: "MonthlyPayment",
+                        principalColumn: "MonthlyPaymentId");
+                    table.ForeignKey(
+                        name: "FK_Fee_OthersPayment_OthersPaymentId",
+                        column: x => x.OthersPaymentId,
+                        principalTable: "OthersPayment",
+                        principalColumn: "OthersPaymentId");
+                    table.ForeignKey(
+                        name: "FK_Fee_Standard_StandardId",
                         column: x => x.StandardId,
                         principalTable: "Standard",
-                        principalColumn: "StandardId");
+                        principalColumn: "StandardId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OtherPaymentDetail",
+                columns: table => new
+                {
+                    PaymentDetailId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OthersPaymentId = table.Column<int>(type: "int", nullable: false),
+                    FeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FeeAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OtherPaymentDetail", x => x.PaymentDetailId);
+                    table.ForeignKey(
+                        name: "FK_OtherPaymentDetail_OthersPayment_OthersPaymentId",
+                        column: x => x.OthersPaymentId,
+                        principalTable: "OthersPayment",
+                        principalColumn: "OthersPaymentId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AcademicMonth",
+                columns: new[] { "MonthId", "MonthName", "MonthlyPaymentId" },
+                values: new object[,]
+                {
+                    { 1, "January", null },
+                    { 2, "February", null },
+                    { 3, "March", null },
+                    { 4, "April", null },
+                    { 5, "May", null },
+                    { 6, "June", null },
+                    { 7, "July", null },
+                    { 8, "August", null },
+                    { 9, "September", null },
+                    { 10, "October", null },
+                    { 11, "November", null },
+                    { 12, "December", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AcademicYear",
+                columns: new[] { "AcademicYearId", "Name" },
+                values: new object[,]
+                {
+                    { 1, "2000" },
+                    { 2, "2001" },
+                    { 3, "2002" },
+                    { 4, "2003" },
+                    { 5, "2004" },
+                    { 6, "2005" },
+                    { 7, "2006" },
+                    { 8, "2007" },
+                    { 9, "2008" },
+                    { 10, "2009" },
+                    { 11, "2010" },
+                    { 12, "2011" },
+                    { 13, "2012" },
+                    { 14, "2013" },
+                    { 15, "2014" },
+                    { 16, "2015" },
+                    { 17, "2016" },
+                    { 18, "2017" },
+                    { 19, "2018" },
+                    { 20, "2019" },
+                    { 21, "2020" },
+                    { 22, "2021" },
+                    { 23, "2022" },
+                    { 24, "2023" },
+                    { 25, "2024" },
+                    { 26, "2025" },
+                    { 27, "2026" },
+                    { 28, "2027" },
+                    { 29, "2028" },
+                    { 30, "2029" },
+                    { 31, "2030" },
+                    { 32, "2031" },
+                    { 33, "2032" },
+                    { 34, "2033" },
+                    { 35, "2034" },
+                    { 36, "2035" },
+                    { 37, "2036" },
+                    { 38, "2037" },
+                    { 39, "2038" },
+                    { 40, "2039" },
+                    { 41, "2040" },
+                    { 42, "2041" },
+                    { 43, "2042" },
+                    { 44, "2043" },
+                    { 45, "2044" },
+                    { 46, "2045" },
+                    { 47, "2046" },
+                    { 48, "2047" },
+                    { 49, "2048" },
+                    { 50, "2049" },
+                    { 51, "2050" }
                 });
 
             migrationBuilder.InsertData(
@@ -576,10 +757,10 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "AttendanceId", "AttendanceIdentificationNumber", "Date", "Description", "IsPresent", "Type" },
                 values: new object[,]
                 {
-                    { 1, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9531), null, true, 0 },
-                    { 2, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9558), null, true, 0 },
-                    { 3, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9563), null, true, 0 },
-                    { 4, 111, new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9565), null, true, 0 }
+                    { 1, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3405), null, true, 0 },
+                    { 2, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3419), null, true, 0 },
+                    { 3, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3420), null, true, 0 },
+                    { 4, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3421), null, true, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -617,9 +798,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "StaffExperienceId", "Achievements", "CompanyName", "Designation", "JoiningDate", "LeavingDate", "Responsibilities", "StaffId" },
                 values: new object[,]
                 {
-                    { 1, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2316), "Teaching Mathematics and Physics", null },
-                    { 2, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2326), "Teaching Mathematics and Physics", null },
-                    { 3, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2330), "Teaching Mathematics and Physics", null }
+                    { 1, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3624), "Teaching Mathematics and Physics", null },
+                    { 2, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3626), "Teaching Mathematics and Physics", null },
+                    { 3, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3628), "Teaching Mathematics and Physics", null }
                 });
 
             migrationBuilder.InsertData(
@@ -650,16 +831,6 @@ namespace SchoolApp.DAL.Migrations
                     { 1, "Midterm Exam", 1, null },
                     { 2, "Final Exam", 2, null },
                     { 3, "Practical Exam", 3, null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "FeeStructure",
-                columns: new[] { "FeeStructureId", "FeeAmount", "FeePaymentId", "FeeTypeId", "Monthly", "StandardId", "StandardName", "TypeName", "Yearly" },
-                values: new object[,]
-                {
-                    { 1, 500m, null, 1, false, 1, "Grade 1", "Registration Fee", true },
-                    { 2, 1000m, null, 2, true, 2, "Grade 2", "Tuition Fee", false },
-                    { 3, 200m, null, 3, false, 3, "Grade 3", "Library Fee", true }
                 });
 
             migrationBuilder.InsertData(
@@ -696,36 +867,16 @@ namespace SchoolApp.DAL.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "DueBalance",
-                columns: new[] { "DueBalanceId", "DueBalanceAmount", "LastUpdate", "StudentId" },
-                values: new object[,]
-                {
-                    { 1, null, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(792), 1 },
-                    { 2, null, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(805), 2 },
-                    { 3, null, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(808), 3 }
-                });
-
-            migrationBuilder.InsertData(
                 table: "ExamSubject",
                 columns: new[] { "ExamSubjectId", "ExamDate", "ExamScheduleId", "SubjectId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1070), 1, 1 },
-                    { 2, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1080), 2, 2 },
-                    { 3, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1086), 3, 3 },
-                    { 4, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1090), 1, 1 },
-                    { 5, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1097), 2, 2 },
-                    { 6, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1101), 3, 3 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "FeePayment",
-                columns: new[] { "FeePaymentId", "AmountAfterDiscount", "AmountPaid", "AmountRemaining", "Discount", "PaymentDate", "PreviousDue", "StudentId", "StudentName", "TotalAmount", "TotalFeeAmount" },
-                values: new object[,]
-                {
-                    { 1, 900m, 500m, 400m, 10m, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1573), 0m, 1, "John Doe", 900m, 1000m },
-                    { 2, 1300m, 1400m, 0m, 200m, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1587), 100m, 2, "Jane Doe", 1400m, 1500m },
-                    { 3, 1200m, 1250m, 0m, 0m, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1599), 50m, 3, "Alice Smith", 1250m, 1200m }
+                    { 1, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3496), 1, 1 },
+                    { 2, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3499), 2, 2 },
+                    { 3, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3500), 3, 3 },
+                    { 4, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3501), 1, 1 },
+                    { 5, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3502), 2, 2 },
+                    { 6, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3503), 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -733,23 +884,15 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "MarkId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "StudentId", "SubjectId", "TotalMarks" },
                 values: new object[,]
                 {
-                    { 1, "Good job!", 1, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2050), 65, 40, 0, 1, 1, 1, 80 },
-                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2061), 75, 40, 0, 2, 2, 2, 90 },
-                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2070), 75, 40, 0, 3, 3, 3, 90 }
+                    { 1, "Good job!", 1, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3570), 65, 40, 0, 1, 1, 1, 80 },
+                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3575), 75, 40, 0, 2, 2, 2, 90 },
+                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3577), 75, 40, 0, 3, 3, 3, 90 }
                 });
 
-            migrationBuilder.InsertData(
-                table: "FeePaymentDetail",
-                columns: new[] { "FeePaymentDetailId", "FeeAmount", "FeePaymentId", "FeeTypeName" },
-                values: new object[,]
-                {
-                    { 1, 500m, 1, "Tuition Fee" },
-                    { 2, 100m, 2, "Library Fee" },
-                    { 3, 600m, 3, "Sports Fee" },
-                    { 4, 200m, 1, "Picnic Fee" },
-                    { 5, 700m, 2, "Party Fee" },
-                    { 6, 250m, 3, "Exam Fee" }
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_AcademicMonth_MonthlyPaymentId",
+                table: "AcademicMonth",
+                column: "MonthlyPaymentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -786,6 +929,11 @@ namespace SchoolApp.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DueBalance_MonthlyPaymentId",
+                table: "DueBalance",
+                column: "MonthlyPaymentId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_DueBalance_StudentId",
                 table: "DueBalance",
                 column: "StudentId");
@@ -811,28 +959,23 @@ namespace SchoolApp.DAL.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FeePayment_StudentId",
-                table: "FeePayment",
-                column: "StudentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FeePaymentDetail_FeePaymentId",
-                table: "FeePaymentDetail",
-                column: "FeePaymentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FeeStructure_FeePaymentId",
-                table: "FeeStructure",
-                column: "FeePaymentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_FeeStructure_FeeTypeId",
-                table: "FeeStructure",
+                name: "IX_Fee_FeeTypeId",
+                table: "Fee",
                 column: "FeeTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FeeStructure_StandardId",
-                table: "FeeStructure",
+                name: "IX_Fee_MonthlyPaymentId",
+                table: "Fee",
+                column: "MonthlyPaymentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fee_OthersPaymentId",
+                table: "Fee",
+                column: "OthersPaymentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Fee_StandardId",
+                table: "Fee",
                 column: "StandardId");
 
             migrationBuilder.CreateIndex(
@@ -849,6 +992,31 @@ namespace SchoolApp.DAL.Migrations
                 name: "IX_Mark_SubjectId",
                 table: "Mark",
                 column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MonthlyPayment_StudentId",
+                table: "MonthlyPayment",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OtherPaymentDetail_OthersPaymentId",
+                table: "OtherPaymentDetail",
+                column: "OthersPaymentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OthersPayment_StudentId",
+                table: "OthersPayment",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaymentDetail_MonthlyPaymentId",
+                table: "PaymentDetail",
+                column: "MonthlyPaymentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PaymentMonth_MonthlyPaymentId",
+                table: "PaymentMonth",
+                column: "MonthlyPaymentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Staff_DepartmentId",
@@ -911,6 +1079,12 @@ namespace SchoolApp.DAL.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AcademicMonth");
+
+            migrationBuilder.DropTable(
+                name: "AcademicYear");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -935,13 +1109,19 @@ namespace SchoolApp.DAL.Migrations
                 name: "ExamSubject");
 
             migrationBuilder.DropTable(
-                name: "FeePaymentDetail");
-
-            migrationBuilder.DropTable(
-                name: "FeeStructure");
+                name: "Fee");
 
             migrationBuilder.DropTable(
                 name: "Mark");
+
+            migrationBuilder.DropTable(
+                name: "OtherPaymentDetail");
+
+            migrationBuilder.DropTable(
+                name: "PaymentDetail");
+
+            migrationBuilder.DropTable(
+                name: "PaymentMonth");
 
             migrationBuilder.DropTable(
                 name: "StaffExperience");
@@ -956,13 +1136,16 @@ namespace SchoolApp.DAL.Migrations
                 name: "ExamSchedule");
 
             migrationBuilder.DropTable(
-                name: "FeePayment");
-
-            migrationBuilder.DropTable(
                 name: "FeeType");
 
             migrationBuilder.DropTable(
                 name: "Subject");
+
+            migrationBuilder.DropTable(
+                name: "OthersPayment");
+
+            migrationBuilder.DropTable(
+                name: "MonthlyPayment");
 
             migrationBuilder.DropTable(
                 name: "Staff");

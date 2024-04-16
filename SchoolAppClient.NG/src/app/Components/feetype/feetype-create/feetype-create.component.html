@@ -1,0 +1,13 @@
+<!-- fee-type-create.component.html -->
+
+<div class="container">
+    <h2>Create Fee Type</h2>
+
+    <form (submit)="createFeeType()">
+        <div class="form-group">
+            <label for="feeTypeName">Fee Type Name:</label>
+            <input type="text" class="form-control" id="feeTypeName" name="feeTypeName" [(ngModel)]="feeType.typeName" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

@@ -1,0 +1,11 @@
+<div class="container">
+    <h2>Edit Fee Type</h2>
+    <form (submit)="updateFeeType()">
+        <div class="form-group">
+            <label for="feeTypeName">Fee Type Name:</label>
+            <input type="text" class="form-control" id="feeTypeName" name="feeTypeName" [(ngModel)]="model.typeName" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-danger" (click)="deleteFeeType()">Delete</button>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+    <h2>Create Fee</h2>
+
+    <form (ngSubmit)="createFee()" class="row g-3">
+
+        <div class="col-md-6">
+            <label for="feeTypeId" class="form-label">Fee Type:</label>
+            <select id="feeTypeId" name="feeTypeId" [(ngModel)]="fee.feeTypeId" class="form-select" required>
+                <option *ngFor="let feeType of feeTypes" [value]="feeType.feeTypeId">{{ feeType.typeName }}</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="standardId" class="form-label">Standard:</label>
+            <select id="standardId" name="standardId" [(ngModel)]="fee.standardId" class="form-select" required>
+                <option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
+            </select>
+        </div>
+
+
+        <div class="col-md-6">
+            <label for="paymentFrequency" class="form-label">Payment Frequency:</label>
+            <select id="paymentFrequency" name="paymentFrequency" [(ngModel)]="fee.paymentFrequency" class="form-select" required>
+                <option value="" disabled selected>Select Payment Frequency</option>
+                <option *ngFor="let frequency of frequencies" [value]="frequency">{{ frequency }}</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <label for="amount" class="form-label">Amount:</label>
+            <input type="number" id="amount" name="amount" [(ngModel)]="fee.amount" class="form-control" required>
+        </div>
+        <div class="col-md-6">
+            <label for="dueDate" class="form-label">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate" [(ngModel)]="fee.dueDate" class="form-control" required>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Create</button>
+        </div>
+    </form>
+</div>

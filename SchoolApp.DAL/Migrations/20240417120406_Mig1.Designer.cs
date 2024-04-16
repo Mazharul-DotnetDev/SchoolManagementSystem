@@ -12,7 +12,7 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20240412181839_Mig1")]
+    [Migration("20240417120406_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SchoolApp.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -220,6 +220,363 @@ namespace SchoolApp.DAL.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("SchoolApp.Models.DataModels.AcademicMonth", b =>
+                {
+                    b.Property<int>("MonthId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MonthId"));
+
+                    b.Property<string>("MonthName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MonthlyPaymentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MonthId");
+
+                    b.HasIndex("MonthlyPaymentId");
+
+                    b.ToTable("AcademicMonth");
+
+                    b.HasData(
+                        new
+                        {
+                            MonthId = 1,
+                            MonthName = "January"
+                        },
+                        new
+                        {
+                            MonthId = 2,
+                            MonthName = "February"
+                        },
+                        new
+                        {
+                            MonthId = 3,
+                            MonthName = "March"
+                        },
+                        new
+                        {
+                            MonthId = 4,
+                            MonthName = "April"
+                        },
+                        new
+                        {
+                            MonthId = 5,
+                            MonthName = "May"
+                        },
+                        new
+                        {
+                            MonthId = 6,
+                            MonthName = "June"
+                        },
+                        new
+                        {
+                            MonthId = 7,
+                            MonthName = "July"
+                        },
+                        new
+                        {
+                            MonthId = 8,
+                            MonthName = "August"
+                        },
+                        new
+                        {
+                            MonthId = 9,
+                            MonthName = "September"
+                        },
+                        new
+                        {
+                            MonthId = 10,
+                            MonthName = "October"
+                        },
+                        new
+                        {
+                            MonthId = 11,
+                            MonthName = "November"
+                        },
+                        new
+                        {
+                            MonthId = 12,
+                            MonthName = "December"
+                        });
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.AcademicYear", b =>
+                {
+                    b.Property<int>("AcademicYearId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AcademicYearId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AcademicYearId");
+
+                    b.ToTable("AcademicYear");
+
+                    b.HasData(
+                        new
+                        {
+                            AcademicYearId = 1,
+                            Name = "2000"
+                        },
+                        new
+                        {
+                            AcademicYearId = 2,
+                            Name = "2001"
+                        },
+                        new
+                        {
+                            AcademicYearId = 3,
+                            Name = "2002"
+                        },
+                        new
+                        {
+                            AcademicYearId = 4,
+                            Name = "2003"
+                        },
+                        new
+                        {
+                            AcademicYearId = 5,
+                            Name = "2004"
+                        },
+                        new
+                        {
+                            AcademicYearId = 6,
+                            Name = "2005"
+                        },
+                        new
+                        {
+                            AcademicYearId = 7,
+                            Name = "2006"
+                        },
+                        new
+                        {
+                            AcademicYearId = 8,
+                            Name = "2007"
+                        },
+                        new
+                        {
+                            AcademicYearId = 9,
+                            Name = "2008"
+                        },
+                        new
+                        {
+                            AcademicYearId = 10,
+                            Name = "2009"
+                        },
+                        new
+                        {
+                            AcademicYearId = 11,
+                            Name = "2010"
+                        },
+                        new
+                        {
+                            AcademicYearId = 12,
+                            Name = "2011"
+                        },
+                        new
+                        {
+                            AcademicYearId = 13,
+                            Name = "2012"
+                        },
+                        new
+                        {
+                            AcademicYearId = 14,
+                            Name = "2013"
+                        },
+                        new
+                        {
+                            AcademicYearId = 15,
+                            Name = "2014"
+                        },
+                        new
+                        {
+                            AcademicYearId = 16,
+                            Name = "2015"
+                        },
+                        new
+                        {
+                            AcademicYearId = 17,
+                            Name = "2016"
+                        },
+                        new
+                        {
+                            AcademicYearId = 18,
+                            Name = "2017"
+                        },
+                        new
+                        {
+                            AcademicYearId = 19,
+                            Name = "2018"
+                        },
+                        new
+                        {
+                            AcademicYearId = 20,
+                            Name = "2019"
+                        },
+                        new
+                        {
+                            AcademicYearId = 21,
+                            Name = "2020"
+                        },
+                        new
+                        {
+                            AcademicYearId = 22,
+                            Name = "2021"
+                        },
+                        new
+                        {
+                            AcademicYearId = 23,
+                            Name = "2022"
+                        },
+                        new
+                        {
+                            AcademicYearId = 24,
+                            Name = "2023"
+                        },
+                        new
+                        {
+                            AcademicYearId = 25,
+                            Name = "2024"
+                        },
+                        new
+                        {
+                            AcademicYearId = 26,
+                            Name = "2025"
+                        },
+                        new
+                        {
+                            AcademicYearId = 27,
+                            Name = "2026"
+                        },
+                        new
+                        {
+                            AcademicYearId = 28,
+                            Name = "2027"
+                        },
+                        new
+                        {
+                            AcademicYearId = 29,
+                            Name = "2028"
+                        },
+                        new
+                        {
+                            AcademicYearId = 30,
+                            Name = "2029"
+                        },
+                        new
+                        {
+                            AcademicYearId = 31,
+                            Name = "2030"
+                        },
+                        new
+                        {
+                            AcademicYearId = 32,
+                            Name = "2031"
+                        },
+                        new
+                        {
+                            AcademicYearId = 33,
+                            Name = "2032"
+                        },
+                        new
+                        {
+                            AcademicYearId = 34,
+                            Name = "2033"
+                        },
+                        new
+                        {
+                            AcademicYearId = 35,
+                            Name = "2034"
+                        },
+                        new
+                        {
+                            AcademicYearId = 36,
+                            Name = "2035"
+                        },
+                        new
+                        {
+                            AcademicYearId = 37,
+                            Name = "2036"
+                        },
+                        new
+                        {
+                            AcademicYearId = 38,
+                            Name = "2037"
+                        },
+                        new
+                        {
+                            AcademicYearId = 39,
+                            Name = "2038"
+                        },
+                        new
+                        {
+                            AcademicYearId = 40,
+                            Name = "2039"
+                        },
+                        new
+                        {
+                            AcademicYearId = 41,
+                            Name = "2040"
+                        },
+                        new
+                        {
+                            AcademicYearId = 42,
+                            Name = "2041"
+                        },
+                        new
+                        {
+                            AcademicYearId = 43,
+                            Name = "2042"
+                        },
+                        new
+                        {
+                            AcademicYearId = 44,
+                            Name = "2043"
+                        },
+                        new
+                        {
+                            AcademicYearId = 45,
+                            Name = "2044"
+                        },
+                        new
+                        {
+                            AcademicYearId = 46,
+                            Name = "2045"
+                        },
+                        new
+                        {
+                            AcademicYearId = 47,
+                            Name = "2046"
+                        },
+                        new
+                        {
+                            AcademicYearId = 48,
+                            Name = "2047"
+                        },
+                        new
+                        {
+                            AcademicYearId = 49,
+                            Name = "2048"
+                        },
+                        new
+                        {
+                            AcademicYearId = 50,
+                            Name = "2049"
+                        },
+                        new
+                        {
+                            AcademicYearId = 51,
+                            Name = "2050"
+                        });
+                });
+
             modelBuilder.Entity("SchoolApp.Models.DataModels.Attendance", b =>
                 {
                     b.Property<int>("AttendanceId")
@@ -252,7 +609,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 1,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9531),
+                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3405),
                             IsPresent = true,
                             Type = 0
                         },
@@ -260,7 +617,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 2,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9558),
+                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3419),
                             IsPresent = true,
                             Type = 0
                         },
@@ -268,7 +625,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 3,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9563),
+                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3420),
                             IsPresent = true,
                             Type = 0
                         },
@@ -276,7 +633,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 4,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 13, 0, 18, 35, 34, DateTimeKind.Local).AddTicks(9565),
+                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3421),
                             IsPresent = true,
                             Type = 0
                         });
@@ -330,34 +687,19 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<DateTime?>("LastUpdate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MonthlyPaymentId")
+                        .HasColumnType("int");
+
                     b.Property<int?>("StudentId")
                         .HasColumnType("int");
 
                     b.HasKey("DueBalanceId");
 
+                    b.HasIndex("MonthlyPaymentId");
+
                     b.HasIndex("StudentId");
 
                     b.ToTable("DueBalance");
-
-                    b.HasData(
-                        new
-                        {
-                            DueBalanceId = 1,
-                            LastUpdate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(792),
-                            StudentId = 1
-                        },
-                        new
-                        {
-                            DueBalanceId = 2,
-                            LastUpdate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(805),
-                            StudentId = 2
-                        },
-                        new
-                        {
-                            DueBalanceId = 3,
-                            LastUpdate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(808),
-                            StudentId = 3
-                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
@@ -435,42 +777,42 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             ExamSubjectId = 1,
-                            ExamDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1070),
+                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3496),
                             ExamScheduleId = 1,
                             SubjectId = 1
                         },
                         new
                         {
                             ExamSubjectId = 2,
-                            ExamDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1080),
+                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3499),
                             ExamScheduleId = 2,
                             SubjectId = 2
                         },
                         new
                         {
                             ExamSubjectId = 3,
-                            ExamDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1086),
+                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3500),
                             ExamScheduleId = 3,
                             SubjectId = 3
                         },
                         new
                         {
                             ExamSubjectId = 4,
-                            ExamDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1090),
+                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3501),
                             ExamScheduleId = 1,
                             SubjectId = 1
                         },
                         new
                         {
                             ExamSubjectId = 5,
-                            ExamDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1097),
+                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3502),
                             ExamScheduleId = 2,
                             SubjectId = 2
                         },
                         new
                         {
                             ExamSubjectId = 6,
-                            ExamDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1101),
+                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3503),
                             ExamScheduleId = 3,
                             SubjectId = 3
                         });
@@ -510,240 +852,46 @@ namespace SchoolApp.DAL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Fee", b =>
                 {
-                    b.Property<int>("FeePaymentId")
+                    b.Property<int>("FeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeePaymentId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeeId"));
 
-                    b.Property<decimal>("AmountAfterDiscount")
+                    b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("AmountPaid")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("AmountRemaining")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("Discount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("PaymentDate")
+                    b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<decimal>("PreviousDue")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("StudentName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("TotalFeeAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("FeePaymentId");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("FeePayment");
-
-                    b.HasData(
-                        new
-                        {
-                            FeePaymentId = 1,
-                            AmountAfterDiscount = 900m,
-                            AmountPaid = 500m,
-                            AmountRemaining = 400m,
-                            Discount = 10m,
-                            PaymentDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1573),
-                            PreviousDue = 0m,
-                            StudentId = 1,
-                            StudentName = "John Doe",
-                            TotalAmount = 900m,
-                            TotalFeeAmount = 1000m
-                        },
-                        new
-                        {
-                            FeePaymentId = 2,
-                            AmountAfterDiscount = 1300m,
-                            AmountPaid = 1400m,
-                            AmountRemaining = 0m,
-                            Discount = 200m,
-                            PaymentDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1587),
-                            PreviousDue = 100m,
-                            StudentId = 2,
-                            StudentName = "Jane Doe",
-                            TotalAmount = 1400m,
-                            TotalFeeAmount = 1500m
-                        },
-                        new
-                        {
-                            FeePaymentId = 3,
-                            AmountAfterDiscount = 1200m,
-                            AmountPaid = 1250m,
-                            AmountRemaining = 0m,
-                            Discount = 0m,
-                            PaymentDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(1599),
-                            PreviousDue = 50m,
-                            StudentId = 3,
-                            StudentName = "Alice Smith",
-                            TotalAmount = 1250m,
-                            TotalFeeAmount = 1200m
-                        });
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePaymentDetail", b =>
-                {
-                    b.Property<int>("FeePaymentDetailId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeePaymentDetailId"));
-
-                    b.Property<decimal>("FeeAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("FeePaymentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FeeTypeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("FeePaymentDetailId");
-
-                    b.HasIndex("FeePaymentId");
-
-                    b.ToTable("FeePaymentDetail");
-
-                    b.HasData(
-                        new
-                        {
-                            FeePaymentDetailId = 1,
-                            FeeAmount = 500m,
-                            FeePaymentId = 1,
-                            FeeTypeName = "Tuition Fee"
-                        },
-                        new
-                        {
-                            FeePaymentDetailId = 2,
-                            FeeAmount = 100m,
-                            FeePaymentId = 2,
-                            FeeTypeName = "Library Fee"
-                        },
-                        new
-                        {
-                            FeePaymentDetailId = 3,
-                            FeeAmount = 600m,
-                            FeePaymentId = 3,
-                            FeeTypeName = "Sports Fee"
-                        },
-                        new
-                        {
-                            FeePaymentDetailId = 4,
-                            FeeAmount = 200m,
-                            FeePaymentId = 1,
-                            FeeTypeName = "Picnic Fee"
-                        },
-                        new
-                        {
-                            FeePaymentDetailId = 5,
-                            FeeAmount = 700m,
-                            FeePaymentId = 2,
-                            FeeTypeName = "Party Fee"
-                        },
-                        new
-                        {
-                            FeePaymentDetailId = 6,
-                            FeeAmount = 250m,
-                            FeePaymentId = 3,
-                            FeeTypeName = "Exam Fee"
-                        });
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeeStructure", b =>
-                {
-                    b.Property<int>("FeeStructureId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FeeStructureId"));
-
-                    b.Property<decimal>("FeeAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("FeePaymentId")
-                        .HasColumnType("int");
 
                     b.Property<int>("FeeTypeId")
                         .HasColumnType("int");
 
-                    b.Property<bool?>("Monthly")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("StandardId")
+                    b.Property<int?>("MonthlyPaymentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("StandardName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("OthersPaymentId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TypeName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PaymentFrequency")
+                        .HasColumnType("int");
 
-                    b.Property<bool?>("Yearly")
-                        .HasColumnType("bit");
+                    b.Property<int>("StandardId")
+                        .HasColumnType("int");
 
-                    b.HasKey("FeeStructureId");
-
-                    b.HasIndex("FeePaymentId");
+                    b.HasKey("FeeId");
 
                     b.HasIndex("FeeTypeId");
 
+                    b.HasIndex("MonthlyPaymentId");
+
+                    b.HasIndex("OthersPaymentId");
+
                     b.HasIndex("StandardId");
 
-                    b.ToTable("FeeStructure");
-
-                    b.HasData(
-                        new
-                        {
-                            FeeStructureId = 1,
-                            FeeAmount = 500m,
-                            FeeTypeId = 1,
-                            Monthly = false,
-                            StandardId = 1,
-                            StandardName = "Grade 1",
-                            TypeName = "Registration Fee",
-                            Yearly = true
-                        },
-                        new
-                        {
-                            FeeStructureId = 2,
-                            FeeAmount = 1000m,
-                            FeeTypeId = 2,
-                            Monthly = true,
-                            StandardId = 2,
-                            StandardName = "Grade 2",
-                            TypeName = "Tuition Fee",
-                            Yearly = false
-                        },
-                        new
-                        {
-                            FeeStructureId = 3,
-                            FeeAmount = 200m,
-                            FeeTypeId = 3,
-                            Monthly = false,
-                            StandardId = 3,
-                            StandardName = "Grade 3",
-                            TypeName = "Library Fee",
-                            Yearly = true
-                        });
+                    b.ToTable("Fee");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.FeeType", b =>
@@ -833,7 +981,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2050),
+                            MarkEntryDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3570),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -847,7 +995,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2061),
+                            MarkEntryDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3575),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -861,7 +1009,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2070),
+                            MarkEntryDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3577),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -870,6 +1018,147 @@ namespace SchoolApp.DAL.Migrations
                             SubjectId = 3,
                             TotalMarks = 90
                         });
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>
+                {
+                    b.Property<int>("MonthlyPaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MonthlyPaymentId"));
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmountRemaining")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PreviousDue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalFeeAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Waver")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("MonthlyPaymentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("MonthlyPayment");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.OtherPaymentDetail", b =>
+                {
+                    b.Property<int>("PaymentDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentDetailId"));
+
+                    b.Property<decimal>("FeeAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OthersPaymentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentDetailId");
+
+                    b.HasIndex("OthersPaymentId");
+
+                    b.ToTable("OtherPaymentDetail");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.OthersPayment", b =>
+                {
+                    b.Property<int>("OthersPaymentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OthersPaymentId"));
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmountRemaining")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("OthersPaymentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("OthersPayment");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.PaymentDetail", b =>
+                {
+                    b.Property<int>("PaymentDetailId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentDetailId"));
+
+                    b.Property<decimal>("FeeAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("FeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MonthlyPaymentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentDetailId");
+
+                    b.HasIndex("MonthlyPaymentId");
+
+                    b.ToTable("PaymentDetail");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.PaymentMonth", b =>
+                {
+                    b.Property<int>("PaymentMonthId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentMonthId"));
+
+                    b.Property<string>("MonthName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MonthlyPaymentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PaymentMonthId");
+
+                    b.HasIndex("MonthlyPaymentId");
+
+                    b.ToTable("PaymentMonth");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
@@ -1030,7 +1319,7 @@ namespace SchoolApp.DAL.Migrations
                             CompanyName = "ABC School",
                             Designation = "Teacher",
                             JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LeavingDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2316),
+                            LeavingDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3624),
                             Responsibilities = "Teaching Mathematics and Physics"
                         },
                         new
@@ -1040,7 +1329,7 @@ namespace SchoolApp.DAL.Migrations
                             CompanyName = "ABC School",
                             Designation = "Teacher",
                             JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LeavingDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2326),
+                            LeavingDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3626),
                             Responsibilities = "Teaching Mathematics and Physics"
                         },
                         new
@@ -1050,7 +1339,7 @@ namespace SchoolApp.DAL.Migrations
                             CompanyName = "ABC School",
                             Designation = "Teacher",
                             JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LeavingDate = new DateTime(2024, 4, 13, 0, 18, 35, 35, DateTimeKind.Local).AddTicks(2330),
+                            LeavingDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3628),
                             Responsibilities = "Teaching Mathematics and Physics"
                         });
                 });
@@ -1476,8 +1765,21 @@ namespace SchoolApp.DAL.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("SchoolApp.Models.DataModels.AcademicMonth", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.MonthlyPayment", "monthlyPayment")
+                        .WithMany("academicMonths")
+                        .HasForeignKey("MonthlyPaymentId");
+
+                    b.Navigation("monthlyPayment");
+                });
+
             modelBuilder.Entity("SchoolApp.Models.DataModels.DueBalance", b =>
                 {
+                    b.HasOne("SchoolApp.Models.DataModels.MonthlyPayment", null)
+                        .WithMany("dueBalances")
+                        .HasForeignKey("MonthlyPaymentId");
+
                     b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
                         .WithMany()
                         .HasForeignKey("StudentId");
@@ -1515,45 +1817,35 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Fee", b =>
                 {
-                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("StudentId");
-
-                    b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePaymentDetail", b =>
-                {
-                    b.HasOne("SchoolApp.Models.DataModels.FeePayment", null)
-                        .WithMany("FeePaymentDetails")
-                        .HasForeignKey("FeePaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeeStructure", b =>
-                {
-                    b.HasOne("SchoolApp.Models.DataModels.FeePayment", "FeePayment")
-                        .WithMany("FeeStructures")
-                        .HasForeignKey("FeePaymentId");
-
-                    b.HasOne("SchoolApp.Models.DataModels.FeeType", "FeeType")
+                    b.HasOne("SchoolApp.Models.DataModels.FeeType", "feeType")
                         .WithMany()
                         .HasForeignKey("FeeTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
+                    b.HasOne("SchoolApp.Models.DataModels.MonthlyPayment", "monthlyPayment")
+                        .WithMany("fees")
+                        .HasForeignKey("MonthlyPaymentId");
+
+                    b.HasOne("SchoolApp.Models.DataModels.OthersPayment", "othersPayment")
+                        .WithMany("fees")
+                        .HasForeignKey("OthersPaymentId");
+
+                    b.HasOne("SchoolApp.Models.DataModels.Standard", "standard")
                         .WithMany()
-                        .HasForeignKey("StandardId");
+                        .HasForeignKey("StandardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("FeePayment");
+                    b.Navigation("feeType");
 
-                    b.Navigation("FeeType");
+                    b.Navigation("monthlyPayment");
 
-                    b.Navigation("Standard");
+                    b.Navigation("othersPayment");
+
+                    b.Navigation("standard");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Mark", b =>
@@ -1581,6 +1873,51 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("Student");
 
                     b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.OtherPaymentDetail", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.OthersPayment", null)
+                        .WithMany("otherPaymentDetails")
+                        .HasForeignKey("OthersPaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.OthersPayment", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.PaymentDetail", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.MonthlyPayment", null)
+                        .WithMany("PaymentDetails")
+                        .HasForeignKey("MonthlyPaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.PaymentMonth", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.MonthlyPayment", null)
+                        .WithMany("paymentMonths")
+                        .HasForeignKey("MonthlyPaymentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
@@ -1630,11 +1967,24 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("ExamSubjects");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.DataModels.FeePayment", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>
                 {
-                    b.Navigation("FeePaymentDetails");
+                    b.Navigation("PaymentDetails");
 
-                    b.Navigation("FeeStructures");
+                    b.Navigation("academicMonths");
+
+                    b.Navigation("dueBalances");
+
+                    b.Navigation("fees");
+
+                    b.Navigation("paymentMonths");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.OthersPayment", b =>
+                {
+                    b.Navigation("fees");
+
+                    b.Navigation("otherPaymentDetails");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>

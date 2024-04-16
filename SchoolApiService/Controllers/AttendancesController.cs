@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolApiService.ViewModels;
 using SchoolApp.DAL.SchoolContext;
 using SchoolApp.Models.DataModels;
 
@@ -13,7 +14,7 @@ namespace SchoolApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AttendancesController : ControllerBase
     {
         private readonly SchoolDbContext _context;
@@ -44,6 +45,31 @@ namespace SchoolApiService.Controllers
             return attendance;
         }
 
+        [HttpGet("GetList/{Type}")]
+        public async Task<ActionResult> GetList(AttendanceType Type)
+        {
+
+
+            List <AttList> data = new List <AttList> ();
+            switch (Type)
+            {
+                case AttendanceType.Student:
+                    data = await _context.dbsStudent.Select(s => new AttList()
+                    {
+                        AttId = s.UniqueStudentAttendanceNumber,
+                        Name = $"{s.StudentId} - "+s.StudentName
+                    }).ToListAsync(); 
+                    break;
+                case AttendanceType.Staff:
+                    data = await _context.dbsStaff.Select(s => new AttList()
+                    {
+                        AttId = s.UniqueStaffAttendanceNumber,
+                        Name = $"{s.StaffId} - " + s.StaffName
+                    }).ToListAsync();
+                    break;
+            }
+            return Ok(data);
+        }
 
         #region Default_Post
         //[HttpPost]
@@ -70,7 +96,7 @@ namespace SchoolApiService.Controllers
             {
                 return BadRequest("Invalid attendance type.");
             }
-
+           
             // Check if the provided attendance identification number exists
             bool exists = false;
             switch (attendance.Type)

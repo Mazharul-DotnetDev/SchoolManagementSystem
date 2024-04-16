@@ -1,0 +1,35 @@
+<div class="container">
+  <h2 class="mt-4 mb-3">Attendance List</h2>
+
+  <button type="button" class="btn btn-primary mb-3" routerLink="/attendance/add">Add Attendance</button>
+
+  <br />
+  <hr />
+
+  <div *ngIf="attendances" class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Identification Number</th>
+          <th>Description</th>
+          <th>Present</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let attendance of attendances">
+          <td>{{ attendance.date | date:'medium' }}</td>
+          <td>{{ attendance.type }}</td>
+          <td>{{ attendance.attendanceIdentificationNumber }}</td>
+          <td>{{ attendance.description || '-' }}</td>
+          <td>{{ attendance.isPresent ? 'Yes' : 'No' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!attendances" class="alert alert-info">
+    No attendances found.
+  </div>
+</div>

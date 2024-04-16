@@ -143,6 +143,30 @@ namespace SchoolApp.DAL.SchoolContext
 
 
      // ----------------------------------------------- //
+
+            modelBuilder.Entity<AcademicMonth>().HasData(
+           new AcademicMonth { MonthId = 1, MonthName = "January" },
+           new AcademicMonth { MonthId = 2, MonthName = "February" },
+           new AcademicMonth { MonthId = 3, MonthName = "March" },
+           new AcademicMonth { MonthId = 4, MonthName = "April" },
+           new AcademicMonth { MonthId = 5, MonthName = "May" },
+           new AcademicMonth { MonthId = 6, MonthName = "June" },
+           new AcademicMonth { MonthId = 7, MonthName = "July" },
+           new AcademicMonth { MonthId = 8, MonthName = "August" },
+           new AcademicMonth { MonthId = 9, MonthName = "September" },
+           new AcademicMonth { MonthId = 10, MonthName = "October" },
+           new AcademicMonth { MonthId = 11, MonthName = "November" },
+           new AcademicMonth { MonthId = 12, MonthName = "December" }
+       );
+            for (int year = 2000; year <= 2050; year++)
+            {
+                modelBuilder.Entity<AcademicYear>().HasData(
+                    new AcademicYear { AcademicYearId = year - 2000 + 1, Name = year.ToString() }
+                );
+            }
+
+     // ----------------------------------------------- //
+
             #region Attendance
             // Seed Attendance data
             modelBuilder.Entity<Attendance>().HasData(
@@ -222,13 +246,13 @@ namespace SchoolApp.DAL.SchoolContext
             );
             #endregion
      // ----------------------------------------------- //
-            #region DueBalance
+            #region DueBalance_Excluded
             // Seed DueBalance data
-            modelBuilder.Entity<DueBalance>().HasData(
-                new DueBalance { DueBalanceId = 1, StudentId = 1 },
-                new DueBalance { DueBalanceId = 2, StudentId = 2 },
-                new DueBalance { DueBalanceId = 3, StudentId = 3 }
-            );
+            //modelBuilder.Entity<DueBalance>().HasData(
+            //    new DueBalance { DueBalanceId = 1, StudentId = 1 },
+            //    new DueBalance { DueBalanceId = 2, StudentId = 2 },
+            //    new DueBalance { DueBalanceId = 3, StudentId = 3 }
+            //);
             #endregion
      // ----------------------------------------------- //
             #region ExamSubjects

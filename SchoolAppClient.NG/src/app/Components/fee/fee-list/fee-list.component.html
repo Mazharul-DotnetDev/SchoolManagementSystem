@@ -1,0 +1,31 @@
+<h2>List of Fees</h2>
+
+<a routerLink="/fees/create" class="btn btn-primary mb-3">Create New Fee</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Fee ID</th>
+            <th>Fee Type</th>
+            <th>Standard</th>
+            <th>Payment Frequency</th>
+            <th>Amount</th>
+            <th>Due Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let fee of fees">
+            <td>{{ fee.feeId }}</td>
+            <td>{{ fee.feeType.typeName }}</td>
+            <td>{{ fee.standard.standardName }}</td>
+            <td>{{ fee.paymentFrequency }}</td>
+            <td>{{ fee.amount }}</td>
+            <td>{{ fee.dueDate | date }}</td>
+            <td>
+                <a class="btn btn-primary" [routerLink]="['/fees', fee.feeId, 'edit']">Edit</a>
+                <button class="btn btn-danger" (click)="deleteFee(fee.feeId)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,57 @@
+<div class="container">
+    <h2 class="my-4">Monthly Payment Details</h2>
+    <div *ngIf="monthlyPayment">
+        <div class="card mb-4">
+            <div class="card-body">
+                <p class="card-text"><strong>Monthly Payment ID:</strong> {{ monthlyPayment.monthlyPaymentId }}</p>
+                <p class="card-text"><strong>Student Name:</strong> {{ monthlyPayment.student.studentName }}</p>
+                <p class="card-text"><strong>Student Enrollment No:</strong> {{ monthlyPayment.student.enrollmentNo }}</p>
+                <p class="card-text"><strong>Payment Date:</strong> {{ monthlyPayment.paymentDate | date }}</p>
+
+                <h3 class="mt-4">Payment Details</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Fee Name</th>
+                                <th>Fee Amount</th>
+                                <th>Payment Months</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detail of monthlyPayment.paymentDetails">
+                                <td>{{ detail.feeName }}</td>
+                                <td>{{ detail.feeAmount }}</td>
+                                <td>
+                                    <ul>
+                                        <li *ngFor="let month of monthlyPayment.paymentMonths">{{ month.monthName }}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Total Fee Amount:</strong> {{ monthlyPayment.totalFeeAmount }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Waver:</strong> {{ monthlyPayment.waver }}%</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Previous Due:</strong> {{ monthlyPayment.previousDue }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Total Amount:</strong> {{ monthlyPayment.totalAmount }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Amount Paid:</strong> {{ monthlyPayment.amountPaid }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Amount Remaining:</strong> {{ monthlyPayment.amountRemaining }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" (click)="printDetails()">Print</button>
+        <a class="btn btn-success" routerLink="/monthlypayment">Back to Payment List</a>
+    </div>
+</div>

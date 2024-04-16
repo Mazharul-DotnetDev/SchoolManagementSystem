@@ -7,4 +7,21 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\SchoolAppClient.NG\</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="src\app\Models\academic-month.spec.ts" />
+    <None Remove="src\app\Models\attendance.spec.ts" />
+    <None Remove="src\app\Models\due-balance.spec.ts" />
+    <None Remove="src\app\Models\fee.spec.ts" />
+    <None Remove="src\app\Models\feetype.spec.ts" />
+    <None Remove="src\app\Models\marks.spec.ts" />
+    <None Remove="src\app\Models\payemnt-details.spec.ts" />
+    <None Remove="src\app\Models\paymentmonth.spec.ts" />
+    <None Remove="src\app\Models\student.spec.ts" />
+    <None Remove="src\app\Services\attendance.service.spec.ts" />
+    <None Remove="src\app\Services\common.service.spec.ts" />
+    <None Remove="src\app\Services\fee-service.service.spec.ts" />
+    <None Remove="src\app\Services\feetype.service.spec.ts" />
+    <None Remove="src\app\Services\marks.service.spec.ts" />
+    <None Remove="src\app\Services\monthly-payment.service.spec.ts" />
+  </ItemGroup>
 </Project>
