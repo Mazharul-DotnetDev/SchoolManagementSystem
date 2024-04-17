@@ -15,10 +15,10 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StaffId { get; set; }
-        public string? StaffName { get; set; }
-
         [Required]
-        public int UniqueStaffAttendanceNumber { get; set; }
+        public string StaffName { get; set; }
+        [Required]
+        public int UniqueStaffAttendanceNumber { get; set; } = 200;
         public Gender? Gender { get; set; }
         public DateTime? DOB { get; set; }
         public string? FatherName { get; set; }
@@ -30,42 +30,19 @@ namespace SchoolApp.Models.DataModels
         public string? Email { get; set; }       
         public string? ImagePath { get; set; }
         public string? Qualifications { get; set; }
-        public DateTime? JoiningDate { get; set; }
-        public Designation? Designation { get; set; }
+        public DateTime? JoiningDate { get; set; } = DateTime.Now;
+        public Designation? Designation { get; set; } 
         public string? BankAccountName { get; set; }
         public int? BankAccountNumber { get; set; }
         public string? BankName { get; set; }
         public string? BankBranch { get; set; }
         public string? Status { get; set; }
-
-
-        public int? DepartmentId { get; set; }
-
-        
+        public int? DepartmentId { get; set; }      
         public  Department? Department { get; set; }
-
-        public int? StaffSalaryId { get; set; }
-
-        
+        public int? StaffSalaryId { get; set; }      
         public StaffSalary? StaffSalary { get; set; }
-
-        public IList<StaffExperience>? StaffExperiences { get; set; }
-
-
-        //// Constructor to initialize UniqueAttendanceId
-        //public Staff()
-        //{
-        //    UniqueStaffAttendanceId = "STF-" + GenerateFixedNumbers(); // Generate fixed numbers
-        //}
-
-        //private string GenerateFixedNumbers()
-        //{
-        //    // You can generate a random or sequential number here
-        //    // For simplicity, let's generate a sequential number for demonstration
-        //    return (2000 + StaffId).ToString(); // Example: STF-2001, STF-2002, etc.
-        //}
+        public IList<StaffExperience>? StaffExperiences { get; set; } = [];
     }
-
 
     public enum Gender
     {

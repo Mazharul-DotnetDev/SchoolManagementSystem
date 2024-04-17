@@ -22,13 +22,15 @@ import { MonthlypaymentListComponent } from './Components/monthlypayment/monthly
 import { MonthlypaymentEditComponent } from './Components/monthlypayment/monthlypayment-edit/monthlypayment-edit.component';
 import { MonthlypaymentDetailsComponent } from './Components/monthlypayment/monthlypayment-details/monthlypayment-details.component';
 import { MonthlypaymentCreatComponent } from './Components/monthlypayment/monthlypayment-create/monthlypayment-create.component';
+import { StaffListComponent } from './Components/staff/staff-list/staff-list.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 /*import { MonthlypaymentCreateComponent } from './Components/monthlypayment/monthlypayment-create/monthlypayment-create.component';*/
 
 
 @NgModule({
   declarations: [
     AppComponent,    
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent
     
   ],
   imports: [
@@ -39,7 +41,9 @@ import { MonthlypaymentCreatComponent } from './Components/monthlypayment/monthl
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -12,7 +12,7 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20240417120406_Mig1")]
+    [Migration("20240418180659_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace SchoolApp.DAL.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.1")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -609,7 +609,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 1,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3405),
+                            Date = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8020),
                             IsPresent = true,
                             Type = 0
                         },
@@ -617,7 +617,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 2,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3419),
+                            Date = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8042),
                             IsPresent = true,
                             Type = 0
                         },
@@ -625,7 +625,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 3,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3420),
+                            Date = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8044),
                             IsPresent = true,
                             Type = 0
                         },
@@ -633,7 +633,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 4,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3421),
+                            Date = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8045),
                             IsPresent = true,
                             Type = 0
                         });
@@ -777,42 +777,42 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             ExamSubjectId = 1,
-                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3496),
+                            ExamDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8290),
                             ExamScheduleId = 1,
                             SubjectId = 1
                         },
                         new
                         {
                             ExamSubjectId = 2,
-                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3499),
+                            ExamDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8298),
                             ExamScheduleId = 2,
                             SubjectId = 2
                         },
                         new
                         {
                             ExamSubjectId = 3,
-                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3500),
+                            ExamDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8301),
                             ExamScheduleId = 3,
                             SubjectId = 3
                         },
                         new
                         {
                             ExamSubjectId = 4,
-                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3501),
+                            ExamDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8303),
                             ExamScheduleId = 1,
                             SubjectId = 1
                         },
                         new
                         {
                             ExamSubjectId = 5,
-                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3502),
+                            ExamDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8305),
                             ExamScheduleId = 2,
                             SubjectId = 2
                         },
                         new
                         {
                             ExamSubjectId = 6,
-                            ExamDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3503),
+                            ExamDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8307),
                             ExamScheduleId = 3,
                             SubjectId = 3
                         });
@@ -981,7 +981,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3570),
+                            MarkEntryDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8533),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -995,7 +995,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3575),
+                            MarkEntryDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8539),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1009,7 +1009,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3577),
+                            MarkEntryDate = new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8546),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1218,6 +1218,7 @@ namespace SchoolApp.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("StaffSalaryId")
@@ -1247,32 +1248,76 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             StaffId = 1,
+                            BankAccountName = "John Doe",
+                            BankAccountNumber = 1234567890,
+                            BankBranch = "XYZ Branch",
+                            BankName = "ABC Bank",
+                            ContactNumber1 = "1234567890",
+                            DOB = new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 1,
+                            Designation = 13,
+                            Email = "john.doe@example.com",
+                            FatherName = "Michael Doe",
                             Gender = 0,
+                            ImagePath = "path/to/image.jpg",
+                            JoiningDate = new DateTime(2010, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MotherName = "Alice Doe",
+                            PermanentAddress = "Permanent Address",
+                            Qualifications = "Bachelor's in Computer Science",
                             StaffName = "John Doe",
                             StaffSalaryId = 1,
                             Status = "Active",
-                            UniqueStaffAttendanceNumber = 2000
+                            TemporaryAddress = "Temporary Address",
+                            UniqueStaffAttendanceNumber = 201
                         },
                         new
                         {
                             StaffId = 2,
+                            BankAccountName = "Alice Smith",
+                            BankAccountNumber = 9873210,
+                            BankBranch = "UVW Branch",
+                            BankName = "DEF Bank",
+                            ContactNumber1 = "9876543210",
+                            DOB = new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 2,
+                            Designation = 2,
+                            Email = "alice.smith@example.com",
+                            FatherName = "David Smith",
                             Gender = 1,
-                            StaffName = "Jane Smith",
+                            ImagePath = "path/to/image.jpg",
+                            JoiningDate = new DateTime(2015, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MotherName = "Emily Smith",
+                            PermanentAddress = "Permanent Address",
+                            Qualifications = "Master's in Education",
+                            StaffName = "Alice Smith",
                             StaffSalaryId = 2,
                             Status = "Active",
-                            UniqueStaffAttendanceNumber = 2001
+                            TemporaryAddress = "Temporary Address",
+                            UniqueStaffAttendanceNumber = 202
                         },
                         new
                         {
                             StaffId = 3,
+                            BankAccountName = "John Doe",
+                            BankAccountNumber = 1234567890,
+                            BankBranch = "Main Street",
+                            BankName = "Anytown Bank",
+                            ContactNumber1 = "555-123-4567",
+                            DOB = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartmentId = 3,
-                            Gender = 1,
-                            StaffName = "Jane Smith",
+                            Designation = 7,
+                            Email = "john.doe@example.com",
+                            FatherName = "Richard Doe",
+                            Gender = 0,
+                            JoiningDate = new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            MotherName = "Jane Doe",
+                            PermanentAddress = "456 Elm Street, Anytown",
+                            Qualifications = "Bachelor of Science in Mathematics",
+                            StaffName = "John Doe",
                             StaffSalaryId = 3,
                             Status = "Active",
-                            UniqueStaffAttendanceNumber = 2002
+                            TemporaryAddress = "123 Main Street, Anytown",
+                            UniqueStaffAttendanceNumber = 203
                         });
                 });
 
@@ -1315,32 +1360,32 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             StaffExperienceId = 1,
-                            Achievements = "Improved student performance by 20%",
-                            CompanyName = "ABC School",
-                            Designation = "Teacher",
-                            JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LeavingDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3624),
-                            Responsibilities = "Teaching Mathematics and Physics"
+                            Achievements = "Received Employee of the Month award.",
+                            CompanyName = "ABC Company",
+                            Designation = "Software Engineer",
+                            JoiningDate = new DateTime(2020, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LeavingDate = new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Responsibilities = "Developed web applications."
                         },
                         new
                         {
                             StaffExperienceId = 2,
-                            Achievements = "Improved student performance by 20%",
-                            CompanyName = "ABC School",
-                            Designation = "Teacher",
-                            JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LeavingDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3626),
-                            Responsibilities = "Teaching Mathematics and Physics"
+                            Achievements = "Implemented a new data visualization system.",
+                            CompanyName = "XYZ Corporation",
+                            Designation = "Data Analyst",
+                            JoiningDate = new DateTime(2018, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LeavingDate = new DateTime(2020, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Responsibilities = "Analyzed data to provide insights."
                         },
                         new
                         {
                             StaffExperienceId = 3,
-                            Achievements = "Improved student performance by 20%",
-                            CompanyName = "ABC School",
-                            Designation = "Teacher",
-                            JoiningDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LeavingDate = new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3628),
-                            Responsibilities = "Teaching Mathematics and Physics"
+                            Achievements = "Successfully delivered multiple projects on time.",
+                            CompanyName = "EFG Ltd.",
+                            Designation = "Project Manager",
+                            JoiningDate = new DateTime(2016, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LeavingDate = new DateTime(2018, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Responsibilities = "Led a team of developers."
                         });
                 });
 

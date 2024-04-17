@@ -1,0 +1,126 @@
+
+<div class="container">
+  <h1 class="text-center mb-4">Staff List</h1>
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let staff of staffList">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ staff.staffName }}</h5>
+          <p class="card-text">Staff ID: {{ staff.staffId }}</p>
+          <p class="card-text">Unique Staff Attendance Number: {{ staff.uniqueStaffAttendanceNumber }}</p>
+          <p class="card-text">Gender: {{ staff.gender }}</p>
+          <p class="card-text">Date of Birth: {{ staff.dob }}</p>
+          <p class="card-text">Father Name: {{ staff.fatherName }}</p>
+          <p class="card-text">Mother Name: {{ staff.motherName }}</p>
+          <p class="card-text">Temporary Address: {{ staff.temporaryAddress }}</p>
+          <p class="card-text">Permanent Address: {{ staff.permanentAddress }}</p>
+          <p class="card-text">Contact Number: {{ staff.contactNumber1 }}</p>
+          <p class="card-text">Email: {{ staff.email }}</p>
+          <p class="card-text">Image Path: {{ staff.imagePath }}</p>
+          <p class="card-text">Qualifications: {{ staff.qualifications }}</p>
+          <p class="card-text">Joining Date: {{ staff.joiningDate }}</p>
+          <p class="card-text">Bank Account Name: {{ staff.bankAccountName }}</p>
+          <p class="card-text">Bank Account Number: {{ staff.bankAccountNumber }}</p>
+          <p class="card-text">Bank Name: {{ staff.bankName }}</p>
+          <p class="card-text">Bank Branch: {{ staff.bankBranch }}</p>
+          <p class="card-text">Status: {{ staff.status }}</p>
+          <p class="card-text">Department: {{ staff.department?.departmentName }}</p>
+          <p class="card-text">Designation: {{ staff.designation }}</p>
+          <a routerLink="/staffSalaries/{{ staff.staffSalaryId }}" class="btn btn-primary"><i class="fas fa-money-bill-alt"></i> View Salary</a>
+          <a [routerLink]="['/staff-experiences', staff.staffId]" class="btn btn-primary"><i class="fas fa-briefcase"></i> View Experiences</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- staff-list.component.html -->
+<!--<div class="container">
+  <h1 class="text-center mb-4">Staff List</h1>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Staff ID</th>
+            <th>Name</th>
+            <th>Unique Staff Attendance Number</th>
+            <th>Gender</th>
+            <th>Date of Birth</th>
+            <th>Father Name</th>
+            <th>Mother Name</th>
+            <th>Temporary Address</th>
+            <th>Permanent Address</th>
+            <th>Contact Number</th>
+            <th>Email</th>
+            <th>Image Path</th>
+            <th>Qualifications</th>
+            <th>Joining Date</th>
+            <th>Bank Account Name</th>
+            <th>Bank Account Number</th>
+            <th>Bank Name</th>
+            <th>Bank Branch</th>
+            <th>Status</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let staff of staffList">
+            <td>{{ staff.staffId }}</td>
+            <td>{{ staff.staffName }}</td>
+            <td>{{ staff.uniqueStaffAttendanceNumber }}</td>
+            <td>{{ staff.gender }}</td>
+            <td>{{ staff.dob }}</td>
+            <td>{{ staff.fatherName }}</td>
+            <td>{{ staff.motherName }}</td>
+            <td>{{ staff.temporaryAddress }}</td>
+            <td>{{ staff.permanentAddress }}</td>
+            <td>{{ staff.contactNumber1 }}</td>
+            <td>{{ staff.email }}</td>
+            <td>{{ staff.imagePath }}</td>
+            <td>{{ staff.qualifications }}</td>
+            <td>{{ staff.joiningDate }}</td>
+            <td>{{ staff.bankAccountName }}</td>
+            <td>{{ staff.bankAccountNumber }}</td>
+            <td>{{ staff.bankName }}</td>
+            <td>{{ staff.bankBranch }}</td>
+            <td>{{ staff.status }}</td>
+
+            <td>{{ staff.department?.departmentName }}</td>
+            <td>{{ staff.designation }}</td>
+            <td>-->
+<!--<a routerLink="/departments/{{ staff.departmentId }}"><i class="fas fa-building"></i> View Department</a>-->
+<!--<a routerLink="/staffSalaries/{{ staff.staffSalaryId }}"><i class="fas fa-money-bill-alt"></i> View Salary</a>
+              <a [routerLink]="['/staff-experiences', staff.staffId]"><i class="fas fa-briefcase"></i> View Experiences</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>-->

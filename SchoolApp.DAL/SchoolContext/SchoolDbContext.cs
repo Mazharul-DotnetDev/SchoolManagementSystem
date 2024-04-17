@@ -143,30 +143,29 @@ namespace SchoolApp.DAL.SchoolContext
 
 
      // ----------------------------------------------- //
-
+            #region AcademicMonth
             modelBuilder.Entity<AcademicMonth>().HasData(
-           new AcademicMonth { MonthId = 1, MonthName = "January" },
-           new AcademicMonth { MonthId = 2, MonthName = "February" },
-           new AcademicMonth { MonthId = 3, MonthName = "March" },
-           new AcademicMonth { MonthId = 4, MonthName = "April" },
-           new AcademicMonth { MonthId = 5, MonthName = "May" },
-           new AcademicMonth { MonthId = 6, MonthName = "June" },
-           new AcademicMonth { MonthId = 7, MonthName = "July" },
-           new AcademicMonth { MonthId = 8, MonthName = "August" },
-           new AcademicMonth { MonthId = 9, MonthName = "September" },
-           new AcademicMonth { MonthId = 10, MonthName = "October" },
-           new AcademicMonth { MonthId = 11, MonthName = "November" },
-           new AcademicMonth { MonthId = 12, MonthName = "December" }
-       );
+               new AcademicMonth { MonthId = 1, MonthName = "January" },
+               new AcademicMonth { MonthId = 2, MonthName = "February" },
+               new AcademicMonth { MonthId = 3, MonthName = "March" },
+               new AcademicMonth { MonthId = 4, MonthName = "April" },
+               new AcademicMonth { MonthId = 5, MonthName = "May" },
+               new AcademicMonth { MonthId = 6, MonthName = "June" },
+               new AcademicMonth { MonthId = 7, MonthName = "July" },
+               new AcademicMonth { MonthId = 8, MonthName = "August" },
+               new AcademicMonth { MonthId = 9, MonthName = "September" },
+               new AcademicMonth { MonthId = 10, MonthName = "October" },
+               new AcademicMonth { MonthId = 11, MonthName = "November" },
+               new AcademicMonth { MonthId = 12, MonthName = "December" }
+           );
             for (int year = 2000; year <= 2050; year++)
             {
                 modelBuilder.Entity<AcademicYear>().HasData(
                     new AcademicYear { AcademicYearId = year - 2000 + 1, Name = year.ToString() }
                 );
-            }
-
+            } 
+            #endregion
      // ----------------------------------------------- //
-
             #region Attendance
             // Seed Attendance data
             modelBuilder.Entity<Attendance>().HasData(
@@ -619,93 +618,93 @@ namespace SchoolApp.DAL.SchoolContext
             //);
             #endregion
      // ----------------------------------------------- //
-            #region Staff
+            #region Staff_Excluded
             // Seed Staff data if required
-            modelBuilder.Entity<Staff>().HasData(
-                new Staff
-                {
-                    StaffId = 1,
-                    StaffName = "John Doe",
-                    UniqueStaffAttendanceNumber = 2000,
-                    Gender = Gender.Male,
-                    DepartmentId = 1,
-                    Status = "Active",
-                    StaffSalaryId = 1
-                    //,
-                    //StaffExperiences = new List<StaffExperience>
-                    //{
-                    //new StaffExperience { StaffExperienceId = 1},
-                    //new StaffExperience { StaffExperienceId = 2}
-                    //},
+            //modelBuilder.Entity<Staff>().HasData(
+            //    new Staff
+            //    {
+            //        StaffId = 1,
+            //        StaffName = "John Doe",
+            //        UniqueStaffAttendanceNumber = 2000,
+            //        Gender = Gender.Male,
+            //        DepartmentId = 1,
+            //        Status = "Active",
+            //        StaffSalaryId = 1
+            //        //,
+            //        //StaffExperiences = new List<StaffExperience>
+            //        //{
+            //        //new StaffExperience { StaffExperienceId = 1},
+            //        //new StaffExperience { StaffExperienceId = 2}
+            //        //},
 
-                },
-                new Staff
-                {
-                    StaffId = 2,
-                    StaffName = "Jane Smith",
-                    UniqueStaffAttendanceNumber = 2001,
-                    Gender = Gender.Female,
-                    DepartmentId = 2,
-                    Status = "Active",
-                    StaffSalaryId = 2
+            //    },
+            //    new Staff
+            //    {
+            //        StaffId = 2,
+            //        StaffName = "Jane Smith",
+            //        UniqueStaffAttendanceNumber = 2001,
+            //        Gender = Gender.Female,
+            //        DepartmentId = 2,
+            //        Status = "Active",
+            //        StaffSalaryId = 2
 
-                    //,
-                    //StaffExperiences = new List<StaffExperience>
-                    //{
-                    //new StaffExperience { StaffExperienceId = 1},
-                    //new StaffExperience { StaffExperienceId = 2}
-                    //}
+            //        //,
+            //        //StaffExperiences = new List<StaffExperience>
+            //        //{
+            //        //new StaffExperience { StaffExperienceId = 1},
+            //        //new StaffExperience { StaffExperienceId = 2}
+            //        //}
 
-                },
-                new Staff
-                {
-                    StaffId = 3,
-                    StaffName = "Jane Smith",
-                    UniqueStaffAttendanceNumber = 2002,
-                    Gender = Gender.Female,
-                    DepartmentId = 3,
-                    Status = "Active",
-                    StaffSalaryId = 3
-                    //,
-                    //StaffExperiences = new List<StaffExperience>
-                    //{
-                    //new StaffExperience { StaffExperienceId = 1},
-                    //new StaffExperience { StaffExperienceId = 2}
-                    //}
+            //    },
+            //    new Staff
+            //    {
+            //        StaffId = 3,
+            //        StaffName = "Jane Smith",
+            //        UniqueStaffAttendanceNumber = 2002,
+            //        Gender = Gender.Female,
+            //        DepartmentId = 3,
+            //        Status = "Active",
+            //        StaffSalaryId = 3
+            //        //,
+            //        //StaffExperiences = new List<StaffExperience>
+            //        //{
+            //        //new StaffExperience { StaffExperienceId = 1},
+            //        //new StaffExperience { StaffExperienceId = 2}
+            //        //}
 
-                }
-            );
+            //    }
+            //);
             #endregion
      // ----------------------------------------------- //
-            #region StaffExperience
+            #region StaffExperience_Excluded
             // Seed StaffExperience data if required
-            modelBuilder.Entity<StaffExperience>().HasData(
-                new StaffExperience
-                {
-                    StaffExperienceId = 1,
-                    CompanyName = "ABC School",
-                    Designation = "Teacher",
-                    Responsibilities = "Teaching Mathematics and Physics",
-                    Achievements = "Improved student performance by 20%",
-                },
-                new StaffExperience
-                {
-                    StaffExperienceId = 2,
-                    CompanyName = "ABC School",
-                    Designation = "Teacher",
-                    Responsibilities = "Teaching Mathematics and Physics",
-                    Achievements = "Improved student performance by 20%",
-                },
-                new StaffExperience
-                {
-                    StaffExperienceId = 3,
-                    CompanyName = "ABC School",
-                    Designation = "Teacher",
-                    Responsibilities = "Teaching Mathematics and Physics",
-                    Achievements = "Improved student performance by 20%",
-                }
+            //modelBuilder.Entity<StaffExperience>().HasData(
+            //    new StaffExperience
+            //    {
+            //        StaffExperienceId = 1,
+            //        CompanyName = "ABC School",
+            //        Designation = "Teacher",
+            //        Responsibilities = "Teaching Mathematics and Physics",
+            //        Achievements = "Improved student performance by 20%",
+            //    },
+            //    new StaffExperience
+            //    {
+            //        StaffExperienceId = 2,
+            //        CompanyName = "ABC School",
+            //        Designation = "Teacher",
+            //        Responsibilities = "Teaching Mathematics and Physics",
+            //        Achievements = "Improved student performance by 20%",
+            //    },
+            //    new StaffExperience
+            //    {
+            //        StaffExperienceId = 3,
+            //        CompanyName = "ABC School",
+            //        Designation = "Teacher",
+            //        Responsibilities = "Teaching Mathematics and Physics",
+            //        Achievements = "Improved student performance by 20%",
+            //    }
 
-            );
+            //);
             #endregion
      // ----------------------------------------------- //
             #region StaffSalary
@@ -905,7 +904,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region StudentAttendance_Excluded
             // Seed StudentAttendance data if required
             //modelBuilder.Entity<StudentAttendance>().HasData(
@@ -940,7 +939,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region StaffAttendance_Excluded
             // Seed StaffAttendance data if required
             //modelBuilder.Entity<StaffAttendance>().HasData(
@@ -974,6 +973,125 @@ namespace SchoolApp.DAL.SchoolContext
 
             //); 
             #endregion
+            //-----------------------------------------//
+            #region StaffExperience_Excluded
+            modelBuilder.Entity<StaffExperience>().HasData(
+    new StaffExperience
+    {
+        StaffExperienceId = 1,
+        CompanyName = "ABC Company",
+        Designation = "Software Engineer",
+        JoiningDate = new DateTime(2020, 5, 10),
+        LeavingDate = new DateTime(2022, 8, 15),
+        Responsibilities = "Developed web applications.",
+        Achievements = "Received Employee of the Month award."
+    },
+    new StaffExperience
+    {
+        StaffExperienceId = 2,
+        CompanyName = "XYZ Corporation",
+        Designation = "Data Analyst",
+        JoiningDate = new DateTime(2018, 9, 20),
+        LeavingDate = new DateTime(2020, 4, 30),
+        Responsibilities = "Analyzed data to provide insights.",
+        Achievements = "Implemented a new data visualization system."
+    },
+    new StaffExperience
+    {
+        StaffExperienceId = 3,
+        CompanyName = "EFG Ltd.",
+        Designation = "Project Manager",
+        JoiningDate = new DateTime(2016, 3, 5),
+        LeavingDate = new DateTime(2018, 7, 25),
+        Responsibilities = "Led a team of developers.",
+        Achievements = "Successfully delivered multiple projects on time."
+    }
+    // Add more seed data as needed
+);
+
+            #endregion
+            //-----------------------------------------//
+            #region Staff
+            modelBuilder.Entity<Staff>().HasData(
+               new Staff
+               {
+                   StaffId = 1,
+                   StaffName = "John Doe",
+                   UniqueStaffAttendanceNumber = 201,
+                   Gender = Gender.Male,
+                   DOB = new DateTime(1985, 5, 15),
+                   FatherName = "Michael Doe",
+                   MotherName = "Alice Doe",
+                   TemporaryAddress = "Temporary Address",
+                   PermanentAddress = "Permanent Address",
+                   ContactNumber1 = "1234567890",
+                   Email = "john.doe@example.com",
+                   ImagePath = "path/to/image.jpg",
+                   Qualifications = "Bachelor's in Computer Science",
+                   JoiningDate = new DateTime(2010, 7, 1),
+                   Designation = Designation.Counselor,
+                   BankAccountName = "John Doe",
+                   BankAccountNumber = 1234567890,
+                   BankName = "ABC Bank",
+                   BankBranch = "XYZ Branch",
+                   Status = "Active",
+                   DepartmentId = 1,
+                   StaffSalaryId = 1
+               },
+               new Staff
+               {
+                   StaffId = 2,
+                   StaffName = "Alice Smith",
+                   UniqueStaffAttendanceNumber = 202,
+                   Gender = Gender.Female,
+                   DOB = new DateTime(1990, 8, 20),
+                   FatherName = "David Smith",
+                   MotherName = "Emily Smith",
+                   TemporaryAddress = "Temporary Address",
+                   PermanentAddress = "Permanent Address",
+                   ContactNumber1 = "9876543210",
+                   Email = "alice.smith@example.com",
+                   ImagePath = "path/to/image.jpg",
+                   Qualifications = "Master's in Education",
+                   JoiningDate = new DateTime(2015, 9, 15),
+                   Designation = Designation.Headmistress,
+                   BankAccountName = "Alice Smith",
+                   BankAccountNumber = 9873210,
+                   BankName = "DEF Bank",
+                   BankBranch = "UVW Branch",
+                   Status = "Active",
+                   DepartmentId = 2,
+                   StaffSalaryId = 2
+               },
+               new Staff
+               {
+                   StaffId = 3,
+                   StaffName = "John Doe",
+                   UniqueStaffAttendanceNumber = 203,
+                   Gender = Gender.Male,
+                   DOB = new DateTime(1980, 01, 01),
+                   FatherName = "Richard Doe",
+                   MotherName = "Jane Doe",
+                   TemporaryAddress = "123 Main Street, Anytown",
+                   PermanentAddress = "456 Elm Street, Anytown",
+                   ContactNumber1 = "555-123-4567",
+                   Email = "john.doe@example.com",
+                   Qualifications = "Bachelor of Science in Mathematics",
+                   JoiningDate = new DateTime(2020, 08, 15),
+                   Designation = Designation.Professor,
+                   BankAccountName = "John Doe",
+                   BankAccountNumber = 1234567890,
+                   BankName = "Anytown Bank",
+                   BankBranch = "Main Street",
+                   Status = "Active",
+                   DepartmentId = 3,
+                   StaffSalaryId = 3
+               }
+
+           ); 
+            #endregion
+     //-----------------------------------------//
+
 
         }
     }

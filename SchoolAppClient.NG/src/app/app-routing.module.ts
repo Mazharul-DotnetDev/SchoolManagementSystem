@@ -16,6 +16,7 @@ import { MonthlypaymentListComponent } from './Components/monthlypayment/monthly
 import { MonthlypaymentEditComponent } from './Components/monthlypayment/monthlypayment-edit/monthlypayment-edit.component';
 import { MonthlypaymentCreatComponent } from './Components/monthlypayment/monthlypayment-create/monthlypayment-create.component';
 import { MonthlypaymentDetailsComponent } from './Components/monthlypayment/monthlypayment-details/monthlypayment-details.component';
+import { StaffListComponent } from './Components/staff/staff-list/staff-list.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "/marksList", pathMatch: "full" },
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: 'monthlypayment', component: MonthlypaymentListComponent },
   { path: 'monthlypayment/create', component: MonthlypaymentCreatComponent },
   { path: 'monthlypayment/:id/edit', component: MonthlypaymentEditComponent },
-  { path: 'monthlypayment/:id/details', component: MonthlypaymentDetailsComponent }
+  { path: 'monthlypayment/:id/details', component: MonthlypaymentDetailsComponent },
+  { path: 'staff-list', component: StaffListComponent }
 
 ];
 

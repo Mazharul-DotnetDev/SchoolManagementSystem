@@ -33,21 +33,5 @@ namespace SchoolApp.Models.DataModels
             NetSalary = BasicSalary + FestivalBonus + Allowance + MedicalAllowance + HousingAllowance + TransportationAllowance - SavingFund - Taxes;
         }
 
-
-        //public string SalaryBreakdown => $"Basic Salary: {BasicSalary}, " +
-        //                         $"Festival Bonus: {FestivalBonus}, " +
-        //                         $"Allowance: {Allowance}, " +
-        //                         $"Medical Allowance: {MedicalAllowance}, " +
-
-
-        //                         $"Housing Allowance: {HousingAllowance}, " +
-        //                         $"Transportation Allowance: {TransportationAllowance}, " +
-
-        //                         $"Saving Fund: {SavingFund}, " +
-        //                         $"Taxes: {Taxes}, " +
-        //                         $"Net Salary: {NetSalary}";
-
-
-
     }
 }

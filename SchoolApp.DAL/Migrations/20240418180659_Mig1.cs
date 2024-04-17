@@ -268,7 +268,7 @@ namespace SchoolApp.DAL.Migrations
                 {
                     StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    StaffName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StaffName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UniqueStaffAttendanceNumber = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: true),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -757,10 +757,10 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "AttendanceId", "AttendanceIdentificationNumber", "Date", "Description", "IsPresent", "Type" },
                 values: new object[,]
                 {
-                    { 1, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3405), null, true, 0 },
-                    { 2, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3419), null, true, 0 },
-                    { 3, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3420), null, true, 0 },
-                    { 4, 111, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3421), null, true, 0 }
+                    { 1, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8020), null, true, 0 },
+                    { 2, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8042), null, true, 0 },
+                    { 3, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8044), null, true, 0 },
+                    { 4, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8045), null, true, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -798,9 +798,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "StaffExperienceId", "Achievements", "CompanyName", "Designation", "JoiningDate", "LeavingDate", "Responsibilities", "StaffId" },
                 values: new object[,]
                 {
-                    { 1, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3624), "Teaching Mathematics and Physics", null },
-                    { 2, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3626), "Teaching Mathematics and Physics", null },
-                    { 3, "Improved student performance by 20%", "ABC School", "Teacher", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3628), "Teaching Mathematics and Physics", null }
+                    { 1, "Received Employee of the Month award.", "ABC Company", "Software Engineer", new DateTime(2020, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Developed web applications.", null },
+                    { 2, "Implemented a new data visualization system.", "XYZ Corporation", "Data Analyst", new DateTime(2018, 9, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2020, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Analyzed data to provide insights.", null },
+                    { 3, "Successfully delivered multiple projects on time.", "EFG Ltd.", "Project Manager", new DateTime(2016, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2018, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Led a team of developers.", null }
                 });
 
             migrationBuilder.InsertData(
@@ -838,9 +838,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "StaffId", "BankAccountName", "BankAccountNumber", "BankBranch", "BankName", "ContactNumber1", "DOB", "DepartmentId", "Designation", "Email", "FatherName", "Gender", "ImagePath", "JoiningDate", "MotherName", "PermanentAddress", "Qualifications", "StaffName", "StaffSalaryId", "Status", "TemporaryAddress", "UniqueStaffAttendanceNumber" },
                 values: new object[,]
                 {
-                    { 1, null, null, null, null, null, null, 1, null, null, null, 0, null, null, null, null, null, "John Doe", 1, "Active", null, 2000 },
-                    { 2, null, null, null, null, null, null, 2, null, null, null, 1, null, null, null, null, null, "Jane Smith", 2, "Active", null, 2001 },
-                    { 3, null, null, null, null, null, null, 3, null, null, null, 1, null, null, null, null, null, "Jane Smith", 3, "Active", null, 2002 }
+                    { 1, "John Doe", 1234567890, "XYZ Branch", "ABC Bank", "1234567890", new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 13, "john.doe@example.com", "Michael Doe", 0, "path/to/image.jpg", new DateTime(2010, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alice Doe", "Permanent Address", "Bachelor's in Computer Science", "John Doe", 1, "Active", "Temporary Address", 201 },
+                    { 2, "Alice Smith", 9873210, "UVW Branch", "DEF Bank", "9876543210", new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 2, "alice.smith@example.com", "David Smith", 1, "path/to/image.jpg", new DateTime(2015, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Emily Smith", "Permanent Address", "Master's in Education", "Alice Smith", 2, "Active", "Temporary Address", 202 },
+                    { 3, "John Doe", 1234567890, "Main Street", "Anytown Bank", "555-123-4567", new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 7, "john.doe@example.com", "Richard Doe", 0, null, new DateTime(2020, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Jane Doe", "456 Elm Street, Anytown", "Bachelor of Science in Mathematics", "John Doe", 3, "Active", "123 Main Street, Anytown", 203 }
                 });
 
             migrationBuilder.InsertData(
@@ -871,12 +871,12 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "ExamSubjectId", "ExamDate", "ExamScheduleId", "SubjectId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3496), 1, 1 },
-                    { 2, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3499), 2, 2 },
-                    { 3, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3500), 3, 3 },
-                    { 4, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3501), 1, 1 },
-                    { 5, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3502), 2, 2 },
-                    { 6, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3503), 3, 3 }
+                    { 1, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8290), 1, 1 },
+                    { 2, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8298), 2, 2 },
+                    { 3, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8301), 3, 3 },
+                    { 4, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8303), 1, 1 },
+                    { 5, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8305), 2, 2 },
+                    { 6, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8307), 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -884,9 +884,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "MarkId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "StudentId", "SubjectId", "TotalMarks" },
                 values: new object[,]
                 {
-                    { 1, "Good job!", 1, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3570), 65, 40, 0, 1, 1, 1, 80 },
-                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3575), 75, 40, 0, 2, 2, 2, 90 },
-                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 17, 18, 4, 5, 674, DateTimeKind.Local).AddTicks(3577), 75, 40, 0, 3, 3, 3, 90 }
+                    { 1, "Good job!", 1, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8533), 65, 40, 0, 1, 1, 1, 80 },
+                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8539), 75, 40, 0, 2, 2, 2, 90 },
+                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8546), 75, 40, 0, 3, 3, 3, 90 }
                 });
 
             migrationBuilder.CreateIndex(

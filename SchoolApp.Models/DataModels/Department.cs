@@ -14,7 +14,6 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DepartmentId { get; set; }
-
         public required string DepartmentName { get; set; }
 
     }
