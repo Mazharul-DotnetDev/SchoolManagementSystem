@@ -55,15 +55,27 @@ namespace SchoolApp.DAL.SchoolContext
         //This SaveChanges() method is implemented for inserting Computed column [NetSalary column from StaffSalary Table] into Database.
         public override int SaveChanges()
         {
+
+
+            //foreach (var entry in ChangeTracker.Entries())
+            //{
+            //    if (entry.Entity is StaffSalary staffSalary && (entry.State == EntityState.Added || entry.State == EntityState.Modified))
+            //    {
+            //        // Update NetSalary before saving changes
+            //        staffSalary.NetSalary = CalculateNetSalary(staffSalary);
+            //    }
+            //}
+
+
             // Calculate NetSalary before saving changes
-            foreach (var entry in ChangeTracker.Entries<StaffSalary>())
-            {
-                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
-                {
-                    var staffSalary = entry.Entity;
-                    staffSalary.CalculateNetSalary();
-                }
-            }
+            //foreach (var entry in ChangeTracker.Entries<StaffSalary>())
+            //{
+            //    if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+            //    {
+            //        var staffSalary = entry.Entity;
+            //        staffSalary.CalculateNetSalary();
+            //    }
+            //}
 
             #region Testing_Purpose
             // Validation logic before saving changes
@@ -80,7 +92,7 @@ namespace SchoolApp.DAL.SchoolContext
             #endregion
 
             return base.SaveChanges();
-        }
+        }       
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -713,6 +725,7 @@ namespace SchoolApp.DAL.SchoolContext
                 new StaffSalary
                 {
                     StaffSalaryId = 1,
+                    StaffName = "Jamir King",
                     BasicSalary = 5000,
                     FestivalBonus = 1000,
                     Allowance = 500,
@@ -725,6 +738,7 @@ namespace SchoolApp.DAL.SchoolContext
                new StaffSalary
                {
                    StaffSalaryId = 2,
+                   StaffName = "Jamir Jamidar",
                    BasicSalary = 5000,
                    FestivalBonus = 1000,
                    Allowance = 500,
@@ -737,6 +751,7 @@ namespace SchoolApp.DAL.SchoolContext
                new StaffSalary
                {
                    StaffSalaryId = 3,
+                   StaffName = "Jamir Amir",
                    BasicSalary = 5000,
                    FestivalBonus = 1000,
                    Allowance = 500,
@@ -904,7 +919,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             );
             #endregion
-            // ----------------------------------------------- //
+     // ----------------------------------------------- //
             #region StudentAttendance_Excluded
             // Seed StudentAttendance data if required
             //modelBuilder.Entity<StudentAttendance>().HasData(
@@ -939,7 +954,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //);
             #endregion
-            // ----------------------------------------------- //
+     // ----------------------------------------------- //
             #region StaffAttendance_Excluded
             // Seed StaffAttendance data if required
             //modelBuilder.Entity<StaffAttendance>().HasData(
@@ -973,7 +988,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //); 
             #endregion
-            //-----------------------------------------//
+     //-----------------------------------------//
             #region StaffExperience_Excluded
             modelBuilder.Entity<StaffExperience>().HasData(
     new StaffExperience
@@ -1010,13 +1025,13 @@ namespace SchoolApp.DAL.SchoolContext
 );
 
             #endregion
-            //-----------------------------------------//
+     //-----------------------------------------//
             #region Staff
             modelBuilder.Entity<Staff>().HasData(
                new Staff
                {
                    StaffId = 1,
-                   StaffName = "John Doe",
+                   StaffName = "Jamir King",
                    UniqueStaffAttendanceNumber = 201,
                    Gender = Gender.Male,
                    DOB = new DateTime(1985, 5, 15),
@@ -1041,7 +1056,7 @@ namespace SchoolApp.DAL.SchoolContext
                new Staff
                {
                    StaffId = 2,
-                   StaffName = "Alice Smith",
+                   StaffName = "Jamir Jamidar",
                    UniqueStaffAttendanceNumber = 202,
                    Gender = Gender.Female,
                    DOB = new DateTime(1990, 8, 20),
@@ -1066,7 +1081,7 @@ namespace SchoolApp.DAL.SchoolContext
                new Staff
                {
                    StaffId = 3,
-                   StaffName = "John Doe",
+                   StaffName = "Jamir Amir",
                    UniqueStaffAttendanceNumber = 203,
                    Gender = Gender.Male,
                    DOB = new DateTime(1980, 01, 01),

@@ -3,32 +3,40 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Staff } from '../Models/staff';
 
-const baseUrl: string = "https://localhost:7225/api/Staffs";
+/*const baseUrl: string = "https://localhost:7225/api/Staffs";*/
 
 @Injectable({
   providedIn: 'root'
 })
 export class StaffService {
+  private apiUrl = 'https://localhost:7225/api/Staffs'; 
+    //getAllDepartments: any;
+    //getStaffSalaries: any;
 
   constructor(private http: HttpClient) { }
 
+  // GET all staffs
   getAllStaffs(): Observable<Staff[]> {
-    return this.http.get<Staff[]>(baseUrl);
+    return this.http.get<Staff[]>(this.apiUrl);
   }
 
-  getStaff(id: number): Observable<Staff> {
-    return this.http.get<Staff>(`${baseUrl}/${id}`);
+  // GET staff by ID
+  getStaffById(id: number): Observable<Staff> {
+    return this.http.get<Staff>(`${this.apiUrl}/${id}`);
   }
 
-  createStaff(staff: Staff): Observable<Staff> {
-    return this.http.post<Staff>(baseUrl, staff);
+  // POST a new staff
+  addStaff(staff: Staff): Observable<Staff> {
+    return this.http.post<Staff>(this.apiUrl, staff);
   }
 
-  updateStaff(id: number, staff: Staff): Observable<Staff> {
-    return this.http.put<Staff>(`${baseUrl}/${id}`, staff);
+  // PUT update an existing staff
+  updateStaff(id: number, staff: Staff): Observable<void> {
+    return this.http.put<void>(`${this.apiUrl}/${id}`, staff);
   }
 
-  deleteStaff(id: number): Observable<any> {
-    return this.http.delete(`${baseUrl}/${id}`);
+  // DELETE a staff
+  deleteStaff(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

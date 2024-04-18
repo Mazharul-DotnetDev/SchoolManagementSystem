@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>Staff Salaries</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Staff Name</th>
+        <th>Basic Salary</th>
+        <th>Festival Bonus</th>
+        <th>Allowance</th>
+        <th>Medical Allowance</th>
+        <th>Housing Allowance</th>
+        <th>Transportation Allowance</th>
+        <th>Saving Fund</th>
+        <th>Taxes</th>
+        <th>Net Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let salary of staffSalaries">
+        <td>{{ salary.staffName }}</td>
+        <td>{{ salary.basicSalary }}</td>
+        <td>{{ salary.festivalBonus }}</td>
+        <td>{{ salary.allowance }}</td>
+        <td>{{ salary.medicalAllowance }}</td>
+        <td>{{ salary.housingAllowance }}</td>
+        <td>{{ salary.transportationAllowance }}</td>
+        <td>{{ salary.savingFund }}</td>
+        <td>{{ salary.taxes }}</td>
+        <td>{{ salary.netSalary }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

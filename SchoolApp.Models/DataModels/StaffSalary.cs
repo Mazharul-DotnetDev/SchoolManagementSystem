@@ -16,22 +16,22 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StaffSalaryId { get; set; }
+        public string? StaffName { get; set; }
         public decimal? BasicSalary { get; set; }
         public decimal? FestivalBonus { get; set; }
         public decimal? Allowance { get; set; }
         public decimal? MedicalAllowance { get; set; }
-        public decimal? HousingAllowance { get; set; }        
+        public decimal? HousingAllowance { get; set; }
         public decimal? TransportationAllowance { get; set; }
         public decimal? SavingFund { get; set; } = 0;
         public decimal? Taxes { get; set; } = 0;
-        // See the SchoolDbContext.cs file 
-        public decimal? NetSalary { get; set; } // Add NetSalary property to be stored in the database; Related to CalculateNetSalary() method
-
-        // Method to calculate net salary
-        public void CalculateNetSalary()
-        {
-            NetSalary = BasicSalary + FestivalBonus + Allowance + MedicalAllowance + HousingAllowance + TransportationAllowance - SavingFund - Taxes;
-        }
+        // Calculated property
+        public decimal? NetSalary { get; set; }
 
     }
 }
+
+
+
+    
+

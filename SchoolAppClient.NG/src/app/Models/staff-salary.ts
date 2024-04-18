@@ -1,6 +1,7 @@
 export class StaffSalary {
   // Per individual Staff's salary prototype
   staffSalaryId!: number;
+  staffName?: string; // this proprty is for just Drop-down list; same as staffName of Staff class
   basicSalary?: number;
   festivalBonus?: number;
   allowance?: number;
@@ -9,21 +10,12 @@ export class StaffSalary {
   transportationAllowance?: number;
   savingFund: number = 0;
   taxes: number = 0;
-  netSalary?: number; // Add NetSalary property to be stored in the database; Related to CalculateNetSalary() method
+  netSalary?: number; 
 
-  constructor() {
-    this.savingFund = 0;
-    this.taxes = 0;
-  }
+  //constructor() {
+  //  this.savingFund = 0;
+  //  this.taxes = 0;
+  //}
 
-  // Method to calculate net salary
-  calculateNetSalary(): void {
-    this.netSalary = (this.basicSalary ?? 0) +
-      (this.festivalBonus ?? 0) +
-      (this.allowance ?? 0) +
-      (this.medicalAllowance ?? 0) +
-      (this.housingAllowance ?? 0) +
-      (this.transportationAllowance ?? 0) -
-      this.savingFund - this.taxes;
-  }
+  
 }

@@ -19,12 +19,40 @@ export class StaffExperience {
       const durationMs = new Date(this.leavingDate).getTime() - new Date(this.joiningDate).getTime();
       const years = Math.floor(durationMs / (1000 * 60 * 60 * 24 * 365));
       const months = Math.floor((durationMs % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-      this.serviceDuration = `${years} years, ${months} months`;
+      const days = Math.floor((durationMs % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+      this.serviceDuration = '';
+      if (years > 0) {
+        this.serviceDuration += `${years} years `;
+      }
+      if (months > 0) {
+        this.serviceDuration += `${months} months `;
+      }
+      if (days > 0) {
+        this.serviceDuration += `${days} days`;
+      }
     } else {
-      const durationMs = new Date().getTime() - new Date(this.joiningDate).getTime();
-      const years = Math.floor(durationMs / (1000 * 60 * 60 * 24 * 365));
-      const months = Math.floor((durationMs % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
-      this.serviceDuration = `${years} years, ${months} months`;
+      this.serviceDuration = 'Present';
     }
   }
-}
+  }
+
+
+
+
+
+
+  // Method to calculate service duration
+  //calculateServiceDuration(): void {
+  //  if (this.leavingDate) {
+  //    const durationMs = new Date(this.leavingDate).getTime() - new Date(this.joiningDate).getTime();
+  //    const years = Math.floor(durationMs / (1000 * 60 * 60 * 24 * 365));
+  //    const months = Math.floor((durationMs % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+  //    this.serviceDuration = `${years} years, ${months} months`;
+  //  } else {
+  //    const durationMs = new Date().getTime() - new Date(this.joiningDate).getTime();
+  //    const years = Math.floor(durationMs / (1000 * 60 * 60 * 24 * 365));
+  //    const months = Math.floor((durationMs % (1000 * 60 * 60 * 24 * 365)) / (1000 * 60 * 60 * 24 * 30));
+  //    this.serviceDuration = `${years} years, ${months} months`;
+  //  }
+  //}
+

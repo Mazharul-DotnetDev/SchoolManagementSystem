@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolApp.DAL.SchoolContext;
 
@@ -11,9 +12,11 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    partial class SchoolDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240418224327_Mig1")]
+    partial class Mig1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -606,7 +609,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 1,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7005),
+                            Date = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(678),
                             IsPresent = true,
                             Type = 0
                         },
@@ -614,7 +617,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 2,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7028),
+                            Date = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(717),
                             IsPresent = true,
                             Type = 0
                         },
@@ -622,7 +625,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 3,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7030),
+                            Date = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(720),
                             IsPresent = true,
                             Type = 0
                         },
@@ -630,7 +633,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 4,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7032),
+                            Date = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(722),
                             IsPresent = true,
                             Type = 0
                         });
@@ -774,42 +777,42 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             ExamSubjectId = 1,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7534),
+                            ExamDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1211),
                             ExamScheduleId = 1,
                             SubjectId = 1
                         },
                         new
                         {
                             ExamSubjectId = 2,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7548),
+                            ExamDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1227),
                             ExamScheduleId = 2,
                             SubjectId = 2
                         },
                         new
                         {
                             ExamSubjectId = 3,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7552),
+                            ExamDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1234),
                             ExamScheduleId = 3,
                             SubjectId = 3
                         },
                         new
                         {
                             ExamSubjectId = 4,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7555),
+                            ExamDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1239),
                             ExamScheduleId = 1,
                             SubjectId = 1
                         },
                         new
                         {
                             ExamSubjectId = 5,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7558),
+                            ExamDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1246),
                             ExamScheduleId = 2,
                             SubjectId = 2
                         },
                         new
                         {
                             ExamSubjectId = 6,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7561),
+                            ExamDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1252),
                             ExamScheduleId = 3,
                             SubjectId = 3
                         });
@@ -978,7 +981,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(8053),
+                            MarkEntryDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1712),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -992,7 +995,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(8073),
+                            MarkEntryDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1722),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1006,7 +1009,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(8078),
+                            MarkEntryDate = new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1728),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1261,7 +1264,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherName = "Alice Doe",
                             PermanentAddress = "Permanent Address",
                             Qualifications = "Bachelor's in Computer Science",
-                            StaffName = "Jamir King",
+                            StaffName = "John Doe",
                             StaffSalaryId = 1,
                             Status = "Active",
                             TemporaryAddress = "Temporary Address",
@@ -1286,7 +1289,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherName = "Emily Smith",
                             PermanentAddress = "Permanent Address",
                             Qualifications = "Master's in Education",
-                            StaffName = "Jamir Jamidar",
+                            StaffName = "Alice Smith",
                             StaffSalaryId = 2,
                             Status = "Active",
                             TemporaryAddress = "Temporary Address",
@@ -1310,7 +1313,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherName = "Jane Doe",
                             PermanentAddress = "456 Elm Street, Anytown",
                             Qualifications = "Bachelor of Science in Mathematics",
-                            StaffName = "Jamir Amir",
+                            StaffName = "John Doe",
                             StaffSalaryId = 3,
                             Status = "Active",
                             TemporaryAddress = "123 Main Street, Anytown",
@@ -1409,14 +1412,8 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<decimal?>("MedicalAllowance")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal?>("NetSalary")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<decimal?>("SavingFund")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("StaffName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Taxes")
                         .HasColumnType("decimal(18,2)");
@@ -1438,7 +1435,6 @@ namespace SchoolApp.DAL.Migrations
                             HousingAllowance = 800m,
                             MedicalAllowance = 300m,
                             SavingFund = 200m,
-                            StaffName = "Jamir King",
                             Taxes = 500m,
                             TransportationAllowance = 200m
                         },
@@ -1451,7 +1447,6 @@ namespace SchoolApp.DAL.Migrations
                             HousingAllowance = 800m,
                             MedicalAllowance = 300m,
                             SavingFund = 200m,
-                            StaffName = "Jamir Jamidar",
                             Taxes = 500m,
                             TransportationAllowance = 200m
                         },
@@ -1464,7 +1459,6 @@ namespace SchoolApp.DAL.Migrations
                             HousingAllowance = 800m,
                             MedicalAllowance = 300m,
                             SavingFund = 200m,
-                            StaffName = "Jamir Amir",
                             Taxes = 500m,
                             TransportationAllowance = 200m
                         });

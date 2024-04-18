@@ -6,8 +6,8 @@ export class Staff {
   staffId!: number;
   staffName!: string;
   uniqueStaffAttendanceNumber!: number;
-  gender?: Gender;
-  dob?: Date;
+  gender?: Gender = Gender.Male;
+  dob: string | null = null;
   fatherName?: string;
   motherName?: string;
   temporaryAddress?: string;

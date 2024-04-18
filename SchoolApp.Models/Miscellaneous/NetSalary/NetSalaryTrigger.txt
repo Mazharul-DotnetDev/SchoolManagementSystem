@@ -1,0 +1,44 @@
+﻿-- Drop the trigger if it exists
+IF EXISTS (SELECT * FROM sys.triggers WHERE name = 'UpdateNetSalary')
+BEGIN
+    DROP TRIGGER UpdateNetSalary;
+END
+GO
+
+-- Create the trigger
+CREATE TRIGGER UpdateNetSalary
+ON StaffSalary
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    DECLARE @StaffSalaryId INT;
+
+    -- Declare a cursor to iterate over the inserted rows
+    DECLARE cursorUpdate CURSOR FOR
+    SELECT StaffSalaryId FROM inserted;
+
+    -- Open the cursor
+    OPEN cursorUpdate;
+
+    -- Fetch the first row
+    FETCH NEXT FROM cursorUpdate INTO @StaffSalaryId;
+
+    -- Loop through all rows in the inserted table
+    WHILE @@FETCH_STATUS = 0
+    BEGIN
+        -- Update the NetSalary column for the current row
+        UPDATE StaffSalary
+        SET NetSalary = (ISNULL(BasicSalary, 0) + ISNULL(FestivalBonus, 0) + ISNULL(Allowance, 0) + ISNULL(MedicalAllowance, 0)
+                        + ISNULL(HousingAllowance, 0) + ISNULL(TransportationAllowance, 0))
+                        - (ISNULL(SavingFund, 0) + ISNULL(Taxes, 0))
+        WHERE StaffSalaryId = @StaffSalaryId;
+
+        -- Fetch the next row
+        FETCH NEXT FROM cursorUpdate INTO @StaffSalaryId;
+    END;
+
+    -- Close and deallocate the cursor
+    CLOSE cursorUpdate;
+    DEALLOCATE cursorUpdate;
+END;
+GO

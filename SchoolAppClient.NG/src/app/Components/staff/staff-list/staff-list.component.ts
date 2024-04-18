@@ -7,24 +7,27 @@ import { StaffService } from '../../../Services/staff.service';
   templateUrl: './staff-list.component.html',
   styleUrl: './staff-list.component.css'
 })
+
 export class StaffListComponent implements OnInit {
   staffList: Staff[] = [];
+  errorMessage!: string;
 
   constructor(private staffService: StaffService) { }
 
   ngOnInit(): void {
-    this.getAllStaffs();
+    this.loadStaffList();
   }
 
-  getAllStaffs(): void {
-    this.staffService.getAllStaffs()
-      .subscribe(
-        (data: Staff[]) => {
-          this.staffList = data;
-        },
-        error => {
-          console.log('Error fetching staffs:', error);
-        }
-      );
+  loadStaffList(): void {
+    this.staffService.getAllStaffs().subscribe(
+      staffs => {
+        this.staffList = staffs;        
+      },
+      error => {
+        console.error('Error fetching staff list:', error);
+        this.errorMessage = 'An error occurred while fetching the staff list. Please try again later.';
+      }
+    );
   }
 }
+

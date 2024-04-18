@@ -134,8 +134,7 @@ namespace SchoolApp.DAL.Migrations
                     HousingAllowance = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     TransportationAllowance = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     SavingFund = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    Taxes = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    NetSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    Taxes = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -757,10 +756,10 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "AttendanceId", "AttendanceIdentificationNumber", "Date", "Description", "IsPresent", "Type" },
                 values: new object[,]
                 {
-                    { 1, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8020), null, true, 0 },
-                    { 2, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8042), null, true, 0 },
-                    { 3, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8044), null, true, 0 },
-                    { 4, 111, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8045), null, true, 0 }
+                    { 1, 111, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(678), null, true, 0 },
+                    { 2, 111, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(717), null, true, 0 },
+                    { 3, 111, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(720), null, true, 0 },
+                    { 4, 111, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(722), null, true, 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -805,12 +804,12 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "StaffSalary",
-                columns: new[] { "StaffSalaryId", "Allowance", "BasicSalary", "FestivalBonus", "HousingAllowance", "MedicalAllowance", "NetSalary", "SavingFund", "Taxes", "TransportationAllowance" },
+                columns: new[] { "StaffSalaryId", "Allowance", "BasicSalary", "FestivalBonus", "HousingAllowance", "MedicalAllowance", "SavingFund", "Taxes", "TransportationAllowance" },
                 values: new object[,]
                 {
-                    { 1, 500m, 5000m, 1000m, 800m, 300m, null, 200m, 500m, 200m },
-                    { 2, 500m, 5000m, 1000m, 800m, 300m, null, 200m, 500m, 200m },
-                    { 3, 500m, 5000m, 1000m, 800m, 300m, null, 200m, 500m, 200m }
+                    { 1, 500m, 5000m, 1000m, 800m, 300m, 200m, 500m, 200m },
+                    { 2, 500m, 5000m, 1000m, 800m, 300m, 200m, 500m, 200m },
+                    { 3, 500m, 5000m, 1000m, 800m, 300m, 200m, 500m, 200m }
                 });
 
             migrationBuilder.InsertData(
@@ -871,12 +870,12 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "ExamSubjectId", "ExamDate", "ExamScheduleId", "SubjectId" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8290), 1, 1 },
-                    { 2, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8298), 2, 2 },
-                    { 3, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8301), 3, 3 },
-                    { 4, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8303), 1, 1 },
-                    { 5, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8305), 2, 2 },
-                    { 6, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8307), 3, 3 }
+                    { 1, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1211), 1, 1 },
+                    { 2, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1227), 2, 2 },
+                    { 3, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1234), 3, 3 },
+                    { 4, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1239), 1, 1 },
+                    { 5, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1246), 2, 2 },
+                    { 6, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1252), 3, 3 }
                 });
 
             migrationBuilder.InsertData(
@@ -884,9 +883,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "MarkId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "StudentId", "SubjectId", "TotalMarks" },
                 values: new object[,]
                 {
-                    { 1, "Good job!", 1, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8533), 65, 40, 0, 1, 1, 1, 80 },
-                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8539), 75, 40, 0, 2, 2, 2, 90 },
-                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 19, 0, 6, 56, 165, DateTimeKind.Local).AddTicks(8546), 75, 40, 0, 3, 3, 3, 90 }
+                    { 1, "Good job!", 1, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1712), 65, 40, 0, 1, 1, 1, 80 },
+                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1722), 75, 40, 0, 2, 2, 2, 90 },
+                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 19, 4, 43, 23, 368, DateTimeKind.Local).AddTicks(1728), 75, 40, 0, 3, 3, 3, 90 }
                 });
 
             migrationBuilder.CreateIndex(
