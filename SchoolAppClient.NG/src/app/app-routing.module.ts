@@ -19,16 +19,20 @@ import { MonthlypaymentDetailsComponent } from './Components/monthlypayment/mont
 import { StaffListComponent } from './Components/staff/staff-list/staff-list.component';
 import { DepartementListComponent } from './Components/department/department-list/department-list.component';
 import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary-list/staff-salary-list.component';
+import { LoginComponent } from './Authentication/SecurityComponents/login/login.component';
+import { AuthGuard } from './Authentication/SecurityModels/auth.guard';
+import { StaffCreateComponent } from './Components/staff/staff-create/staff-create.component';
 
 
 const routes: Routes = [
   { path: "", redirectTo: "/marksList", pathMatch: "full" },
+  { path: "login", component: LoginComponent },
   /*{ path: "", redirectTo: "/attendanceList", pathMatch: "full" },*/
-  { path: "marksList", component: MarksListComponent },
-  { path: 'marks/add', component: MarksAddComponent },
+  { path: "marksList", component: MarksListComponent, canActivate: [AuthGuard] },
+  { path: 'marks/add', component: MarksAddComponent, canActivate: [AuthGuard] },
   { path: 'marks/edit/:id', component: MarksEditComponent },
   { path: "marks/delete/:id", component: MarksDeleteComponent },
-  { path: "attendanceList", component: AttendanceListComponent },
+  { path: "attendanceList", component: AttendanceListComponent, canActivate: [AuthGuard] },
   { path: "attendance/add", component: AttendanceAddComponent },
   { path: 'fee-types', component: FeetypeListComponent },
   { path: 'fee-types/create', component: FeetypeCreateComponent },
@@ -44,7 +48,8 @@ const routes: Routes = [
   { path: 'monthlypayment/:id/details', component: MonthlypaymentDetailsComponent },
   { path: 'staff-list', component: StaffListComponent },
   { path: 'departments', component: DepartementListComponent },
-  { path: 'staff-salaries', component: StaffSalaryListComponent }
+  { path: 'staff-salaries', component: StaffSalaryListComponent },
+  { path: 'staff-create', component: StaffCreateComponent }
 
 ];
 

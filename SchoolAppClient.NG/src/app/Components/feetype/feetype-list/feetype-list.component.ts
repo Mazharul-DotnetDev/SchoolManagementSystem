@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FeeType } from '../../../Models/FeeType';
 import { FeeTypeService } from '../../../Services/feetype.service';
 import { Router } from '@angular/router';
+import { FeeType } from '../../../Models/FeeType';
 
 @Component({
   selector: 'app-feetype-list',

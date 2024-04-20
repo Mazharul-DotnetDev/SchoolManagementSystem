@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { AuthService } from './Authentication/SecurityModels/auth.service';
+import { AuthResponse } from './Authentication/SecurityModels/auth-response';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,26 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'SchoolAppClient.NG';
+  title = 'NG.ClientsSchoolAPI';
+  private authService = inject(AuthService);
+  user!: AuthResponse;
+  public login!: boolean;
+
+
+  ngOnInit() {
+
+    this.login = this.authService.isLoggedIn();
+    this.user = this.authService.getCurrentAuthUser();
+   
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  refreshToken() {
+    this.authService.refreshToken()?.subscribe(() => { });
+  }
+
+
 }

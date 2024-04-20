@@ -26,9 +26,10 @@
     "@syncfusion/ej2-angular-inputs": "*",
     "@syncfusion/ej2-angular-notifications": "*",
     "@syncfusion/ej2-angular-pdfviewer": "*",
-    "@syncfusion/ej2-material-theme": "*",    
+    "@syncfusion/ej2-material-theme": "*",
     "bootstrap": "^5.3.3",
     "jest-editor-support": "*",
+    "jwt-decode": "*",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

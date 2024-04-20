@@ -2,87 +2,136 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolApiService.Services;
+using SchoolApp.DAL.SchoolContext;
+using SchoolApp.Models.DataModels.SecurityModels;
 
 namespace SchoolApiService.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class AccountController : ControllerBase
+    [Route("/api/[controller]")]
+    public class UsersController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> userManager;
-        private readonly RoleManager<IdentityRole> roleManager;
-        private readonly ITokenService tokenService;
-        public AccountController(UserManager<IdentityUser> userManager,
-          RoleManager<IdentityRole> roleManager,
-          ITokenService tokenService)
-        {
-            this.userManager = userManager;
-            this.roleManager = roleManager;
-            this.tokenService = tokenService;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SchoolDbContext _context;
+        private readonly ITokenService _tokenService;
 
+        public UsersController(
+            UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
+            SchoolDbContext context,
+            ITokenService tokenService, ILogger<UsersController> logger
+            )
+        {
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _context = context;
+            _tokenService = tokenService;
         }
 
 
-        [HttpGet]
-        public async Task<ActionResult<string>> Login(LoginUser user)
-        {
-            return Ok(await this.tokenService.Get(user));
-
-        }
         [HttpPost]
-        public async Task<ActionResult<string>> RegisterUser(LoginUser user)
+        [Route("register")]
+        public async Task<IActionResult> Register(RegistrationRequest request)
         {
-            var identityUser = new IdentityUser()
+            if (!ModelState.IsValid)
             {
-                UserName = user.UserName,
-                Email = user.UserName,
-            };
+                return BadRequest(ModelState);
+            }
 
-           
-            var result = await this.userManager.CreateAsync(identityUser, user.Password);
-
+            var result = await _userManager.CreateAsync(
+                new ApplicationUser { UserName = request.Username, Email = request.Email, Role = request.Role },
+                request.Password!
+            );
 
             if (result.Succeeded)
             {
-                return Ok(await this.tokenService.Get(user));
-            }
-            
-            else
-            {
-                return BadRequest(result.Errors);
+                request.Password = "";
+                return CreatedAtAction(nameof(Register), new { email = request.Email, role = request.Role }, request);
             }
 
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost]
+        [Route("create-role")]
+        public async Task<ActionResult> CreateRole([FromBody] UserRoleDto request)
+        {
+            IdentityRole role = new IdentityRole()
+            {
+                Name = request.Name,
+            };
+
+            var result = await _roleManager.CreateAsync(role);
+
+            if (result.Succeeded)
+            {
+                return Ok(request);
+            }
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(error.Code, error.Description);
+            }
+
+            return BadRequest(ModelState);
         }
 
 
-        [HttpPost("RoleCreate")]
-        public async Task<ActionResult> CreateRole(string role)
+
+
+
+        [HttpPost()]//https://domain.com/api/users/login
+        [Route("login")]//https://domain.com/login
+        public async Task<ActionResult<AuthResponse>> Authenticate([FromBody] AuthRequest request)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                var identityRole = new IdentityRole(role);
-
-
-                var result = await roleManager.CreateAsync(identityRole);
-
-                
-                if (result.Succeeded)
-                {
-                    return Ok(identityRole);
-                }
-
-                else
-                {
-                    return BadRequest(result.Errors);
-                }
-
-            }
-            catch (Exception exc)
-            {
-
-                return BadRequest(exc);
+                return BadRequest(ModelState);
             }
 
+            var managedUser = await _userManager.FindByEmailAsync(request.Email!);
+
+            if (managedUser == null)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var isPasswordValid = await _userManager.CheckPasswordAsync(managedUser, request.Password!);
+
+            if (!isPasswordValid)
+            {
+                return BadRequest("Bad credentials");
+            }
+
+            var userInDb = _context.Users.FirstOrDefault(u => u.Email == request.Email);
+
+            if (userInDb is null)
+            {
+                return Unauthorized(request);
+            }
+
+            var accessToken = _tokenService.CreateToken(userInDb);
+            await _context.SaveChangesAsync();
+
+            return Ok(new AuthResponse
+            {
+                Username = userInDb.UserName,
+                Email = userInDb.Email,
+                Token = accessToken,
+            });
+        }
+
+
+        [HttpPost]
+        [Route("logout")]
+        public async Task<ActionResult> Logout()
+        {
+            return Ok();
         }
     }
 }

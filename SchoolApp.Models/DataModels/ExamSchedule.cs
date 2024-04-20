@@ -14,19 +14,10 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExamScheduleId { get; set; }
+
+        [Required]
         public string? ExamScheduleName { get; set; }
 
-        public int? ExamTypeId { get; set; }
-
-        public int? StandardId { get; set; }
-        public virtual ICollection<ExamSubject> ExamSubjects { get; set; }
-        public ExamType? ExamType { get; set; }
-        public Standard? Standard { get; set; }
-
-        //Initialize the ExamSubjects collection in the constructor to avoid null reference exceptions when accessing it.
-        public ExamSchedule()
-        {
-            ExamSubjects = new List<ExamSubject>();
-        }
+        public virtual ICollection<ExamScheduleStandard>? ExamScheduleStandards { get; set; } = [];
     }
 }

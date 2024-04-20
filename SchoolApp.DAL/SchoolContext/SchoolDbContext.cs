@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SchoolApp.Models.DataModels;
+using SchoolApp.Models.DataModels.SecurityModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,10 @@ using System.Threading.Tasks;
 namespace SchoolApp.DAL.SchoolContext
 {
 
-    public class SchoolDbContext : IdentityDbContext
+
+    //public class SchoolDbContext : IdentityDbContext
+
+    public class SchoolDbContext : IdentityDbContext<ApplicationUser>
     {
 
         #region DbSets
@@ -42,6 +46,7 @@ namespace SchoolApp.DAL.SchoolContext
         public DbSet<PaymentDetail> PaymentDetails { get; set; }
         public DbSet<OtherPaymentDetail> otherPaymentDetails { get; set; }
         public DbSet<PaymentMonth> paymentMonths { get; set; }
+        public DbSet<ExamScheduleStandard> dbsExamScheduleStandard { get; set; }
 
         #endregion
 
@@ -114,20 +119,7 @@ namespace SchoolApp.DAL.SchoolContext
                 .HasForeignKey(m => m.SubjectId)
                 .OnDelete(DeleteBehavior.NoAction);
             // Specify ON DELETE NO ACTION
-
-
-            //    modelBuilder.Entity<StaffExperience>()
-            //.Property(p => p.ServiceDuration)
-            //.HasComputedColumnSql("DATEDIFF(year, JoiningDate, ISNULL(LeavingDate, GETDATE()))"); // Calculate duration in years
-
-
-            //    modelBuilder.Entity<StaffAttendance>()
-            //.Property(e => e.WorkingDate)
-            //.HasDefaultValueSql("GETUTCDATE()");
-
-            //modelBuilder.Entity<StudentAttendance>()
-            //.Property(e => e.WorkingDate)
-            //.HasDefaultValueSql("GETUTCDATE()");
+            
 
 
             #region Index
@@ -153,8 +145,9 @@ namespace SchoolApp.DAL.SchoolContext
 
             #endregion
 
+            #region Seed Data
 
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region AcademicMonth
             modelBuilder.Entity<AcademicMonth>().HasData(
                new AcademicMonth { MonthId = 1, MonthName = "January" },
@@ -175,15 +168,15 @@ namespace SchoolApp.DAL.SchoolContext
                 modelBuilder.Entity<AcademicYear>().HasData(
                     new AcademicYear { AcademicYearId = year - 2000 + 1, Name = year.ToString() }
                 );
-            } 
+            }
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Attendance
             // Seed Attendance data
             modelBuilder.Entity<Attendance>().HasData(
                 new Attendance
                 {
-                    AttendanceId = 1,                  
+                    AttendanceId = 1,
                     IsPresent = true
                     //,
                     //Staffs = new Staff[]
@@ -199,7 +192,7 @@ namespace SchoolApp.DAL.SchoolContext
                 },
                 new Attendance
                 {
-                    AttendanceId = 2,                    
+                    AttendanceId = 2,
                     IsPresent = true
                     //,
                     //Staffs = new Staff[]
@@ -231,7 +224,7 @@ namespace SchoolApp.DAL.SchoolContext
                 },
                 new Attendance
                 {
-                    AttendanceId = 4,                   
+                    AttendanceId = 4,
                     IsPresent = true
                     //,
                     //Staffs = new Staff[]
@@ -247,7 +240,7 @@ namespace SchoolApp.DAL.SchoolContext
                 }
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Department
             // Seed Department data
             modelBuilder.Entity<Department>().HasData(
@@ -256,7 +249,7 @@ namespace SchoolApp.DAL.SchoolContext
                 new Department { DepartmentId = 3, DepartmentName = "Finance" }
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region DueBalance_Excluded
             // Seed DueBalance data
             //modelBuilder.Entity<DueBalance>().HasData(
@@ -265,15 +258,15 @@ namespace SchoolApp.DAL.SchoolContext
             //    new DueBalance { DueBalanceId = 3, StudentId = 3 }
             //);
             #endregion
-     // ----------------------------------------------- //
-            #region ExamSubjects
+            // ----------------------------------------------- //
+            #region ExamSchedule
             // Seed ExamSchedule data along with associated ExamSubjects
             modelBuilder.Entity<ExamSchedule>().HasData(
                 new ExamSchedule
                 {
                     ExamScheduleId = 1,
-                    ExamScheduleName = "Midterm Exam",
-                    ExamTypeId = 1
+                    ExamScheduleName = "Midterm Exam"
+                    //ExamTypeId = 1
                     //,
                     //ExamSubjects = new List<ExamSubject>
                     //{
@@ -284,8 +277,8 @@ namespace SchoolApp.DAL.SchoolContext
                 new ExamSchedule
                 {
                     ExamScheduleId = 2,
-                    ExamScheduleName = "Final Exam",
-                    ExamTypeId = 2
+                    ExamScheduleName = "Final Exam"
+                    //ExamTypeId = 2
                     //,
                     //ExamSubjects = new List<ExamSubject>
                     //{
@@ -296,8 +289,8 @@ namespace SchoolApp.DAL.SchoolContext
                 new ExamSchedule
                 {
                     ExamScheduleId = 3,
-                    ExamScheduleName = "Practical Exam",
-                    ExamTypeId = 3
+                    ExamScheduleName = "Practical Exam"
+                    //ExamTypeId = 3
                     //,
                     //ExamSubjects = new List<ExamSubject>
                     //{
@@ -307,19 +300,8 @@ namespace SchoolApp.DAL.SchoolContext
                 }
             );
             #endregion
-     // ----------------------------------------------- //
-            #region ExamSubject
-            // Seed ExamSubject data
-            modelBuilder.Entity<ExamSubject>().HasData(
-                new ExamSubject { ExamSubjectId = 1, SubjectId = 1, ExamScheduleId = 1 },
-                new ExamSubject { ExamSubjectId = 2, SubjectId = 2, ExamScheduleId = 2 },
-                new ExamSubject { ExamSubjectId = 3, SubjectId = 3, ExamScheduleId = 3 },
-                new ExamSubject { ExamSubjectId = 4, SubjectId = 1, ExamScheduleId = 1 },
-                new ExamSubject { ExamSubjectId = 5, SubjectId = 2, ExamScheduleId = 2 },
-                new ExamSubject { ExamSubjectId = 6, SubjectId = 3, ExamScheduleId = 3 }
-            );
-            #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
+
             #region ExamType
             // Seed ExamType data
             modelBuilder.Entity<ExamType>().HasData(
@@ -328,7 +310,76 @@ namespace SchoolApp.DAL.SchoolContext
                 new ExamType { ExamTypeId = 3, ExamTypeName = "Practical" }
             );
             #endregion
-     // ----------------------------------------------- //
+
+
+            // ----------------------------------------------- //
+            #region ExamSubject
+            // Seed ExamSubject data
+            //            modelBuilder.Entity<ExamSubject>().HasData(
+            //            new ExamSubject
+            //            {
+            //                ExamSubjectId = 1,
+            //                //ExamScheduleStandardId = 1,
+            //                //SubjectId = 1,
+            //                //ExamTypeId = 1,
+            //                ExamDate = DateTime.Now.Date,
+            //                ExamStartTime = new TimeSpan(9, 0, 0), // 9:00 AM
+            //                ExamEndTime = new TimeSpan(11, 0, 0)  // 11:00 AM
+            //            },
+            //            new ExamSubject
+            //            {
+            //                ExamSubjectId = 2,
+            //                //ExamScheduleStandardId = 2,
+            //                //SubjectId = 2,
+            //                //ExamTypeId = 2,
+            //                ExamDate = DateTime.Now.Date.AddDays(1), // Tomorrow
+            //                ExamStartTime = new TimeSpan(10, 0, 0),  // 10:00 AM
+            //                ExamEndTime = new TimeSpan(12, 0, 0)   // 12:00 PM
+            //            },
+            //            new ExamSubject
+            //            {
+            //                ExamSubjectId = 3,
+            //                //ExamScheduleStandardId = 3,
+            //                //SubjectId = 3,
+            //                //ExamTypeId = 3,
+            //                ExamDate = DateTime.Now.Date.AddDays(2), // Day after tomorrow
+            //                ExamStartTime = new TimeSpan(11, 0, 0),  // 11:00 AM
+            //                ExamEndTime = new TimeSpan(13, 0, 0)   // 1:00 PM
+            //            },
+            //            new ExamSubject
+            //            {
+            //                ExamSubjectId = 4,
+            //                //ExamScheduleStandardId = 1,
+            //                //SubjectId = 1,
+            //                //ExamTypeId = 1,
+            //                ExamDate = DateTime.Now.Date.AddDays(3), // Three days from now
+            //                ExamStartTime = new TimeSpan(9, 0, 0),   // 9:00 AM
+            //                ExamEndTime = new TimeSpan(11, 0, 0)    // 11:00 AM
+            //            },
+            //            new ExamSubject
+            //            {
+            //                ExamSubjectId = 5,
+            //                //ExamScheduleStandardId = 2,
+            //                //SubjectId = 2,
+            //                //ExamTypeId = 1,
+            //                ExamDate = DateTime.Now.Date.AddDays(4), // Four days from now
+            //                ExamStartTime = new TimeSpan(10, 0, 0),  // 10:00 AM
+            //                ExamEndTime = new TimeSpan(12, 0, 0)    // 12:00 PM
+            //            },
+            //            new ExamSubject
+            //            {
+            //                ExamSubjectId = 6,
+            //                //ExamScheduleStandardId = 3,
+            //                //SubjectId = 3,
+            //                //ExamTypeId = 2,
+            //                ExamDate = DateTime.Now.Date.AddDays(5), // Five days from now
+            //                ExamStartTime = new TimeSpan(11, 0, 0),  // 11:00 AM
+            //                ExamEndTime = new TimeSpan(13, 0, 0)    // 1:00 PM
+            //            }
+            //);
+
+            #endregion
+            // ----------------------------------------------- //        
             #region FeePaymentDetail
             // Seed FeePaymentDetail data
             //modelBuilder.Entity<FeePaymentDetail>().HasData(
@@ -376,7 +427,7 @@ namespace SchoolApp.DAL.SchoolContext
             //    }
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region FeePayment
             // Seed FeePayment data
             //modelBuilder.Entity<FeePayment>().HasData(
@@ -460,7 +511,7 @@ namespace SchoolApp.DAL.SchoolContext
             //    }
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region FeeStructure
             // Seed FeeStructure data
             //modelBuilder.Entity<FeeStructure>().HasData(
@@ -499,7 +550,7 @@ namespace SchoolApp.DAL.SchoolContext
             //    }
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region FeeType
             // Seed FeeType data
             modelBuilder.Entity<FeeType>().HasData(
@@ -520,7 +571,7 @@ namespace SchoolApp.DAL.SchoolContext
                 }
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Mark
             // Seed Mark data
             modelBuilder.Entity<Mark>().HasData(
@@ -569,7 +620,7 @@ namespace SchoolApp.DAL.SchoolContext
                 // Add more seed data as needed
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region MarkEntry_Excluded
             // Seed MarkEntry data along with associated Marks
             //modelBuilder.Entity<MarkEntry>().HasData(
@@ -629,7 +680,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Staff_Excluded
             // Seed Staff data if required
             //modelBuilder.Entity<Staff>().HasData(
@@ -687,7 +738,7 @@ namespace SchoolApp.DAL.SchoolContext
             //    }
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region StaffExperience_Excluded
             // Seed StaffExperience data if required
             //modelBuilder.Entity<StaffExperience>().HasData(
@@ -718,7 +769,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region StaffSalary
             // Seed StaffSalary data if required
             modelBuilder.Entity<StaffSalary>().HasData(
@@ -763,7 +814,7 @@ namespace SchoolApp.DAL.SchoolContext
                }
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Standard
             // Seed Standard data if required
             modelBuilder.Entity<Standard>().HasData(
@@ -788,7 +839,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Student
             // Seed Student data if required
             modelBuilder.Entity<Student>().HasData(
@@ -870,7 +921,7 @@ namespace SchoolApp.DAL.SchoolContext
                 }
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region Subject
             // Seed Subject data if required
             modelBuilder.Entity<Subject>().HasData(
@@ -919,7 +970,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             );
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region StudentAttendance_Excluded
             // Seed StudentAttendance data if required
             //modelBuilder.Entity<StudentAttendance>().HasData(
@@ -954,7 +1005,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //);
             #endregion
-     // ----------------------------------------------- //
+            // ----------------------------------------------- //
             #region StaffAttendance_Excluded
             // Seed StaffAttendance data if required
             //modelBuilder.Entity<StaffAttendance>().HasData(
@@ -988,7 +1039,7 @@ namespace SchoolApp.DAL.SchoolContext
 
             //); 
             #endregion
-     //-----------------------------------------//
+            //-----------------------------------------//
             #region StaffExperience_Excluded
             modelBuilder.Entity<StaffExperience>().HasData(
     new StaffExperience
@@ -1025,7 +1076,7 @@ namespace SchoolApp.DAL.SchoolContext
 );
 
             #endregion
-     //-----------------------------------------//
+            //-----------------------------------------//
             #region Staff
             modelBuilder.Entity<Staff>().HasData(
                new Staff
@@ -1103,11 +1154,12 @@ namespace SchoolApp.DAL.SchoolContext
                    StaffSalaryId = 3
                }
 
-           ); 
+           );
             #endregion
-     //-----------------------------------------//
+            //-----------------------------------------//
 
 
+            #endregion
         }
     }
 }

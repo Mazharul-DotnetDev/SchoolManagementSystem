@@ -16,6 +16,7 @@
     <Compile Remove="Controllers\StaffAttendancesController.cs" />
     <Compile Remove="Controllers\StudentAttendancesController.cs" />
     <Compile Remove="ImageModel\EmployeesImg.cs" />
+    <Compile Remove="Services\LoginUser.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,9 +14,9 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ExamTypeId { get; set; }
-
         [Required]
         public string? ExamTypeName { get; set; }
+        public virtual ICollection<ExamSubject>? ExamSubjects { get; set; }
     }
 
     //public enum ExamTypeName

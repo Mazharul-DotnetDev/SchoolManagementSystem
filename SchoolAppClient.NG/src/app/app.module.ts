@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MarksListComponent } from './Components/marks/marks-list/marks-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MarksAddComponent } from './Components/marks/marks-add/marks-add.component';
@@ -26,6 +26,8 @@ import { StaffListComponent } from './Components/staff/staff-list/staff-list.com
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { DepartementListComponent } from './Components/department/department-list/department-list.component';
 import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary-list/staff-salary-list.component';
+import { authInterceptor } from './Authentication/SecurityModels/auth.interceptor';
+import { StaffCreateComponent } from './Components/staff/staff-create/staff-create.component';
 
 
 
@@ -33,7 +35,7 @@ import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary
 @NgModule({
   declarations: [
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent, StaffCreateComponent
     
   ],
   imports: [
@@ -46,7 +48,8 @@ import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary
         
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideHttpClient(withInterceptors([authInterceptor]))
   ],
   bootstrap: [AppComponent]
 })

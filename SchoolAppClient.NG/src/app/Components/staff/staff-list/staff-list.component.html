@@ -1,7 +1,10 @@
 <div class="container">
 
+  <a routerLink="/staff-create" class="btn btn-primary mb-3">Add New Staff</a>
+
+
   <div class="row">
-    <div class="col-md-4 mb-4" *ngFor="let staff of staffList">
+    <div class="col-md-4 mb-4" *ngFor="let staff of staffList" style="overflow-y:scroll; height:75vh">
       <div class="card border-primary">
         <img src="{{ staff.imagePath || 'placeholder.jpg' }}" class="card-img-top" alt="Staff Image">
         <div class="card-body">

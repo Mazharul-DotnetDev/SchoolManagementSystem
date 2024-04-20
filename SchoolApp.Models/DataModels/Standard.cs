@@ -16,8 +16,11 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StandardId { get; set; }
-        public string? StandardName { get; set; }              
+        [Required]
+        public string? StandardName { get; set; }
         public string? StandardCapacity { get; set; }
+        public virtual ICollection<Subject>? Subjects { get; set; }
+        public virtual ICollection<ExamScheduleStandard>? ExamScheduleStandards { get; set; } 
 
     }
 }

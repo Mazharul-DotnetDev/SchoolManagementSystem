@@ -22,14 +22,14 @@ namespace SchoolApiService.Controllers
             _context = context;
         }
 
-        // GET: api/dbsExamType
+        // GET: api/ExamTypes
         [HttpGet]
-        public async Task<IEnumerable<ExamType>> GetdbsExamType()
+        public async Task<ActionResult<IEnumerable<ExamType>>> GetdbsExamType()
         {
             return await _context.dbsExamType.ToListAsync();
         }
 
-        // GET: api/dbsExamType/5
+        // GET: api/ExamTypes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ExamType>> GetExamType(int id)
         {
@@ -43,7 +43,8 @@ namespace SchoolApiService.Controllers
             return examType;
         }
 
-        // PUT: api/dbsExamType/5
+        // PUT: api/ExamTypes/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExamType(int id, ExamType examType)
         {
@@ -73,18 +74,18 @@ namespace SchoolApiService.Controllers
             return NoContent();
         }
 
-        // POST: api/dbsExamType
-        //[HttpPost]
-        //public async Task PostExamType(SaveExamTypeVM examType)
-        //{
-        //    _context.dbsExamType.Add(new ExamType
-        //    {
-        //        ExamTypeName = examType.ExamTypeName,
-        //    });
-        //    await _context.SaveChangesAsync();
-        //}
+        // POST: api/ExamTypes
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<ExamType>> PostExamType(ExamType examType)
+        {
+            _context.dbsExamType.Add(examType);
+            await _context.SaveChangesAsync();
 
-        // DELETE: api/dbsExamType/5
+            return CreatedAtAction("GetExamType", new { id = examType.ExamTypeId }, examType);
+        }
+
+        // DELETE: api/ExamTypes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExamType(int id)
         {

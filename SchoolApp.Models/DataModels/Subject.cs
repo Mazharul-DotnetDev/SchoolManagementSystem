@@ -21,6 +21,7 @@ namespace SchoolApp.Models.DataModels
         public int? SubjectCode { get; set; }
 
         public int? StandardId { get; set; }
-        public Standard? Standard { get; set; }       
+        public virtual Standard? Standard { get; set; }
+        public virtual ICollection<ExamSubject>? ExamSubjects { get; set; }
     }
 }

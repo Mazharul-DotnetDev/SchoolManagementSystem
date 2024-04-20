@@ -16,7 +16,7 @@ namespace SchoolApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class MarksController : ControllerBase
     {
         private readonly SchoolDbContext _context;

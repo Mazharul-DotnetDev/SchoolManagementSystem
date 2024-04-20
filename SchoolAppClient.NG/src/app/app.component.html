@@ -3,32 +3,53 @@
         <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #d9534f; background-image: linear-gradient(315deg, #d9534f 0%, #3f7cac 74%);">
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                      <a routerLink="/fee-types" class="nav-link">Fee Types</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/fees" class="nav-link">Fees</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/monthlypayment" class="nav-link">Monthly Payment</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/marksList" class="nav-link">Marks</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/attendanceList" class="nav-link">Attendance</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/staff-list" class="nav-link">Staff</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/departments" class="nav-link">Department</a>
-                    </li>
-                    <li class="nav-item">
-                      <a routerLink="/staff-salaries" class="nav-link">Staff Salary</a>
-                    </li>
-                  </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a routerLink="/fee-types" class="nav-link">Fee Types</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/fees" class="nav-link">Fees</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/monthlypayment" class="nav-link">Monthly Payment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/marksList" class="nav-link">Marks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/attendanceList" class="nav-link">Attendance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/staff-list" class="nav-link">Staff</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/departments" class="nav-link">Department</a>
+                        </li>
+                        <li class="nav-item">
+                            <a routerLink="/staff-salaries" class="nav-link">Staff Salary</a>
+                        </li>
+
+
+
+
+                    </ul>
+
+                    <ul *ngIf="login" class="navbar-nav right">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#">{{user.username}}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="#" (click)="logout()">Logout</a>
+                        </li>
+                    </ul>
+                    <ul *ngIf="!login" class="navbar-nav right">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" routerLink="/register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" routerLink="/login">Login</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>

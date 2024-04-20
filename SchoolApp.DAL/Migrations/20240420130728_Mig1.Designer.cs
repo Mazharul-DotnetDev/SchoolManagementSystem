@@ -12,8 +12,8 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20240419130244_Mig3")]
-    partial class Mig3
+    [Migration("20240420130728_Mig1")]
+    partial class Mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -75,71 +75,6 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
-
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasDatabaseName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -609,7 +544,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 1,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7005),
+                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8783),
                             IsPresent = true,
                             Type = 0
                         },
@@ -617,7 +552,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 2,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7028),
+                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8794),
                             IsPresent = true,
                             Type = 0
                         },
@@ -625,7 +560,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 3,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7030),
+                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8795),
                             IsPresent = true,
                             Type = 0
                         },
@@ -633,7 +568,7 @@ namespace SchoolApp.DAL.Migrations
                         {
                             AttendanceId = 4,
                             AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7032),
+                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8795),
                             IsPresent = true,
                             Type = 0
                         });
@@ -711,19 +646,10 @@ namespace SchoolApp.DAL.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamScheduleId"));
 
                     b.Property<string>("ExamScheduleName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ExamTypeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("StandardId")
-                        .HasColumnType("int");
-
                     b.HasKey("ExamScheduleId");
-
-                    b.HasIndex("ExamTypeId");
-
-                    b.HasIndex("StandardId");
 
                     b.ToTable("ExamSchedule");
 
@@ -731,21 +657,41 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             ExamScheduleId = 1,
-                            ExamScheduleName = "Midterm Exam",
-                            ExamTypeId = 1
+                            ExamScheduleName = "Midterm Exam"
                         },
                         new
                         {
                             ExamScheduleId = 2,
-                            ExamScheduleName = "Final Exam",
-                            ExamTypeId = 2
+                            ExamScheduleName = "Final Exam"
                         },
                         new
                         {
                             ExamScheduleId = 3,
-                            ExamScheduleName = "Practical Exam",
-                            ExamTypeId = 3
+                            ExamScheduleName = "Practical Exam"
                         });
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamScheduleStandard", b =>
+                {
+                    b.Property<int>("ExamScheduleStandardId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamScheduleStandardId"));
+
+                    b.Property<int>("ExamScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StandardId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExamScheduleStandardId");
+
+                    b.HasIndex("ExamScheduleId");
+
+                    b.HasIndex("StandardId");
+
+                    b.ToTable("ExamScheduleStandard");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSubject", b =>
@@ -759,63 +705,30 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<DateTime?>("ExamDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("ExamScheduleId")
+                    b.Property<TimeSpan?>("ExamEndTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("ExamScheduleStandardId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SubjectId")
+                    b.Property<TimeSpan?>("ExamStartTime")
+                        .HasColumnType("time");
+
+                    b.Property<int>("ExamTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
                     b.HasKey("ExamSubjectId");
 
-                    b.HasIndex("ExamScheduleId");
+                    b.HasIndex("ExamScheduleStandardId");
+
+                    b.HasIndex("ExamTypeId");
 
                     b.HasIndex("SubjectId");
 
                     b.ToTable("ExamSubject");
-
-                    b.HasData(
-                        new
-                        {
-                            ExamSubjectId = 1,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7534),
-                            ExamScheduleId = 1,
-                            SubjectId = 1
-                        },
-                        new
-                        {
-                            ExamSubjectId = 2,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7548),
-                            ExamScheduleId = 2,
-                            SubjectId = 2
-                        },
-                        new
-                        {
-                            ExamSubjectId = 3,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7552),
-                            ExamScheduleId = 3,
-                            SubjectId = 3
-                        },
-                        new
-                        {
-                            ExamSubjectId = 4,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7555),
-                            ExamScheduleId = 1,
-                            SubjectId = 1
-                        },
-                        new
-                        {
-                            ExamSubjectId = 5,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7558),
-                            ExamScheduleId = 2,
-                            SubjectId = 2
-                        },
-                        new
-                        {
-                            ExamSubjectId = 6,
-                            ExamDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(7561),
-                            ExamScheduleId = 3,
-                            SubjectId = 3
-                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamType", b =>
@@ -981,7 +894,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(8053),
+                            MarkEntryDate = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8924),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -995,7 +908,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(8073),
+                            MarkEntryDate = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8928),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1009,7 +922,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 19, 19, 2, 38, 425, DateTimeKind.Local).AddTicks(8078),
+                            MarkEntryDate = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8930),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1159,6 +1072,75 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("MonthlyPaymentId");
 
                     b.ToTable("PaymentMonth");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.SecurityModels.ApplicationUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
@@ -1485,6 +1467,7 @@ namespace SchoolApp.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StandardName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("StandardId");
@@ -1776,7 +1759,7 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolApp.Models.DataModels.SecurityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1785,7 +1768,7 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolApp.Models.DataModels.SecurityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1800,7 +1783,7 @@ namespace SchoolApp.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolApp.Models.DataModels.SecurityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1809,7 +1792,7 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                    b.HasOne("SchoolApp.Models.DataModels.SecurityModels.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -1838,32 +1821,48 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamScheduleStandard", b =>
                 {
-                    b.HasOne("SchoolApp.Models.DataModels.ExamType", "ExamType")
-                        .WithMany()
-                        .HasForeignKey("ExamTypeId");
+                    b.HasOne("SchoolApp.Models.DataModels.ExamSchedule", "ExamSchedule")
+                        .WithMany("ExamScheduleStandards")
+                        .HasForeignKey("ExamScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
-                        .WithMany()
-                        .HasForeignKey("StandardId");
+                        .WithMany("ExamScheduleStandards")
+                        .HasForeignKey("StandardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ExamType");
+                    b.Navigation("ExamSchedule");
 
                     b.Navigation("Standard");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSubject", b =>
                 {
-                    b.HasOne("SchoolApp.Models.DataModels.ExamSchedule", "ExamSchedule")
+                    b.HasOne("SchoolApp.Models.DataModels.ExamScheduleStandard", "ExamScheduleStandard")
                         .WithMany("ExamSubjects")
-                        .HasForeignKey("ExamScheduleId");
+                        .HasForeignKey("ExamScheduleStandardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolApp.Models.DataModels.ExamType", "ExamType")
+                        .WithMany("ExamSubjects")
+                        .HasForeignKey("ExamTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
-                        .WithMany()
-                        .HasForeignKey("SubjectId");
+                        .WithMany("ExamSubjects")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("ExamSchedule");
+                    b.Navigation("ExamScheduleStandard");
+
+                    b.Navigation("ExamType");
 
                     b.Navigation("Subject");
                 });
@@ -2007,13 +2006,23 @@ namespace SchoolApp.DAL.Migrations
             modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
                 {
                     b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
-                        .WithMany()
+                        .WithMany("Subjects")
                         .HasForeignKey("StandardId");
 
                     b.Navigation("Standard");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamSchedule", b =>
+                {
+                    b.Navigation("ExamScheduleStandards");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamScheduleStandard", b =>
+                {
+                    b.Navigation("ExamSubjects");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.ExamType", b =>
                 {
                     b.Navigation("ExamSubjects");
                 });
@@ -2041,6 +2050,18 @@ namespace SchoolApp.DAL.Migrations
             modelBuilder.Entity("SchoolApp.Models.DataModels.Staff", b =>
                 {
                     b.Navigation("StaffExperiences");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Standard", b =>
+                {
+                    b.Navigation("ExamScheduleStandards");
+
+                    b.Navigation("Subjects");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
+                {
+                    b.Navigation("ExamSubjects");
                 });
 #pragma warning restore 612, 618
         }

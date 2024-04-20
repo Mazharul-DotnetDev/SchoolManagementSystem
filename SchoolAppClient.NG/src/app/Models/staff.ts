@@ -27,7 +27,7 @@ export class Staff {
   department?: Department;
   staffSalaryId?: number;
   staffSalary?: StaffSalary;
-  staffExperiences?: StaffExperience[];
+  staffExperiences: StaffExperience[]=[];
 }
 
 export enum Gender {

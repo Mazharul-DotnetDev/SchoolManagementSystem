@@ -8,6 +8,11 @@
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\SchoolAppClient.NG\</BuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="src\app\Authentication\SecurityModels\auth-request.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth-response.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth.guard.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth.interceptor.spec.ts" />
+    <None Remove="src\app\Authentication\SecurityModels\auth.service.spec.ts" />
     <None Remove="src\app\Models\academic-month.spec.ts" />
     <None Remove="src\app\Models\attendance.spec.ts" />
     <None Remove="src\app\Models\department.spec.ts" />
