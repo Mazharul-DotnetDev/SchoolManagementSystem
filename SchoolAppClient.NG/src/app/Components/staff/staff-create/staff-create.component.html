@@ -1,127 +1,139 @@
 <div class="container">
   <h2>Add New Staff</h2>
-  <form (ngSubmit)="onSubmit()" #staffForm="ngForm">-->
-    <!-- Staff Name -->
+  <form (ngSubmit)="onSubmit()" #staffForm="ngForm">
+      
+      <!-- Staff Name -->
 
 
-    <div class="form-group">
-      <label for="staffName">Full Name</label>
-      <input type="text" class="form-control" id="staffName" name="staffName" #staffName="ngModel" [(ngModel)]="staff.staffName" required>
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-          Staff Name is required
+      <div class="form-group">
+          <label for="staffName">Full Name</label>
+          <input type="text" class="form-control" id="staffName" name="staffName" #staffName="ngModel" [(ngModel)]="staff.staffName" required>
+          <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
+              Staff Name is required
+          </div>
       </div>
-    </div>
-
-
-    <div class="form-group">
-        <label for="uniqueStaffAttendanceNumber">uniqueStaffAttendanceNumber</label>
-      <input type="text" class="form-control" id="uniqueStaffAttendanceNumber" name="uniqueStaffAttendanceNumber" #uniqueStaffAttendanceNumber="ngModel" [(ngModel)]="staff.uniqueStaffAttendanceNumber" required>
-      <div *ngIf="uniqueStaffAttendanceNumber.invalid && uniqueStaffAttendanceNumber.touched" class="text-danger">
-          Unique Staff Attendance Number is required
+      <div>
+          <label class="e-float-text e-label-top" for="upload">Choose a file</label>
+          <input type="file" #imageInput
+                 (change)="uploadImage(imageInput)"
+                 accept="image/*"
+                 [multiple]="false"
+                 class="form-control" />
+          <figure *ngIf="staff.imageUpload">
+              <img [src]="staff.imageUpload.imageData" width="300" />
+              <figcaption>{{staff.imageUpload.imageName}}</figcaption>
+          </figure>
       </div>
-    </div>
 
-    <!-- Gender -->
-    <div class="form-group">
-      <label for="gender">Gender</label>
-      <select class="form-control" id="gender" name="gender" #gender="ngModel" [(ngModel)]="staff.gender" required>
-          <option value="" disabled selected>Select Gender</option>
-          <option value="Male">Male</option>
-          <option value="Female">Female</option>
-          <option value="Other">Other</option>
-      </select>
-      <div *ngIf="gender.invalid && gender.touched" class="text-danger">
-          Gender is required
+      <div class="form-group">
+          <label for="uniqueStaffAttendanceNumber">uniqueStaffAttendanceNumber</label>
+          <input type="number" class="form-control" id="uniqueStaffAttendanceNumber" name="uniqueStaffAttendanceNumber" #uniqueStaffAttendanceNumber="ngModel" [(ngModel)]="staff.uniqueStaffAttendanceNumber" required>
+          <div *ngIf="uniqueStaffAttendanceNumber.invalid && uniqueStaffAttendanceNumber.touched" class="text-danger">
+              Unique Staff Attendance Number is required
+          </div>
       </div>
-    </div>
 
-    <!-- Date of Birth -->
-    <div class="form-group">
-      <label for="dob">Date of Birth</label>
-      <input type="date" class="form-control" id="dob" name="dob" #dob="ngModel" [(ngModel)]="staff.dob" required>
-      <div *ngIf="dob.invalid && dob.touched" class="text-danger">
-          Date of Birth is required
+      <!-- Gender -->
+      <div class="form-group">
+          <label for="gender">Gender</label>
+          <select class="form-control" id="gender" name="gender" #gender="ngModel" [(ngModel)]="staff.gender" required>
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+          </select>
+          <div *ngIf="gender.invalid && gender.touched" class="text-danger">
+              Gender is required
+          </div>
       </div>
-    </div>
 
-    <!-- Department -->
-    <div class="form-group">
-      <label for="department">Department</label>
-      <select class="form-control" id="department" name="departmentId" #departmentId="ngModel" [(ngModel)]="staff.departmentId" required>
-          <option value="" disabled selected>Select Department</option>
-          <option *ngFor="let dept of departments" [value]="dept.departmentId">{{ dept.departmentName }}</option>
-      </select>
-      <div *ngIf="departmentId.invalid && departmentId.touched" class="text-danger">
-          Department is required
+      <!-- Date of Birth -->
+      <div class="form-group">
+          <label for="dob">Date of Birth</label>
+          <input type="date" class="form-control" id="dob" name="dob" #dob="ngModel" [(ngModel)]="staff.dob" required>
+          <div *ngIf="dob.invalid && dob.touched" class="text-danger">
+              Date of Birth is required
+          </div>
       </div>
-    </div>
 
-    <!-- Staff Salary -->
-    <div class="form-group">
-      <label for="staffSalary">Staff Salary</label>
-      <select class="form-control" id="staffSalary" name="staffSalaryId" [(ngModel)]="staff.staffSalaryId" #staffSalaryId="ngModel">
-          <option value="" disabled selected>Select Staff Salary</option>
-          <option *ngFor="let salary of salaries" [value]="salary.staffSalaryId">{{ salary.staffName }} - Basic Salary: ${{ salary.basicSalary }}</option>
-      </select>
-      <div *ngIf="staffSalaryId.invalid && staffSalaryId.touched" class="text-danger">
-          Staff Salary is required
+      <!-- Department -->
+      <div class="form-group">
+          <label for="department">Department</label>
+          <select class="form-control" id="department" name="departmentId" #departmentId="ngModel" [(ngModel)]="staff.departmentId" required>
+              <option value="" disabled selected>Select Department</option>
+              <option *ngFor="let dept of departments" [value]="dept.departmentId">{{ dept.departmentName }}</option>
+          </select>
+          <div *ngIf="departmentId.invalid && departmentId.touched" class="text-danger">
+              Department is required
+          </div>
       </div>
-    </div>
 
-    <!-- Button to add Experience -->
-    <button type="button" class="btn btn-primary mb-3" (click)="addExperience()">Add Experience</button>
-
-    <!-- Experience fields (added dynamically) -->
-    <div *ngFor="let exp of staff.staffExperiences; let i = index" class="card mb-3">
-      <div class="card-body">
-        <!-- Company Name -->
-        <div class="form-group">
-          <label for="companyName{{i}}">Company Name</label>
-          <input type="text" class="form-control" id="companyName{{i}}" [(ngModel)]="staff.staffExperiences[i].companyName" #companyName="ngModel">
-          <span class="text-danger" *ngIf="companyName.invalid">
-              Compnay name required!
-          </span>
-        </div>
-
-        <!-- Designation -->
-        <div class="form-group">
-          <label for="designation{{i}}">Designation</label>
-          <input type="text" class="form-control" id="designation{{i}}" name="designation{{i}}" [(ngModel)]="staff.staffExperiences[i].designation">
-        </div>
-
-        <!-- Joining Date -->
-        <div class="form-group">
-          <label for="joiningDate{{i}}">Joining Date</label>
-          <input type="date" class="form-control" id="joiningDate{{i}}" name="joiningDate{{i}}" [(ngModel)]="staff.staffExperiences[i].joiningDate">
-        </div>
-
-        <!-- Leaving Date -->
-        <div class="form-group">
-          <label for="leavingDate{{i}}">Leaving Date</label>
-          <input type="date" class="form-control" id="leavingDate{{i}}" name="leavingDate{{i}}" [(ngModel)]="staff.staffExperiences[i].leavingDate">
-        </div>
-
-        <!-- Responsibilities -->
-        <<div class="form-group">
-          <label for="responsibilities{{i}}">Responsibilities</label>
-          <textarea class="form-control" id="responsibilities{{i}}" name="responsibilities{{i}}" [(ngModel)]="staff.staffExperiences[i].responsibilities"></textarea>
-        </div>
-
-        <!-- Achievements -->
-        <div class="form-group">
-          <label for="achievements{{i}}">Achievements</label>
-          <textarea class="form-control" id="achievements{{i}}" name="achievements{{i}}" [(ngModel)]="staff.staffExperiences[i].achievements"></textarea>
-        </div>
-
-        <!-- Service Duration -->
-        <div class="form-group">
-          <label for="serviceDuration{{i}}">Service Duration</label>
-          <input type="text" class="form-control" id="serviceDuration{{i}}" name="serviceDuration{{i}}" [(ngModel)]="staff.staffExperiences[i].serviceDuration">
-        </div>
+      <!-- Staff Salary -->
+      <div class="form-group">
+          <label for="staffSalary">Staff Salary</label>
+          <select class="form-control" id="staffSalary" name="staffSalaryId" [(ngModel)]="staff.staffSalaryId" #staffSalaryId="ngModel">
+              <option value="" disabled selected>Select Staff Salary</option>
+              <option *ngFor="let salary of salaries" [value]="salary.staffSalaryId">{{ salary.staffName }} - Basic Salary: ${{ salary.basicSalary }}</option>
+          </select>
+          <div *ngIf="staffSalaryId.invalid && staffSalaryId.touched" class="text-danger">
+              Staff Salary is required
+          </div>
       </div>
-    </div>
+
+      <!-- Button to add Experience -->
+      <button type="button" class="btn btn-primary mb-3" (click)="addExperience()">Add Experience</button>
+
+      <!-- Experience fields (added dynamically) -->
+      <div *ngFor="let exp of staff.staffExperiences; let i = index" class="card mb-3">
+          <div class="card-body">
+              <!-- Company Name -->
+              <div class="form-group">
+                  <label for="companyName{{i}}">Company Name</label>
+                  <input type="text" class="form-control" id="companyName{{i}}" name="companyName" [(ngModel)]="staff.staffExperiences[i].companyName" #companyName="ngModel">
+                  <span class="text-danger" *ngIf="companyName.invalid">
+                      Compnay name required!
+                  </span>
+              </div>
+
+              <!-- Designation -->
+              <div class="form-group">
+                  <label for="designation{{i}}">Designation</label>
+                  <input type="text" class="form-control" id="designation{{i}}" name="designation{{i}}" name="designation" [(ngModel)]="staff.staffExperiences[i].designation">
+              </div>
+
+              <!-- Joining Date -->
+              <div class="form-group">
+                  <label for="joiningDate{{i}}">Joining Date</label>
+                  <input type="date" class="form-control" id="joiningDate{{i}}" name="joiningDate{{i}}" name="joiningDate" [(ngModel)]="staff.staffExperiences[i].joiningDate">
+              </div>
+
+              <!-- Leaving Date -->
+              <div class="form-group">
+                  <label for="leavingDate{{i}}">Leaving Date</label>
+                  <input type="date" class="form-control" id="leavingDate{{i}}" name="leavingDate{{i}}" name="leavingDate" [(ngModel)]="staff.staffExperiences[i].leavingDate">
+              </div>
+
+              <!-- Responsibilities -->
+              <div class="form-group">
+                  <label for="responsibilities{{i}}">Responsibilities</label>
+                  <textarea class="form-control" id="responsibilities{{i}}" name="responsibilities{{i}}" name="responsibilities" [(ngModel)]="staff.staffExperiences[i].responsibilities"></textarea>
+              </div>
+
+              <!-- Achievements -->
+              <div class="form-group">
+                  <label for="achievements{{i}}">Achievements</label>
+                  <textarea class="form-control" id="achievements{{i}}" name="achievements{{i}}" name="achievements" [(ngModel)]="staff.staffExperiences[i].achievements"></textarea>
+              </div>
+
+              <!-- Service Duration -->
+              <div class="form-group">
+                  <label for="serviceDuration{{i}}">Service Duration</label>
+                  <input type="text" class="form-control" id="serviceDuration{{i}}" name="serviceDuration{{i}}" name="serviceDuration" [(ngModel)]="staff.staffExperiences[i].serviceDuration">
+              </div>
+          </div>
+      </div>
 
 
-    <button type="submit" class="btn btn-success">Submit</button>
+      <button type="submit" class="btn btn-success">Submit</button>
   </form>
 </div>

@@ -1,0 +1,21 @@
+
+<form [formGroup]="form" form (ngSubmit)="UpdateExamType()">
+    <fieldset>
+        <legend>
+            Update Exam-Type
+        </legend>
+
+        <label for="name">ExamTypeName:</label>
+
+        <input id="name" class="form-control" formControlName="examTypeName" />
+
+        <span class="alert alert-danger" *ngIf="examTypeName.invalid && examTypeName.errors?.['required']">
+            name  required
+        </span>
+
+
+        <hr />
+        <button type="submit">Save</button>
+
+    </fieldset>
+</form>

@@ -28,6 +28,11 @@ import { DepartementListComponent } from './Components/department/department-lis
 import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary-list/staff-salary-list.component';
 import { authInterceptor } from './Authentication/SecurityModels/auth.interceptor';
 import { StaffCreateComponent } from './Components/staff/staff-create/staff-create.component';
+import { ExamtypeListComponent } from './Components/examtype/examtype-list/examtype-list.component';
+import { ExamtypeAddComponent } from './Components/examtype/examtype-add/examtype-add.component';
+import { ExamtypeEditComponent } from './Components/examtype/examtype-edit/examtype-edit.component';
+import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';
+import { StaffDetailsComponent } from './Components/staff/staff-details/staff-details.component';
 
 
 
@@ -35,7 +40,7 @@ import { StaffCreateComponent } from './Components/staff/staff-create/staff-crea
 @NgModule({
   declarations: [
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent, StaffCreateComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent, StaffCreateComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffEditComponent, StaffDetailsComponent
     
   ],
   imports: [

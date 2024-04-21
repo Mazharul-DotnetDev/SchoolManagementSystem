@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolApp.Models.DataModels.StaticModel;
 
 namespace SchoolApp.Models.DataModels
 {
@@ -17,6 +18,12 @@ namespace SchoolApp.Models.DataModels
         public int StaffId { get; set; }
         [Required]
         public string StaffName { get; set; }
+
+        public string? ImagePath { get; set; }
+
+        [NotMapped]
+        public ImageUpload? ImageUpload { get; set; }
+
         [Required]
         public int UniqueStaffAttendanceNumber { get; set; } = 200;
         public Gender? Gender { get; set; }
@@ -28,7 +35,7 @@ namespace SchoolApp.Models.DataModels
         public string? ContactNumber1 { get; set; }
         [EmailAddress]
         public string? Email { get; set; }       
-        public string? ImagePath { get; set; }
+        
         public string? Qualifications { get; set; }
         public DateTime? JoiningDate { get; set; } = DateTime.Now;
         public Designation? Designation { get; set; } 

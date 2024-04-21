@@ -81,5 +81,14 @@ export class StaffCreateComponent implements OnInit {
       console.log('Form is invalid');
     }
   }
+  uploadImage(imageInput: any) {
+    var file: File = imageInput.files[0];
+    if (file.size > 200 * 1024) {
+      alert('max allowed size is 200KB');
+      return;
+    }
+    this.staff.imageUpload.getBase64(file);
+
+  }
 
 }

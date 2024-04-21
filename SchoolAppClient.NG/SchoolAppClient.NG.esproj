@@ -17,6 +17,7 @@
     <None Remove="src\app\Models\attendance.spec.ts" />
     <None Remove="src\app\Models\department.spec.ts" />
     <None Remove="src\app\Models\due-balance.spec.ts" />
+    <None Remove="src\app\Models\examtype.spec.ts" />
     <None Remove="src\app\Models\fee.spec.ts" />
     <None Remove="src\app\Models\feetype.spec.ts" />
     <None Remove="src\app\Models\marks.spec.ts" />
@@ -28,11 +29,15 @@
     <None Remove="src\app\Services\attendance.service.spec.ts" />
     <None Remove="src\app\Services\common.service.spec.ts" />
     <None Remove="src\app\Services\department.service.spec.ts" />
+    <None Remove="src\app\Services\examtype.service.spec.ts" />
     <None Remove="src\app\Services\fee-service.service.spec.ts" />
     <None Remove="src\app\Services\feetype.service.spec.ts" />
     <None Remove="src\app\Services\marks.service.spec.ts" />
     <None Remove="src\app\Services\monthly-payment.service.spec.ts" />
     <None Remove="src\app\Services\staff-salary.service.spec.ts" />
     <None Remove="src\app\Services\staff.service.spec.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\app\Models\StaticImageModel\" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,6 @@
+.right{
+    float:right;
+}
+.fixed {
+  position: sticky;
+}

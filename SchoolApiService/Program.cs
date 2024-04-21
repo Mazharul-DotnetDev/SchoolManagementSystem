@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using SchoolApiService.Services;
@@ -36,6 +37,9 @@ namespace SchoolApiService
 
 
             //builder.Services.AddControllers();
+
+            builder.Services.TryAddScoped<ImageUploadService, ImageUploadService>();
+
 
             // Or the following
             builder.Services.AddControllers().AddJsonOptions(options =>

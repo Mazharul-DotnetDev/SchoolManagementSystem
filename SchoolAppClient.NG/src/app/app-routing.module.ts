@@ -22,6 +22,11 @@ import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary
 import { LoginComponent } from './Authentication/SecurityComponents/login/login.component';
 import { AuthGuard } from './Authentication/SecurityModels/auth.guard';
 import { StaffCreateComponent } from './Components/staff/staff-create/staff-create.component';
+import { ExamtypeListComponent } from './Components/examtype/examtype-list/examtype-list.component';
+import { ExamtypeAddComponent } from './Components/examtype/examtype-add/examtype-add.component';
+import { ExamtypeEditComponent } from './Components/examtype/examtype-edit/examtype-edit.component';
+import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';
+import { StaffDetailsComponent } from './Components/staff/staff-details/staff-details.component';
 
 
 const routes: Routes = [
@@ -49,7 +54,12 @@ const routes: Routes = [
   { path: 'staff-list', component: StaffListComponent },
   { path: 'departments', component: DepartementListComponent },
   { path: 'staff-salaries', component: StaffSalaryListComponent },
-  { path: 'staff-create', component: StaffCreateComponent }
+  { path: 'staff-create', component: StaffCreateComponent },
+  { path: 'exam-types', component: ExamtypeListComponent },
+  { path: 'examType/create', component: ExamtypeAddComponent },
+  { path: "examType/edit/:id", component: ExamtypeEditComponent },
+  { path: 'staff-edit/:id', component: StaffEditComponent },
+  { path: 'staff-details/:id', component: StaffDetailsComponent },
 
 ];
 

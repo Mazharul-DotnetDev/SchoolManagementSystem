@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SchoolApp.DAL.SchoolContext;
 using SchoolApp.Models.DataModels;
+using SchoolApp.Models.DataModels.StaticModel;
 
 namespace SchoolApiService.Controllers
 {
@@ -49,6 +50,15 @@ namespace SchoolApiService.Controllers
                 return NotFound("Sorry! No Staff is found. Try next time. Good luck.");
             }
 
+            //if(staff.ImagePath != null)
+            //{
+            //    staff.ImageUpload = new ImageUpload()
+            //    {
+            //        ImageData = staff.ImagePath,
+            //        ImageName = staff.StaffName+"'s image"
+            //    };
+            //}
+
             return staff;
         }
      
@@ -87,6 +97,12 @@ namespace SchoolApiService.Controllers
                 }
             }
 
+            if (staff.ImageUpload?.ImageData != null)
+            {
+                //productCategory.ImagePath = await imageUpload.Upload(productCategory.ImageUpload);
+                staff.ImagePath = staff.ImageUpload?.ImageData;
+
+            }
             // Add the StaffExperiences to the context if they are provided
             if (staff.StaffExperiences != null && staff.StaffExperiences.Any())
             {
@@ -172,6 +188,14 @@ namespace SchoolApiService.Controllers
                 {
                     return BadRequest("Invalid DepartmentId");
                 }
+            }
+
+
+            if (staff.ImageUpload?.ImageData != null)
+            {
+                //productCategory.ImagePath = await imageUpload.Upload(productCategory.ImageUpload);
+                staff.ImagePath = staff.ImageUpload?.ImageData;
+
             }
 
             // Update the StaffExperiences if they are provided

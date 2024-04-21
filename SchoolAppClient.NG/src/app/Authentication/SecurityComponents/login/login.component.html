@@ -1,5 +1,34 @@
-<h1>Login</h1>
 
+<main class="main row justify-content-center align-items-center" style="height: 60vh;">
+  <article class="content col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title text-center mb-4">Login</h1>
+        <form (submit)="login($event)">
+          <div class="mb-3">
+            <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="model.email" />
+          </div>
+          <div class="mb-3">
+            <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="model.password" required minlength="4" #inputPass="ngModel" />
+            <ul *ngIf="inputPass.invalid && inputPass.touched" class="text-danger">
+              <li *ngIf="inputPass.errors?.['required']">Password is required</li>
+              <li *ngIf="inputPass.errors?.['minlength']">Minimum Password length is 6</li>
+            </ul>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+    </div>
+  </article>
+</main>
+
+
+
+
+
+
+
+<!--<h1>Login</h1>
 <form (submit)="login($event)">
   <div>
       <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="model.email" />
@@ -13,4 +42,4 @@
   </div>
 
   <button type="submit" class="btn btn-outline-success">Login</button>
-</form>
+</form>-->

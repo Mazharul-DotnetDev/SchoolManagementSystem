@@ -1,3 +1,4 @@
+import { ImageUpload } from "./StaticImageModel/imageUpload";
 import { Department } from "./department";
 import { StaffExperience } from "./staff-experience";
 import { StaffSalary } from "./staff-salary";
@@ -12,9 +13,15 @@ export class Staff {
   motherName?: string;
   temporaryAddress?: string;
   permanentAddress?: string;
+
+  imagePath: string = '';
+
+  imageUpload: ImageUpload = new ImageUpload();
+
+
   contactNumber1?: string;
   email?: string;
-  imagePath?: string;
+
   qualifications?: string;
   joiningDate?: Date;
   designation?: Designation;

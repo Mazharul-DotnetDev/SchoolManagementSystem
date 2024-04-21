@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolApiService.Helpers;
 
 namespace SchoolApp.Models.DataModels
 {
@@ -20,10 +21,10 @@ namespace SchoolApp.Models.DataModels
         public DateTime? LeavingDate { get; set; } = DateTime.Now;
         public string? Responsibilities { get; set; }
         public string? Achievements { get; set; }
-        public TimeSpan? ServiceDuration => LeavingDate.HasValue
+        public TimeSpan ServiceDuration => LeavingDate.HasValue
                                       ? LeavingDate.Value - JoiningDate
                                       : DateTime.Now - JoiningDate;
-        
+        public string ServiceDurationText=> ServiceDuration.ToReadableString();
 
     }
 }

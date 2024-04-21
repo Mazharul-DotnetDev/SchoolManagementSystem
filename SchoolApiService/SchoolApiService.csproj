@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ImageModel\**" />
+    <Content Remove="ImageModel\**" />
+    <EmbeddedResource Remove="ImageModel\**" />
+    <None Remove="ImageModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Controllers\EmployeesController.cs" />
     <Compile Remove="Controllers\EmployeeTypesController.cs" />
     <Compile Remove="Controllers\FeePaymentsController.cs" />
@@ -15,7 +22,6 @@
     <Compile Remove="Controllers\MarkEntriesController.cs" />
     <Compile Remove="Controllers\StaffAttendancesController.cs" />
     <Compile Remove="Controllers\StudentAttendancesController.cs" />
-    <Compile Remove="ImageModel\EmployeesImg.cs" />
     <Compile Remove="Services\LoginUser.cs" />
   </ItemGroup>
 
@@ -35,7 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ImageModel\" />
     <Folder Include="wwwroot\Upload\" />
   </ItemGroup>
 

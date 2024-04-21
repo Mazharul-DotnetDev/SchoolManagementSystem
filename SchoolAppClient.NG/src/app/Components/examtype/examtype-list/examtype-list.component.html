@@ -1,0 +1,24 @@
+
+<a routerLink="/examType/create" class="btn btn-info">Create New ExamType</a>
+<button class="btn btn-primary" (click)="LoadData()">Refresh</button>
+<hr />
+<table class="table table-bordered table-responsive table-hover">
+    <thead>
+        <tr>
+            <th>ExamTypeId</th>
+            <th>ExamTypeName</th>
+            <th>Operation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let examType of examtypes">
+            <td>{{examType.examTypeId}}</td>
+            <th>{{examType.examTypeName}}</th>
+            <td>
+                <a [routerLink]="['/examType/edit', examType.examTypeId]" class="btn btn-warning">Edit</a>
+                <button class="btn btn-danger" (click)="DeleteExamType(examType)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+

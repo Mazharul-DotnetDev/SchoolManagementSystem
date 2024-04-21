@@ -7,10 +7,11 @@ export class StaffExperience {
   responsibilities?: string;
   achievements?: string;
   serviceDuration: string | null = null;
-
+  serviceDurationText!: string;
   constructor() {
     this.joiningDate = new Date();
     this.leavingDate = new Date();
+
   }
 
   // Method to calculate service duration
