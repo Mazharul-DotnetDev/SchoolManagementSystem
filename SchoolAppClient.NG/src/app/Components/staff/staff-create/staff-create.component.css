@@ -1,0 +1,105 @@
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+  .form-control:focus {
+    border-color: #337ab7;
+    outline: none;
+  }
+
+.text-danger {
+  color: #d9534f;
+  font-size: 12px;
+}
+
+.btn-primary,
+.btn-success {
+  padding: 10px 20px;
+  border-radius: 3px;
+}
+
+.btn-primary {
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+.btn-success {
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+
+  .btn-primary,
+  .btn-success:hover {
+    color: #fff;
+  }
+
+/* For Image Preview */
+figure {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+}
+
+  figure img {
+    width: 100px;
+    height: auto;
+    margin-right: 10px;
+  }
+
+figcaption {
+  font-size: 14px;
+  color: #333;
+}
+
+/* For Experience Section */
+.card {
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+.card-header {
+  padding: 10px 15px;
+  background-color: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-header button {
+  float: right;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+}
+
+  .card-header button:hover {
+    color: #d9534f;
+  }

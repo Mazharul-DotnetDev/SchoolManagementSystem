@@ -1,0 +1,8 @@
+<div class="container">
+  <h2>Delete Staff</h2>
+  <div *ngIf="staff">
+    <p>Are you sure you want to delete staff: <strong>{{ staff.staffName }}</strong>?</p>
+    <button type="button" class="btn btn-danger mr-2" (click)="deleteStaff()">Delete</button>
+    <button type="button" class="btn btn-secondary" (click)="cancel()">Cancel</button>
+  </div>
+</div>

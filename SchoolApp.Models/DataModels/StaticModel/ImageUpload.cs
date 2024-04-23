@@ -8,7 +8,7 @@ namespace SchoolApp.Models.DataModels.StaticModel
 {
     public class ImageUpload
     {
-        public string ImageData { get; set; }
+        public string? ImageData { get; set; }
         public string? ImageName { get; set; }
 
 

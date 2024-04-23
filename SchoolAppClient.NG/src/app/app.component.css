@@ -1,4 +1,65 @@
+.header {
+  background-position: center; /* Center background gradient */
+  animation: gradient 15s ease-in-out infinite alternate; /* Animate background gradient */
+}
+
+@keyframes gradient {
+  0% {
+    background-image: linear-gradient(315deg, #d9534f 0%, #3f7cac 74%);
+  }
+
+  50% {
+    background-image: linear-gradient(315deg, #3f7cac 0%, #d9534f 74%);
+  }
+
+  100% {
+    background-image: linear-gradient(315deg, #d9534f 0%, #3f7cac 74%);
+  }
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white; /* Light text for dark navbar */
+  transition: color 0.3s ease; /* Smooth hover effect */
+}
+
+  .navbar-light .navbar-nav .nav-link:hover {
+    color: #d9534f; /* Orange hover color */
+  }
+
 .main {
+  padding: 2rem 0; /* Add some padding for main content */
+}
+
+.article {
+  background-color: #f5f5f5; /* Light background for content area */
+  border-radius: 5px; /* Rounded corners for a polished look */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  padding: 2rem; /* Add padding for content within */
+}
+
+.navbar-nav.right {
+  margin-left: auto; /* Align user section to the right */
+}
+
+  .navbar-nav.right li {
+    display: inline-block; /* Display user items inline */
+    margin-left: 1rem; /* Add spacing between user items */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.main {
   padding: 20px;
 }
 
@@ -25,7 +86,7 @@
   .navbar-nav .nav-item:hover .nav-link {
     background-color: rgba(255, 255, 255, 0.2);
   }
-
+*/
 
 
 

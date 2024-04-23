@@ -15,11 +15,8 @@ namespace SchoolApp.Models.DataModels
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int SubjectId { get; set; }
-        public string? SubjectName { get; set; }
-
-        //The value of this property must be Unique (See in the SchoolDbContext.cs file)
-        public int? SubjectCode { get; set; }
-
+        public string? SubjectName { get; set; }       
+        public int? SubjectCode { get; set; } //must be Unique
         public int? StandardId { get; set; }
         public virtual Standard? Standard { get; set; }
         public virtual ICollection<ExamSubject>? ExamSubjects { get; set; }

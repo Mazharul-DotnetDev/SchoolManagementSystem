@@ -1,4 +1,148 @@
-<h2>Add New Mark</h2>
+<div class="container">
+  <h2>Add New Mark</h2>
+  <form (ngSubmit)="onSubmit()" #markForm="ngForm">
+
+    <div class="form-group">
+      <label for="totalMarks">Total Marks</label>
+      <input type="number" class="form-control" id="totalMarks" name="totalMarks" #totalMarks="ngModel" [(ngModel)]="mark.totalMarks" required>
+      <div *ngIf="totalMarks.invalid && totalMarks.touched" class="text-danger">
+        Total Marks is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="passMarks">Pass Marks</label>
+      <input type="number" class="form-control" id="passMarks" name="passMarks" #passMarks="ngModel" [(ngModel)]="mark.passMarks" required>
+      <div *ngIf="passMarks.invalid && passMarks.touched" class="text-danger">
+        Pass Marks is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="obtainedScore">Obtained Score</label>
+      <input type="number" class="form-control" id="obtainedScore" name="obtainedScore" #obtainedScore="ngModel" [(ngModel)]="mark.obtainedScore" required>
+      <div *ngIf="obtainedScore.invalid && obtainedScore.touched" class="text-danger">
+        Obtained Score is required
+      </div>
+    </div>
+
+
+    <!-- Gender -->
+    <div class="form-group">
+      <label for="grade">Grade</label>
+      <select class="form-control" id="grade" name="grade" #grade="ngModel" [(ngModel)]="mark.grade" required>
+        <option value="" disabled selected>Select Grade</option>
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+        <option value="E">E</option>
+        <option value="F">F</option>
+      </select>
+      <div *ngIf="grade.invalid && grade.touched" class="text-danger">
+        Grade is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="passStatus">Pass Status</label>
+      <select class="form-control" id="passStatus" name="passStatus" #passStatus="ngModel" [(ngModel)]="mark.passStatus" required>
+        <option value="" disabled selected>Select Pass Status</option>
+        <option value="Passed">Passed</option>
+        <option value="Failed">Failed</option>
+        <option value="UnderConsideration">UnderConsideration</option>
+        <option value="SpecialConsideration">SpecialConsideration</option>
+        <option value="Withdrawn">Withdrawn</option>
+        <option value="UnderJurisdiction">UnderJurisdiction</option>
+      </select>
+      <div *ngIf="passStatus.invalid && passStatus.touched" class="text-danger">
+        Pass Status is required
+      </div>
+    </div>
+
+
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+      <label for="markEntryDate">Mark Entry Date</label>
+      <input type="date" class="form-control" id="markEntryDate" name="markEntryDate" #markEntryDate="ngModel" [(ngModel)]="mark.markEntryDate" required>
+      <div *ngIf="markEntryDate.invalid && markEntryDate.touched" class="text-danger">
+        Mark Entry Date is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="feedback">Feedback</label>
+      <input type="text" class="form-control" id="feedback" name="feedback" #feedback="ngModel" [(ngModel)]="mark.feedback">
+    </div>
+
+
+    <!-- Staff Name -->
+    <div class="form-group">
+      <label for="staff">Staff Name</label>
+      <select class="form-control"
+              id="staff"
+              name="staffId"
+              [(ngModel)]="mark.staffId"
+              #staffId="ngModel"
+              required>
+        <option value="" disabled selected>Select Staff</option>
+        <option *ngFor="let staffF of staff" [value]="staffF.staffId">{{ staffF.staffId }} - Name:  {{ staffF.staffName }}</option>
+      </select>
+      <div *ngIf="staffId.invalid && staffId.touched" class="text-danger">
+        Staff Name is required
+      </div>
+    </div>
+
+
+    <!-- Student Name -->
+    <div class="form-group">
+      <label for="student">Student Name</label>
+      <select class="form-control" id="student" name="studentId" [(ngModel)]="mark.studentId" #studentId="ngModel" required>
+        <option value="" disabled selected>Select student</option>
+        <option *ngFor="let studentT of student" [value]="studentT.studentId">{{ studentT.studentId }} - Name
+         {{ studentT.studentName }}</option>
+      </select>
+      <div *ngIf="studentId.invalid && studentId.touched" class="text-danger">
+        Student Name is required
+      </div>
+    </div>
+
+
+    <!-- Student Name -->
+    <div class="form-group">
+      <label for="subject">Subject Name</label>
+      <select class="form-control" id="subject" name="subjectId" [(ngModel)]="mark.subjectId" #subjectId="ngModel" required>
+        <option value="" disabled selected>Select Student Name</option>
+        <option *ngFor="let subjectT of subject" [value]="subjectT.subjectId">{{ subjectT.subjectId }} - Name:  ${{ subjectT.subjectName }}</option>
+      </select>
+      <div *ngIf="subjectId.invalid && subjectId.touched" class="text-danger">
+        Subject Name is required
+      </div>
+    </div>
+
+
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<h2>Add New Mark</h2>
 
 <div *ngIf="errorMessage" class="alert alert-danger">
     {{ errorMessage }}
@@ -123,8 +267,4 @@
 
 
     <button type="submit" [disabled]="markForm.invalid" class="btn btn-primary">Submit</button>
-</form>
-
-
-
-
+</form>-->

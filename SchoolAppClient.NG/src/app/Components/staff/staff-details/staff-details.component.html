@@ -1,87 +1,299 @@
-<!-- staff-details.component.html -->
-
-<div *ngIf="staff">
+<div class="staff-details-container" *ngIf="staff">
+  <div class="staff-header">
+    <figure *ngIf="staff.imagePath">
+      <img [src]="staff.imagePath" alt="Staff Image" width="180" />
+    </figure>
     <h2>{{ staff.staffName }} Details</h2>
-    <div>
-        <label>Staff ID: </label>{{ staff.staffId }}
-    </div>
-    <div>
-        <label>Staff Name: </label>{{ staff.staffName }}
-    </div>
-    <div>
-        <label>Gender: </label>{{ staff.gender }}
-    </div>
-    <div>
-        <label>Date of Birth: </label>{{ staff.dob | date }}
-    </div>
-    <div>
-        <label>Father's Name: </label>{{ staff.fatherName }}
-    </div>
-    <div>
-        <label>Mother's Name: </label>{{ staff.motherName }}
-    </div>
-    <div>
-        <label>Temporary Address: </label>{{ staff.temporaryAddress }}
-    </div>
-    <div>
-        <label>Permanent Address: </label>{{ staff.permanentAddress }}
-    </div>
-    <div>
-        <label>Contact Number: </label>{{ staff.contactNumber1 }}
-    </div>
-    <div>
-        <label>Email: </label>{{ staff.email }}
-    </div>
-    <div>
-        <label>Qualifications: </label>{{ staff.qualifications }}
-    </div>
-    <div>
-        <label>Joining Date: </label>{{ staff.joiningDate | date }}
-    </div>
-    <div>
-        <label>Bank Account Name: </label>{{ staff.bankAccountName }}
-    </div>
-    <div>
-        <label>Bank Account Number: </label>{{ staff.bankAccountNumber }}
-    </div>
-    <div>
-        <label>Bank Name: </label>{{ staff.bankName }}
-    </div>
-    <div>
-        <label>Bank Branch: </label>{{ staff.bankBranch }}
-    </div>
-    <div>
-        <label>Status: </label>{{ staff.status }}
-    </div>
+  </div>
 
-    <div *ngIf="staff.staffSalary">
-        <h3>Staff Salary Details:</h3>
-        <ul>
-            <li>Basic Salary: ${{ staff.staffSalary.basicSalary }}</li>
-            <li>Festival Bonus: ${{ staff.staffSalary.festivalBonus }}</li>
-            <li>Allowance: ${{ staff.staffSalary.allowance }}</li>
-            <!-- Add other salary details here -->
-        </ul>
+  <div class="staff-info">
+    <div class="info-row">
+      <label>Staff Name:</label>
+      <span>{{ staff.staffName }}</span>
     </div>
-
-    <div *ngIf="staff.staffExperiences && staff.staffExperiences.length > 0">
-        <h3>Experiences:</h3>
-        <ul>
-            <li *ngFor="let experience of staff.staffExperiences">
-                <div>
-                    <strong>Company Name: </strong>{{ experience.companyName }}
-                </div>
-                <div>
-                    <strong>Designation: </strong>{{ experience.designation }}
-                </div>
-                <div>
-                    <strong>Joining Date: </strong>{{ experience.joiningDate | date }}
-                </div>
-                <!-- Add other experience details here -->
-            </li>
-        </ul>
+    <div class="info-row">
+      <label>Gender:</label>
+      <span>{{ staff.gender }}</span>
     </div>
+    <div class="info-row">
+      <label>Date of Birth:</label>
+      <span>{{ staff.dob | date }}</span>
+    </div>
+    <div class="info-row">
+      <label>Father's Name:</label>
+      <span>{{ staff.fatherName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Mother's Name:</label>
+      <span>{{ staff.motherName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Temporary Address:</label>
+      <span>{{ staff.temporaryAddress }}</span>
+    </div>
+    <div class="info-row">
+      <label>Permanent Address:</label>
+      <span>{{ staff.permanentAddress }}</span>
+    </div>
+    <div class="info-row">
+      <label>Contact Number:</label>
+      <span>{{ staff.contactNumber1 }}</span>
+    </div>
+    <div class="info-row">
+      <label>Email:</label>
+      <span>{{ staff.email }}</span>
+    </div>
+    <div class="info-row">
+      <label>Qualifications:</label>
+      <span>{{ staff.qualifications }}</span>
+    </div>
+    <div class="info-row">
+      <label>Joining Date:</label>
+      <span>{{ staff.joiningDate | date }}</span>
+    </div>
+    <div class="info-row">
+      <label>Bank Account Name:</label>
+      <span>{{ staff.bankAccountName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Bank Account Number:</label>
+      <span>{{ staff.bankAccountNumber }}</span>
+    </div>
+    <div class="info-row">
+      <label>Bank Name:</label>
+      <span>{{ staff.bankName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Bank Branch:</label>
+      <span>{{ staff.bankBranch }}</span>
+    </div>
+    <div class="info-row">
+      <label>Status:</label>
+      <span>{{ staff.status }}</span>
+    </div>
+  </div>
 
-    <button (click)="goBack()">Back</button>
+  <!--<div class="staff-salary" *ngIf="staff.staffSalary">
+    <h3>Staff Salary Details:</h3>
+    <ul>
+      <li *ngFor="let detail of Object.entries(staff.staffSalary)">
+        <span>{{ detail[0] }}:</span>
+        <span>{{ detail[1] }}</span>
+      </li>
+    </ul>
+  </div>-->
+
+  <div class="staff-salary" *ngIf="staff.staffSalary">
+    <h3>Staff Salary Details:</h3>
+    <ul>
+      <li>
+        <span>Basic Salary:</span>
+        <span>${{ staff.staffSalary.basicSalary }}</span>
+      </li>
+      <li>
+        <span>Festival Bonus:</span>
+        <span>${{ staff.staffSalary.festivalBonus }}</span>
+      </li>
+      <li>
+        <span>Allowance:</span>
+        <span>${{ staff.staffSalary.allowance }}</span>
+      </li>
+      <li>
+        <span>Medical Allowance:</span>
+        <span>${{ staff.staffSalary.medicalAllowance }}</span>
+      </li>
+      <li>
+        <span>Housing Allowance:</span>
+        <span>${{ staff.staffSalary.housingAllowance }}</span>
+      </li>
+      <li>
+        <span>Transportation Allowance:</span>
+        <span>${{ staff.staffSalary.transportationAllowance }}</span>
+      </li>
+      <li>
+        <span>Saving Fund:</span>
+        <span>${{ staff.staffSalary.savingFund }}</span>
+      </li>
+      <li>
+        <span>Taxes:</span>
+        <span>${{ staff.staffSalary.taxes }}</span>
+      </li>
+      <li>
+        <span>Net Salary:</span>
+        <span>${{ staff.staffSalary.netSalary }}</span>
+      </li>
+      <!-- Add other salary details here -->
+    </ul>
+  </div>
+
+
+  <div class="staff-experiences" *ngIf="staff.staffExperiences && staff.staffExperiences.length > 0">
+    <h3>Experiences:</h3>
+    <ul>
+      <li *ngFor="let experience of staff.staffExperiences">
+        <div>
+          <strong>Company Name:</strong>
+          <span>{{ experience.companyName }}</span>
+        </div>
+        <div>
+          <strong>Designation:</strong>
+          <span>{{ experience.designation }}</span>
+        </div>
+        <div>
+          <strong>Joining Date:</strong>
+          <span>{{ experience.joiningDate | date }}</span>
+        </div>
+        <div>
+          <strong>Leaving Date:</strong>
+          <span>{{ experience.leavingDate | date }}</span>
+        </div>
+        <div>
+          <strong>Responsibilities:</strong>
+          <span>{{ experience.responsibilities }}</span>
+        </div>
+        <div>
+          <strong>Achievements:</strong>
+          <span>{{ experience.achievements }}</span>
+        </div>
+        <div>
+          <strong>Service Duration:</strong>
+          <span>{{ experience.serviceDurationText }}</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <button class="back-button" (click)="goBack()">Back</button>
+  <a [routerLink]="['/staff-edit', staff.staffId]" class="btn btn-primary right fixed">Edit</a>
 </div>
-<div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--<div *ngIf="staff">
+
+  <figure *ngIf="staff.imagePath">
+    <img [src]="staff.imagePath" width="180" />
+  </figure>
+
+  <h2>{{ staff.staffName }} Details</h2>-->
+<!--<div>
+    <label>Staff ID: </label>{{ staff.staffId }}
+</div>-->
+<!--<div>
+  <label>Staff Name: </label>{{ staff.staffName }}
+</div>
+<div>
+  <label>Gender: </label>{{ staff.gender }}
+</div>
+<div>
+  <label>Date of Birth: </label>{{ staff.dob | date }}
+</div>
+<div>
+  <label>Father's Name: </label>{{ staff.fatherName }}
+</div>
+<div>
+  <label>Mother's Name: </label>{{ staff.motherName }}
+</div>
+<div>
+  <label>Temporary Address: </label>{{ staff.temporaryAddress }}
+</div>
+<div>
+  <label>Permanent Address: </label>{{ staff.permanentAddress }}
+</div>
+<div>
+  <label>Contact Number: </label>{{ staff.contactNumber1 }}
+</div>
+<div>
+  <label>Email: </label>{{ staff.email }}
+</div>
+<div>
+  <label>Qualifications: </label>{{ staff.qualifications }}
+</div>
+<div>
+  <label>Joining Date: </label>{{ staff.joiningDate | date }}
+</div>
+<div>
+  <label>Bank Account Name: </label>{{ staff.bankAccountName }}
+</div>
+<div>
+  <label>Bank Account Number: </label>{{ staff.bankAccountNumber }}
+</div>
+<div>
+  <label>Bank Name: </label>{{ staff.bankName }}
+</div>
+<div>
+  <label>Bank Branch: </label>{{ staff.bankBranch }}
+</div>
+<div>
+  <label>Status: </label>{{ staff.status }}
+</div>
+
+<div *ngIf="staff.staffSalary">
+  <h3>Staff Salary Details:</h3>
+  <ul>
+    <li>Basic Salary: ${{ staff.staffSalary.basicSalary }}</li>
+    <li>Festival Bonus: ${{ staff.staffSalary.festivalBonus }}</li>
+    <li>Allowance: ${{ staff.staffSalary.allowance }}</li>
+    <li>Medical Allowance: ${{ staff.staffSalary.medicalAllowance }}</li>
+    <li>Housing Allowance: ${{ staff.staffSalary.housingAllowance }}</li>
+    <li>Transportation Allowance: ${{ staff.staffSalary.transportationAllowance }}</li>
+    <li>Saving Fund: ${{ staff.staffSalary.savingFund }}</li>
+    <li>Taxes: ${{ staff.staffSalary.taxes }}</li>
+    <li>Net Salary: ${{ staff.staffSalary.netSalary }}</li>-->
+<!-- Add other salary details here -->
+<!--</ul>
+</div>
+
+<div *ngIf="staff.staffExperiences && staff.staffExperiences.length > 0">
+  <h3>Experiences:</h3>
+  <ul>
+    <li *ngFor="let experience of staff.staffExperiences">
+      <div>
+        <strong>Company Name: </strong>{{ experience.companyName }}
+      </div>
+      <div>
+        <strong>Designation: </strong>{{ experience.designation }}
+      </div>
+      <div>
+        <strong>Joining Date: </strong>{{ experience.joiningDate | date }}
+      </div>
+      <div>
+        <strong>Leaving Date: </strong>{{ experience.leavingDate | date }}
+      </div>
+      <div>
+        <strong>Responsibilities: </strong>{{ experience.responsibilities }}
+      </div>
+      <div>
+        <strong>Achievements: </strong>{{ experience.achievements }}
+      </div>
+      <div>
+        <strong>Service Duration: </strong>{{ experience.serviceDurationText }}
+      </div>-->
+<!-- Add other experience details here -->
+<!--</li>
+    </ul>
+  </div>
+
+  <button (click)="goBack()">Back</button>
+</div>
+<div *ngIf="errorMessage">{{ errorMessage }}</div>-->

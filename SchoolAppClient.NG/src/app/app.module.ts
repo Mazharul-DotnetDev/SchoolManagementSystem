@@ -33,6 +33,16 @@ import { ExamtypeAddComponent } from './Components/examtype/examtype-add/examtyp
 import { ExamtypeEditComponent } from './Components/examtype/examtype-edit/examtype-edit.component';
 import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';
 import { StaffDetailsComponent } from './Components/staff/staff-details/staff-details.component';
+import {
+  AggregateService, ColumnChooserService, ColumnMenuService, EditService, FilterService, GridModule, GroupService, PageService, PagerModule, ReorderService, ResizeService, SortService, SearchService,
+  SelectionService, ExcelExportService, PdfExportService, DetailRowService, ToolbarService
+} from '@syncfusion/ej2-angular-grids';
+import { ChartModule } from '@syncfusion/ej2-angular-charts';
+import { TextBoxModule, UploaderModule } from '@syncfusion/ej2-angular-inputs';
+import { StaffDeleteComponent } from './Components/staff/staff-delete/staff-delete.component';
+/*import { ToastModule, ToastrService } from '@syncfusion/ej2-angular-notifications';*/
+/*import { ToastrModule, ToastrService } from 'ngx-toastr';*/
+
 
 
 
@@ -40,7 +50,7 @@ import { StaffDetailsComponent } from './Components/staff/staff-details/staff-de
 @NgModule({
   declarations: [
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent, StaffCreateComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffEditComponent, StaffDetailsComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent, StaffCreateComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffEditComponent, StaffDetailsComponent, StaffDeleteComponent
     
   ],
   imports: [
@@ -49,10 +59,15 @@ import { StaffDetailsComponent } from './Components/staff/staff-details/staff-de
     HttpClientModule,
     CommonModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    GridModule, PagerModule, ChartModule, TextBoxModule, UploaderModule
+
+
         
   ],
-  providers: [
+  providers: [PageService, SortService, FilterService, GroupService, EditService, AggregateService,
+    ColumnChooserService, ColumnMenuService, ResizeService, ReorderService, SearchService,
+    SelectionService, ExcelExportService, PdfExportService, DetailRowService, ToolbarService,
     provideAnimationsAsync(),
     provideHttpClient(withInterceptors([authInterceptor]))
   ],

@@ -27,17 +27,18 @@ import { ExamtypeAddComponent } from './Components/examtype/examtype-add/examtyp
 import { ExamtypeEditComponent } from './Components/examtype/examtype-edit/examtype-edit.component';
 import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';
 import { StaffDetailsComponent } from './Components/staff/staff-details/staff-details.component';
+import { StaffDeleteComponent } from './Components/staff/staff-delete/staff-delete.component';
 
 
 const routes: Routes = [
   { path: "", redirectTo: "/marksList", pathMatch: "full" },
   { path: "login", component: LoginComponent },
   /*{ path: "", redirectTo: "/attendanceList", pathMatch: "full" },*/
-  { path: "marksList", component: MarksListComponent, canActivate: [AuthGuard] },
-  { path: 'marks/add', component: MarksAddComponent, canActivate: [AuthGuard] },
+  { path: "marksList", component: MarksListComponent },
+  { path: 'marks/add', component: MarksAddComponent },
   { path: 'marks/edit/:id', component: MarksEditComponent },
   { path: "marks/delete/:id", component: MarksDeleteComponent },
-  { path: "attendanceList", component: AttendanceListComponent, canActivate: [AuthGuard] },
+  { path: "attendanceList", component: AttendanceListComponent },
   { path: "attendance/add", component: AttendanceAddComponent },
   { path: 'fee-types', component: FeetypeListComponent },
   { path: 'fee-types/create', component: FeetypeCreateComponent },
@@ -47,7 +48,7 @@ const routes: Routes = [
   { path: 'fees/create', component: FeeCreateComponent },
   { path: 'fees/:id/edit', component: FeeEditComponent },
 
-  { path: 'monthlypayment', component: MonthlypaymentListComponent },
+  { path: 'monthlypayment', component: MonthlypaymentListComponent, canActivate: [AuthGuard] },
   { path: 'monthlypayment/create', component: MonthlypaymentCreatComponent },
   { path: 'monthlypayment/:id/edit', component: MonthlypaymentEditComponent },
   { path: 'monthlypayment/:id/details', component: MonthlypaymentDetailsComponent },
@@ -55,11 +56,12 @@ const routes: Routes = [
   { path: 'departments', component: DepartementListComponent },
   { path: 'staff-salaries', component: StaffSalaryListComponent },
   { path: 'staff-create', component: StaffCreateComponent },
-  { path: 'exam-types', component: ExamtypeListComponent },
-  { path: 'examType/create', component: ExamtypeAddComponent },
-  { path: "examType/edit/:id", component: ExamtypeEditComponent },
+  { path: 'exam-types', component: ExamtypeListComponent, canActivate: [AuthGuard] },
+  { path: 'examType/create', component: ExamtypeAddComponent, canActivate: [AuthGuard] },
+  { path: "examType/edit/:id", component: ExamtypeEditComponent, canActivate: [AuthGuard] },
   { path: 'staff-edit/:id', component: StaffEditComponent },
   { path: 'staff-details/:id', component: StaffDetailsComponent },
+  { path: 'staff-delete/:id', component: StaffDeleteComponent }
 
 ];
 

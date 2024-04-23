@@ -26,6 +26,7 @@
     <None Remove="src\app\Models\staff-salary.spec.ts" />
     <None Remove="src\app\Models\staff.spec.ts" />
     <None Remove="src\app\Models\student.spec.ts" />
+    <None Remove="src\app\Models\subject.spec.ts" />
     <None Remove="src\app\Services\attendance.service.spec.ts" />
     <None Remove="src\app\Services\common.service.spec.ts" />
     <None Remove="src\app\Services\department.service.spec.ts" />
@@ -36,6 +37,8 @@
     <None Remove="src\app\Services\monthly-payment.service.spec.ts" />
     <None Remove="src\app\Services\staff-salary.service.spec.ts" />
     <None Remove="src\app\Services\staff.service.spec.ts" />
+    <None Remove="src\app\Services\student.service.spec.ts" />
+    <None Remove="src\app\Services\subject.service.spec.ts" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\app\Models\StaticImageModel\" />

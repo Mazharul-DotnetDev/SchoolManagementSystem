@@ -8,9 +8,12 @@ import { Router } from '@angular/router';
   templateUrl: './marks-list.component.html',
   styleUrl: './marks-list.component.css'
 })
+
 export class MarksListComponent implements OnInit {
+
   marks: Mark[] = [];
-  
+  errorMessage!: string;
+
   constructor(private markService: MarksService, private router: Router) { }
 
   ngOnInit(): void {
@@ -18,31 +21,56 @@ export class MarksListComponent implements OnInit {
   }
 
   getAllMarks(): void {
-    this.markService.getAllMarks()
-      .subscribe({
-        next: (marks: Mark[]) => {
-          this.marks = marks;
-        },
-        error: (error) => {
-          console.error('#Developer# Error fetching marks:', error);
-        }
-      });
+    this.markService.getAllMarks().subscribe(
+      marks => {
+        this.marks = marks;
+      },
+      error => {
+        console.error('Error fetching marks list:', error);
+        this.errorMessage = 'An error occurred while fetching the marks list. Please try again later.';
+      }
+    );
   }
-
-  editMark(markId: number): void {
-    this.router.navigate(['/marks/edit', markId]);
-  }
-
-  deleteMark(markId: number): void {
-    if (confirm('Are you sure you want to delete this mark?')) {
-      this.markService.deleteMark(markId).subscribe(() => {
-        // Delete successful, update the marks list
-        this.getAllMarks();
-      }, error => {
-        console.error('Error deleting mark:', error);
-      });
-    }
-  }
-
 
 }
+
+
+
+//export class MarksListComponent implements OnInit {
+//  marks: Mark[] = [];
+  
+//  constructor(private markService: MarksService, private router: Router) { }
+
+//  ngOnInit(): void {
+//    this.getAllMarks();
+//  }
+
+//  getAllMarks(): void {
+//    this.markService.getAllMarks()
+//      .subscribe({
+//        next: (marks: Mark[]) => {
+//          this.marks = marks;
+//        },
+//        error: (error) => {
+//          console.error('#Developer# Error fetching marks:', error);
+//        }
+//      });
+//  }
+
+//  editMark(markId: number): void {
+//    this.router.navigate(['/marks/edit', markId]);
+//  }
+
+//  deleteMark(markId: number): void {
+//    if (confirm('Are you sure you want to delete this mark?')) {
+//      this.markService.deleteMark(markId).subscribe(() => {
+//        // Delete successful, update the marks list
+//        this.getAllMarks();
+//      }, error => {
+//        console.error('Error deleting mark:', error);
+//      });
+//    }
+//  }
+
+
+//}

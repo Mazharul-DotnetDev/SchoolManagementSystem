@@ -236,20 +236,45 @@ namespace SchoolApiService.Controllers
         }
 
 
+        #region Default_Delete
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteStaff(int id)
+        //{
+        //    var staff = await _context.dbsStaff.FindAsync(id);
+        //    if (staff == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.dbsStaff.Remove(staff);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //} 
+        #endregion
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(int id)
         {
-            var staff = await _context.dbsStaff.FindAsync(id);
+            var staff = await _context.dbsStaff
+                .Include(s => s.StaffExperiences)
+                .FirstOrDefaultAsync(s => s.StaffId == id);
+
             if (staff == null)
             {
                 return NotFound();
             }
+
+            // Remove associated StaffExperience entries
+            _context.dbsStaffExperience.RemoveRange(staff.StaffExperiences);
 
             _context.dbsStaff.Remove(staff);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
+
 
         private bool StaffExists(int id)
         {

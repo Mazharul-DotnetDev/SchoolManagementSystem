@@ -1,3 +1,7 @@
+import { Staff } from "./staff";
+import { Student } from "./student";
+import { Subject } from "./subject";
+
 export class Mark {
   markId!: number;
   totalMarks!: number;
@@ -5,11 +9,14 @@ export class Mark {
   obtainedScore!: number;
   grade!: Grade;
   passStatus!: Pass;
-  markEntryDate?: Date;
+  markEntryDate!: Date;
   feedback?: string;
   staffId!: number;
+  staff: Staff = new Staff();
   studentId!: number;
+  student: Student = new Student();
   subjectId!: number;
+  subject: Subject = new Subject();
 }
 
 export enum Grade {

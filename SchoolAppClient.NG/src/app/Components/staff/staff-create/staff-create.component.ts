@@ -91,4 +91,8 @@ export class StaffCreateComponent implements OnInit {
 
   }
 
+  deleteExperience(index:number): void {
+   let deletedExp = this.staff.staffExperiences.splice(index,1);
+  }
+
 }

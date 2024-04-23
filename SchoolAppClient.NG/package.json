@@ -27,6 +27,8 @@
     "@syncfusion/ej2-angular-notifications": "*",
     "@syncfusion/ej2-angular-pdfviewer": "*",
     "@syncfusion/ej2-material-theme": "*",
+    "@syncfusion/ej2-angular-popups": "*",
+    "@syncfusion/ej2-angular-splitbuttons": "*",
     "bootstrap": "^5.3.3",
     "jest-editor-support": "*",
     "jwt-decode": "*",

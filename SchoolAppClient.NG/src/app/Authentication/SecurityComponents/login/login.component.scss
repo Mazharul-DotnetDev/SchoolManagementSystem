@@ -1,0 +1,55 @@
+/* CSS to make the page stunning, dynamic, and professional-looking */
+
+/* Main container */
+.main {
+  background-color: #f8f9fa; /* Light gray background */
+}
+
+/* Card styling */
+.card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+}
+
+/* Form styling */
+.login-form {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Button styling */
+.btn-primary {
+  background-color: #007bff; /* Blue primary color */
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  border-color: #0056b3;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5); /* Light blue focus outline */
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d; /* Gray for disabled state */
+  border-color: #6c757d;
+}
+
+/* Text danger color */
+.text-danger {
+  color: #dc3545; /* Red color for error messages */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .content {
+    width: 90%; /* Adjust width on smaller screens */
+  }
+}

@@ -1,0 +1,111 @@
+﻿------------------------------------------------
+@ staff-list.component.html file:
+------------------------------------------------
+<div class="container">
+
+  <a routerLink="/staff-create" class="btn btn-primary mb-3">Add New Staff</a>
+
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let staff of staffList">
+        <div class="card border-primary">
+            <!-- <img src="{{ staff.imagePath || 'placeholder.jpg' }}" class="card-img-top" alt="Staff Image"> -->
+          
+                <figure *ngIf="staff.imagePath">
+                    <img [src]="staff.imagePath" width="180" />
+                </figure>
+
+                <div class="card-body">
+                  <h5 class="card-title">
+                    {{ staff.staffName }}
+                    <a [routerLink]="['/staff-edit', staff.staffId]" class="btn btn-primary right fixed">Edit</a>
+                    <a [routerLink]="['/staff-details', staff.staffId]" class="btn btn-info">Details</a>                  
+                    <a [routerLink]="['/staff-delete', staff.staffId]" class="btn btn-danger">Delete</a>
+
+                  </h5>
+                  <p class="card-text text-muted fixed">Department: {{ staff.department?.departmentName }}</p>
+                  <div style="overflow-y:scroll; height:75vh">
+                      <p class="card-text">Designation: {{ staff.designation }}</p>
+                      <!--<p class="card-text">Date Of Birth: {{ staff.dob | date }}</p>
+                      <p class="card-text">Father Name: {{ staff.fatherName }}</p>
+                      <p class="card-text">Mother Name: {{ staff.motherName }}</p>
+                      <p class="card-text">Temporary Address: {{ staff.temporaryAddress }}</p>
+                      <p class="card-text">Parmanent Address: {{ staff.permanentAddress }}</p>
+                      <p class="card-text">Qualifications: {{ staff.qualifications }}</p>
+                      <p class="card-text text-muted">Joining Date: {{ staff.joiningDate | date }}</p>-->
+                      <p class="card-text">Contact Number: {{ staff.contactNumber1 }}</p>
+                      <p class="card-text">Email: {{ staff.email }}</p>
+                      <!--<p class="card-text">Bank Account Name: {{ staff.bankAccountName }}</p>
+                      <p class="card-text">Bank Account Number: {{ staff.bankAccountNumber }}</p>
+                      <p class="card-text">Bank Name: {{ staff.bankName }}</p>
+                      <p class="card-text">Bank Branch: {{ staff.bankBranch }}</p>
+                      <p class="card-text">Status: {{ staff.status }}</p>-->
+
+                      <p class="card-text">Staff Salary Details:</p>
+                      <ul class="list-group">
+                          <li class="list-group-item">Basic Salary: ${{ staff.staffSalary?.basicSalary }}</li>
+                          <!--<li class="list-group-item">Festival Bonus: ${{ staff.staffSalary?.festivalBonus }}</li>
+                          <li class="list-group-item">Allowance: ${{ staff.staffSalary?.allowance }}</li>
+                          <li class="list-group-item">Medical Allowance: ${{ staff.staffSalary?.medicalAllowance }}</li>
+                          <li class="list-group-item">Housing Allowance: ${{ staff.staffSalary?.housingAllowance }}</li>
+                          <li class="list-group-item">Transportation Allowance: ${{ staff.staffSalary?.transportationAllowance }}</li>
+                          <li class="list-group-item">Saving Fund: ${{ staff.staffSalary?.savingFund }}</li>
+                          <li class="list-group-item">Taxes: ${{ staff.staffSalary?.taxes }}</li>-->
+                          <li class="list-group-item">Net Salary: ${{ staff.staffSalary?.netSalary }}</li>
+
+                          <!-- Add other salary details here as needed -->
+                      </ul>
+
+                      <p class="card-text">Experiences:</p>
+                      <ul class="list-group">
+                          <ng-container *ngIf="staff.staffExperiences && staff.staffExperiences.length > 0; else noExperiences">
+                              <li class="list-group-item" *ngFor="let exp of staff.staffExperiences">
+                                  <div>
+                                      <strong>Company Name:</strong> {{ exp.companyName }}
+                                  </div>
+                                  <!--<div>
+                                      <strong>Designation:</strong> {{ exp.designation }}
+                                  </div>
+                                  <div>
+                                      <strong>Joining Date:</strong> {{ exp.joiningDate | date }}
+                                  </div>
+                                  <div>
+                                      <strong>Leaving Date:</strong> {{ exp.leavingDate | date }}
+                                  </div>
+                                  <div>
+                                      <strong>Responsibilities:</strong> {{ exp.responsibilities }}
+                                  </div>
+                                  <div>
+                                      <strong>Achievements:</strong> {{ exp.achievements }}
+                                  </div>-->
+                                  <div>
+                                      <strong>Service Duration:</strong> {{ exp.serviceDurationText }}
+                                  </div>
+                              </li>
+                          </ng-container>
+                      </ul>
+                      <ng-template #noExperiences>
+                          <p class="card-text text-muted">No experiences available.</p>
+                      </ng-template>
+                  </div>                                
+                </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+------------------------------------------------
+@ staff-list.component.css file:
+------------------------------------------------
+
+.right{
+    float:right;
+}
+.fixed {
+  position: sticky;
+}
+
+------------------------------------------------
+@ staff-list.component.css file:
+------------------------------------------------

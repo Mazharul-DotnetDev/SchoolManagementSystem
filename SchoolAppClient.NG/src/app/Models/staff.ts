@@ -13,15 +13,10 @@ export class Staff {
   motherName?: string;
   temporaryAddress?: string;
   permanentAddress?: string;
-
   imagePath: string = '';
-
   imageUpload: ImageUpload = new ImageUpload();
-
-
   contactNumber1?: string;
   email?: string;
-
   qualifications?: string;
   joiningDate?: Date;
   designation?: Designation;

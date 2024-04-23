@@ -1,8 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { MarksService } from '../../../Services/marks.service';
 import { Router } from '@angular/router';
 import { Grade, Mark, Pass } from '../../../Models/marks';
+import { Staff } from '../../../Models/staff';
+import { Student } from '../../../Models/student';
+import { Subject } from '../../../Models/subject';
+import { SubjectService } from '../../../Services/subject.service';
+import { StaffService } from '../../../Services/staff.service';
+import { StudentService } from '../../../Services/student.service';
 
 @Component({
   selector: 'app-marks-add',
@@ -11,44 +17,129 @@ import { Grade, Mark, Pass } from '../../../Models/marks';
 })
 
 export class MarksAddComponent implements OnInit {
-  mark: Mark = new Mark(); 
-  errorMessage!: string;
-  grades = Object.keys(Grade).map(key => key);
-  passes = Object.keys(Pass).map(key => key);
+
+  @ViewChild("markForm") markForm!: NgForm;
+  /*markForm!: FormGroup;*/
+
+  /*mark: Mark = new Mark();*/
+  public mark!: Mark;
+
+  public staff!: Staff[];
+  /*staff: Staff[] = [];*/
+
+  public student!: Student[];
+  /*student: Student[] = [];*/
+
+  public subject!: Subject[];
+  /*subject: Subject[] = [];*/  
 
 
-  constructor(private markService: MarksService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private marksService: MarksService,
+    private studentService: StudentService,
+    private subjectService: SubjectService,
+    private staffService: StaffService,
+    private router: Router)
+  {
+    /*this.staff = [];*/
+  }
 
   ngOnInit(): void {
-   
+    this.mark = new Mark();
+
+    this.initializeForm();
+
+
+    this.studentService.getAllStudents().subscribe((data) => {
+      this.student = data;
+    });
+    this.subjectService.getAllSubjects().subscribe((data) => {
+      this.subject = data;
+    });
+    this.staffService.getAllStaffs().subscribe((data) => {
+      this.staff = data;
+    });
+
+
+    
+    //this.studentService?.getAllStudents().subscribe((stds: Student[]) => this.student = stds);
+    //this.subjectService?.getAllSubjects().subscribe((sbjcts: Subject[]) => this.subject = sbjcts);
+    //this.staffService?.getAllStaffs().subscribe((stfs: Staff[]) => this.staff = stfs);
+ 
+
   }
 
-  onSubmit() {
+  initializeForm(): void {
+       
+  }
 
-    this.markService.addMark(this.mark)
-      .subscribe(
-        {
-          next: () => {
-            this.router.navigate(['/marksList'])
-          },
-          error: (error) => {
-            //alert(JSON.stringify(error));
-            console.error(error);
-            this.errorMessage = error.error;
+  onSubmit(): void {
+    // Submit the form
+    if (this.markForm.valid) {
+      // Call the service method to add the mark
+      this.marksService.addMark(this.mark).subscribe(
+        () => {
 
-          }
+          console.log('Mark added successfully');
+
+          this.router.navigate(['/staff-list']);
+        },
+        error => {
+
+          console.error('Error adding mark:', error);
         }
-
-      //  createdMark => this.router.navigate(['/marksList']),
-      //// Redirect after successful creation
-      //  error => {
-      //    this.errorMessage = error.message;
-      //    alert(error.message);
-      //    console.error(error.message);
-      //  }
       );
+    } else {
+      // Form is invalid, display validation errors
+      console.log('Form is invalid');
+    }
   }
+
 }
+
+
+
+
+//export class MarksAddComponent implements OnInit {
+//  mark: Mark = new Mark(); 
+//  errorMessage!: string;
+//  grades = Object.keys(Grade).map(key => key);
+//  passes = Object.keys(Pass).map(key => key);
+
+
+//  constructor(private markService: MarksService, private router: Router) { }
+
+//  ngOnInit(): void {
+   
+//  }
+
+//  onSubmit() {
+
+//    this.markService.addMark(this.mark)
+//      .subscribe(
+//        {
+//          next: () => {
+//            this.router.navigate(['/marksList'])
+//          },
+//          error: (error) => {
+//            //alert(JSON.stringify(error));
+//            console.error(error);
+//            this.errorMessage = error.error;
+
+//          }
+//        }
+
+//      //  createdMark => this.router.navigate(['/marksList']),
+//      //// Redirect after successful creation
+//      //  error => {
+//      //    this.errorMessage = error.message;
+//      //    alert(error.message);
+//      //    console.error(error.message);
+//      //  }
+//      );
+//  }
+//}
 
 
 
