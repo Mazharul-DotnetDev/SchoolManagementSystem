@@ -4,10 +4,13 @@
     <div class="card">
       <div class="card-body">
         <h1 class="card-title text-center mb-4">Login</h1>
-        <form (submit)="login($event)">
-          <div class="mb-3">
-            <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="model.email" />
-          </div>
+        <form #loginForm="ngForm" (submit)="login($event)">
+            <div class="mb-3">
+                <input type="email" class="form-control" name="email" placeholder="Email" required [(ngModel)]="model.email" #username="ngModel" />
+                <ul *ngIf="username.invalid && username.touched" class="text-danger">
+                    <li *ngIf="username.errors?.['required']">Email is required</li>
+                </ul>
+            </div>
           <div class="mb-3">
             <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="model.password" required minlength="4" #inputPass="ngModel" />
             <ul *ngIf="inputPass.invalid && inputPass.touched" class="text-danger">
