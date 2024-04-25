@@ -19,7 +19,7 @@ namespace SchoolApiService.Controllers
     {
         private readonly SchoolDbContext _context;
 
-        public AttendancesController(SchoolDbContext context)
+        public AttendancesController (SchoolDbContext context)
         {
             _context = context;
         }

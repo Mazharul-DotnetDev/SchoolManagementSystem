@@ -19,11 +19,18 @@
       </e-column>
       <e-column headerText="Action" width="120" textAlign="Center">
         <ng-template #template let-data>
-          <div class="btn-group">
-            <a [routerLink]="['/staff-edit/', data.staffId]" class="btn btn-warning">Edit</a>
-            <a [routerLink]="['/staff-details/', data.staffId]" class="btn btn-info">Details</a>
-            <a [routerLink]="['/staff-delete/', data.staffId]" class="btn btn-danger">Delete</a>
-          </div>
+            <div class="btn-group">
+                <a [routerLink]="['/staff-edit/', data.staffId]" class="btn btn-warning">Edit</a>
+                <a [routerLink]="['/staff-details/', data.staffId]" class="btn btn-info">Details</a>
+                <a [routerLink]="['/staff-delete/', data.staffId]" class="btn btn-danger">Delete</a>
+
+
+                <button class="btn btn-info" (click)="LoadReport()">
+                    <i class="fa fa-download "></i>
+                </button>
+
+
+            </div>
         </ng-template>
       </e-column>
     </e-columns>

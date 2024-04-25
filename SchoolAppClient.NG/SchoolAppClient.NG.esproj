@@ -35,6 +35,7 @@
     <None Remove="src\app\Services\feetype.service.spec.ts" />
     <None Remove="src\app\Services\marks.service.spec.ts" />
     <None Remove="src\app\Services\monthly-payment.service.spec.ts" />
+    <None Remove="src\app\Services\Reports\product-report.service.spec.ts" />
     <None Remove="src\app\Services\staff-salary.service.spec.ts" />
     <None Remove="src\app\Services\staff.service.spec.ts" />
     <None Remove="src\app\Services\student.service.spec.ts" />

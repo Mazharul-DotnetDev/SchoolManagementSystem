@@ -30,6 +30,7 @@
     "@syncfusion/ej2-angular-popups": "*",
     "@syncfusion/ej2-angular-splitbuttons": "*",
     "bootstrap": "^5.3.3",
+    "font-awesome": "*",
     "jest-editor-support": "*",
     "jwt-decode": "*",
     "rxjs": "~7.8.0",

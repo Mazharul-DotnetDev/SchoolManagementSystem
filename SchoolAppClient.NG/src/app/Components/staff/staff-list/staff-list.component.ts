@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Staff } from '../../../Models/staff';
 import { StaffService } from '../../../Services/staff.service';
 import { DetailDataBoundEventArgs, EditSettingsModel, FilterSettingsModel, Grid, GridComponent, PageSettingsModel, SearchSettingsModel, SelectionSettingsModel, ToolbarItems } from '@syncfusion/ej2-angular-grids';
+import { StaffReportService } from '../../../Services/Reports/staff-report.service';
 
 @Component({
   selector: 'app-staff-list',
@@ -31,7 +32,7 @@ export class StaffListComponent implements OnInit {
   staffList: Staff[] = [];
   errorMessage!: string;
 
-  constructor(private staffService: StaffService) { }
+  constructor(private staffService: StaffService, private staffReportService: StaffReportService) { }
 
   ngOnInit(): void {
     this.loadStaffList();
@@ -66,6 +67,29 @@ export class StaffListComponent implements OnInit {
   //  });
   //  detail.appendTo((e.detailElement as HTMLElement).querySelector('.custom-grid') as HTMLElement);
   //}
+
+
+  LoadReport() {
+
+    this.staffReportService.GetReport().subscribe((data) => {
+
+      const basedata = "data:application/pdf;base64," + data;
+      this.downloadFileObject(basedata);
+
+    }, (error) => {
+      console.log('Observable emitted an error: ' + JSON.stringify(error));
+    });
+  }
+
+  downloadFileObject(base64String: string) {
+    const linkSource = base64String;
+    const downloadLink = document.createElement("a");
+    const fileName = "convertedPDFFile.pdf";
+    downloadLink.href = linkSource;
+    downloadLink.download = fileName;
+    downloadLink.click();
+  }
+
 
 
 }

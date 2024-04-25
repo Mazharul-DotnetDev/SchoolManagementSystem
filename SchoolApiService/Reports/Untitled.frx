@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/25/2024 17:52:46" ReportInfo.Modified="04/25/2024 18:07:48" ReportInfo.CreatorVersion="2024.1.10.0">
+  <Styles Name="Blue">
+    <Style Name="Title" Font="Arial, 12pt, style=Bold"/>
+    <Style Name="Header" Fill.Color="LightSkyBlue" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Group" Font="Arial, 10pt, style=Bold"/>
+    <Style Name="Data" Font="Arial, 10pt"/>
+    <Style Name="Footer" Fill.Color="LightSkyBlue" Font="Arial, 10pt"/>
+    <Style Name="EvenRows" Fill.Color="AliceBlue" Font="Arial, 10pt"/>
+  </Styles>
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqJUrEa/KIcQqhhcfnlqC6PC6b70ltOmTeLWh2vhAF0ivYvQZbcY/A8qTXhAWsZJeFGEPA9xrXyYOG3aFk4+m5VNcXiJ0JMRmzPXK8CBkFT/kSLdwRJD/PhMi85OIn1hhUXVqRbNGn8mCuJYXFnWOESH4addj3xZpjjTW9KKKXmK+t2qsd8ZhkUH6q0jmN6Qzm9mIRa1oyHsLxMaknn1w1lg==" ConnectionStringExpression="[dbCon]">
+      <TableDataSource Name="Staff" DataType="System.Int32" Enabled="true" TableName="Staff">
+        <Column Name="StaffId" DataType="System.Int32"/>
+        <Column Name="StaffName" DataType="System.String"/>
+        <Column Name="UniqueStaffAttendanceNumber" DataType="System.Int32"/>
+        <Column Name="Gender" DataType="System.Int32"/>
+        <Column Name="DOB" DataType="System.DateTime"/>
+        <Column Name="FatherName" DataType="System.String"/>
+        <Column Name="MotherName" DataType="System.String"/>
+        <Column Name="TemporaryAddress" DataType="System.String"/>
+        <Column Name="PermanentAddress" DataType="System.String"/>
+        <Column Name="ContactNumber1" DataType="System.String"/>
+        <Column Name="Email" DataType="System.String"/>
+        <Column Name="ImagePath" DataType="System.String"/>
+        <Column Name="Qualifications" DataType="System.String"/>
+        <Column Name="JoiningDate" DataType="System.DateTime"/>
+        <Column Name="Designation" DataType="System.Int32"/>
+        <Column Name="BankAccountName" DataType="System.String"/>
+        <Column Name="BankAccountNumber" DataType="System.Int32"/>
+        <Column Name="BankName" DataType="System.String"/>
+        <Column Name="BankBranch" DataType="System.String"/>
+        <Column Name="Status" DataType="System.String"/>
+        <Column Name="DepartmentId" DataType="System.Int32"/>
+        <Column Name="StaffSalaryId" DataType="System.Int32"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <MsSqlDataConnection Name="Connection1" ConnectionString="rijcmlqJUrEa/KIcQqhhcfnlqC6PC6b70ltOmTeLWh2vhAF0ivYvQZbcY/A8qTXhAWsZJeFGEPA9xrXyYOG3aFk4+m5VNcXiJ0JMRmzPXK8CBkFT/kSLdwRJD/PhMi85OIn1hhUXVqRbNGn8mCuJYXFnWOESH4addj3xZpjjTW9KKKXmK+t2qsd8ZhkUH6q0jmN6Qzmn9ZqaozCk/Zs4+/Sy87nlQ==" ConnectionStringExpression="[dbCon]">
+      <TableDataSource Name="Mark" DataType="System.Int32" Enabled="true" TableName="Mark">
+        <Column Name="MarkId" DataType="System.Int32"/>
+        <Column Name="TotalMarks" DataType="System.Int32"/>
+        <Column Name="PassMarks" DataType="System.Int32"/>
+        <Column Name="ObtainedScore" DataType="System.Int32"/>
+        <Column Name="Grade" DataType="System.Int32"/>
+        <Column Name="PassStatus" DataType="System.Int32"/>
+        <Column Name="MarkEntryDate" DataType="System.DateTime"/>
+        <Column Name="Feedback" DataType="System.String"/>
+        <Column Name="StaffId" DataType="System.Int32"/>
+        <Column Name="StudentId" DataType="System.Int32"/>
+        <Column Name="SubjectId" DataType="System.Int32"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="dbCon" DataType="System.String" AsString=""/>
+    <Parameter Name="new" DataType="System.String" AsString=""/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="37.8">
+      <TextObject Name="Text1" Width="718.2" Height="37.8" Dock="Fill" Text="Staff" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold" Style="Title"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="41.8" Width="718.2" Height="28.35">
+      <TextObject Name="Text3" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="StaffId" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text5" Left="37.8" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="StaffName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text7" Left="75.6" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="UniqueStaffAttendanceNumber" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text9" Left="113.4" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="Gender" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text11" Left="151.2" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="DOB" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text13" Left="189" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="FatherName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text15" Left="226.8" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="MotherName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text17" Left="264.6" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="TemporaryAddress" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text19" Left="302.4" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="PermanentAddress" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text21" Left="340.2" Width="37.8" Height="18.9" Fill.Color="LightSkyBlue" Text="ContactNumber1" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text23" Left="378" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="Email" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text25" Left="406.35" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="ImagePath" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text27" Left="434.7" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="Qualifications" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text29" Left="463.05" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="JoiningDate" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text31" Left="491.4" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="Designation" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text33" Left="519.75" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="BankAccountName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text35" Left="548.1" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="BankAccountNumber" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text37" Left="576.45" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="BankName" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text39" Left="604.8" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="BankBranch" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text41" Left="633.15" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="Status" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text43" Left="661.5" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="DepartmentId" Font="Arial, 10pt, style=Bold" Style="Header"/>
+      <TextObject Name="Text45" Left="689.85" Width="28.35" Height="18.9" Fill.Color="LightSkyBlue" Text="StaffSalaryId" Font="Arial, 10pt, style=Bold" Style="Header"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="74.15" Width="718.2" Height="18.9" Condition="[Staff.StaffId]">
+      <TextObject Name="Text46" Width="718.2" Height="18.9" Dock="Fill" Text="[Staff.StaffId]" Font="Arial, 10pt, style=Bold" Style="Group"/>
+      <DataBand Name="Data1" Top="97.05" Width="718.2" Height="18.9" EvenStyle="EvenRows" DataSource="Staff">
+        <TextObject Name="Text2" Width="37.8" Height="18.9" Text="[Staff.StaffId]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text4" Left="37.8" Width="37.8" Height="18.9" Text="[Staff.StaffName]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text6" Left="75.6" Width="37.8" Height="18.9" Text="[Staff.UniqueStaffAttendanceNumber]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text8" Left="113.4" Width="37.8" Height="18.9" Text="[Staff.Gender]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text10" Left="151.2" Width="37.8" Height="18.9" Text="[Staff.DOB]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text12" Left="189" Width="37.8" Height="18.9" Text="[Staff.FatherName]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text14" Left="226.8" Width="37.8" Height="18.9" Text="[Staff.MotherName]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text16" Left="264.6" Width="37.8" Height="18.9" Text="[Staff.TemporaryAddress]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text18" Left="302.4" Width="37.8" Height="18.9" Text="[Staff.PermanentAddress]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text20" Left="340.2" Width="37.8" Height="18.9" Text="[Staff.ContactNumber1]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text22" Left="378" Width="28.35" Height="18.9" Text="[Staff.Email]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text24" Left="406.35" Width="28.35" Height="18.9" Text="[Staff.ImagePath]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text26" Left="434.7" Width="28.35" Height="18.9" Text="[Staff.Qualifications]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text28" Left="463.05" Width="28.35" Height="18.9" Text="[Staff.JoiningDate]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text30" Left="491.4" Width="28.35" Height="18.9" Text="[Staff.Designation]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text32" Left="519.75" Width="28.35" Height="18.9" Text="[Staff.BankAccountName]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text34" Left="548.1" Width="28.35" Height="18.9" Text="[Staff.BankAccountNumber]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text36" Left="576.45" Width="28.35" Height="18.9" Text="[Staff.BankName]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text38" Left="604.8" Width="28.35" Height="18.9" Text="[Staff.BankBranch]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text40" Left="633.15" Width="28.35" Height="18.9" Text="[Staff.Status]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text42" Left="661.5" Width="28.35" Height="18.9" Text="[Staff.DepartmentId]" Font="Arial, 10pt" Style="Data"/>
+        <TextObject Name="Text44" Left="689.85" Width="28.35" Height="18.9" Text="[Staff.StaffSalaryId]" Font="Arial, 10pt" Style="Data"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="119.95" Width="718.2" Height="18.9"/>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="142.85" Width="718.2" Height="368.55">
+      <TextObject Name="Text47" Width="718.2" Height="368.55" Dock="Fill" Fill.Color="LightSkyBlue" Text="[PageN]" HorzAlign="Right" Font="Arial, 10pt" Style="Footer"/>
+    </PageFooterBand>
+  </ReportPage>
+  <ReportPage Name="Page2" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle2" Width="718.2" Height="37.8"/>
+    <PageHeaderBand Name="PageHeader2" Top="41.8" Width="718.2" Height="28.35"/>
+    <DataBand Name="Data2" Top="74.15" Width="718.2" Height="75.6"/>
+    <PageFooterBand Name="PageFooter2" Top="153.75" Width="718.2" Height="18.9"/>
+  </ReportPage>
+</Report>

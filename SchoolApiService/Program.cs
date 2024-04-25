@@ -1,3 +1,4 @@
+using FastReport.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -180,6 +181,12 @@ namespace SchoolApiService
         };
     });
 
+            FastReport.Utils.RegisteredObjects.AddConnection(typeof(MsSqlDataConnection));
+
+
+            builder.Services.AddFastReport();
+
+
 
 
             var app = builder.Build();
@@ -213,6 +220,10 @@ namespace SchoolApiService
             //app.UseCors(MyAllowSpecificOrigins);
 
             app.MapControllers();
+
+
+            app.UseFastReport();
+
 
             app.Run();
         }
