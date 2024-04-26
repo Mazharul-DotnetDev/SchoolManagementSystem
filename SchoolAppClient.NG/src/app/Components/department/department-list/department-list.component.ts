@@ -1,72 +1,68 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Department } from '../../../Models/department';
-import { DepartmentService } from '../../../Services/department.service';
+
 import { DetailDataBoundEventArgs, EditSettingsModel, FilterSettingsModel, Grid, PageSettingsModel, SearchSettingsModel, SelectionSettingsModel, ToolbarItems } from '@syncfusion/ej2-angular-grids';
+import { DepartmentServices } from '../../../Services/department.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-department-list',
   templateUrl: './department-list.component.html',
   styleUrl: './department-list.component.css'
 })
-export class DepartementListComponent implements OnInit {
-  departments!: Department[];
+export class DepartmentListComponent implements OnInit {
+  @ViewChild('grid') grid: any;
 
-  public editSettings?: EditSettingsModel;
+  public departments: Department[] = [];
+  public confirmationDialogVisible: boolean = false;
+  public departmentIdToDelete: number | undefined;
+  public searchName: string = '';
 
   public pageSettings: PageSettingsModel = { pageSize: 5 };
-  public filterSettings: FilterSettingsModel = { type: 'FilterBar' };
+  public filterSettings: FilterSettingsModel = { type: 'Menu' };
+  public searchSettings: SearchSettingsModel = {
+    fields: ['departmentName'],
+    operator: 'contains',
+    ignoreCase: true
+  };
 
-
-
-
-  public toolbarOptions?: ToolbarItems[] = ['Search',
-    //'Print',
-    'ColumnChooser',
-    //'Add', 'Edit', 'Delete', 'Update', 'Cancel',
-    //'PdfExport',
-    //'ExcelExport',
-    //'CsvExport'
-  ];
-
-  public selectionOptions?: SelectionSettingsModel;
-  public searchOptions?: SearchSettingsModel;
-
-
-
-  constructor(private departmentService: DepartmentService) { }
+  constructor(private departmentService: DepartmentServices, private router: Router) { }
 
   ngOnInit(): void {
-    this.loadDepartments();
-    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, mode: 'Dialog' };
-    this.selectionOptions = { mode: 'Row', type: 'Single' };
-    this.searchOptions = { fields: ['departmentId', 'departmentName'], operator: 'contains', ignoreCase: true, ignoreAccent: true };
+    this.getDepartments();
   }
 
-  loadDepartments() {
-    this.departmentService.getAllDepartments().subscribe(
-      (data: Department[]) => {
-        this.departments = data;
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+  getDepartments(): void {
+    this.departmentService.getAllDepartment().subscribe(data => {
+      this.departments = data;
+    });
   }
 
-  //detailDataBound(e: DetailDataBoundEventArgs) {
+  confirmDelete(id: number): void {
+    this.confirmationDialogVisible = true;
+    this.departmentIdToDelete = id;
+  }
 
-  //  var data = e.data as Department;
+  deleteDepartment(): void {
+    if (this.departmentIdToDelete !== undefined) {
+      this.departmentService.deleteDepartment(this.departmentIdToDelete).subscribe(() => {
+        this.departments = this.departments.filter(department => department.departmentId !== this.departmentIdToDelete);
+        this.closeConfirmationDialog();
+      });
+    }
+  }
 
-  //  let detail = new Grid({
-  //    dataSource: data,
-  //    columns: [
-  //      { field: 'name', headerText: 'Name', width: 110 },
-  //      { field: 'productNumber', headerText: 'Product Number', width: 140 },
-  //      { field: 'size', headerText: 'Size', width: 40 }
-  //    ]
-  //  });
-  //  detail.appendTo((e.detailElement as HTMLElement).querySelector('.custom-grid') as HTMLElement);
-  //}
+  closeConfirmationDialog(): void {
+    this.confirmationDialogVisible = false;
+    this.departmentIdToDelete = undefined;
+  }
 
+  customNameFilter(args: any): void {
+    const filterValue = this.searchName.toLowerCase();
+    args.dataSource = this.departments.filter(department => department.departmentName.toLowerCase().includes(filterValue));
+  }
 
+  customNameSearch(): void {
+    this.grid.search(this.searchName);
+  }
 }

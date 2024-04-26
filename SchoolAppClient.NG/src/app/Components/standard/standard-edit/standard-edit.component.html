@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Edit Fee Type</h2>
+  <form (submit)="updateStandard()">
+    <div class="form-group">
+      <label for="standarName">Standard Name:</label>
+      <input type="text" class="form-control" id="standarName" name="standarName" [(ngModel)]="model.standardName" required>
+    </div>
+    <div class="form-group">
+      <label for="standardCapacity">Standard Capacity:</label>
+      <input type="text" class="form-control" id="standardCapacity" name="standardCapacity" [(ngModel)]="model.standardCapacity" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+
+  </form>
+</div>

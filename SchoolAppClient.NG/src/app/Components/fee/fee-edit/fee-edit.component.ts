@@ -4,7 +4,7 @@ import { Standard } from '../../../Models/standard';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeeService } from '../../../Services/fee-service.service';
 import { CommonServices } from '../../../Services/common.service';
-import { FeeType } from '../../../Models/FeeType';
+import { FeeType } from '../../../Models/feetype';
 
 @Component({
   selector: 'app-fee-edit',

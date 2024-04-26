@@ -3,13 +3,17 @@ import { Injectable } from '@angular/core';
 import { AcademicMonth } from '../Models/academicmonth';
 import { Observable } from 'rxjs';
 import { Fee } from '../Models/fee';
-import { FeeType } from '../Models/FeeType';
+import { FeeType } from '../Models/feetype';
+import { DueBalance } from '../Models/due-balance';
+import { MonthlyPayment } from '../Models/monthly-payment';
+import { OthersPayment } from '../Models/other-payment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonServices {
   private apiUrl = 'https://localhost:7225/api/';
+  private apiUrl3 = 'https://localhost:7225/api/Common';
   private apiUrl2 = 'https://localhost:7225/api/Common/Frequency';
   constructor(private http: HttpClient) { }
 
@@ -42,7 +46,20 @@ export class CommonServices {
     return this.http.get<any[]>(url);
   }
 
-  getDueBalance(studentId: number): Observable<any> {
-    return this.http.get(`https://localhost:7225/api/Common/DueBalances/${studentId}`);
+  getDueBalance(studentId: number): Observable<DueBalance> {
+    return this.http.get<DueBalance>(`https://localhost:7225/api/Common/DueBalances/${studentId}`);
   }
+
+  getAllPaymentsByStudentId(studentId: number): Observable<MonthlyPayment[]> {
+    return this.http.get<MonthlyPayment[]>(`${this.apiUrl3}/GetAllPaymentByStudentId/${studentId}`);
+  }
+
+  getAllOtherPaymentsByStudentId(studentId: number): Observable<OthersPayment[]> {
+    return this.http.get<OthersPayment[]>(`${this.apiUrl3}/GetAllOtherPaymentByStudentId/${studentId}`);
+  }
+
+  getfeePaymentDetailsByStudentId(studentId: number): Observable<any> {
+    return this.http.get(`${this.apiUrl3}/GetPaymentDetailsByStudentId/${studentId}`);
+  }
+
 }

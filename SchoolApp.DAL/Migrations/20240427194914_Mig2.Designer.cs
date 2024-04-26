@@ -12,8 +12,8 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20240420130728_Mig1")]
-    partial class Mig1
+    [Migration("20240427194914_Mig2")]
+    partial class Mig2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -538,40 +538,6 @@ namespace SchoolApp.DAL.Migrations
                     b.HasKey("AttendanceId");
 
                     b.ToTable("Attendance");
-
-                    b.HasData(
-                        new
-                        {
-                            AttendanceId = 1,
-                            AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8783),
-                            IsPresent = true,
-                            Type = 0
-                        },
-                        new
-                        {
-                            AttendanceId = 2,
-                            AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8794),
-                            IsPresent = true,
-                            Type = 0
-                        },
-                        new
-                        {
-                            AttendanceId = 3,
-                            AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8795),
-                            IsPresent = true,
-                            Type = 0
-                        },
-                        new
-                        {
-                            AttendanceId = 4,
-                            AttendanceIdentificationNumber = 111,
-                            Date = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8795),
-                            IsPresent = true,
-                            Type = 0
-                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Department", b =>
@@ -594,17 +560,42 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             DepartmentId = 1,
-                            DepartmentName = "IT"
+                            DepartmentName = "Teacher"
                         },
                         new
                         {
                             DepartmentId = 2,
-                            DepartmentName = "HR"
+                            DepartmentName = "Account"
                         },
                         new
                         {
                             DepartmentId = 3,
-                            DepartmentName = "Finance"
+                            DepartmentName = "Administration"
+                        },
+                        new
+                        {
+                            DepartmentId = 4,
+                            DepartmentName = "Student Affairs"
+                        },
+                        new
+                        {
+                            DepartmentId = 5,
+                            DepartmentName = "Counseling"
+                        },
+                        new
+                        {
+                            DepartmentId = 6,
+                            DepartmentName = "Sports"
+                        },
+                        new
+                        {
+                            DepartmentId = 7,
+                            DepartmentName = "Library"
+                        },
+                        new
+                        {
+                            DepartmentId = 8,
+                            DepartmentName = "Maintenance"
                         });
                 });
 
@@ -805,6 +796,188 @@ namespace SchoolApp.DAL.Migrations
                     b.HasIndex("StandardId");
 
                     b.ToTable("Fee");
+
+                    b.HasData(
+                        new
+                        {
+                            FeeId = 1,
+                            Amount = 1500m,
+                            DueDate = new DateTime(2024, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 1,
+                            PaymentFrequency = 1,
+                            StandardId = 1
+                        },
+                        new
+                        {
+                            FeeId = 2,
+                            Amount = 500m,
+                            DueDate = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 2,
+                            PaymentFrequency = 0,
+                            StandardId = 1
+                        },
+                        new
+                        {
+                            FeeId = 3,
+                            Amount = 200m,
+                            DueDate = new DateTime(2024, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 3,
+                            PaymentFrequency = 0,
+                            StandardId = 1
+                        },
+                        new
+                        {
+                            FeeId = 4,
+                            Amount = 100m,
+                            DueDate = new DateTime(2024, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 6,
+                            PaymentFrequency = 0,
+                            StandardId = 1
+                        },
+                        new
+                        {
+                            FeeId = 5,
+                            Amount = 250m,
+                            DueDate = new DateTime(2024, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 5,
+                            PaymentFrequency = 5,
+                            StandardId = 1
+                        },
+                        new
+                        {
+                            FeeId = 6,
+                            Amount = 300m,
+                            DueDate = new DateTime(2024, 5, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 4,
+                            PaymentFrequency = 5,
+                            StandardId = 1
+                        },
+                        new
+                        {
+                            FeeId = 7,
+                            Amount = 1500m,
+                            DueDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 1,
+                            PaymentFrequency = 1,
+                            StandardId = 2
+                        },
+                        new
+                        {
+                            FeeId = 8,
+                            Amount = 500m,
+                            DueDate = new DateTime(2024, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 2,
+                            PaymentFrequency = 0,
+                            StandardId = 2
+                        },
+                        new
+                        {
+                            FeeId = 9,
+                            Amount = 200m,
+                            DueDate = new DateTime(2024, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 3,
+                            PaymentFrequency = 0,
+                            StandardId = 2
+                        },
+                        new
+                        {
+                            FeeId = 10,
+                            Amount = 100m,
+                            DueDate = new DateTime(2024, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 6,
+                            PaymentFrequency = 0,
+                            StandardId = 2
+                        },
+                        new
+                        {
+                            FeeId = 11,
+                            Amount = 250m,
+                            DueDate = new DateTime(2024, 6, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 5,
+                            PaymentFrequency = 5,
+                            StandardId = 2
+                        },
+                        new
+                        {
+                            FeeId = 12,
+                            Amount = 300m,
+                            DueDate = new DateTime(2024, 6, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 4,
+                            PaymentFrequency = 5,
+                            StandardId = 2
+                        },
+                        new
+                        {
+                            FeeId = 13,
+                            Amount = 1500m,
+                            DueDate = new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 1,
+                            PaymentFrequency = 1,
+                            StandardId = 3
+                        },
+                        new
+                        {
+                            FeeId = 14,
+                            Amount = 500m,
+                            DueDate = new DateTime(2024, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 2,
+                            PaymentFrequency = 0,
+                            StandardId = 3
+                        },
+                        new
+                        {
+                            FeeId = 15,
+                            Amount = 200m,
+                            DueDate = new DateTime(2024, 7, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 3,
+                            PaymentFrequency = 0,
+                            StandardId = 3
+                        },
+                        new
+                        {
+                            FeeId = 16,
+                            Amount = 100m,
+                            DueDate = new DateTime(2024, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 6,
+                            PaymentFrequency = 0,
+                            StandardId = 3
+                        },
+                        new
+                        {
+                            FeeId = 17,
+                            Amount = 250m,
+                            DueDate = new DateTime(2024, 7, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 5,
+                            PaymentFrequency = 5,
+                            StandardId = 3
+                        },
+                        new
+                        {
+                            FeeId = 18,
+                            Amount = 300m,
+                            DueDate = new DateTime(2024, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 4,
+                            PaymentFrequency = 5,
+                            StandardId = 3
+                        },
+                        new
+                        {
+                            FeeId = 19,
+                            Amount = 1500m,
+                            DueDate = new DateTime(2024, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 1,
+                            PaymentFrequency = 1,
+                            StandardId = 4
+                        },
+                        new
+                        {
+                            FeeId = 20,
+                            Amount = 500m,
+                            DueDate = new DateTime(2024, 8, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FeeTypeId = 2,
+                            PaymentFrequency = 0,
+                            StandardId = 4
+                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.FeeType", b =>
@@ -837,6 +1010,21 @@ namespace SchoolApp.DAL.Migrations
                         {
                             FeeTypeId = 3,
                             TypeName = "Library Fee"
+                        },
+                        new
+                        {
+                            FeeTypeId = 4,
+                            TypeName = "Examination Fee"
+                        },
+                        new
+                        {
+                            FeeTypeId = 5,
+                            TypeName = "Sports Fee"
+                        },
+                        new
+                        {
+                            FeeTypeId = 6,
+                            TypeName = "Transportation Fee"
                         });
                 });
 
@@ -894,7 +1082,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8924),
+                            MarkEntryDate = new DateTime(2024, 4, 28, 1, 49, 7, 641, DateTimeKind.Local).AddTicks(5978),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -908,7 +1096,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8928),
+                            MarkEntryDate = new DateTime(2024, 4, 28, 1, 49, 7, 641, DateTimeKind.Local).AddTicks(5987),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -922,7 +1110,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 20, 19, 7, 27, 238, DateTimeKind.Local).AddTicks(8930),
+                            MarkEntryDate = new DateTime(2024, 4, 28, 1, 49, 7, 641, DateTimeKind.Local).AddTicks(5992),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1241,7 +1429,6 @@ namespace SchoolApp.DAL.Migrations
                             Email = "john.doe@example.com",
                             FatherName = "Michael Doe",
                             Gender = 0,
-                            ImagePath = "path/to/image.jpg",
                             JoiningDate = new DateTime(2010, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MotherName = "Alice Doe",
                             PermanentAddress = "Permanent Address",
@@ -1266,7 +1453,6 @@ namespace SchoolApp.DAL.Migrations
                             Email = "alice.smith@example.com",
                             FatherName = "David Smith",
                             Gender = 1,
-                            ImagePath = "path/to/image.jpg",
                             JoiningDate = new DateTime(2015, 9, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             MotherName = "Emily Smith",
                             PermanentAddress = "Permanent Address",
@@ -1395,7 +1581,9 @@ namespace SchoolApp.DAL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("NetSalary")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("decimal(18,2)")
+                        .HasComputedColumnSql("([BasicSalary] + [FestivalBonus] + [Allowance] + [MedicalAllowance] + [HousingAllowance] + [TransportationAllowance] - [SavingFund] - [Taxes])");
 
                     b.Property<decimal?>("SavingFund")
                         .HasColumnType("decimal(18,2)");
@@ -1478,20 +1666,32 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             StandardId = 1,
-                            StandardCapacity = "30 students",
-                            StandardName = "Standard 1"
+                            StandardCapacity = "30",
+                            StandardName = "Class One"
                         },
                         new
                         {
                             StandardId = 2,
-                            StandardCapacity = "35 students",
-                            StandardName = "Standard 2"
+                            StandardCapacity = "35",
+                            StandardName = "Class Two"
                         },
                         new
                         {
                             StandardId = 3,
-                            StandardCapacity = "35 students",
-                            StandardName = "Standard 2"
+                            StandardCapacity = "32",
+                            StandardName = "Class Three"
+                        },
+                        new
+                        {
+                            StandardId = 4,
+                            StandardCapacity = "28",
+                            StandardName = "Class Four"
+                        },
+                        new
+                        {
+                            StandardId = 5,
+                            StandardCapacity = "30",
+                            StandardName = "Class Five"
                         });
                 });
 
@@ -1616,9 +1816,9 @@ namespace SchoolApp.DAL.Migrations
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "john.doe@example.com",
                             StudentGender = 0,
-                            StudentNIDNumber = "17948678987654320",
+                            StudentNIDNumber = "12345678901234567",
                             StudentName = "John Doe",
-                            StudentNationality = "American",
+                            StudentNationality = "Bangladeshi",
                             TemporaryAddress = "456 Elm Street, City, Country",
                             UniqueStudentAttendanceNumber = 1000
                         },
@@ -1627,25 +1827,25 @@ namespace SchoolApp.DAL.Migrations
                             StudentId = 2,
                             AdmissionNo = 1001,
                             EnrollmentNo = 2001,
-                            FatherContactNumber = "9876543210",
-                            FatherNID = "17948578987654322",
-                            FatherName = "Michael Doe",
-                            LocalGuardianContactNumber = "9876543230",
-                            LocalGuardianName = "Jane Smith",
-                            MotherContactNumber = "9876543220",
-                            MotherNID = "17948674987654322",
-                            MotherName = "Alice Doe",
-                            PermanentAddress = "123 Main Street, City, Country",
-                            StandardId = 2,
-                            StudentBloodGroup = "A+",
-                            StudentContactNumber1 = "1234567890",
+                            FatherContactNumber = "9876543220",
+                            FatherNID = "12345678901234567",
+                            FatherName = "Abdul Rahman",
+                            LocalGuardianContactNumber = "9876543240",
+                            LocalGuardianName = "Kamal Ahmed",
+                            MotherContactNumber = "9876543230",
+                            MotherNID = "12345678901234568",
+                            MotherName = "Ayesha Rahman",
+                            PermanentAddress = "Dhaka, Bangladesh",
+                            StandardId = 1,
+                            StudentBloodGroup = "B+",
+                            StudentContactNumber1 = "9876543210",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StudentEmail = "john.doe@example.com",
-                            StudentGender = 0,
-                            StudentNIDNumber = "17948678987654322",
-                            StudentName = "John Doe",
-                            StudentNationality = "American",
-                            TemporaryAddress = "456 Elm Street, City, Country",
+                            StudentEmail = "fatima.rahman@example.com",
+                            StudentGender = 1,
+                            StudentNIDNumber = "12345678901234567",
+                            StudentName = "Fatima Rahman",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Dhaka, Bangladesh",
                             UniqueStudentAttendanceNumber = 1001
                         },
                         new
@@ -1653,26 +1853,286 @@ namespace SchoolApp.DAL.Migrations
                             StudentId = 3,
                             AdmissionNo = 1002,
                             EnrollmentNo = 2002,
-                            FatherContactNumber = "9876543210",
-                            FatherNID = "17345678987654322",
-                            FatherName = "Michael Doe",
-                            LocalGuardianContactNumber = "9876543230",
-                            LocalGuardianName = "Jane Smith",
-                            MotherContactNumber = "9876543220",
-                            MotherNID = "12345678987654322",
-                            MotherName = "Alice Doe",
-                            PermanentAddress = "123 Main Street, City, Country",
+                            FatherContactNumber = "9876543221",
+                            FatherNID = "98765432109876544",
+                            FatherName = "Rahim Khan",
+                            LocalGuardianContactNumber = "9876543241",
+                            LocalGuardianName = "Kamal Ahmed",
+                            MotherContactNumber = "9876543231",
+                            MotherNID = "98765432109876545",
+                            MotherName = "Fatima Khan",
+                            PermanentAddress = "Chittagong, Bangladesh",
+                            StandardId = 1,
+                            StudentBloodGroup = "O+",
+                            StudentContactNumber1 = "9876543211",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "aryan.khan@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "98765432109876543",
+                            StudentName = "Aryan Khan",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Chittagong, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1002
+                        },
+                        new
+                        {
+                            StudentId = 4,
+                            AdmissionNo = 1003,
+                            EnrollmentNo = 2003,
+                            FatherContactNumber = "9876543222",
+                            FatherNID = "76543210987654322",
+                            FatherName = "Mahmud Ahmed",
+                            LocalGuardianContactNumber = "9876543242",
+                            LocalGuardianName = "Nadia Rahman",
+                            MotherContactNumber = "9876543232",
+                            MotherNID = "76543210987654323",
+                            MotherName = "Farida Ahmed",
+                            PermanentAddress = "Sylhet, Bangladesh",
+                            StandardId = 1,
+                            StudentBloodGroup = "AB+",
+                            StudentContactNumber1 = "9876543212",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "tasnim.ahmed@example.com",
+                            StudentGender = 1,
+                            StudentNIDNumber = "76543210987654321",
+                            StudentName = "Tasnim Ahmed",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Sylhet, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1003
+                        },
+                        new
+                        {
+                            StudentId = 5,
+                            AdmissionNo = 1004,
+                            EnrollmentNo = 2004,
+                            FatherContactNumber = "9876543223",
+                            FatherNID = "87654321098765433",
+                            FatherName = "Nasir Khan",
+                            LocalGuardianContactNumber = "9876543243",
+                            LocalGuardianName = "Abdul Ali",
+                            MotherContactNumber = "9876543233",
+                            MotherNID = "87654321098765434",
+                            MotherName = "Sadia Khan",
+                            PermanentAddress = "Rajshahi, Bangladesh",
+                            StandardId = 2,
+                            StudentBloodGroup = "A-",
+                            StudentContactNumber1 = "9876543213",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "imran.khan@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "87654321098765432",
+                            StudentName = "Imran Khan",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Rajshahi, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1004
+                        },
+                        new
+                        {
+                            StudentId = 6,
+                            AdmissionNo = 1005,
+                            EnrollmentNo = 2005,
+                            FatherContactNumber = "9876543224",
+                            FatherNID = "65432109876543211",
+                            FatherName = "Hasan Rahman",
+                            LocalGuardianContactNumber = "9876543244",
+                            LocalGuardianName = "Khaled Islam",
+                            MotherContactNumber = "9876543234",
+                            MotherNID = "65432109876543212",
+                            MotherName = "Sabina Rahman",
+                            PermanentAddress = "Dhaka, Bangladesh",
+                            StandardId = 2,
+                            StudentBloodGroup = "B-",
+                            StudentContactNumber1 = "9876543214",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "anika.rahman@example.com",
+                            StudentGender = 1,
+                            StudentNIDNumber = "65432109876543210",
+                            StudentName = "Anika Rahman",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Dhaka, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1005
+                        },
+                        new
+                        {
+                            StudentId = 7,
+                            AdmissionNo = 1006,
+                            EnrollmentNo = 2006,
+                            FatherContactNumber = "9876543225",
+                            FatherNID = "54321098765432110",
+                            FatherName = "Rahman Islam",
+                            LocalGuardianContactNumber = "9876543245",
+                            LocalGuardianName = "Farid Ahmed",
+                            MotherContactNumber = "9876543235",
+                            MotherNID = "54321098765432111",
+                            MotherName = "Amina Islam",
+                            PermanentAddress = "Chittagong, Bangladesh",
+                            StandardId = 2,
+                            StudentBloodGroup = "O-",
+                            StudentContactNumber1 = "9876543215",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "rafiul.islam@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "54321098765432109",
+                            StudentName = "Rafiul Islam",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Chittagong, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1006
+                        },
+                        new
+                        {
+                            StudentId = 8,
+                            AdmissionNo = 1007,
+                            EnrollmentNo = 2007,
+                            FatherContactNumber = "9876543226",
+                            FatherNID = "43210987654321099",
+                            FatherName = "Akram Khan",
+                            LocalGuardianContactNumber = "9876543246",
+                            LocalGuardianName = "Ayesha Begum",
+                            MotherContactNumber = "9876543236",
+                            MotherNID = "43210987654321100",
+                            MotherName = "Taslima Khan",
+                            PermanentAddress = "Rajshahi, Bangladesh",
+                            StandardId = 3,
+                            StudentBloodGroup = "AB-",
+                            StudentContactNumber1 = "9876543216",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "zara.khan@example.com",
+                            StudentGender = 1,
+                            StudentNIDNumber = "43210987654321098",
+                            StudentName = "Zara Khan",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Rajshahi, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1007
+                        },
+                        new
+                        {
+                            StudentId = 9,
+                            AdmissionNo = 1008,
+                            EnrollmentNo = 2008,
+                            FatherContactNumber = "9876543227",
+                            FatherNID = "32109876543210988",
+                            FatherName = "Kamal Hossain",
+                            LocalGuardianContactNumber = "9876543247",
+                            LocalGuardianName = "Salam Ahmed",
+                            MotherContactNumber = "9876543237",
+                            MotherNID = "32109876543210989",
+                            MotherName = "Nazma Hossain",
+                            PermanentAddress = "Sylhet, Bangladesh",
                             StandardId = 3,
                             StudentBloodGroup = "A+",
-                            StudentContactNumber1 = "1234567890",
+                            StudentContactNumber1 = "9876543217",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StudentEmail = "john.doe@example.com",
+                            StudentEmail = "arif.hossain@example.com",
                             StudentGender = 0,
-                            StudentNIDNumber = "17945678987654322",
-                            StudentName = "John Doe",
-                            StudentNationality = "American",
-                            TemporaryAddress = "456 Elm Street, City, Country",
-                            UniqueStudentAttendanceNumber = 1002
+                            StudentNIDNumber = "32109876543210987",
+                            StudentName = "Arif Hossain",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Sylhet, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1008
+                        },
+                        new
+                        {
+                            StudentId = 10,
+                            AdmissionNo = 1009,
+                            EnrollmentNo = 2009,
+                            FatherContactNumber = "9876543228",
+                            FatherNID = "21098765432109877",
+                            FatherName = "Jamil Akter",
+                            LocalGuardianContactNumber = "9876543248",
+                            LocalGuardianName = "Khaled Rahman",
+                            MotherContactNumber = "9876543238",
+                            MotherNID = "21098765432109878",
+                            MotherName = "Rina Akter",
+                            PermanentAddress = "Dhaka, Bangladesh",
+                            StandardId = 2,
+                            StudentBloodGroup = "A-",
+                            StudentContactNumber1 = "9876543218",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "sabrina.akter@example.com",
+                            StudentGender = 1,
+                            StudentNIDNumber = "21098765432109876",
+                            StudentName = "Sabrina Akter",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Dhaka, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1009
+                        },
+                        new
+                        {
+                            StudentId = 11,
+                            AdmissionNo = 1010,
+                            EnrollmentNo = 2010,
+                            FatherContactNumber = "9876543229",
+                            FatherNID = "10987654321098766",
+                            FatherName = "Hasan Mahmud",
+                            LocalGuardianContactNumber = "9876543249",
+                            LocalGuardianName = "Farhana Akter",
+                            MotherContactNumber = "9876543239",
+                            MotherNID = "10987654321098767",
+                            MotherName = "Nazma Hasan",
+                            PermanentAddress = "Chittagong, Bangladesh",
+                            StandardId = 3,
+                            StudentBloodGroup = "O-",
+                            StudentContactNumber1 = "9876543219",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "rahat.hasan@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "10987654321098765",
+                            StudentName = "Rahat Hasan",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Chittagong, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1010
+                        },
+                        new
+                        {
+                            StudentId = 12,
+                            AdmissionNo = 1011,
+                            EnrollmentNo = 2011,
+                            FatherContactNumber = "9876543230",
+                            FatherNID = "09876543210987655",
+                            FatherName = "Rahim Rahman",
+                            LocalGuardianContactNumber = "9876543250",
+                            LocalGuardianName = "Kamal Hossain",
+                            MotherContactNumber = "9876543240",
+                            MotherNID = "09876543210987656",
+                            MotherName = "Sara Rahman",
+                            PermanentAddress = "Rajshahi, Bangladesh",
+                            StandardId = 4,
+                            StudentBloodGroup = "AB-",
+                            StudentContactNumber1 = "9876543220",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "asif.rahman@example.com",
+                            StudentGender = 0,
+                            StudentNIDNumber = "09876543210987654",
+                            StudentName = "Asif Rahman",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Rajshahi, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1011
+                        },
+                        new
+                        {
+                            StudentId = 13,
+                            AdmissionNo = 1012,
+                            EnrollmentNo = 2012,
+                            FatherContactNumber = "9876543231",
+                            FatherNID = "98765432109876544",
+                            FatherName = "Akram Khan",
+                            LocalGuardianContactNumber = "9876543251",
+                            LocalGuardianName = "Ayesha Begum",
+                            MotherContactNumber = "9876543241",
+                            MotherNID = "98765432109876545",
+                            MotherName = "Taslima Khan",
+                            PermanentAddress = "Sylhet, Bangladesh",
+                            StandardId = 1,
+                            StudentBloodGroup = "A+",
+                            StudentContactNumber1 = "9876543221",
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StudentEmail = "mehnaz.khan@example.com",
+                            StudentGender = 1,
+                            StudentNIDNumber = "98765432109876543",
+                            StudentName = "Mehnaz Khan",
+                            StudentNationality = "Bangladeshi",
+                            TemporaryAddress = "Sylhet, Bangladesh",
+                            UniqueStudentAttendanceNumber = 1012
                         });
                 });
 

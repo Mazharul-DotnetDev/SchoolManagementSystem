@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FeeType } from '../Models/FeeType';
 import { Observable } from 'rxjs';
+import { FeeType } from '../Models/feetype';
 
 @Injectable({
   providedIn: 'root'

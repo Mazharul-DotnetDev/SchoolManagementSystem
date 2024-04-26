@@ -1,48 +1,73 @@
 <div class="container">
-    <h2>Edit Fee</h2>
+  <h2>Edit Fee</h2>
 
-    <form (ngSubmit)="onSubmit()" class="row g-3">
+  <form #editFeeForm="ngForm" (ngSubmit)="onSubmit()" class="row g-3">
 
-        <div class="col-md-6">
-            <label for="feeId" class="form-label">Fee ID:</label>
-            <input type="text" id="feeId" name="feeId" [(ngModel)]="feeId" class="form-control" readonly>
+    <div class="col-md-6">
+      <label for="feeId" class="form-label">Fee ID:</label>
+      <input type="text" id="feeId" name="feeId" [(ngModel)]="feeId" class="form-control" readonly>
+    </div>
+
+    <div class="col-md-6">
+      <label for="feeTypeId" class="form-label">Fee Type:</label>
+      <select id="feeTypeId" name="feeTypeId" [(ngModel)]="fee.feeTypeId" class="form-select" required #feeTypeId="ngModel">
+        <option *ngFor="let feeType of feeTypes" [value]="feeType.feeTypeId">{{ feeType.typeName }}</option>
+      </select>
+      <div *ngIf="feeTypeId.invalid && (feeTypeId.dirty || feeTypeId.touched)" class="text-danger">
+        <div *ngIf="feeTypeId.errors && feeTypeId.errors['required']">
+          Fee Type is required.
         </div>
+      </div>
+    </div>
 
-        <div class="col-md-6">
-            <label for="feeTypeId" class="form-label">Fee Type:</label>
-            <select id="feeTypeId" name="feeTypeId" [(ngModel)]="fee.feeTypeId" class="form-select" required>
-                <option *ngFor="let feeType of feeTypes" [value]="feeType.feeTypeId">{{ feeType.typeName }}</option>
-            </select>
+    <div class="col-md-6">
+      <label for="standardId" class="form-label">Standard:</label>
+      <select id="standardId" name="standardId" [(ngModel)]="fee.standardId" class="form-select" required #standardId="ngModel">
+        <option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
+      </select>
+      <div *ngIf="standardId.invalid && (standardId.dirty || standardId.touched)" class="text-danger">
+        <div *ngIf="standardId.errors && standardId.errors['required']">
+          Standard is required.
         </div>
+      </div>
+    </div>
 
-        <div class="col-md-6">
-            <label for="standardId" class="form-label">Standard:</label>
-            <select id="standardId" name="standardId" [(ngModel)]="fee.standardId" class="form-select" required>
-                <option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
-            </select>
+    <div class="col-md-6">
+      <label for="paymentFrequency" class="form-label">Payment Frequency:</label>
+      <select id="paymentFrequency" name="paymentFrequency" [(ngModel)]="fee.paymentFrequency" class="form-select" required #paymentFrequency="ngModel">
+        <option value="" disabled selected>Select Payment Frequency</option>
+        <option *ngFor="let frequency of frequencies" [value]="frequency">{{ frequency }}</option>
+      </select>
+      <div *ngIf="paymentFrequency.invalid && (paymentFrequency.dirty || paymentFrequency.touched)" class="text-danger">
+        <div *ngIf="paymentFrequency.errors && paymentFrequency.errors['required']">
+          Payment Frequency is required.
         </div>
+      </div>
+    </div>
 
-        <div class="col-md-6">
-            <label for="paymentFrequency" class="form-label">Payment Frequency:</label>
-            <select id="paymentFrequency" name="paymentFrequency" [(ngModel)]="fee.paymentFrequency" class="form-select" required>
-                <option value="" disabled selected>Select Payment Frequency</option>
-                <option *ngFor="let frequency of frequencies" [value]="frequency">{{ frequency }}</option>
-            </select>
+    <div class="col-md-6">
+      <label for="amount" class="form-label">Amount:</label>
+      <input type="number" id="amount" name="amount" [(ngModel)]="fee.amount" class="form-control" required #amount="ngModel">
+      <div *ngIf="amount.invalid && (amount.dirty || amount.touched)" class="text-danger">
+        <div *ngIf="amount.errors && amount.errors['required']">
+          Amount is required.
         </div>
+      </div>
+    </div>
 
-        <div class="col-md-6">
-            <label for="amount" class="form-label">Amount:</label>
-            <input type="number" id="amount" name="amount" [(ngModel)]="fee.amount" class="form-control" required>
+    <div class="col-md-6">
+      <label for="dueDate" class="form-label">Due Date:</label>
+      <input type="date" id="dueDate" name="dueDate" [(ngModel)]="fee.dueDate" class="form-control" required #dueDate="ngModel">
+      <div *ngIf="dueDate.invalid && (dueDate.dirty || dueDate.touched)" class="text-danger">
+        <div *ngIf="dueDate.errors && dueDate.errors['required']">
+          Due Date is required.
         </div>
+      </div>
+    </div>
 
-        <div class="col-md-6">
-            <label for="dueDate" class="form-label">Due Date:</label>
-            <input type="date" id="dueDate" name="dueDate" [(ngModel)]="fee.dueDate" class="form-control" required>
-        </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary" [disabled]="editFeeForm.invalid">Update</button>
+    </div>
 
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Update</button>
-        </div>
-
-    </form>
+  </form>
 </div>

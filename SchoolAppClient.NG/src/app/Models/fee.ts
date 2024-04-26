@@ -1,4 +1,4 @@
-import { FeeType } from "./FeeType";
+import { FeeType } from "./feetype";
 import { Standard } from "./standard";
 
 export enum Frequency {

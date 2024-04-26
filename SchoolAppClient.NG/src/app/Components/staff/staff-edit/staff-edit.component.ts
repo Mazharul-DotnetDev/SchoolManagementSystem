@@ -4,7 +4,7 @@ import { Department } from '../../../Models/department';
 import { StaffSalary } from '../../../Models/staff-salary';
 import { StaffExperience } from '../../../Models/staff-experience';
 import { StaffService } from '../../../Services/staff.service';
-import { DepartmentService } from '../../../Services/department.service';
+import { DepartmentServices } from '../../../Services/department.service';
 import { StaffSalaryService } from '../../../Services/staff-salary.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
@@ -25,7 +25,7 @@ export class StaffEditComponent implements OnInit {
 
   constructor(
     private staffService: StaffService,
-    private departmentService: DepartmentService,
+    private departmentService: DepartmentServices,
     private staffSalaryService: StaffSalaryService,
     private route: ActivatedRoute,
     private router: Router
@@ -35,7 +35,7 @@ export class StaffEditComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch departments and staff salaries from the service
-    this.departmentService.getAllDepartments().subscribe((depts: Department[]) => this.departments = depts);
+    this.departmentService.getAllDepartment().subscribe((depts: Department[]) => this.departments = depts);
     this.staffSalaryService.getStaffSalaries().subscribe((salaries: StaffSalary[]) => this.salaries = salaries);
 
     // Load staff details based on the route parameter

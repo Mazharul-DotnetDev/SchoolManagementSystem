@@ -21,6 +21,8 @@
     <None Remove="src\app\Models\fee.spec.ts" />
     <None Remove="src\app\Models\feetype.spec.ts" />
     <None Remove="src\app\Models\marks.spec.ts" />
+    <None Remove="src\app\Models\other-payment-details.spec.ts" />
+    <None Remove="src\app\Models\other-payment.spec.ts" />
     <None Remove="src\app\Models\payemnt-details.spec.ts" />
     <None Remove="src\app\Models\paymentmonth.spec.ts" />
     <None Remove="src\app\Models\staff-salary.spec.ts" />
@@ -35,9 +37,11 @@
     <None Remove="src\app\Services\feetype.service.spec.ts" />
     <None Remove="src\app\Services\marks.service.spec.ts" />
     <None Remove="src\app\Services\monthly-payment.service.spec.ts" />
+    <None Remove="src\app\Services\other-payment.service.spec.ts" />
     <None Remove="src\app\Services\Reports\product-report.service.spec.ts" />
     <None Remove="src\app\Services\staff-salary.service.spec.ts" />
     <None Remove="src\app\Services\staff.service.spec.ts" />
+    <None Remove="src\app\Services\standard.service.spec.ts" />
     <None Remove="src\app\Services\student.service.spec.ts" />
     <None Remove="src\app\Services\subject.service.spec.ts" />
   </ItemGroup>

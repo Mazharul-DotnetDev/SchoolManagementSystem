@@ -21,8 +21,11 @@ export class MonthlyPayment {
 
   fees: { feeId: number }[] = [];
   academicMonths: { monthId: number }[] = [];
+
+
   paymentMonths: PaymentMonth[] = [];
+
   paymentDetails: PaymentDetail[] = [];
   dueBalances: DueBalance[] = [];
-  /*  balanceSheet: BalanceSheet[]=[]; */
+  /*  balanceSheet: BalanceSheet[]=[];*/
 }

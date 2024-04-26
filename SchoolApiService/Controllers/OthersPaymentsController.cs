@@ -27,6 +27,8 @@ namespace SchoolApiService.Controllers
                 var othersPayments = await _context.othersPayments
 
                     .Include(fp => fp.otherPaymentDetails)
+                   .Include(fp => fp.Student)
+
                     .ToListAsync();
 
                 return Ok(othersPayments);
@@ -47,6 +49,8 @@ namespace SchoolApiService.Controllers
                 var monthlyPayment = await _context.othersPayments
 
                     .Include(fp => fp.otherPaymentDetails)
+                     .Include(fp => fp.Student)
+
                     .FirstOrDefaultAsync(fp => fp.OthersPaymentId == id);
 
                 if (monthlyPayment == null)
@@ -66,37 +70,69 @@ namespace SchoolApiService.Controllers
         }
 
 
-
-        // PUT: api/OthersPayments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOthersPayment(int id, OthersPayment othersPayment)
+        public async Task<IActionResult> UpdateOthersPayment(int id, [FromBody] OthersPayment updatedPayment)
         {
-            if (id != othersPayment.OthersPaymentId)
+            if (id != updatedPayment.OthersPaymentId)
             {
-                return BadRequest();
+                return BadRequest("Invalid ID");
             }
 
-            _context.Entry(othersPayment).State = EntityState.Modified;
-
-            try
+            if (!ModelState.IsValid)
             {
-                await _context.SaveChangesAsync();
+                return BadRequest(ModelState);
             }
-            catch (DbUpdateConcurrencyException)
+
+            using (var transaction = _context.Database.BeginTransaction())
             {
-                if (!OthersPaymentExists(id))
+                try
                 {
-                    return NotFound();
+                    var existingPayment = await _context.othersPayments
+                        .Include(fp => fp.fees)
+                        .Include(fp => fp.otherPaymentDetails)
+                        .FirstOrDefaultAsync(p => p.OthersPaymentId == id);
+
+
+                    if (existingPayment == null)
+                    {
+                        return NotFound($"Payment with ID {id} not found.");
+                    }
+
+                    existingPayment.StudentId = updatedPayment.StudentId;
+                    existingPayment.TotalAmount = updatedPayment.TotalAmount;
+                    existingPayment.AmountPaid = updatedPayment.AmountPaid;
+
+                    // Clear existing payment details
+                    existingPayment.otherPaymentDetails.Clear();
+
+                    // Attach new fees and save payment details
+                    await AttachFeeAsync(existingPayment, updatedPayment);
+                    await SavePaymentDetailAsync(existingPayment);
+
+                    // Recalculate payment fields
+                    await CalculatePaymentFieldsAsync(existingPayment);
+
+                    await _context.SaveChangesAsync();
+
+                    // Update due balance
+                    UpdateDueBalance(existingPayment);
+
+                    transaction.Commit();
+
+                    return Ok(existingPayment);
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw;
+                    // Log the exception for debugging purposes
+                    Console.WriteLine($"Exception: {ex}");
+
+                    transaction.Rollback();
+                    return StatusCode(500, "Internal Server Error: An error occurred while processing the request.");
                 }
             }
-
-            return NoContent();
         }
+
+
 
 
         private async Task AttachFeeAsync(OthersPayment existingOthersPayment, OthersPayment updatedOthersPayment)
@@ -155,7 +191,7 @@ namespace SchoolApiService.Controllers
 
             if (dueBalance != null)
             {
-                dueBalance.DueBalanceAmount = othersPayment.AmountRemaining;
+                dueBalance.DueBalanceAmount += othersPayment.AmountRemaining; // Update due balance by adding the amount remaining
                 dueBalance.LastUpdate = DateTime.Now; // Update LastUpdate timestamp
             }
             else
@@ -170,6 +206,7 @@ namespace SchoolApiService.Controllers
 
             _context.SaveChanges(); // Save changes to the database
         }
+
 
         private async Task SavePaymentDetailAsync(OthersPayment othersPayment)
         {
@@ -240,7 +277,10 @@ namespace SchoolApiService.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteOthersPayment(int id)
         {
-            var othersPayment = await _context.othersPayments.FindAsync(id);
+            var othersPayment = await _context.othersPayments
+                .Include(fp => fp.fees)
+                .FirstOrDefaultAsync(fp => fp.OthersPaymentId == id);
+
             if (othersPayment == null)
             {
                 return NotFound();

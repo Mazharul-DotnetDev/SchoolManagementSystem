@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Fee } from '../../../Models/fee';
 import { Standard } from '../../../Models/standard';
-import { FeeType } from '../../../Models/FeeType';
+import { FeeType } from '../../../Models/feetype';
 import { FeeService } from '../../../Services/fee-service.service';
 import { CommonServices } from '../../../Services/common.service';
 import { Router } from '@angular/router';

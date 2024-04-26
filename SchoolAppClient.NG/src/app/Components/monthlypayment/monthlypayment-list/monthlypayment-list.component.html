@@ -1,39 +1,43 @@
 <div class="container">
-    <h2>Monthly Payments</h2>
-    <a class="btn btn-success" routerLink="/monthlypayment/create">Create Fee Type</a>
-    <div class="form-group">
-        <input type="text" class="form-control short-input" placeholder="Search by Student Name" [(ngModel)]="searchName">
+  <h2>Monthly Payments</h2>
+  <a class="btn btn-success" routerLink="/monthlypayment/create">Create Monthly Payment</a>
+  <div class="form-group">
+    <input type="text" class="form-control " placeholder="Search by Payment ID or Name" [(ngModel)]="searchPaymentId">
+    <button class="btn btn-primary" (click)="customPaymentIdSearch()">Search</button>
+  </div>
+  <ejs-grid #grid [dataSource]="monthlyPayments" [allowPaging]="true" [pageSettings]="pageSettings"
+            [filterSettings]="filterSettings" [searchSettings]="searchSettings">
+    <e-columns>
+      <e-column field="monthlyPaymentId" headerText="Payment ID" textAlign="Center" width="150"
+                [filter]="customPaymentIdFilter"></e-column>
+      <e-column field="student.studentName" headerText="Student Name" width="150"></e-column>
+      <e-column field="student.enrollmentNo" headerText="Enrollment No" width="150"></e-column>
+      <e-column field="totalAmount" headerText="Total Amount" width="150"></e-column>
+      <e-column field="amountPaid" headerText="Amount Paid" width="150"></e-column>
+      <e-column field="amountRemaining" headerText="Amount Remaining" width="150"></e-column>
+      <e-column field="paymentDate" headerText="Payment Date" width="150" textAlign="Center">
+        <ng-template #template let-data>
+          {{ data.paymentDate | date: 'MMM/dd/yyyy' }}
+        </ng-template>
+      </e-column>
+      <e-column headerText="Action" width="250" textAlign="Center">
+        <ng-template #template let-data>
+          <div class="btn-group">
+            <a class="btn btn-info" [routerLink]="['/monthlypayment', data.monthlyPaymentId, 'details']">Details</a>
+            <a class="btn btn-primary" [routerLink]="['/monthlypayment', data.monthlyPaymentId, 'edit']">Edit</a>
+            <button class="btn btn-danger" (click)="confirmDelete(data.monthlyPaymentId)">Delete</button>
+          </div>
+        </ng-template>
+      </e-column>
+    </e-columns>
+  </ejs-grid>
+
+  <div class="confirmation-popup" *ngIf="confirmationDialogVisible">
+    <div class="confirmation-dialog">
+      <app-confirmation-dialog [title]="'Confirmation'"
+                               [message]="'Are you sure you want to delete this monthly payment?'"></app-confirmation-dialog>
+      <button class="btn btn-danger" (click)="deleteMonthlyPayment()">Confirm Delete</button>
+      <button class="btn btn-secondary" (click)="closeConfirmationDialog()">Cancel</button>
     </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Monthly Payment ID</th>
-                    <th>Student Name</th>
-                    <th>Enrollment No</th>
-                    <th>Total Amount</th>
-                    <th>Amount Paid</th>
-                    <th>Amount Remaining</th>
-                    <th>Payment Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let monthlyPayment of filteredPayments">
-                    <td>{{ monthlyPayment.monthlyPaymentId }}</td>
-                    <td>{{ monthlyPayment.student.studentName }}</td>
-                    <td>{{ monthlyPayment.student.enrollmentNo }}</td>
-                    <td>{{ monthlyPayment.totalAmount }}</td>
-                    <td>{{ monthlyPayment.amountPaid }}</td>
-                    <td>{{ monthlyPayment.amountRemaining }}</td>
-                    <td>{{ monthlyPayment.paymentDate | date }}</td>
-                    <td>
-                        <a class="btn btn-info" [routerLink]="['/monthlypayment', monthlyPayment.monthlyPaymentId, 'details']">Details</a>
-                        <a class="btn btn-primary" [routerLink]="['/monthlypayment', monthlyPayment.monthlyPaymentId, 'edit']">Edit</a>
-                        <button class="btn btn-danger" (click)="deleteMonthlyPayment(monthlyPayment.monthlyPaymentId)">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  </div>
 </div>

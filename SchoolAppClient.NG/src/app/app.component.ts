@@ -6,6 +6,7 @@ import { AuthResponse } from './Authentication/SecurityModels/auth-response';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
+  
 })
 export class AppComponent {
   title = 'NG.ClientsSchoolAPI';

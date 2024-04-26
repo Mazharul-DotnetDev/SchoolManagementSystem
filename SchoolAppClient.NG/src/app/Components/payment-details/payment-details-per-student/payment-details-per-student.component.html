@@ -1,0 +1,138 @@
+<div class="container">
+  <a class="btn btn-success" routerLink="/monthlypayment/create">Create Monthly Payment</a>
+  <a class="btn btn-success" routerLink="/otherpayment/create">Create Others Payment</a>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group row">
+      <label for="standardFilter" class="col-md-4 col-form-label">Filter by Standard:</label>
+      <div class="col-md-8">
+        <select id="standardFilter" name="standardFilter" class="form-control" [(ngModel)]="selectedStandardId" (ngModelChange)="onStandardChange()">
+          <option value="">All</option>
+          <option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="studentId" class="col-md-4 col-form-label">Student Name:</label>
+      <div class="col-md-8">
+        <select id="studentId" name="studentId" class="form-control" required [(ngModel)]="studentId" #patID="ngModel">
+          <option *ngFor="let student of filteredStudents" [value]="student.studentId">
+            {{ student.enrollmentNo }} - {{ student.studentName }}
+          </option>
+        </select>
+        <div *ngIf="patID.invalid && (patID.dirty || patID.touched)" class="invalid-feedback">
+          Select a student name.
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <h4 *ngIf="dueBalance">Total Due Balance Amount = {{ dueBalance.dueBalanceAmount }}</h4>
+
+  <div>
+    <h4>Monthly Payment Details</h4>
+    <!-- <div *ngIf="paymentDetails.length > 0">
+        <table class="payment-table">
+            <thead>
+                <tr>
+                    <th>Fee Name</th>
+                    <th>Month Name</th>
+                    <th>Number of Months</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let payment of paymentDetails">
+                    <td>{{ payment.feeName }}</td>
+                    <td>{{ payment.monthName }}</td>
+                    <td>
+                        {{ payment.numberOfMonths }}
+                        <span *ngIf="payment.numberOfMonths > 1" style="color: red;">Multiple payment for {{ payment.feeName }} in a single Month</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+    <div *ngIf="paymentDetails && paymentDetails.length > 0">
+      <table class="payment-table">
+        <thead>
+          <tr>
+            <th>Fee Name</th>
+            <th>Months</th>
+            <!-- <th>Number of Months</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let payment of paymentDetails">
+            <td>{{ payment.feeName }}</td>
+            <td>
+              <ul>
+                <li *ngFor="let month of payment.months">{{ month }}</li>
+              </ul>
+            </td>
+            <!-- <td>{{ payment.numberOfMonths }}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="paymentDetails && paymentDetails.length === 0">
+      <p>No payment details found.</p>
+    </div>
+
+
+
+
+    <div *ngIf="paymentDetails.length === 0">
+      <p>No fee payment details available for this student.</p>
+    </div>
+
+    <table class="payment-table">
+      <thead>
+        <tr>
+          <th>Payment Date</th>
+          <th>Payment ID</th>
+          <th>Total Amount</th>
+          <th>Amount Paid</th>
+          <th>Amount Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td>{{ payment.paymentDate | date }}</td>
+          <td>{{ payment.monthlyPaymentId }}</td>
+          <td>{{ payment.totalAmount }}</td>
+          <td>{{ payment.amountPaid }}</td>
+          <td>{{ payment.amountRemaining }}</td>
+          <td><a class="btn btn-info" [routerLink]="['/monthlypayment', payment.monthlyPaymentId, 'details']">Details</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h4>Others Payment Details</h4>
+    <table class="payment-table">
+      <thead>
+        <tr>
+          <th>Payment Date</th>
+          <th>Payment ID</th>
+          <th>Total Amount</th>
+          <th>Amount Paid</th>
+          <th>Amount Remaining</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of otherPayment">
+          <td>{{ payment.paymentDate | date }}</td>
+          <td>{{ payment.othersPaymentId }}</td>
+          <td>{{ payment.totalAmount }}</td>
+          <td>{{ payment.amountPaid }}</td>
+          <td>{{ payment.amountRemaining }}</td>
+          <td><a class="btn btn-info" [routerLink]="['/otherpayment', payment.othersPaymentId, 'details']">Details</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

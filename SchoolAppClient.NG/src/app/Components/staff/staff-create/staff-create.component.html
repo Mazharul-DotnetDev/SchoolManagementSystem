@@ -1,15 +1,19 @@
 <div class="container">
   <h2>Add New Staff</h2>
+
+  <a [routerLink]="['/staff-list']" class="btn btn-primary "> Back to the List</a>
+
   <form (ngSubmit)="onSubmit()" #staffForm="ngForm">
+
     <!--Staff Name-->
     <div class="form-group">
       <label for="staffName">Staff Name</label>
       <input type="text" class="form-control" id="staffName" name="staffName" #staffName="ngModel" [(ngModel)]="staff.staffName" required>
-      <div *ngIf="staffName.invalid  || staffName.untouched" class="text-danger">
+      <div *ngIf="staffName.invalid  || staffName.untouched || staffName.touched" class="text-danger">
         Staff Name is required
       </div>
-
     </div>
+
     <div>
       <label class=" " for="upload">Choose a file</label>
       <input type="file" #imageInput
@@ -23,153 +27,6 @@
       </figure>
     </div>
 
-    <div class="form-group">
-      <label for="uniqueStaffAttendanceNumber">uniqueStaffAttendanceNumber</label>
-      <input type="number" class="form-control" id="uniqueStaffAttendanceNumber" name="uniqueStaffAttendanceNumber" #uniqueStaffAttendanceNumber="ngModel" [(ngModel)]="staff.uniqueStaffAttendanceNumber" required>
-      <div *ngIf="uniqueStaffAttendanceNumber.invalid && uniqueStaffAttendanceNumber.touched" class="text-danger">
-        Unique Staff Attendance Number is required
-      </div>
-    </div>
-    <!--Gender-->
-    <div class="form-group">
-      <label for="gender">Gender</label>
-      <select class="form-control" id="gender" name="gender" #gender="ngModel" [(ngModel)]="staff.gender" required>
-        <option value="" disabled selected>Select Gender</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
-      <div *ngIf="gender.invalid || gender.untouched" class="text-danger">
-        Gender is required
-      </div>
-
-    </div>
-    <!--Date of Birth-->
-    <div class="form-group">
-      <label for="dob">Date of Birth</label>
-      <input type="date" class="form-control" id="dob" name="dob" #dob="ngModel" [(ngModel)]="staff.dob" required>
-      <div *ngIf="dob.invalid && dob.touched" class="text-danger">
-        Date of Birth is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="designation">Designation</label>
-      <select class="form-control" id="designation" name="designation" #designation="ngModel" [(ngModel)]="staff.designation" required>
-        <option value="" disabled selected>Select Designation</option>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-        <option value="Superintendent">Superintendent</option>
-        <option value="Headmaster">Headmaster</option>
-        <option value="Headmaster">Professor</option>
-        <option value="Instructor">Instructor</option>
-        <option value="Lecturer">Lecturer</option>
-      </select>
-      <div *ngIf="designation.invalid || designation.untouched" class="text-danger">
-        Designation is required
-      </div>
-
-    </div>
-
-
-    <div class="form-group">
-      <label for="fatherName">Father Name</label>
-      <input type="text" class="form-control" id="fatherName" name="fatherName" #fatherName="ngModel" [(ngModel)]="staff.fatherName">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="motherName">Mother Name</label>
-      <input type="text" class="form-control" id="motherName" name="motherName" #motherName="ngModel" [(ngModel)]="staff.motherName">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="temporaryAddress">Temporary Address</label>
-      <input type="text" class="form-control" id="temporaryAddress" name="temporaryAddress" #temporaryAddress="ngModel" [(ngModel)]="staff.temporaryAddress">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="permanentAddress">Permanent Address</label>
-      <input type="text" class="form-control" id="permanentAddress" name="permanentAddress" #permanentAddress="ngModel" [(ngModel)]="staff.permanentAddress">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="contactNumber1">Contact Number</label>
-      <input type="text" class="form-control" id="contactNumber1" name="contactNumber1" #contactNumber1="ngModel" [(ngModel)]="staff.contactNumber1">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="text" class="form-control" id="email" name="email" #email="ngModel" [(ngModel)]="staff.email">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="qualifications">Qualifications</label>
-      <input type="text" class="form-control" id="qualifications" name="qualifications" #qualifications="ngModel" [(ngModel)]="staff.qualifications">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-
-    <div class="form-group">
-      <label for="joiningDate">Joining Date</label>
-      <input type="date" class="form-control" id="joiningDate" name="joiningDate" #joiningDate="ngModel" [(ngModel)]="staff.joiningDate">
-      <div *ngIf="staffName.invalid || staffName.untouched" class="text-danger">
-        Joining Date is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="bankName">Bank Name</label>
-      <input type="text" class="form-control" id="bankName" name="bankName" #bankName="ngModel" [(ngModel)]="staff.bankName">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="bankAccountName">Bank Account Name</label>
-      <input type="text" class="form-control" id="bankAccountName" name="bankAccountName" #bankAccountName="ngModel" [(ngModel)]="staff.bankAccountName">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label for="bankAccountNumber">Bank Account Number</label>
-      <input type="text" class="form-control" id="bankAccountNumber" name="bankAccountNumber" #bankAccountNumber="ngModel" [(ngModel)]="staff.bankAccountNumber">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
-
-
-    <div class="form-group">
-      <label for="status">Status</label>
-      <input type="text" class="form-control" id="status" name="status" #status="ngModel" [(ngModel)]="staff.status">
-      <div *ngIf="staffName.invalid && staffName.touched" class="text-danger">
-        Staff Name is required
-      </div>
-    </div>
     <!--Department-->
     <div class="form-group">
       <label for="department">Department</label>
@@ -181,21 +38,172 @@
         <option value="" disabled selected>Select Department</option>
         <option *ngFor="let dept of departments" [value]="dept.departmentId">{{ dept.departmentName }}</option>
       </select>
-      <div *ngIf="departmentId.invalid || departmentId.untouched" class="text-danger">
+      <div *ngIf="departmentId.invalid || departmentId.untouched || departmentId.touched" class="text-danger">
         Department is required
       </div>
     </div>
+
+
     <!--Staff Salary-->
     <div class="form-group">
       <label for="staffSalary">Staff Salary</label>
-      <select class="form-control" id="staffSalary" name="staffSalaryId" [(ngModel)]="staff.staffSalaryId" #staffSalaryId="ngModel">
+      <select class="form-control" id="staffSalary" name="staffSalaryId" [(ngModel)]="staff.staffSalaryId" #staffSalaryId="ngModel" required>
         <option value="" disabled selected>Select Staff Salary</option>
         <option *ngFor="let salary of salaries" [value]="salary.staffSalaryId">{{ salary.staffName }} - Basic Salary: ${{ salary.basicSalary }}</option>
       </select>
-      <div *ngIf="staffSalaryId.invalid || staffSalaryId.untouched" class="text-danger">
+      <div *ngIf="staffSalaryId.invalid || staffSalaryId.untouched || staffSalaryId.touched" class="text-danger">
         Staff Salary is required
       </div>
     </div>
+
+
+    <div class="form-group">
+      <label for="uniqueStaffAttendanceNumber">uniqueStaffAttendanceNumber</label>
+      <input type="number" class="form-control" id="uniqueStaffAttendanceNumber" name="uniqueStaffAttendanceNumber" #uniqueStaffAttendanceNumber="ngModel" [(ngModel)]="staff.uniqueStaffAttendanceNumber" required>
+      <div *ngIf="uniqueStaffAttendanceNumber.invalid || uniqueStaffAttendanceNumber.touched || uniqueStaffAttendanceNumber.untouched" class="text-danger">
+        Unique Staff Attendance Number is required
+      </div>
+    </div>
+
+    <!--Gender-->
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select class="form-control" id="gender" name="gender" #gender="ngModel" [(ngModel)]="staff.gender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+      <div *ngIf="gender.invalid || gender.untouched || gender.touched" class="text-danger">
+        Gender is required
+      </div>
+    </div>
+
+    <!--Date of Birth-->
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" class="form-control" id="dob" name="dob" #dob="ngModel" [(ngModel)]="staff.dob" required>
+      <div *ngIf="dob.invalid || dob.touched || dob.untouched" class="text-danger">
+        Date of Birth is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="designation">Designation</label>
+      <select class="form-control" id="designation" name="designation" #designation="ngModel" [(ngModel)]="staff.designation" required>
+        <option value="" disabled selected>Select Designation</option>
+        <option value="Superintendent">Superintendent</option>
+        <option value="Headmaster">Headmaster</option>
+        <option value="Headmaster">Professor</option>
+        <option value="Instructor">Instructor</option>
+        <option value="Lecturer">Lecturer</option>
+      </select>
+      <div *ngIf="designation.invalid || designation.untouched || designation.touched" class="text-danger">
+        Designation is required
+      </div>
+
+    </div>
+
+
+    <div class="form-group">
+      <label for="fatherName">Father Name</label>
+      <input type="text" class="form-control" id="fatherName" name="fatherName" #fatherName="ngModel" [(ngModel)]="staff.fatherName">
+      <!--<div *ngIf="fatherName.invalid || fatherName.touched || fatherName.untouched" class="text-danger">
+        Father Name is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="motherName">Mother Name</label>
+      <input type="text" class="form-control" id="motherName" name="motherName" #motherName="ngModel" [(ngModel)]="staff.motherName">
+      <!--<div *ngIf="motherName.invalid || motherName.touched || motherName.untouched" class="text-danger">
+        Mother Name is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="temporaryAddress">Temporary Address</label>
+      <input type="text" class="form-control" id="temporaryAddress" name="temporaryAddress" #temporaryAddress="ngModel" [(ngModel)]="staff.temporaryAddress">
+      <!--<div *ngIf="temporaryAddress.invalid || temporaryAddress.touched || temporaryAddress.untouched" class="text-danger">
+        Temporary Address is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="permanentAddress">Permanent Address</label>
+      <input type="text" class="form-control" id="permanentAddress" name="permanentAddress" #permanentAddress="ngModel" [(ngModel)]="staff.permanentAddress">
+      <!--<div *ngIf="permanentAddress.invalid || permanentAddress.touched || permanentAddress.untouched" class="text-danger">
+        Permanent Address is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="contactNumber1">Contact Number</label>
+      <input type="text" class="form-control" id="contactNumber1" name="contactNumber1" #contactNumber1="ngModel" [(ngModel)]="staff.contactNumber1">
+      <!--<div *ngIf="contactNumber1.invalid || contactNumber1.touched || contactNumber1.untouched" class="text-danger">
+        Contact Number is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" class="form-control" id="email" name="email" #email="ngModel" [(ngModel)]="staff.email">
+      <!--<div *ngIf="email.invalid || email.touched || email.untouched" class="text-danger">
+        Email is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="qualifications">Qualifications</label>
+      <input type="text" class="form-control" id="qualifications" name="qualifications" #qualifications="ngModel" [(ngModel)]="staff.qualifications" required>
+      <div *ngIf="qualifications.invalid || qualifications.touched || qualifications.untouched" class="text-danger">
+        Qualifications is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="joiningDate">Joining Date</label>
+      <input type="date" class="form-control" id="joiningDate" name="joiningDate" #joiningDate="ngModel" [(ngModel)]="staff.joiningDate" required>
+      <div *ngIf="joiningDate.invalid || joiningDate.untouched || joiningDate.touched" class="text-danger">
+        Joining Date is required
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="bankName">Bank Name</label>
+      <input type="text" class="form-control" id="bankName" name="bankName" #bankName="ngModel" [(ngModel)]="staff.bankName">
+      <!--<div *ngIf="bankName.invalid || bankName.touched || bankName.untouched" class="text-danger">
+        Bank Name is required
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="bankAccountName">Bank Account Name</label>
+      <input type="text" class="form-control" id="bankAccountName" name="bankAccountName" #bankAccountName="ngModel" [(ngModel)]="staff.bankAccountName">
+      <!--<div *ngIf="bankAccountName.invalid || bankAccountName.touched || bankAccountName.untouched" class="text-danger">
+        Bank Account Name
+      </div>-->
+    </div>
+
+    <div class="form-group">
+      <label for="bankAccountNumber">Bank Account Number</label>
+      <input type="text" class="form-control" id="bankAccountNumber" name="bankAccountNumber" #bankAccountNumber="ngModel" [(ngModel)]="staff.bankAccountNumber">
+      <!--<div *ngIf="bankAccountNumber.invalid || bankAccountNumber.touched || bankAccountNumber.untouched" class="text-danger">
+        Bank Account Number is required
+      </div>-->
+    </div>
+
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <input type="text" class="form-control" id="status" name="status" #status="ngModel" [(ngModel)]="staff.status">
+      <!--<div *ngIf="status.invalid || status.touched || status.untouched" class="text-danger">
+        Status is required
+      </div>-->
+    </div>
+
 
     <!--Button to add Experience-->
     <button type="button" class="btn btn-primary mb-3" (click)="addExperience()">Add Experience</button>
@@ -204,50 +212,94 @@
     <div *ngFor="let exp of staff.staffExperiences; let i = index" class="card mb-3">
 
       <div class="card-header">
-        <button (click)="deleteExperience(i)">Delete Exp</button>
+        <button (click)="deleteExperience(i)">Delete Experience</button>
       </div>
 
       <div class="card-body">
+
         <!--Company Name-->
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="companyName{{i}}">Company Name</label>
           <input type="text" class="form-control" id="companyName{{i}}" name="companyName{{i}}" [(ngModel)]="staff.staffExperiences[i].companyName">
+        </div>-->
 
+        <div class="form-group">
+          <label for="companyName{{i}}">Company Name</label>
+          <input type="text" class="form-control" id="companyName{{i}}" name="companyName{{i}}" [(ngModel)]="staff.staffExperiences[i].companyName" #companyName="ngModel" required>
+
+          <div *ngIf="companyName.invalid || companyName.untouched || companyName.touched" class="text-danger">
+            Company Name is required
+          </div>
         </div>
+
+
+
         <!--Designation-->
         <div class="form-group">
           <label for="designation{{i}}">Designation</label>
           <input type="text" class="form-control" id="designation{{i}}" name="designation{{i}}" [(ngModel)]="staff.staffExperiences[i].designation">
         </div>
+
         <!--Joining Date-->
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="joiningDate{{i}}">Joining Date</label>
           <input type="date" class="form-control" id="joiningDate{{i}}" name="joiningDate{{i}}" [(ngModel)]="staff.staffExperiences[i].joiningDate">
-        </div>
-        <!--Leaving Date-->
+        </div>-->
+
         <div class="form-group">
+          <label for="joiningDate{{i}}">Joining Date</label>
+          <input type="date" class="form-control" id="joiningDate{{i}}" name="joiningDate{{i}}" [(ngModel)]="staff.staffExperiences[i].joiningDate" #joiningDate="ngModel" required>
+          <div *ngIf="joiningDate.invalid || joiningDate.untouched || joiningDate.touched" class="text-danger">
+            Joining Date is required
+          </div>
+
+        </div>
+
+
+        <!--Leaving Date-->
+        <!--<div class="form-group">
           <label for="leavingDate{{i}}">Leaving Date</label>
           <input type="date" class="form-control" id="leavingDate{{i}}" name="leavingDate{{i}}" [(ngModel)]="staff.staffExperiences[i].leavingDate">
+        </div>-->
+
+        <div class="form-group">
+          <label for="leavingDate{{i}}">Leaving Date</label>
+          <input type="date" class="form-control" id="leavingDate{{i}}" name="leavingDate{{i}}" [(ngModel)]="staff.staffExperiences[i].leavingDate" #leavingDate="ngModel" required>
+
+          <div *ngIf="leavingDate.invalid || leavingDate.untouched || leavingDate.touched" class="text-danger">
+            Leaving Date is required
+          </div>
+
         </div>
+
+
         <!--Responsibilities-->
         <div class="form-group">
           <label for="responsibilities{{i}}">Responsibilities</label>
           <textarea class="form-control" id="responsibilities{{i}}" name="responsibilities{{i}}" [(ngModel)]="staff.staffExperiences[i].responsibilities"></textarea>
         </div>
+
         <!--Achievements-->
         <div class="form-group">
           <label for="achievements{{i}}">Achievements</label>
           <textarea class="form-control" id="achievements{{i}}" name="achievements{{i}}" [(ngModel)]="staff.staffExperiences[i].achievements"></textarea>
         </div>
+
         <!--Service Duration-->
-        <div class="form-group">
+        <!--<div class="form-group">
           <label for="serviceDuration{{i}}">Service Duration</label>
           <input type="text" class="form-control" id="serviceDuration{{i}}" name="serviceDuration{{i}}" [(ngModel)]="staff.staffExperiences[i].serviceDuration">
-        </div>
+        </div>-->
+        <
+
+
       </div>
     </div>
 
 
     <button type="submit" [disabled]="staffForm.invalid" class="btn btn-success">Submit</button>
+
+    <!--<button type="submit" class="btn btn-success">Submit</button>-->
+
   </form>
 </div>

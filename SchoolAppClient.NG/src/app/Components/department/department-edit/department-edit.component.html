@@ -1,0 +1,11 @@
+<div class="container">
+  <h2>Edit Department</h2>
+  <form (submit)="updateDepartment()">
+    <div class="form-group">
+      <label for="departmentName">Fee Type Name:</label>
+      <input type="text" class="form-control" id="departmentName" name="departmentName" [(ngModel)]="model.departmentName" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+
+  </form>
+</div>

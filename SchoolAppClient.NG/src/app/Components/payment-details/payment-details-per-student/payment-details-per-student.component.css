@@ -1,0 +1,15 @@
+.payment-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+  .payment-table th,
+  .payment-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+
+  .payment-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }

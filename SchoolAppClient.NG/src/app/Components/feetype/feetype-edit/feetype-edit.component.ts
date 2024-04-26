@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeeTypeService } from '../../../Services/feetype.service';
-import { FeeType } from '../../../Models/FeeType';
+import { FeeType } from '../../../Models/feetype';
 //import { FeeType } from '../../../Models/FeeType';
 
 @Component({

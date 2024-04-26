@@ -1,0 +1,17 @@
+
+
+<div class="container">
+  <h2>Create Standard</h2>
+
+  <form (submit)="createStandard()">
+    <div class="form-group">
+      <label for="standardName">Standard Name:</label>
+      <input type="text" class="form-control" id="standardName" name="standardName" [(ngModel)]="model.standardName" required>
+    </div>
+    <div class="form-group">
+      <label for="standardCapacity">Standard Capacity:</label>
+      <input type="text" class="form-control" id="standardCapacity" name="standardCapacity" [(ngModel)]="model.standardCapacity" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

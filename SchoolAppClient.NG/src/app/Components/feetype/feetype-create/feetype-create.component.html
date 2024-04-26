@@ -1,13 +1,16 @@
-<!-- fee-type-create.component.html -->
-
 <div class="container">
-    <h2>Create Fee Type</h2>
+  <h2>Create Fee Type</h2>
 
-    <form (submit)="createFeeType()">
-        <div class="form-group">
-            <label for="feeTypeName">Fee Type Name:</label>
-            <input type="text" class="form-control" id="feeTypeName" name="feeTypeName" [(ngModel)]="feeType.typeName" required>
+  <form #feeTypeForm="ngForm" (ngSubmit)="createFeeType()">
+    <div class="form-group">
+      <label for="feeTypeName">Fee Type Name:</label>
+      <input type="text" class="form-control" id="feeTypeName" name="feeTypeName" [(ngModel)]="feeType.typeName" required #feeTypeName="ngModel">
+      <div *ngIf="feeTypeName.invalid && (feeTypeName.dirty || feeTypeName.touched)" class="text-danger">
+        <div *ngIf="feeTypeName.errors && feeTypeName.errors['required']">
+          Fee Type Name is required.
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="feeTypeForm.invalid">Submit</button>
+  </form>
 </div>

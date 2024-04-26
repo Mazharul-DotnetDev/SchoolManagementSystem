@@ -1,0 +1,26 @@
+<div class="container">
+  <h2>Standard</h2>
+  <a class="btn btn-success" routerLink="/standard/create">Create Standard</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Standard Name</th>
+        <th>Standard Capasity</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let standard of standard">
+        <td>{{ standard.standardId }}</td>
+        <td>{{ standard.standardName }}</td>
+        <td>{{ standard.standardCapacity }}</td>
+
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/standard', standard.standardId, 'edit']">Edit</a>
+          <button class="btn btn-danger" (click)="deleteStandard(standard.standardId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

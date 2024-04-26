@@ -4,10 +4,11 @@ import { Staff } from '../../../Models/staff';
 import { Department } from '../../../Models/department';
 import { StaffSalary } from '../../../Models/staff-salary';
 import { StaffService } from '../../../Services/staff.service';
-import { DepartmentService } from '../../../Services/department.service';
+/*import { DepartmentService } from '../../../Services/department.service';*/
 import { StaffSalaryService } from '../../../Services/staff-salary.service';
 import { StaffExperience } from '../../../Models/staff-experience';
 import { Router } from '@angular/router';
+import { DepartmentServices } from '../../../Services/department.service';
 
 @Component({
   selector: 'app-staff-create',
@@ -25,7 +26,7 @@ export class StaffCreateComponent implements OnInit {
   constructor (
     private fb: FormBuilder,
     private staffService: StaffService,
-    private departmentService: DepartmentService,
+    private departmentService: DepartmentServices,
     private staffSalaryService: StaffSalaryService,
     private router: Router  )
   {
@@ -37,7 +38,7 @@ export class StaffCreateComponent implements OnInit {
     this.initializeForm();
 
     // Fetch departments and staff salaries from the service
-    this.departmentService.getAllDepartments().subscribe((depts: Department[]) => this.departments = depts);
+    this.departmentService.getAllDepartment().subscribe((depts: Department[]) => this.departments = depts);
     this.staffSalaryService.getStaffSalaries().subscribe((salaries: StaffSalary[]) => this.salaries = salaries);
   }
 

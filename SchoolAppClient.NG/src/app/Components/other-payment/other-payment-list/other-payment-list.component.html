@@ -1,0 +1,38 @@
+<div>
+  <div class="container">
+    <h2>Other Payments</h2>
+    <a class="btn btn-success" routerLink="/otherpayment/create">
+      Create new payment
+    </a>
+    <div class="form-group">
+      <input type="text" class="form-control short-input" placeholder="Search by Student Name" [(ngModel)]="searchName">
+    </div>
+    <ejs-grid #grid [dataSource]="otherPayments" [allowPaging]="true" [pageSettings]="pageSettings"
+              [filterSettings]="filterSettings" [searchSettings]="searchSettings">
+      <e-columns>
+        <e-column field="othersPaymentId" headerText="Payment ID" width="100"></e-column>
+        <e-column field="student.studentName" headerText="Student Name" width="150"></e-column>
+        <e-column field="student.enrollmentNo" headerText="Enrollment No" width="120"></e-column>
+        <e-column field="totalAmount" headerText="Total Amount" width="120"></e-column>
+        <e-column field="amountPaid" headerText="Amount Paid" width="120"></e-column>
+        <e-column field="amountRemaining" headerText="Amount Remaining" width="140"></e-column>
+        <e-column field="paymentDate" headerText="Payment Date" width="150" format="yMd"></e-column>
+        <e-column headerText="Action" width="250">
+          <ng-template #template let-data>
+            <a class="btn btn-info" [routerLink]="['/otherpayment', data.othersPaymentId, 'details']">Details</a>
+            <a class="btn btn-primary" [routerLink]="['/otherpayment', data.othersPaymentId, 'edit']">Edit</a>
+            <button class="btn btn-danger" (click)="confirmDelete(data.othersPaymentId)">Delete</button>
+          </ng-template>
+        </e-column>
+      </e-columns>
+    </ejs-grid>
+  </div>
+  <div class="confirmation-popup" *ngIf="confirmationDialogVisible">
+    <div class="confirmation-dialog">
+      <app-confirmation-dialog [title]="'Confirmation'"
+                               [message]="'Are you sure you want to delete this payment?'"></app-confirmation-dialog>
+      <button class="btn btn-danger" (click)="deleteOtherPayment()">Confirm Delete</button>
+      <button class="btn btn-secondary" (click)="closeConfirmationDialog()">Cancel</button>
+    </div>
+  </div>
+</div>

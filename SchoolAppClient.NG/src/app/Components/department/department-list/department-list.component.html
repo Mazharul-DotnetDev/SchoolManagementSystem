@@ -1,68 +1,28 @@
-
-
-<button class="btn btn-primary" (click)="loadDepartments()">Refresh</button>
-<br />
-<hr />
-
-<ejs-grid [dataSource]='departments' [allowFiltering]='true' [searchSettings]="searchOptions" [filterSettings]='filterSettings' [allowPaging]="true" [allowSorting]="true" [allowPdfExport]="true" [allowExcelExport]="true" [allowResizing]="true" [allowGrouping]="false" [pageSettings]="pageSettings" [showColumnChooser]='true' [toolbar]='toolbarOptions' [selectionSettings]="selectionOptions" showColumnMenu='true' width='auto'>
-
+<div class="container">
+  <h2>Department List</h2>
+  <a class="btn btn-success" routerLink="/departments/create">Create Department</a>
+  <div class="form-group">
+    <input type="text" class="form-control short-input" placeholder="Search by Name" [(ngModel)]="searchName">
+  </div>
+  <ejs-grid #grid [dataSource]="departments" [allowPaging]="true" [pageSettings]="pageSettings"
+            [filterSettings]="filterSettings" [searchSettings]="searchSettings">
     <e-columns>
-        <e-column field='departmentId' headerText='department Id' textAlign='Right' width=90></e-column>
-        <e-column field='departmentName' headerText='Name' width=120></e-column>
-        <!-- <e-column headerText='Image' width=120>
-
-            <ng-template #template let-data>
-                <figure *ngIf="data.imagePath">
-                    <img [src]="data.imagePath" width="180" />
-                </figure>
-            </ng-template>
-        </e-column> -->
+      <e-column field="departmentId" headerText="ID" width="100"></e-column>
+      <e-column field="departmentName" headerText="Name" width="200"></e-column>
+      <e-column headerText="Action" width="150">
+        <ng-template #template let-data>
+          <a class="btn btn-primary" [routerLink]="['/departments', data.departmentId, 'edit']">Edit</a>
+          <button class="btn btn-danger" (click)="confirmDelete(data.departmentId)">Delete</button>
+        </ng-template>
+      </e-column>
     </e-columns>
-    <!-- <ng-template #detailTemplate let-data>
-        <div class='custom-grid'></div>
-    </ng-template> -->
-
-</ejs-grid>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- departement-list.component.html -->
-<!-- <!-- <div class="container mt-4">
-  <h2>Departments</h2>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Department ID</th>
-        <th>Department Name</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let department of departments">
-        <td>{{ department.departmentId }}</td>
-        <td>{{ department.departmentName }}</td>
-      </tr>
-    </tbody>
-  </table>
-</div> -->
- -->
+  </ejs-grid>
+</div>
+<div class="confirmation-popup" *ngIf="confirmationDialogVisible">
+  <div class="confirmation-dialog">
+    <app-confirmation-dialog [title]="'Confirmation'"
+                             [message]="'Are you sure you want to delete this Department?'"></app-confirmation-dialog>
+    <button class="btn btn-danger" (click)="deleteDepartment()">Confirm Delete</button>
+    <button class="btn btn-secondary" (click)="closeConfirmationDialog()">Cancel</button>
+  </div>
+</div>

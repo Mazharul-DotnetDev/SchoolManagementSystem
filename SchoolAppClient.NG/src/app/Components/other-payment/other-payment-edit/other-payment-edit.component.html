@@ -1,0 +1,53 @@
+<div class="container">
+  <h2>Update Payment</h2>
+  <form #otherPaymentForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="otherPaymentId">Monthly Payment ID:</label>
+      <input type="text" class="form-control" id="otherPaymentId" [(ngModel)]="model.othersPaymentId" name="otherPaymentId" required>
+      <div *ngIf="otherPaymentForm.controls['otherPaymentId'].errors?.['required'] && (otherPaymentForm.controls['otherPaymentId'].dirty || otherPaymentForm.controls['otherPaymentId'].touched)" class="invalid-feedback">Monthly Payment ID is required.</div>
+    </div>
+
+    <div class="form-group row">
+      <label for="studentId" class="col-md-4 col-form-label">Student Name:</label>
+      <div class="col-md-8">
+        <select id="studentId"
+                name="studentId"
+                class="form-control"
+                required
+                [(ngModel)]="model.studentId"
+                #patID="ngModel">
+          <option *ngFor="let student of filteredData.students" [value]="student.studentId">
+            {{ student.enrollmentNo }} - {{ student.studentName }}
+          </option>
+        </select>
+        <div *ngIf="patID.invalid && (patID.dirty || patID.touched)" class="invalid-feedback">
+          Select a student name.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="fees">Fees:</label>
+      <select multiple class="form-control" id="fees" [(ngModel)]="model.fees" name="fees" required>
+        <option *ngFor="let fee of filteredData.fees" [ngValue]="fee">{{ fee.feeType.typeName }}  - {{ fee.amount }}</option>
+      </select>
+      <div *ngIf="!model.fees || model.fees.length === 0" class="invalid-feedback">At least one Fee must be selected.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="amountPaid">Amount Paid:</label>
+      <input type="number" class="form-control" id="amountPaid" [(ngModel)]="model.amountPaid" name="amountPaid" required>
+      <div *ngIf="otherPaymentForm.controls['amountPaid'].errors?.['required'] && (otherPaymentForm.controls['amountPaid'].dirty || otherPaymentForm.controls['amountPaid'].touched)" class="invalid-feedback">Amount Paid is required.</div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="paymentDate">Payment Date:</label>
+      <input type="date" class="form-control" id="paymentDate" [(ngModel)]="model.paymentDate" name="paymentDate" required>
+      <div *ngIf="otherPaymentForm.controls['paymentDate'].errors?.['required'] && (otherPaymentForm.controls['paymentDate'].dirty || otherPaymentForm.controls['paymentDate'].touched)" class="invalid-feedback">Payment Date is required.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="otherPaymentForm.invalid">Update Payment</button>
+  </form>
+</div>

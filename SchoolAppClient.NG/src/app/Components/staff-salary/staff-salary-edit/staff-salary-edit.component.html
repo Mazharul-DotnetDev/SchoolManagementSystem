@@ -1,0 +1,98 @@
+<div class="container">
+  <h2>Edit New Staff Salary</h2>
+
+  <a [routerLink]="['/staff-salaries']" class="btn btn-primary "> Back to the List</a>
+
+  <form #staffSalaryForm="ngForm" (ngSubmit)="onSubmit(staffSalaryForm)">
+
+    <ul *ngIf="errorMessages.length>0">
+      <li *ngFor="let err of errorMessages">{{err}}</li>
+    </ul>
+
+
+    <div class="form-group">
+      <label for="staffName" required>Staff Name</label>
+      <input type="text" class="form-control" id="staffName" name="staffName" #staffName="ngModel" [(ngModel)]="staffSalary.staffName" required>
+      <div *ngIf="staffName.invalid  || staffName.untouched || staffName.touched || staffName.dirty" class="text-danger">
+        Staff Name is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="basicSalary">basicSalary</label>
+      <input type="number" class="form-control" id="basicSalary" name="basicSalary" #basicSalary="ngModel" [(ngModel)]="staffSalary.basicSalary" required>
+      <div *ngIf="basicSalary.invalid || basicSalary.touched || basicSalary.untouched" class="text-danger">
+        basicSalary is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="festivalBonus">festivalBonus</label>
+      <input type="number" class="form-control" id="festivalBonus" name="festivalBonus" #festivalBonus="ngModel" [(ngModel)]="staffSalary.festivalBonus" required>
+      <div *ngIf="festivalBonus.invalid || festivalBonus.touched || festivalBonus.untouched" class="text-danger">
+        festivalBonus is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="allowance">allowance</label>
+      <input type="number" class="form-control" id="allowance" name="allowance" #allowance="ngModel" [(ngModel)]="staffSalary.allowance" required>
+      <div *ngIf="allowance.invalid || allowance.touched || allowance.untouched" class="text-danger">
+        allowance is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="medicalAllowance">medicalAllowance</label>
+      <input type="number" class="form-control" id="medicalAllowance" name="medicalAllowance" #medicalAllowance="ngModel" [(ngModel)]="staffSalary.medicalAllowance" required>
+      <div *ngIf="medicalAllowance.invalid || medicalAllowance.touched || medicalAllowance.untouched" class="text-danger">
+        medicalAllowance is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="housingAllowance">housingAllowance</label>
+      <input type="number" class="form-control" id="housingAllowance" name="housingAllowance" #housingAllowance="ngModel" [(ngModel)]="staffSalary.housingAllowance" required>
+      <div *ngIf="housingAllowance.invalid || housingAllowance.touched || housingAllowance.untouched" class="text-danger">
+        housingAllowance is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="transportationAllowance">transportationAllowance</label>
+      <input type="number" class="form-control" id="transportationAllowance" name="transportationAllowance" #transportationAllowance="ngModel" [(ngModel)]="staffSalary.transportationAllowance" required>
+      <div *ngIf="transportationAllowance.invalid || transportationAllowance.touched || transportationAllowance.untouched" class="text-danger">
+        transportationAllowance is required
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label for="savingFund">savingFund</label>
+      <input type="number" class="form-control" id="savingFund" name="savingFund" #savingFund="ngModel" [(ngModel)]="staffSalary.savingFund" required>
+      <div *ngIf="savingFund.invalid || savingFund.touched || savingFund.untouched" class="text-danger">
+        savingFund is required
+      </div>
+    </div>
+
+
+
+    <div class="form-group">
+      <label for="taxes">taxes</label>
+      <input type="text" class="form-control" id="taxes" name="taxes" #taxes="ngModel" [(ngModel)]="staffSalary.taxes">
+      <div *ngIf="taxes.invalid || taxes.touched || taxes.untouched" class="text-danger">
+        taxes is required
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="staffSalaryForm.invalid" class="btn btn-success">Submit</button>
+
+    <!--<button type="submit" class="btn btn-success">Submit</button>-->
+  </form>
+</div>

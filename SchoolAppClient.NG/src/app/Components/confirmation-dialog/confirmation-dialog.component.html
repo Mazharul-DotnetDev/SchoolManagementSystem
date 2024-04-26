@@ -1,0 +1,12 @@
+<!-- custom-dialog.component.html -->
+
+<div>
+  <h1>{{ title }}</h1>
+  <div>
+    <p>{{ message }}</p>
+  </div>
+  <div align="end">
+    <button (click)="close(false)">Cancel</button>
+    <button (click)="close(true)">Delete</button>
+  </div>
+</div>

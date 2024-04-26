@@ -35,11 +35,10 @@
               "src/assets"
             ],
             "styles": [
-              //"@angular/material/prebuilt-themes/indigo-pink.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",              
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/@syncfusion/ej2-material-theme/styles/material.css",
-              //"node_modules/ngx-toastr/toastr.css",
               "src/styles.css"
             ],
             "scripts": []

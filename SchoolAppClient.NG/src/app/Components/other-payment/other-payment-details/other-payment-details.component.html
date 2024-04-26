@@ -1,0 +1,46 @@
+<div class="container">
+  <h2 class="my-4">Payment Details</h2>
+  <div *ngIf="othepayment">
+    <div class="card mb-4">
+      <div class="card-body">
+        <p class="card-text"><strong>Payment ID:</strong> {{ othepayment.othersPaymentId }}</p>
+        <p class="card-text"><strong>Student Name:</strong> {{ othepayment.student.studentName }}</p>
+        <p class="card-text"><strong>Student Enrollment No:</strong> {{ othepayment.student.enrollmentNo }}</p>
+        <p class="card-text"><strong>Payment Date:</strong> {{ othepayment.paymentDate | date }}</p>
+
+        <h3 class="mt-4">Payment Details</h3>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+              <tr>
+                <th>Fee Name</th>
+                <th>Fee Amount</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detail of othepayment.otherPaymentDetails">
+                <td>{{ detail.feeName }}</td>
+                <td>{{ detail.feeAmount }}</td>
+
+              </tr>
+
+              <tr>
+                <td colspan="3"><strong>Total Amount:</strong> {{ othepayment.totalAmount }}</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Amount Paid:</strong> {{ othepayment.amountPaid }}</td>
+              </tr>
+              <tr>
+                <td colspan="3"><strong>Amount Remaining:</strong> {{ othepayment.amountRemaining }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="printDetails()">Print</button>
+    <a class="btn btn-success" routerLink="/othersypayment">Back to Payment List</a>
+    <a class="btn btn-success" routerLink="/pmaymentdetails">Pmaymentdetails List</a>
+  </div>
+</div>

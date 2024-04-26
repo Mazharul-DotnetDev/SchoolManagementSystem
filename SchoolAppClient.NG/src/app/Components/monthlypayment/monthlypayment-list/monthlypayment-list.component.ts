@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MonthlyPayment } from '../../../Models/monthly-payment';
 import { MonthlyPaymentService } from '../../../Services/monthly-payment.service';
 import { Router } from '@angular/router';
+import { PageSettingsModel, FilterSettingsModel, SearchSettingsModel } from '@syncfusion/ej2-angular-grids';
 
 @Component({
   selector: 'app-monthlypayment-list',
@@ -9,8 +10,21 @@ import { Router } from '@angular/router';
   styleUrl: './monthlypayment-list.component.css'
 })
 export class MonthlypaymentListComponent implements OnInit {
+  @ViewChild('grid') grid: any;
+
   monthlyPayments: MonthlyPayment[] = [];
-  searchName: string = '';
+  confirmationDialogVisible: boolean = false;
+  monthlyPaymentIdToDelete: number | undefined;
+
+  searchPaymentId: string = '';
+
+  pageSettings: PageSettingsModel = { pageSize: 5 };
+  filterSettings: FilterSettingsModel = { type: 'Menu' };
+  searchSettings: SearchSettingsModel = {
+    fields: ['student.studentName', 'monthlyPaymentId', 'student.enrollmentNo'],
+    operator: 'contains',
+    ignoreCase: true
+  };
 
   constructor(private monthlyPaymentService: MonthlyPaymentService, private router: Router) { }
 
@@ -23,16 +37,32 @@ export class MonthlypaymentListComponent implements OnInit {
       this.monthlyPayments = monthlyPayments;
     });
   }
-  get filteredPayments() {
-    return this.monthlyPayments.filter(payment => payment.student.studentName.toLowerCase().includes(this.searchName.toLowerCase()));
+
+  confirmDelete(id: number): void {
+    this.confirmationDialogVisible = true;
+    this.monthlyPaymentIdToDelete = id;
   }
-  deleteMonthlyPayment(id: number): void {
-    this.monthlyPaymentService.deleteMonthlyPayment(id).subscribe(() => {
-      // Remove the deleted monthly payment from the local array
-      this.monthlyPayments = this.monthlyPayments.filter(mp => mp.monthlyPaymentId !== id);
-      console.log(`Monthly payment with ID ${id} deleted successfully.`);
-    }, error => {
-      console.error(`Error deleting monthly payment with ID ${id}: ${error}`);
-    });
+
+  deleteMonthlyPayment(): void {
+    if (this.monthlyPaymentIdToDelete !== undefined) {
+      this.monthlyPaymentService.deleteMonthlyPayment(this.monthlyPaymentIdToDelete).subscribe(() => {
+        this.monthlyPayments = this.monthlyPayments.filter(payment => payment.monthlyPaymentId !== this.monthlyPaymentIdToDelete);
+        this.closeConfirmationDialog();
+      });
+    }
+  }
+
+  closeConfirmationDialog(): void {
+    this.confirmationDialogVisible = false;
+    this.monthlyPaymentIdToDelete = undefined;
+  }
+
+  customPaymentIdFilter(args: any): void {
+    const filterValue = this.searchPaymentId.toLowerCase();
+    args.dataSource = this.monthlyPayments.filter(mp => mp.monthlyPaymentId.toString().toLowerCase().includes(filterValue));
+  }
+
+  customPaymentIdSearch(): void {
+    this.grid.search(this.searchPaymentId);
   }
 }

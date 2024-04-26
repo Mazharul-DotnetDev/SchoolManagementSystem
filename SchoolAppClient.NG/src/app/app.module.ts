@@ -24,14 +24,14 @@ import { MonthlypaymentDetailsComponent } from './Components/monthlypayment/mont
 import { MonthlypaymentCreatComponent } from './Components/monthlypayment/monthlypayment-create/monthlypayment-create.component';
 import { StaffListComponent } from './Components/staff/staff-list/staff-list.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { DepartementListComponent } from './Components/department/department-list/department-list.component';
+/*import { DepartementListComponent } from './Components/department/department-list/department-list.component';*/
 import { StaffSalaryListComponent } from './Components/staff-salary/staff-salary-list/staff-salary-list.component';
 import { authInterceptor } from './Authentication/SecurityModels/auth.interceptor';
 import { StaffCreateComponent } from './Components/staff/staff-create/staff-create.component';
 import { ExamtypeListComponent } from './Components/examtype/examtype-list/examtype-list.component';
 import { ExamtypeAddComponent } from './Components/examtype/examtype-add/examtype-add.component';
 import { ExamtypeEditComponent } from './Components/examtype/examtype-edit/examtype-edit.component';
-import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';
+/*import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';*/
 import { StaffDetailsComponent } from './Components/staff/staff-details/staff-details.component';
 import {
   AggregateService, ColumnChooserService, ColumnMenuService, EditService, FilterService, GridModule, GroupService, PageService, PagerModule, ReorderService, ResizeService, SortService, SearchService,
@@ -40,8 +40,29 @@ import {
 import { ChartModule } from '@syncfusion/ej2-angular-charts';
 import { TextBoxModule, UploaderModule } from '@syncfusion/ej2-angular-inputs';
 import { StaffDeleteComponent } from './Components/staff/staff-delete/staff-delete.component';
+import { DepartmentEditComponent } from './Components/department/department-edit/department-edit.component';
+import { DepartmentCreateComponent } from './Components/department/department-create/department-create.component';
+//import { OtherPaymentListComponent } from './Components/other-payment/other-payment-list/other-payment-list.component';
+//import { OtherPaymentEditComponent } from './Components/other-payment/other-payment-edit/other-payment-edit.component';
+//import { OtherPaymentDetailsComponent } from './Components/other-payment/other-payment-details/other-payment-details.component';
+//import { OtherPaymentCreateComponent } from './Components/other-payment/other-payment-create/other-payment-create.component';
+import { PaymentDetailsPerStudentComponent } from './Components/payment-details/payment-details-per-student/payment-details-per-student.component';
+import { StandardListComponent } from './Components/standard/standard-list/standard-list.component';
+import { StandardEditComponent } from './Components/standard/standard-edit/standard-edit.component';
+import { StandardCreateComponent } from './Components/standard/standard-create/standard-create.component';
+import { ConfirmationDialogComponent } from './Components/confirmation-dialog/confirmation-dialog.component';
+import { DepartmentListComponent } from './Components/department/department-list/department-list.component';
+import { OtherpaymentListComponent } from './Components/other-payment/other-payment-list/other-payment-list.component';
+import { OtherpaymentEditComponent } from './Components/other-payment/other-payment-edit/other-payment-edit.component';
+import { OtherpaymentDetailsComponent } from './Components/other-payment/other-payment-details/other-payment-details.component';
+import { OtherpaymentCreatComponent } from './Components/other-payment/other-payment-create/other-payment-create.component';
+import { StaffEditComponent } from './Components/staff/staff-edit/staff-edit.component';
 /*import { ToastModule, ToastrService } from '@syncfusion/ej2-angular-notifications';*/
 /*import { ToastrModule, ToastrService } from 'ngx-toastr';*/
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StaffSalaryCreateComponent } from './Components/staff-salary/staff-salary-create/staff-salary-create.component';
+import { StaffSalaryEditComponent } from './Components/staff-salary/staff-salary-edit/staff-salary-edit.component';
+/*import { StaffSalaryEditComponent } from './Components/staff/staff-salary/staff-salary-edit/staff-salary-edit.component';*/
 
 
 
@@ -50,7 +71,7 @@ import { StaffDeleteComponent } from './Components/staff/staff-delete/staff-dele
 @NgModule({
   declarations: [
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent,  DepartementListComponent, StaffSalaryListComponent, StaffCreateComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffEditComponent, StaffDetailsComponent, StaffDeleteComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent
     
   ],
   imports: [
@@ -60,7 +81,8 @@ import { StaffDeleteComponent } from './Components/staff/staff-delete/staff-dele
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    GridModule, PagerModule, ChartModule, TextBoxModule, UploaderModule
+    GridModule, PagerModule, ChartModule, TextBoxModule, UploaderModule,
+    BrowserAnimationsModule
 
 
         
