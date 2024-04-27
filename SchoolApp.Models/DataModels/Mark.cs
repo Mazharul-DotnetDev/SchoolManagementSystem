@@ -7,8 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolApp.Models.DataModels
-{
-    
+{    
+
     [Table("Mark")]
     public class Mark
     {
