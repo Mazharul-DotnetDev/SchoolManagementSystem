@@ -41,6 +41,8 @@ namespace SchoolApp.DAL.SchoolContext
         public DbSet<OtherPaymentDetail> otherPaymentDetails { get; set; }
         public DbSet<PaymentMonth> paymentMonths { get; set; }
         public DbSet<ExamScheduleStandard> dbsExamScheduleStandard { get; set; }
+        public DbSet<MarkEntry> dbsMarkEntry { get; set; }
+
 
         #endregion
 
