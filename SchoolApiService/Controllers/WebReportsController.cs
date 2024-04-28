@@ -6,6 +6,7 @@ using SchoolApp.DAL.SchoolContext;
 
 namespace SchoolApiService.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class WebReportsController : ControllerBase

@@ -12,7 +12,7 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20240426134714_Mig1")]
+    [Migration("20240428181403_Mig1")]
     partial class Mig1
     {
         /// <inheritdoc />
@@ -648,17 +648,17 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             ExamScheduleId = 1,
-                            ExamScheduleName = "Midterm Exam"
+                            ExamScheduleName = "First Semester"
                         },
                         new
                         {
                             ExamScheduleId = 2,
-                            ExamScheduleName = "Final Exam"
+                            ExamScheduleName = "Second Semester"
                         },
                         new
                         {
                             ExamScheduleId = 3,
-                            ExamScheduleName = "Practical Exam"
+                            ExamScheduleName = "Third Semester"
                         });
                 });
 
@@ -753,6 +753,16 @@ namespace SchoolApp.DAL.Migrations
                         {
                             ExamTypeId = 3,
                             ExamTypeName = "Practical"
+                        },
+                        new
+                        {
+                            ExamTypeId = 4,
+                            ExamTypeName = "Monthly Exam"
+                        },
+                        new
+                        {
+                            ExamTypeId = 5,
+                            ExamTypeName = "Lab Exam"
                         });
                 });
 
@@ -1082,7 +1092,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 26, 19, 47, 10, 119, DateTimeKind.Local).AddTicks(6027),
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(8577),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1096,7 +1106,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 26, 19, 47, 10, 119, DateTimeKind.Local).AddTicks(6034),
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(8586),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1110,7 +1120,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 26, 19, 47, 10, 119, DateTimeKind.Local).AddTicks(6040),
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(8591),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1118,6 +1128,122 @@ namespace SchoolApp.DAL.Migrations
                             StudentId = 3,
                             SubjectId = 3,
                             TotalMarks = 90
+                        });
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
+                {
+                    b.Property<int>("MarkEntryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MarkEntryId"));
+
+                    b.Property<int>("ExamScheduleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ExamTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("MarkEntryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ObtainedScore")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PassMarks")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PassStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalMarks")
+                        .HasColumnType("int");
+
+                    b.HasKey("MarkEntryId");
+
+                    b.HasIndex("ExamScheduleId");
+
+                    b.HasIndex("ExamTypeId");
+
+                    b.HasIndex("StaffId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("MarkEntry");
+
+                    b.HasData(
+                        new
+                        {
+                            MarkEntryId = 1,
+                            ExamScheduleId = 1,
+                            ExamTypeId = 1,
+                            Feedback = "Good work, keep practicing!",
+                            Grade = 0,
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9608),
+                            ObtainedScore = 75,
+                            PassMarks = 50,
+                            PassStatus = 0,
+                            StaffId = 1,
+                            SubjectId = 1,
+                            TotalMarks = 100
+                        },
+                        new
+                        {
+                            MarkEntryId = 2,
+                            ExamScheduleId = 2,
+                            ExamTypeId = 2,
+                            Feedback = "Needs improvement. Please see me during office hours.",
+                            Grade = 0,
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9620),
+                            ObtainedScore = 68,
+                            PassMarks = 75,
+                            PassStatus = 2,
+                            StaffId = 2,
+                            SubjectId = 2,
+                            TotalMarks = 150
+                        },
+                        new
+                        {
+                            MarkEntryId = 3,
+                            ExamScheduleId = 3,
+                            ExamTypeId = 3,
+                            Feedback = "Satisfactory performance.",
+                            Grade = 0,
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9625),
+                            ObtainedScore = 42,
+                            PassMarks = 30,
+                            PassStatus = 0,
+                            StaffId = 3,
+                            SubjectId = 3,
+                            TotalMarks = 50
+                        },
+                        new
+                        {
+                            MarkEntryId = 4,
+                            ExamScheduleId = 3,
+                            ExamTypeId = 4,
+                            Feedback = "Needs significant improvement. Please attend extra help sessions.",
+                            Grade = 0,
+                            MarkEntryDate = new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9628),
+                            ObtainedScore = 18,
+                            PassMarks = 25,
+                            PassStatus = 0,
+                            StaffId = 1,
+                            SubjectId = 1,
+                            TotalMarks = 40
                         });
                 });
 
@@ -1581,7 +1707,9 @@ namespace SchoolApp.DAL.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("NetSalary")
-                        .HasColumnType("decimal(18,2)");
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("decimal(18,2)")
+                        .HasComputedColumnSql("([BasicSalary] + [FestivalBonus] + [Allowance] + [MedicalAllowance] + [HousingAllowance] + [TransportationAllowance] - [SavingFund] - [Taxes])");
 
                     b.Property<decimal?>("SavingFund")
                         .HasColumnType("decimal(18,2)");
@@ -1690,6 +1818,36 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 5,
                             StandardCapacity = "30",
                             StandardName = "Class Five"
+                        },
+                        new
+                        {
+                            StandardId = 6,
+                            StandardCapacity = "30",
+                            StandardName = "Class Six"
+                        },
+                        new
+                        {
+                            StandardId = 7,
+                            StandardCapacity = "30",
+                            StandardName = "Class Seven"
+                        },
+                        new
+                        {
+                            StandardId = 8,
+                            StandardCapacity = "30",
+                            StandardName = "Class Eight"
+                        },
+                        new
+                        {
+                            StandardId = 9,
+                            StandardCapacity = "30",
+                            StandardName = "Class Nine"
+                        },
+                        new
+                        {
+                            StandardId = 10,
+                            StandardCapacity = "30",
+                            StandardName = "Class Ten"
                         });
                 });
 
@@ -1723,6 +1881,9 @@ namespace SchoolApp.DAL.Migrations
 
                     b.Property<string>("LocalGuardianName")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MarkEntryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("MotherContactNumber")
                         .HasColumnType("nvarchar(max)");
@@ -1785,6 +1946,8 @@ namespace SchoolApp.DAL.Migrations
 
                     b.HasIndex("EnrollmentNo")
                         .IsUnique();
+
+                    b.HasIndex("MarkEntryId");
 
                     b.HasIndex("StandardId");
 
@@ -1886,7 +2049,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherNID = "76543210987654323",
                             MotherName = "Farida Ahmed",
                             PermanentAddress = "Sylhet, Bangladesh",
-                            StandardId = 1,
+                            StandardId = 2,
                             StudentBloodGroup = "AB+",
                             StudentContactNumber1 = "9876543212",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1964,7 +2127,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherNID = "54321098765432111",
                             MotherName = "Amina Islam",
                             PermanentAddress = "Chittagong, Bangladesh",
-                            StandardId = 2,
+                            StandardId = 3,
                             StudentBloodGroup = "O-",
                             StudentContactNumber1 = "9876543215",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -2042,7 +2205,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherNID = "21098765432109878",
                             MotherName = "Rina Akter",
                             PermanentAddress = "Dhaka, Bangladesh",
-                            StandardId = 2,
+                            StandardId = 4,
                             StudentBloodGroup = "A-",
                             StudentContactNumber1 = "9876543218",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -2068,7 +2231,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherNID = "10987654321098767",
                             MotherName = "Nazma Hasan",
                             PermanentAddress = "Chittagong, Bangladesh",
-                            StandardId = 3,
+                            StandardId = 4,
                             StudentBloodGroup = "O-",
                             StudentContactNumber1 = "9876543219",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -2120,7 +2283,7 @@ namespace SchoolApp.DAL.Migrations
                             MotherNID = "98765432109876545",
                             MotherName = "Taslima Khan",
                             PermanentAddress = "Sylhet, Bangladesh",
-                            StandardId = 1,
+                            StandardId = 4,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "9876543221",
                             StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -2172,37 +2335,79 @@ namespace SchoolApp.DAL.Migrations
                         new
                         {
                             SubjectId = 2,
-                            StandardId = 2,
+                            StandardId = 1,
                             SubjectCode = 102,
-                            SubjectName = "Physics"
+                            SubjectName = "Bengali"
                         },
                         new
                         {
                             SubjectId = 3,
-                            StandardId = 3,
+                            StandardId = 1,
                             SubjectCode = 103,
-                            SubjectName = "Chemistry"
+                            SubjectName = "Physics"
                         },
                         new
                         {
                             SubjectId = 4,
-                            StandardId = 1,
+                            StandardId = 2,
                             SubjectCode = 104,
-                            SubjectName = "Biology"
+                            SubjectName = "Mathematics"
                         },
                         new
                         {
                             SubjectId = 5,
                             StandardId = 2,
                             SubjectCode = 105,
-                            SubjectName = "Computer Science"
+                            SubjectName = "Bengali"
                         },
                         new
                         {
                             SubjectId = 6,
-                            StandardId = 3,
+                            StandardId = 2,
                             SubjectCode = 106,
-                            SubjectName = "Electronics"
+                            SubjectName = "Physics"
+                        },
+                        new
+                        {
+                            SubjectId = 7,
+                            StandardId = 3,
+                            SubjectCode = 107,
+                            SubjectName = "Mathematics"
+                        },
+                        new
+                        {
+                            SubjectId = 8,
+                            StandardId = 3,
+                            SubjectCode = 108,
+                            SubjectName = "Bengali"
+                        },
+                        new
+                        {
+                            SubjectId = 9,
+                            StandardId = 3,
+                            SubjectCode = 109,
+                            SubjectName = "Physics"
+                        },
+                        new
+                        {
+                            SubjectId = 10,
+                            StandardId = 4,
+                            SubjectCode = 110,
+                            SubjectName = "Mathematics"
+                        },
+                        new
+                        {
+                            SubjectId = 11,
+                            StandardId = 4,
+                            SubjectCode = 111,
+                            SubjectName = "Bengali"
+                        },
+                        new
+                        {
+                            SubjectId = 12,
+                            StandardId = 4,
+                            SubjectCode = 112,
+                            SubjectName = "Physics"
                         });
                 });
 
@@ -2383,6 +2588,41 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("Subject");
                 });
 
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.ExamSchedule", "ExamSchedule")
+                        .WithMany()
+                        .HasForeignKey("ExamScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolApp.Models.DataModels.ExamType", "ExamType")
+                        .WithMany()
+                        .HasForeignKey("ExamTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolApp.Models.DataModels.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
+                        .WithMany()
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ExamSchedule");
+
+                    b.Navigation("ExamType");
+
+                    b.Navigation("Staff");
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>
                 {
                     b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
@@ -2452,6 +2692,10 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Student", b =>
                 {
+                    b.HasOne("SchoolApp.Models.DataModels.MarkEntry", null)
+                        .WithMany("Students")
+                        .HasForeignKey("MarkEntryId");
+
                     b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
                         .WithMany()
                         .HasForeignKey("StandardId")
@@ -2483,6 +2727,11 @@ namespace SchoolApp.DAL.Migrations
             modelBuilder.Entity("SchoolApp.Models.DataModels.ExamType", b =>
                 {
                     b.Navigation("ExamSubjects");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
+                {
+                    b.Navigation("Students");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>

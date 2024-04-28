@@ -1,0 +1,8 @@
+﻿
+
+
+https://opensource.fast-report.com/
+
+
+
+https://github.com/FastReports/FastReport/releases/download/v2024.2.0/FastReport.Community.2024.2.0.zip

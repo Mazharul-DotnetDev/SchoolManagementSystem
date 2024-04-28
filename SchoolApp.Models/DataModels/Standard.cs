@@ -22,5 +22,6 @@ namespace SchoolApp.Models.DataModels
         public virtual ICollection<Subject>? Subjects { get; set; }
         public virtual ICollection<ExamScheduleStandard>? ExamScheduleStandards { get; set; } 
 
+
     }
 }

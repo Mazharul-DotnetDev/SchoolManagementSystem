@@ -18,10 +18,10 @@ namespace SchoolApp.Models.DataModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
 
-        [Required(ErrorMessage = "Enrollment number is required")]
+        //[Required(ErrorMessage = "Admission number is required")]
         public int? AdmissionNo { get; set; }
 
-        [Required(ErrorMessage = "Enrollment number is required")]
+        //[Required(ErrorMessage = "Enrollment number is required")]
         public int EnrollmentNo { get; set; }
 
         [Required(ErrorMessage = "Unique Student Attendance Number is required")]
@@ -75,7 +75,7 @@ namespace SchoolApp.Models.DataModels
 
         public string? LocalGuardianContactNumber { get; set; }
 
-        [Required(ErrorMessage = "Standard is required")]
+        //[Required(ErrorMessage = "Standard is required")]
         public int? StandardId { get; set; }
 
         public Standard? Standard { get; set; }

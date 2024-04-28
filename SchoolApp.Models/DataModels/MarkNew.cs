@@ -13,7 +13,7 @@ namespace SchoolApp.Models.DataModels
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int MarkId { get; set; }
+        public int MarkEntryId { get; set; }
 
         public DateTime? MarkEntryDate { get; set; } = DateTime.Now;
 
@@ -54,29 +54,52 @@ namespace SchoolApp.Models.DataModels
 
         public int ObtainedScore { get; set; }
 
-        public Grade? Grade { get; set; }
+        public GradesSystem? Grade { get; set; } = GradesSystem.A;
 
-        public Pass? PassStatus { get; set; }
+        public PassFailStatus? PassStatus { get; set; } = PassFailStatus.Passed;
         
         public string? Feedback { get; set; }                     
 
     }
 
-    public enum Grades
+    public enum GradesSystem
     {
-        A,
-        B,
-        C,
-        D,
-        E,
-        F
+        A, B, C, D, E, F, NotApplicable
     }
 
-    public enum PassStatus
+    public enum PassFailStatus
     {
-        Passed, Failed, UnderConsideration, SpecialConsideration, Withdrawn,
-        UnderJurisdiction
+        Passed, Failed, UnderConsideration, SpecialConsideration, Withdrawn, UnderJurisdiction
     }
 
+
+    #region CollectionSeedData
+    /*
+   update Student
+Set [MarkEntryId] = 1
+where StudentId =1
+go
+update Student
+Set [MarkEntryId] = 1
+where StudentId =2
+go
+update Student
+Set [MarkEntryId] = 1
+where StudentId =3
+go
+update Student
+Set [MarkEntryId] = 2
+where StudentId =4
+go
+update Student
+Set [MarkEntryId] = 2
+where StudentId =5
+go
+update Student
+Set [MarkEntryId] = 2
+where StudentId =6
+
+*/ 
+    #endregion
 
 }

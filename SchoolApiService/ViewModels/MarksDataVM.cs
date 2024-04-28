@@ -10,7 +10,7 @@ namespace SchoolApiService.ViewModels
         public string StudentName { get; set; }
        
         public float? Mark { get; set; }
-        public PassStatus Status { get; set; }
+        //public PassStatus Status { get; set; }
 
 
     }

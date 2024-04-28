@@ -22,6 +22,7 @@ namespace SchoolApp.DAL.SchoolContext
         public DbSet<Standard> dbsStandard { get; set; }
         public DbSet<Department> dbsDepartment { get; set; }
         public DbSet<ExamSchedule> dbsExamSchedule { get; set; }
+        //public DbSet<ExamScheduleStandard> dbsExamScheduleStandard { get; set; }
         public DbSet<ExamSubject> dbsExamSubject { get; set; }
         public DbSet<ExamType> dbsExamType { get; set; }
         public DbSet<Mark> dbsMark { get; set; }
@@ -53,45 +54,9 @@ namespace SchoolApp.DAL.SchoolContext
         }
         #endregion
 
-        //This SaveChanges() method is implemented for inserting Computed column [NetSalary column from StaffSalary Table] into Database.
+        // Just Testing Purpose
         public override int SaveChanges()
-        {
-
-
-            //foreach (var entry in ChangeTracker.Entries())
-            //{
-            //    if (entry.Entity is StaffSalary staffSalary && (entry.State == EntityState.Added || entry.State == EntityState.Modified))
-            //    {
-            //        // Update NetSalary before saving changes
-            //        staffSalary.NetSalary = CalculateNetSalary(staffSalary);
-            //    }
-            //}
-
-
-            // Calculate NetSalary before saving changes
-            //foreach (var entry in ChangeTracker.Entries<StaffSalary>())
-            //{
-            //    if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
-            //    {
-            //        var staffSalary = entry.Entity;
-            //        staffSalary.CalculateNetSalary();
-            //    }
-            //}
-
-            #region Testing_Purpose
-            // Validation logic before saving changes
-
-            //var validationErrors = GetValidationErrors();
-            //if (validationErrors.Any())
-            //{
-            //    // Rollback changes
-            //    // You can use transaction rollback or any other mechanism here
-            //    throw new InvalidOperationException("Validation failed. Changes rolled back.");
-            //}
-
-            // Save changes if validation passes 
-            #endregion
-
+        {                     
             return base.SaveChanges();
         }
 
@@ -281,7 +246,7 @@ namespace SchoolApp.DAL.SchoolContext
                 new ExamSchedule
                 {
                     ExamScheduleId = 1,
-                    ExamScheduleName = "Midterm Exam"
+                    ExamScheduleName = "First Semester"
                     //ExamTypeId = 1
                     //,
                     //ExamSubjects = new List<ExamSubject>
@@ -293,7 +258,7 @@ namespace SchoolApp.DAL.SchoolContext
                 new ExamSchedule
                 {
                     ExamScheduleId = 2,
-                    ExamScheduleName = "Final Exam"
+                    ExamScheduleName = "Second Semester"
                     //ExamTypeId = 2
                     //,
                     //ExamSubjects = new List<ExamSubject>
@@ -305,7 +270,7 @@ namespace SchoolApp.DAL.SchoolContext
                 new ExamSchedule
                 {
                     ExamScheduleId = 3,
-                    ExamScheduleName = "Practical Exam"
+                    ExamScheduleName = "Third Semester"
                     //ExamTypeId = 3
                     //,
                     //ExamSubjects = new List<ExamSubject>
@@ -322,7 +287,9 @@ namespace SchoolApp.DAL.SchoolContext
             modelBuilder.Entity<ExamType>().HasData(
                 new ExamType { ExamTypeId = 1, ExamTypeName = "Midterm" },
                 new ExamType { ExamTypeId = 2, ExamTypeName = "Final" },
-                new ExamType { ExamTypeId = 3, ExamTypeName = "Practical" }
+                new ExamType { ExamTypeId = 3, ExamTypeName = "Practical" },
+                new ExamType { ExamTypeId = 4, ExamTypeName = "Monthly Exam" },
+                new ExamType { ExamTypeId = 5, ExamTypeName = "Lab Exam" }
             );
             #endregion
 
@@ -826,7 +793,12 @@ namespace SchoolApp.DAL.SchoolContext
                 new Standard { StandardId = 2, StandardName = "Class Two", StandardCapacity = "35" },
                 new Standard { StandardId = 3, StandardName = "Class Three", StandardCapacity = "32" },
                 new Standard { StandardId = 4, StandardName = "Class Four", StandardCapacity = "28" },
-                new Standard { StandardId = 5, StandardName = "Class Five", StandardCapacity = "30" }
+                new Standard { StandardId = 5, StandardName = "Class Five", StandardCapacity = "30" },
+                new Standard { StandardId = 6, StandardName = "Class Six", StandardCapacity = "30" },
+                new Standard { StandardId = 7, StandardName = "Class Seven", StandardCapacity = "30" },
+                new Standard { StandardId = 8, StandardName = "Class Eight", StandardCapacity = "30" },
+                new Standard { StandardId = 9, StandardName = "Class Nine", StandardCapacity = "30" },
+                new Standard { StandardId = 10, StandardName = "Class Ten", StandardCapacity = "30" }
                );
 
             #endregion
@@ -932,7 +904,7 @@ new Student
     MotherContactNumber = "9876543232",
     LocalGuardianName = "Nadia Rahman",
     LocalGuardianContactNumber = "9876543242",
-    StandardId = 1,
+    StandardId = 2,
 },
     new Student
     {
@@ -1007,7 +979,7 @@ new Student
         MotherContactNumber = "9876543235",
         LocalGuardianName = "Farid Ahmed",
         LocalGuardianContactNumber = "9876543245",
-        StandardId = 2,
+        StandardId = 3,
     },
     new Student
     {
@@ -1082,7 +1054,7 @@ new Student
     MotherContactNumber = "9876543238",
     LocalGuardianName = "Khaled Rahman",
     LocalGuardianContactNumber = "9876543248",
-    StandardId = 2,
+    StandardId = 4,
 },
     new Student
     {
@@ -1107,7 +1079,7 @@ new Student
         MotherContactNumber = "9876543239",
         LocalGuardianName = "Farhana Akter",
         LocalGuardianContactNumber = "9876543249",
-        StandardId = 3,
+        StandardId = 4,
     },
     new Student
     {
@@ -1157,7 +1129,7 @@ new Student
         MotherContactNumber = "9876543241",
         LocalGuardianName = "Ayesha Begum",
         LocalGuardianContactNumber = "9876543251",
-        StandardId = 1,
+        StandardId = 4,
     }
 
 );
@@ -1176,37 +1148,81 @@ new Student
                 new Subject
                 {
                     SubjectId = 2,
-                    SubjectName = "Physics",
+                    SubjectName = "Bengali",
                     SubjectCode = 102,
-                    StandardId = 2
-                },
-                new Subject
-                {
-                    SubjectId = 3,
-                    SubjectName = "Chemistry",
-                    SubjectCode = 103,
-                    StandardId = 3
-                },
-                new Subject
-                {
-                    SubjectId = 4,
-                    SubjectName = "Biology",
-                    SubjectCode = 104,
                     StandardId = 1
                 },
                 new Subject
                 {
+                    SubjectId = 3,
+                    SubjectName = "Physics",
+                    SubjectCode = 103,
+                    StandardId = 1
+                },
+                new Subject
+                {
+                    SubjectId = 4,
+                    SubjectName = "Mathematics",
+                    SubjectCode = 104,
+                    StandardId = 2
+                },
+                new Subject
+                {
                     SubjectId = 5,
-                    SubjectName = "Computer Science",
+                    SubjectName = "Bengali",
                     SubjectCode = 105,
                     StandardId = 2
                 },
                 new Subject
                 {
                     SubjectId = 6,
-                    SubjectName = "Electronics",
+                    SubjectName = "Physics",
                     SubjectCode = 106,
+                    StandardId = 2
+                },
+
+                new Subject
+                {
+                    SubjectId = 7,
+                    SubjectName = "Mathematics",
+                    SubjectCode = 107,
                     StandardId = 3
+                },
+                new Subject
+                {
+                    SubjectId = 8,
+                    SubjectName = "Bengali",
+                    SubjectCode = 108,
+                    StandardId = 3
+                },
+                new Subject
+                {
+                    SubjectId = 9,
+                    SubjectName = "Physics",
+                    SubjectCode = 109,
+                    StandardId = 3
+                },
+
+                new Subject
+                {
+                    SubjectId = 10,
+                    SubjectName = "Mathematics",
+                    SubjectCode = 110,
+                    StandardId = 4
+                },
+                new Subject
+                {
+                    SubjectId = 11,
+                    SubjectName = "Bengali",
+                    SubjectCode = 111,
+                    StandardId = 4
+                },
+                new Subject
+                {
+                    SubjectId = 12,
+                    SubjectName = "Physics",
+                    SubjectCode = 112,
+                    StandardId = 4
                 }
 
             );
@@ -1421,8 +1437,65 @@ new Student
     new Fee { FeeId = 18, FeeTypeId = 4, StandardId = 3, PaymentFrequency = Frequency.Custom, Amount = 300, DueDate = new DateTime(2024, 7, 25) },
     new Fee { FeeId = 19, FeeTypeId = 1, StandardId = 4, PaymentFrequency = Frequency.Yearly, Amount = 1500, DueDate = new DateTime(2024, 8, 1) },
     new Fee { FeeId = 20, FeeTypeId = 2, StandardId = 4, PaymentFrequency = Frequency.Monthly, Amount = 500, DueDate = new DateTime(2024, 8, 5) }
-); 
+);
             #endregion
+
+
+            // Seed MarksEntry data
+            modelBuilder.Entity<MarkEntry>().HasData(
+                new MarkEntry
+                {
+                    MarkEntryId = 1,
+                    StaffId = 1, 
+                    ExamScheduleId = 1, 
+                    ExamTypeId = 1, 
+                    SubjectId = 1, 
+                    TotalMarks = 100,
+                    PassMarks = 50,                    
+                    ObtainedScore = 75,                   
+                    PassStatus = PassFailStatus.Passed,
+                    Feedback = "Good work, keep practicing!"
+                },
+                new MarkEntry
+                {
+                    MarkEntryId = 2,
+                    StaffId = 2, 
+                    ExamScheduleId = 2, 
+                    ExamTypeId = 2, 
+                    SubjectId = 2, 
+                    TotalMarks = 150,
+                    PassMarks = 75,                    
+                    ObtainedScore = 68,
+                    PassStatus = PassFailStatus.UnderConsideration,
+                    Feedback = "Needs improvement. Please see me during office hours."
+                },
+                new MarkEntry
+                {
+                    MarkEntryId = 3,
+                    StaffId = 3,
+                    ExamScheduleId = 3, 
+                    ExamTypeId = 3, 
+                    SubjectId = 3, 
+                    TotalMarks = 50,
+                    PassMarks = 30,                    
+                    ObtainedScore = 42,
+                    Feedback = "Satisfactory performance."
+                },
+                new MarkEntry
+                {
+                    MarkEntryId = 4,
+                    StaffId = 1, 
+                    ExamScheduleId = 3, 
+                    ExamTypeId = 4,
+                    SubjectId = 1, 
+                    TotalMarks = 40,
+                    PassMarks = 25,                   
+                    ObtainedScore = 18,
+                    Feedback = "Needs significant improvement. Please attend extra help sessions."
+                }
+            );
+
+
 
 
             #endregion

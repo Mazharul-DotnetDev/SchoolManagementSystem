@@ -150,7 +150,7 @@ namespace SchoolApp.DAL.Migrations
                     TransportationAllowance = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     SavingFund = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Taxes = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    NetSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    NetSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: true, computedColumnSql: "([BasicSalary] + [FestivalBonus] + [Allowance] + [MedicalAllowance] + [HousingAllowance] + [TransportationAllowance] - [SavingFund] - [Taxes])")
                 },
                 constraints: table =>
                 {
@@ -347,48 +347,6 @@ namespace SchoolApp.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Student",
-                columns: table => new
-                {
-                    StudentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AdmissionNo = table.Column<int>(type: "int", nullable: false),
-                    EnrollmentNo = table.Column<int>(type: "int", nullable: false),
-                    UniqueStudentAttendanceNumber = table.Column<int>(type: "int", nullable: false),
-                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StudentGender = table.Column<int>(type: "int", nullable: true),
-                    StudentReligion = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentBloodGroup = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentNationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentNIDNumber = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
-                    StudentContactNumber1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentContactNumber2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StudentEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PermanentAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TemporaryAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FatherNID = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
-                    FatherContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MotherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MotherNID = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
-                    MotherContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocalGuardianName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LocalGuardianContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StandardId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Student", x => x.StudentId);
-                    table.ForeignKey(
-                        name: "FK_Student_Standard_StandardId",
-                        column: x => x.StandardId,
-                        principalTable: "Standard",
-                        principalColumn: "StandardId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subject",
                 columns: table => new
                 {
@@ -430,6 +388,176 @@ namespace SchoolApp.DAL.Migrations
                         column: x => x.StaffId,
                         principalTable: "Staff",
                         principalColumn: "StaffId");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExamSubject",
+                columns: table => new
+                {
+                    ExamSubjectId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExamScheduleStandardId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    ExamTypeId = table.Column<int>(type: "int", nullable: false),
+                    ExamDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ExamStartTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    ExamEndTime = table.Column<TimeSpan>(type: "time", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamSubject", x => x.ExamSubjectId);
+                    table.ForeignKey(
+                        name: "FK_ExamSubject_ExamScheduleStandard_ExamScheduleStandardId",
+                        column: x => x.ExamScheduleStandardId,
+                        principalTable: "ExamScheduleStandard",
+                        principalColumn: "ExamScheduleStandardId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExamSubject_ExamType_ExamTypeId",
+                        column: x => x.ExamTypeId,
+                        principalTable: "ExamType",
+                        principalColumn: "ExamTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ExamSubject_Subject_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "SubjectId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MarkEntry",
+                columns: table => new
+                {
+                    MarkEntryId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MarkEntryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    ExamScheduleId = table.Column<int>(type: "int", nullable: false),
+                    ExamTypeId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    TotalMarks = table.Column<int>(type: "int", nullable: false),
+                    PassMarks = table.Column<int>(type: "int", nullable: false),
+                    ObtainedScore = table.Column<int>(type: "int", nullable: false),
+                    Grade = table.Column<int>(type: "int", nullable: true),
+                    PassStatus = table.Column<int>(type: "int", nullable: true),
+                    Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MarkEntry", x => x.MarkEntryId);
+                    table.ForeignKey(
+                        name: "FK_MarkEntry_ExamSchedule_ExamScheduleId",
+                        column: x => x.ExamScheduleId,
+                        principalTable: "ExamSchedule",
+                        principalColumn: "ExamScheduleId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MarkEntry_ExamType_ExamTypeId",
+                        column: x => x.ExamTypeId,
+                        principalTable: "ExamType",
+                        principalColumn: "ExamTypeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MarkEntry_Staff_StaffId",
+                        column: x => x.StaffId,
+                        principalTable: "Staff",
+                        principalColumn: "StaffId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MarkEntry_Subject_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "SubjectId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Student",
+                columns: table => new
+                {
+                    StudentId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AdmissionNo = table.Column<int>(type: "int", nullable: false),
+                    EnrollmentNo = table.Column<int>(type: "int", nullable: false),
+                    UniqueStudentAttendanceNumber = table.Column<int>(type: "int", nullable: false),
+                    StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StudentGender = table.Column<int>(type: "int", nullable: true),
+                    StudentReligion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentBloodGroup = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentNationality = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentNIDNumber = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
+                    StudentContactNumber1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentContactNumber2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentEmail = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermanentAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TemporaryAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FatherNID = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
+                    FatherContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MotherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MotherNID = table.Column<string>(type: "nvarchar(17)", maxLength: 17, nullable: true),
+                    MotherContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocalGuardianName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocalGuardianContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StandardId = table.Column<int>(type: "int", nullable: false),
+                    MarkEntryId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Student", x => x.StudentId);
+                    table.ForeignKey(
+                        name: "FK_Student_MarkEntry_MarkEntryId",
+                        column: x => x.MarkEntryId,
+                        principalTable: "MarkEntry",
+                        principalColumn: "MarkEntryId");
+                    table.ForeignKey(
+                        name: "FK_Student_Standard_StandardId",
+                        column: x => x.StandardId,
+                        principalTable: "Standard",
+                        principalColumn: "StandardId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Mark",
+                columns: table => new
+                {
+                    MarkId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalMarks = table.Column<int>(type: "int", nullable: false),
+                    PassMarks = table.Column<int>(type: "int", nullable: false),
+                    ObtainedScore = table.Column<int>(type: "int", nullable: false),
+                    Grade = table.Column<int>(type: "int", nullable: false),
+                    PassStatus = table.Column<int>(type: "int", nullable: false),
+                    MarkEntryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mark", x => x.MarkId);
+                    table.ForeignKey(
+                        name: "FK_Mark_Staff_StaffId",
+                        column: x => x.StaffId,
+                        principalTable: "Staff",
+                        principalColumn: "StaffId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Mark_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Student",
+                        principalColumn: "StudentId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Mark_Subject_SubjectId",
+                        column: x => x.SubjectId,
+                        principalTable: "Subject",
+                        principalColumn: "SubjectId");
                 });
 
             migrationBuilder.CreateTable(
@@ -477,81 +605,6 @@ namespace SchoolApp.DAL.Migrations
                         column: x => x.StudentId,
                         principalTable: "Student",
                         principalColumn: "StudentId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ExamSubject",
-                columns: table => new
-                {
-                    ExamSubjectId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ExamScheduleStandardId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    ExamTypeId = table.Column<int>(type: "int", nullable: false),
-                    ExamDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ExamStartTime = table.Column<TimeSpan>(type: "time", nullable: true),
-                    ExamEndTime = table.Column<TimeSpan>(type: "time", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExamSubject", x => x.ExamSubjectId);
-                    table.ForeignKey(
-                        name: "FK_ExamSubject_ExamScheduleStandard_ExamScheduleStandardId",
-                        column: x => x.ExamScheduleStandardId,
-                        principalTable: "ExamScheduleStandard",
-                        principalColumn: "ExamScheduleStandardId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExamSubject_ExamType_ExamTypeId",
-                        column: x => x.ExamTypeId,
-                        principalTable: "ExamType",
-                        principalColumn: "ExamTypeId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ExamSubject_Subject_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subject",
-                        principalColumn: "SubjectId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Mark",
-                columns: table => new
-                {
-                    MarkId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TotalMarks = table.Column<int>(type: "int", nullable: false),
-                    PassMarks = table.Column<int>(type: "int", nullable: false),
-                    ObtainedScore = table.Column<int>(type: "int", nullable: false),
-                    Grade = table.Column<int>(type: "int", nullable: false),
-                    PassStatus = table.Column<int>(type: "int", nullable: false),
-                    MarkEntryDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Feedback = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StaffId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Mark", x => x.MarkId);
-                    table.ForeignKey(
-                        name: "FK_Mark_Staff_StaffId",
-                        column: x => x.StaffId,
-                        principalTable: "Staff",
-                        principalColumn: "StaffId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Mark_Student_StudentId",
-                        column: x => x.StudentId,
-                        principalTable: "Student",
-                        principalColumn: "StudentId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Mark_Subject_SubjectId",
-                        column: x => x.SubjectId,
-                        principalTable: "Subject",
-                        principalColumn: "SubjectId");
                 });
 
             migrationBuilder.CreateTable(
@@ -799,9 +852,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "ExamScheduleId", "ExamScheduleName" },
                 values: new object[,]
                 {
-                    { 1, "Midterm Exam" },
-                    { 2, "Final Exam" },
-                    { 3, "Practical Exam" }
+                    { 1, "First Semester" },
+                    { 2, "Second Semester" },
+                    { 3, "Third Semester" }
                 });
 
             migrationBuilder.InsertData(
@@ -811,7 +864,9 @@ namespace SchoolApp.DAL.Migrations
                 {
                     { 1, "Midterm" },
                     { 2, "Final" },
-                    { 3, "Practical" }
+                    { 3, "Practical" },
+                    { 4, "Monthly Exam" },
+                    { 5, "Lab Exam" }
                 });
 
             migrationBuilder.InsertData(
@@ -839,12 +894,12 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "StaffSalary",
-                columns: new[] { "StaffSalaryId", "Allowance", "BasicSalary", "FestivalBonus", "HousingAllowance", "MedicalAllowance", "NetSalary", "SavingFund", "StaffName", "Taxes", "TransportationAllowance" },
+                columns: new[] { "StaffSalaryId", "Allowance", "BasicSalary", "FestivalBonus", "HousingAllowance", "MedicalAllowance", "SavingFund", "StaffName", "Taxes", "TransportationAllowance" },
                 values: new object[,]
                 {
-                    { 1, 500m, 5000m, 1000m, 800m, 300m, null, 200m, "Jamir King", 500m, 200m },
-                    { 2, 500m, 5000m, 1000m, 800m, 300m, null, 200m, "Jamir Jamidar", 500m, 200m },
-                    { 3, 500m, 5000m, 1000m, 800m, 300m, null, 200m, "Jamir Amir", 500m, 200m }
+                    { 1, 500m, 5000m, 1000m, 800m, 300m, 200m, "Jamir King", 500m, 200m },
+                    { 2, 500m, 5000m, 1000m, 800m, 300m, 200m, "Jamir Jamidar", 500m, 200m },
+                    { 3, 500m, 5000m, 1000m, 800m, 300m, 200m, "Jamir Amir", 500m, 200m }
                 });
 
             migrationBuilder.InsertData(
@@ -856,7 +911,12 @@ namespace SchoolApp.DAL.Migrations
                     { 2, "35", "Class Two" },
                     { 3, "32", "Class Three" },
                     { 4, "28", "Class Four" },
-                    { 5, "30", "Class Five" }
+                    { 5, "30", "Class Five" },
+                    { 6, "30", "Class Six" },
+                    { 7, "30", "Class Seven" },
+                    { 8, "30", "Class Eight" },
+                    { 9, "30", "Class Nine" },
+                    { 10, "30", "Class Ten" }
                 });
 
             migrationBuilder.InsertData(
@@ -898,22 +958,22 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Student",
-                columns: new[] { "StudentId", "AdmissionNo", "EnrollmentNo", "FatherContactNumber", "FatherNID", "FatherName", "LocalGuardianContactNumber", "LocalGuardianName", "MotherContactNumber", "MotherNID", "MotherName", "PermanentAddress", "StandardId", "StudentBloodGroup", "StudentContactNumber1", "StudentContactNumber2", "StudentDOB", "StudentEmail", "StudentGender", "StudentNIDNumber", "StudentName", "StudentNationality", "StudentReligion", "TemporaryAddress", "UniqueStudentAttendanceNumber" },
+                columns: new[] { "StudentId", "AdmissionNo", "EnrollmentNo", "FatherContactNumber", "FatherNID", "FatherName", "LocalGuardianContactNumber", "LocalGuardianName", "MarkEntryId", "MotherContactNumber", "MotherNID", "MotherName", "PermanentAddress", "StandardId", "StudentBloodGroup", "StudentContactNumber1", "StudentContactNumber2", "StudentDOB", "StudentEmail", "StudentGender", "StudentNIDNumber", "StudentName", "StudentNationality", "StudentReligion", "TemporaryAddress", "UniqueStudentAttendanceNumber" },
                 values: new object[,]
                 {
-                    { 1, 1000, 2000, "9876543210", "17948678987624322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "17948678987754322", "Alice Doe", "123 Main Street, City, Country", 1, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "12345678901234567", "John Doe", "Bangladeshi", null, "456 Elm Street, City, Country", 1000 },
-                    { 2, 1001, 2001, "9876543220", "12345678901234567", "Abdul Rahman", "9876543240", "Kamal Ahmed", "9876543230", "12345678901234568", "Ayesha Rahman", "Dhaka, Bangladesh", 1, "B+", "9876543210", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "fatima.rahman@example.com", 1, "12345678901234567", "Fatima Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1001 },
-                    { 3, 1002, 2002, "9876543221", "98765432109876544", "Rahim Khan", "9876543241", "Kamal Ahmed", "9876543231", "98765432109876545", "Fatima Khan", "Chittagong, Bangladesh", 1, "O+", "9876543211", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "aryan.khan@example.com", 0, "98765432109876543", "Aryan Khan", "Bangladeshi", null, "Chittagong, Bangladesh", 1002 },
-                    { 4, 1003, 2003, "9876543222", "76543210987654322", "Mahmud Ahmed", "9876543242", "Nadia Rahman", "9876543232", "76543210987654323", "Farida Ahmed", "Sylhet, Bangladesh", 1, "AB+", "9876543212", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tasnim.ahmed@example.com", 1, "76543210987654321", "Tasnim Ahmed", "Bangladeshi", null, "Sylhet, Bangladesh", 1003 },
-                    { 5, 1004, 2004, "9876543223", "87654321098765433", "Nasir Khan", "9876543243", "Abdul Ali", "9876543233", "87654321098765434", "Sadia Khan", "Rajshahi, Bangladesh", 2, "A-", "9876543213", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "imran.khan@example.com", 0, "87654321098765432", "Imran Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1004 },
-                    { 6, 1005, 2005, "9876543224", "65432109876543211", "Hasan Rahman", "9876543244", "Khaled Islam", "9876543234", "65432109876543212", "Sabina Rahman", "Dhaka, Bangladesh", 2, "B-", "9876543214", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "anika.rahman@example.com", 1, "65432109876543210", "Anika Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1005 },
-                    { 7, 1006, 2006, "9876543225", "54321098765432110", "Rahman Islam", "9876543245", "Farid Ahmed", "9876543235", "54321098765432111", "Amina Islam", "Chittagong, Bangladesh", 2, "O-", "9876543215", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "rafiul.islam@example.com", 0, "54321098765432109", "Rafiul Islam", "Bangladeshi", null, "Chittagong, Bangladesh", 1006 },
-                    { 8, 1007, 2007, "9876543226", "43210987654321099", "Akram Khan", "9876543246", "Ayesha Begum", "9876543236", "43210987654321100", "Taslima Khan", "Rajshahi, Bangladesh", 3, "AB-", "9876543216", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "zara.khan@example.com", 1, "43210987654321098", "Zara Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1007 },
-                    { 9, 1008, 2008, "9876543227", "32109876543210988", "Kamal Hossain", "9876543247", "Salam Ahmed", "9876543237", "32109876543210989", "Nazma Hossain", "Sylhet, Bangladesh", 3, "A+", "9876543217", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "arif.hossain@example.com", 0, "32109876543210987", "Arif Hossain", "Bangladeshi", null, "Sylhet, Bangladesh", 1008 },
-                    { 10, 1009, 2009, "9876543228", "21098765432109877", "Jamil Akter", "9876543248", "Khaled Rahman", "9876543238", "21098765432109878", "Rina Akter", "Dhaka, Bangladesh", 2, "A-", "9876543218", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sabrina.akter@example.com", 1, "21098765432109876", "Sabrina Akter", "Bangladeshi", null, "Dhaka, Bangladesh", 1009 },
-                    { 11, 1010, 2010, "9876543229", "10987654321098766", "Hasan Mahmud", "9876543249", "Farhana Akter", "9876543239", "10987654321098767", "Nazma Hasan", "Chittagong, Bangladesh", 3, "O-", "9876543219", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "rahat.hasan@example.com", 0, "10987654321098765", "Rahat Hasan", "Bangladeshi", null, "Chittagong, Bangladesh", 1010 },
-                    { 12, 1011, 2011, "9876543230", "09876543210987655", "Rahim Rahman", "9876543250", "Kamal Hossain", "9876543240", "09876543210987656", "Sara Rahman", "Rajshahi, Bangladesh", 4, "AB-", "9876543220", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "asif.rahman@example.com", 0, "09876543210987654", "Asif Rahman", "Bangladeshi", null, "Rajshahi, Bangladesh", 1011 },
-                    { 13, 1012, 2012, "9876543231", "98765432109876544", "Akram Khan", "9876543251", "Ayesha Begum", "9876543241", "98765432109876545", "Taslima Khan", "Sylhet, Bangladesh", 1, "A+", "9876543221", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mehnaz.khan@example.com", 1, "98765432109876543", "Mehnaz Khan", "Bangladeshi", null, "Sylhet, Bangladesh", 1012 }
+                    { 1, 1000, 2000, "9876543210", "17948678987624322", "Michael Doe", "9876543230", "Jane Smith", null, "9876543220", "17948678987754322", "Alice Doe", "123 Main Street, City, Country", 1, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "12345678901234567", "John Doe", "Bangladeshi", null, "456 Elm Street, City, Country", 1000 },
+                    { 2, 1001, 2001, "9876543220", "12345678901234567", "Abdul Rahman", "9876543240", "Kamal Ahmed", null, "9876543230", "12345678901234568", "Ayesha Rahman", "Dhaka, Bangladesh", 1, "B+", "9876543210", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "fatima.rahman@example.com", 1, "12345678901234567", "Fatima Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1001 },
+                    { 3, 1002, 2002, "9876543221", "98765432109876544", "Rahim Khan", "9876543241", "Kamal Ahmed", null, "9876543231", "98765432109876545", "Fatima Khan", "Chittagong, Bangladesh", 1, "O+", "9876543211", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "aryan.khan@example.com", 0, "98765432109876543", "Aryan Khan", "Bangladeshi", null, "Chittagong, Bangladesh", 1002 },
+                    { 4, 1003, 2003, "9876543222", "76543210987654322", "Mahmud Ahmed", "9876543242", "Nadia Rahman", null, "9876543232", "76543210987654323", "Farida Ahmed", "Sylhet, Bangladesh", 2, "AB+", "9876543212", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tasnim.ahmed@example.com", 1, "76543210987654321", "Tasnim Ahmed", "Bangladeshi", null, "Sylhet, Bangladesh", 1003 },
+                    { 5, 1004, 2004, "9876543223", "87654321098765433", "Nasir Khan", "9876543243", "Abdul Ali", null, "9876543233", "87654321098765434", "Sadia Khan", "Rajshahi, Bangladesh", 2, "A-", "9876543213", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "imran.khan@example.com", 0, "87654321098765432", "Imran Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1004 },
+                    { 6, 1005, 2005, "9876543224", "65432109876543211", "Hasan Rahman", "9876543244", "Khaled Islam", null, "9876543234", "65432109876543212", "Sabina Rahman", "Dhaka, Bangladesh", 2, "B-", "9876543214", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "anika.rahman@example.com", 1, "65432109876543210", "Anika Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1005 },
+                    { 7, 1006, 2006, "9876543225", "54321098765432110", "Rahman Islam", "9876543245", "Farid Ahmed", null, "9876543235", "54321098765432111", "Amina Islam", "Chittagong, Bangladesh", 3, "O-", "9876543215", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "rafiul.islam@example.com", 0, "54321098765432109", "Rafiul Islam", "Bangladeshi", null, "Chittagong, Bangladesh", 1006 },
+                    { 8, 1007, 2007, "9876543226", "43210987654321099", "Akram Khan", "9876543246", "Ayesha Begum", null, "9876543236", "43210987654321100", "Taslima Khan", "Rajshahi, Bangladesh", 3, "AB-", "9876543216", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "zara.khan@example.com", 1, "43210987654321098", "Zara Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1007 },
+                    { 9, 1008, 2008, "9876543227", "32109876543210988", "Kamal Hossain", "9876543247", "Salam Ahmed", null, "9876543237", "32109876543210989", "Nazma Hossain", "Sylhet, Bangladesh", 3, "A+", "9876543217", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "arif.hossain@example.com", 0, "32109876543210987", "Arif Hossain", "Bangladeshi", null, "Sylhet, Bangladesh", 1008 },
+                    { 10, 1009, 2009, "9876543228", "21098765432109877", "Jamil Akter", "9876543248", "Khaled Rahman", null, "9876543238", "21098765432109878", "Rina Akter", "Dhaka, Bangladesh", 4, "A-", "9876543218", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sabrina.akter@example.com", 1, "21098765432109876", "Sabrina Akter", "Bangladeshi", null, "Dhaka, Bangladesh", 1009 },
+                    { 11, 1010, 2010, "9876543229", "10987654321098766", "Hasan Mahmud", "9876543249", "Farhana Akter", null, "9876543239", "10987654321098767", "Nazma Hasan", "Chittagong, Bangladesh", 4, "O-", "9876543219", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "rahat.hasan@example.com", 0, "10987654321098765", "Rahat Hasan", "Bangladeshi", null, "Chittagong, Bangladesh", 1010 },
+                    { 12, 1011, 2011, "9876543230", "09876543210987655", "Rahim Rahman", "9876543250", "Kamal Hossain", null, "9876543240", "09876543210987656", "Sara Rahman", "Rajshahi, Bangladesh", 4, "AB-", "9876543220", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "asif.rahman@example.com", 0, "09876543210987654", "Asif Rahman", "Bangladeshi", null, "Rajshahi, Bangladesh", 1011 },
+                    { 13, 1012, 2012, "9876543231", "98765432109876544", "Akram Khan", "9876543251", "Ayesha Begum", null, "9876543241", "98765432109876545", "Taslima Khan", "Sylhet, Bangladesh", 4, "A+", "9876543221", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mehnaz.khan@example.com", 1, "98765432109876543", "Mehnaz Khan", "Bangladeshi", null, "Sylhet, Bangladesh", 1012 }
                 });
 
             migrationBuilder.InsertData(
@@ -922,11 +982,17 @@ namespace SchoolApp.DAL.Migrations
                 values: new object[,]
                 {
                     { 1, 1, 101, "Mathematics" },
-                    { 2, 2, 102, "Physics" },
-                    { 3, 3, 103, "Chemistry" },
-                    { 4, 1, 104, "Biology" },
-                    { 5, 2, 105, "Computer Science" },
-                    { 6, 3, 106, "Electronics" }
+                    { 2, 1, 102, "Bengali" },
+                    { 3, 1, 103, "Physics" },
+                    { 4, 2, 104, "Mathematics" },
+                    { 5, 2, 105, "Bengali" },
+                    { 6, 2, 106, "Physics" },
+                    { 7, 3, 107, "Mathematics" },
+                    { 8, 3, 108, "Bengali" },
+                    { 9, 3, 109, "Physics" },
+                    { 10, 4, 110, "Mathematics" },
+                    { 11, 4, 111, "Bengali" },
+                    { 12, 4, 112, "Physics" }
                 });
 
             migrationBuilder.InsertData(
@@ -934,9 +1000,20 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "MarkId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "StudentId", "SubjectId", "TotalMarks" },
                 values: new object[,]
                 {
-                    { 1, "Good job!", 1, new DateTime(2024, 4, 26, 19, 47, 10, 119, DateTimeKind.Local).AddTicks(6027), 65, 40, 0, 1, 1, 1, 80 },
-                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 26, 19, 47, 10, 119, DateTimeKind.Local).AddTicks(6034), 75, 40, 0, 2, 2, 2, 90 },
-                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 26, 19, 47, 10, 119, DateTimeKind.Local).AddTicks(6040), 75, 40, 0, 3, 3, 3, 90 }
+                    { 1, "Good job!", 1, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(8577), 65, 40, 0, 1, 1, 1, 80 },
+                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(8586), 75, 40, 0, 2, 2, 2, 90 },
+                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(8591), 75, 40, 0, 3, 3, 3, 90 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "MarkEntry",
+                columns: new[] { "MarkEntryId", "ExamScheduleId", "ExamTypeId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "SubjectId", "TotalMarks" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, "Good work, keep practicing!", 0, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9608), 75, 50, 0, 1, 1, 100 },
+                    { 2, 2, 2, "Needs improvement. Please see me during office hours.", 0, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9620), 68, 75, 2, 2, 2, 150 },
+                    { 3, 3, 3, "Satisfactory performance.", 0, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9625), 42, 30, 0, 3, 3, 50 },
+                    { 4, 3, 4, "Needs significant improvement. Please attend extra help sessions.", 0, new DateTime(2024, 4, 29, 0, 13, 59, 991, DateTimeKind.Local).AddTicks(9628), 18, 25, 0, 1, 1, 40 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1049,6 +1126,26 @@ namespace SchoolApp.DAL.Migrations
                 column: "SubjectId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MarkEntry_ExamScheduleId",
+                table: "MarkEntry",
+                column: "ExamScheduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MarkEntry_ExamTypeId",
+                table: "MarkEntry",
+                column: "ExamTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MarkEntry_StaffId",
+                table: "MarkEntry",
+                column: "StaffId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MarkEntry_SubjectId",
+                table: "MarkEntry",
+                column: "SubjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MonthlyPayment_StudentId",
                 table: "MonthlyPayment",
                 column: "StudentId");
@@ -1105,6 +1202,11 @@ namespace SchoolApp.DAL.Migrations
                 table: "Student",
                 column: "EnrollmentNo",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Student_MarkEntryId",
+                table: "Student",
+                column: "MarkEntryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Student_StandardId",
@@ -1191,13 +1293,7 @@ namespace SchoolApp.DAL.Migrations
                 name: "ExamScheduleStandard");
 
             migrationBuilder.DropTable(
-                name: "ExamType");
-
-            migrationBuilder.DropTable(
                 name: "FeeType");
-
-            migrationBuilder.DropTable(
-                name: "Subject");
 
             migrationBuilder.DropTable(
                 name: "OthersPayment");
@@ -1206,13 +1302,22 @@ namespace SchoolApp.DAL.Migrations
                 name: "MonthlyPayment");
 
             migrationBuilder.DropTable(
-                name: "Staff");
+                name: "Student");
+
+            migrationBuilder.DropTable(
+                name: "MarkEntry");
 
             migrationBuilder.DropTable(
                 name: "ExamSchedule");
 
             migrationBuilder.DropTable(
-                name: "Student");
+                name: "ExamType");
+
+            migrationBuilder.DropTable(
+                name: "Staff");
+
+            migrationBuilder.DropTable(
+                name: "Subject");
 
             migrationBuilder.DropTable(
                 name: "Department");
