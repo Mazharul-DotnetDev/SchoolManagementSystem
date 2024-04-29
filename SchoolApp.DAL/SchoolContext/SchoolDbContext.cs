@@ -99,13 +99,13 @@ namespace SchoolApp.DAL.SchoolContext
             .HasIndex(s => s.SubjectCode)
             .IsUnique();
 
-            modelBuilder.Entity<Student>()
-        .HasIndex(s => s.AdmissionNo)
-        .IsUnique();
+        //    modelBuilder.Entity<Student>()
+        //.HasIndex(s => s.AdmissionNo)
+        //.IsUnique();
 
-            modelBuilder.Entity<Student>()
-        .HasIndex(s => s.EnrollmentNo)
-        .IsUnique();
+        //    modelBuilder.Entity<Student>()
+        //.HasIndex(s => s.EnrollmentNo)
+        //.IsUnique();
 
             modelBuilder.Entity<Student>()
                 .HasIndex(s => s.UniqueStudentAttendanceNumber)

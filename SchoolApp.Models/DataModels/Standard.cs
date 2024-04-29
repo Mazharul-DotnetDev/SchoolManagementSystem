@@ -20,7 +20,9 @@ namespace SchoolApp.Models.DataModels
         public string? StandardName { get; set; }
         public string? StandardCapacity { get; set; }
         public virtual ICollection<Subject>? Subjects { get; set; }
-        public virtual ICollection<ExamScheduleStandard>? ExamScheduleStandards { get; set; } 
+        public virtual ICollection<ExamScheduleStandard>? ExamScheduleStandards { get; set; }
+
+        public virtual ICollection<Student>? Students { get; set; } = [];
 
 
     }

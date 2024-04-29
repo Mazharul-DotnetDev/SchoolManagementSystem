@@ -19,6 +19,7 @@ namespace SchoolApp.Models.DataModels
         public int? SubjectCode { get; set; } //must be Unique. There are lot of same subjects in different Standard/Class. So, to make it distinguish, this property is created.
         public int? StandardId { get; set; }
         public virtual Standard? Standard { get; set; }
+        
         public virtual ICollection<ExamSubject>? ExamSubjects { get; set; }
     }
 }

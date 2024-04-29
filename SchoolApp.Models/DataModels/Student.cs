@@ -22,7 +22,7 @@ namespace SchoolApp.Models.DataModels
         public int? AdmissionNo { get; set; }
 
         //[Required(ErrorMessage = "Enrollment number is required")]
-        public int EnrollmentNo { get; set; }
+        public int? EnrollmentNo { get; set; }
 
         [Required(ErrorMessage = "Unique Student Attendance Number is required")]
         //[Index (IsUnique = true)]
@@ -30,7 +30,7 @@ namespace SchoolApp.Models.DataModels
 
         public string? StudentName { get; set; }
 
-        public DateTime StudentDOB { get; set; }
+        public DateTime StudentDOB { get; set; } = DateTime.Now;
 
         public GenderList? StudentGender { get; set; }
 

@@ -52,37 +52,7 @@ namespace SchoolApiService.Controllers
             }
 
             return markEntry;
-        }
-
-       
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMarkEntry(int id, MarkEntry markEntry)
-        {
-            if (id != markEntry.MarkEntryId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(markEntry).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MarkEntryExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
+        }     
 
 
         #region Default_Post
@@ -98,72 +68,158 @@ namespace SchoolApiService.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> PostMarkEntry(MarkEntry markEntry)
+        public async Task<IActionResult> CreateMarks([FromBody] MarkEntry markEntry)
         {
             try
             {
-                // Check if the SubjectId provided is valid and exists
-                var subject = await _context.dbsSubject
-                    .Include(s => s.Standard)
-                    .FirstOrDefaultAsync(s => s.SubjectId == markEntry.SubjectId);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Validate if Subject and Students are selected
+                if (markEntry.SubjectId == 0 || markEntry.Students == null || !markEntry.Students.Any())
+                {
+                    return BadRequest("Please select a Subject and Students for marks entry.");
+                }
+
+                // Validate Student enrollment in the chosen Subject
+                var subject = await _context.dbsSubject.Include(s => s.Standard)
+                           .ThenInclude(std => std.Students)
+                           .Where(s => s.SubjectId == markEntry.SubjectId)
+                           .FirstOrDefaultAsync();
 
                 if (subject == null)
                 {
-                    return BadRequest("Invalid SubjectId provided.");
+                    return NotFound("Subject not found.");
                 }
 
-                // Check if the StaffId provided is valid and exists
-                var staff = await _context.dbsStaff
-                    .FirstOrDefaultAsync(s => s.StaffId == markEntry.StaffId);
+                // Filter Students based on enrollment in the chosen Subject 
+                var enrolledStudents = subject.Standard?.Students.Where(s => markEntry.Students.Select(st => st.StudentId).Contains(s.StudentId));
 
-                if (staff == null)
+                // Validate if any student selected is enrolled in the Subject 
+                if (!enrolledStudents.Any())
                 {
-                    return BadRequest("Invalid StaffId provided.");
+                    return BadRequest("Selected Students are not enrolled in the chosen Subject.");
                 }
 
-                // Check if the ExamScheduleId provided is valid and exists
-                var examSchedule = await _context.dbsExamSchedule
-                    .FirstOrDefaultAsync(e => e.ExamScheduleId == markEntry.ExamScheduleId);
+                // Update Students collection with filtered enrolled students
+                markEntry.Students = enrolledStudents.ToList();
 
-                if (examSchedule == null)
-                {
-                    return BadRequest("Invalid ExamScheduleId provided.");
-                }
 
-                // Check if the provided Students' ids are valid for the given Subject
-                if (markEntry.Students != null && markEntry.Students.Any())
-                {
-                    var validStudentIds = await _context.dbsStudent
-                        .Where(s => s.StandardId == subject.StandardId) // Filter by the same standard as the subject
-                        .Select(s => s.StudentId)
-                        .ToListAsync();
-
-                    var invalidStudentIds = markEntry.Students
-                        .Select(s => s.StudentId)
-                        .Except(validStudentIds)
-                        .ToList();
-
-                    if (invalidStudentIds.Any())
-                    {
-                        return BadRequest($"Invalid StudentIds provided: {string.Join(", ", invalidStudentIds)}");
-                    }
-                }
-
-                // All checks passed, proceed to save the mark entry
-                _context.dbsMarkEntry.Add(markEntry);
+                await _context.dbsMarkEntry.AddAsync(markEntry);
                 await _context.SaveChangesAsync();
-
-                //return Ok("Marks entry successful.");
-                return CreatedAtAction("GetMarkEntry", new { id = markEntry.MarkEntryId }, markEntry);
             }
             catch (Exception ex)
             {
-                
-                //return StatusCode(500, "An error occurred while processing the request.");
-                return StatusCode(500, ex.Message);
+                return StatusCode(500, $"Internal Server Error: {ex.Message}");
             }
+
+            //return CreatedAtRoute("GetMarkEntry", new { id = markEntry.MarkEntryId }, markEntry);
+
+            return CreatedAtAction("GetMarkEntry", new { id = markEntry.MarkEntryId }, markEntry);
         }
 
+
+        #region Default_Put
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutMarkEntry(int id, MarkEntry markEntry)
+        //{
+        //    if (id != markEntry.MarkEntryId)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(markEntry).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!MarkEntryExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
+        #endregion
+
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateMarks([FromBody] MarkEntry markEntry)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            // Validate if Subject and Students are selected (optional for update)
+            if (markEntry.SubjectId == 0 || markEntry.Students == null || !markEntry.Students.Any())
+            {
+                return BadRequest("Please select a Subject and Students for marks update.");
+            }
+
+            // Find the existing MarkEntry based on MarkEntryId (assuming it's the identifier)
+            var existingMarkEntry = await _context.dbsMarkEntry
+                    .Include(m => m.Subject)
+                    .ThenInclude(s => s.Standard)
+                    .ThenInclude(std => std.Students)
+                    .Where(m => m.MarkEntryId == markEntry.MarkEntryId)
+                    .FirstOrDefaultAsync();
+
+            if (existingMarkEntry == null)
+            {
+                return NotFound("Mark entry not found.");
+            }
+
+            // Update relevant MarkEntry properties (excluding Students collection for now)
+            existingMarkEntry.StaffId = markEntry.StaffId;
+            existingMarkEntry.ExamScheduleId = markEntry.ExamScheduleId;
+            existingMarkEntry.ExamTypeId = markEntry.ExamTypeId;
+            existingMarkEntry.TotalMarks = markEntry.TotalMarks;
+            existingMarkEntry.PassMarks = markEntry.PassMarks;
+            existingMarkEntry.ObtainedScore = markEntry.ObtainedScore;
+            existingMarkEntry.Grade = markEntry.Grade;
+            existingMarkEntry.PassStatus = markEntry.PassStatus;
+            existingMarkEntry.Feedback = markEntry.Feedback;
+
+            // **Validation for Student updates (if applicable):**
+
+            // If Students collection is provided in the request body:
+            if (markEntry.Students != null && markEntry.Students.Any())
+            {
+                // Validate student enrollment in the chosen Subject (same logic as HttpPost)
+                var enrolledStudents = existingMarkEntry.Subject?.Standard?.Students.Where(s => markEntry.Students.Select(st => st.StudentId).Contains(s.StudentId));
+
+                // Validate if any student selected is enrolled in the Subject
+                if (!enrolledStudents.Any())
+                {
+                    return BadRequest("Selected Students are not enrolled in the chosen Subject.");
+                }
+
+                // **Update logic for Students collection:**
+
+                // Option 1: Replace entire Students collection (consider performance for large datasets)
+                existingMarkEntry.Students = enrolledStudents.ToList();
+
+                // Option 2: Update individual student marks within the existing collection (more performant for partial updates)
+                // This would involve iterating through markEntry.Students and updating corresponding entries in existingMarkEntry.Students
+            }
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+
+            // Return the updated MarkEntry object
+            return Ok(existingMarkEntry);
+        }
 
 
 
