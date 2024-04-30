@@ -1,0 +1,46 @@
+<div>
+  <h2>Mark Entries</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Entry ID</th>
+        <th>Date</th>
+        <th>Staff</th>
+        <th>Exam Schedule</th>
+        <th>Exam Type</th>
+        <th>Subject</th>
+        <th>Standard</th>
+        <th>Total Marks</th>
+        <th>Pass Marks</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let markEntry of markEntries">
+        <td>{{ markEntry.markEntryId }}</td>
+        <td>{{ markEntry.markEntryDate }}</td>
+        <td>{{ markEntry.staff?.staffName }}</td>
+        <td>{{ markEntry.examSchedule?.examScheduleName }}</td>
+        <td>{{ markEntry.examType?.examTypeName }}</td>
+        <td>{{ markEntry.subject?.subjectName }}</td>
+        <td>{{ markEntry.standard?.standardName }}</td>
+        <td>{{ markEntry.totalMarks }}</td>
+        <td>{{ markEntry.passMarks }}</td>
+        <td>
+          <button (click)="getStudentsDetails(markEntry)">View Students</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngFor="let markEntry of markEntries">
+    <div *ngIf="markEntry.studentMarksDetails && markEntry.studentMarksDetails.length > 0">
+      <h3>Students Details for Mark Entry ID: {{ markEntry.markEntryId }}</h3>
+      <ul>
+        <li *ngFor="let student of markEntry.studentMarksDetails">
+          {{ student.studentName }} - Obtained Score: {{ student.obtainedScore }} - Grade: {{ student.grade }} - Pass Status: {{ student.passStatus }}
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

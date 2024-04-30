@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MarksEntry } from '../Models/marks-entry';
+import { MarksEntry, StudentMarksDetails } from '../Models/marks-entry';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +18,10 @@ export class MarkEntryService {
 
   getMarkEntryById(id: number): Observable<MarksEntry> {
     return this.http.get<MarksEntry>(`${this.apiBaseUrl}/${id}`);
+  }
+
+  GetStudents(markEntry: MarksEntry): Observable<StudentMarksDetails[]> {
+    return this.http.post<StudentMarksDetails[]>(`${this.apiBaseUrl}/GetStudents`, markEntry);
   }
 
   createMarkEntry(markEntry: MarksEntry): Observable<MarksEntry> {

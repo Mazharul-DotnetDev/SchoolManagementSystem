@@ -30,7 +30,8 @@ namespace SchoolApiService.Controllers
                 .Include(m => m.ExamSchedule)
                 .Include(m => m.ExamType)
                 .Include(m => m.Subject)
-                .Include(m => m.Students)
+                .Include(m => m.StudentMarksDetails)
+                .ThenInclude(m => m.Student)
                 .ToListAsync();
         }
 
@@ -43,7 +44,8 @@ namespace SchoolApiService.Controllers
                 .Include(m => m.ExamSchedule)
                 .Include(m => m.ExamType)
                 .Include(m => m.Subject)
-                .Include(m => m.Students)
+                .Include(m => m.StudentMarksDetails)
+                .ThenInclude(m => m.Student)
                 .FirstOrDefaultAsync(m => m.MarkEntryId == id);
                
             if (markEntry == null)
@@ -52,7 +54,26 @@ namespace SchoolApiService.Controllers
             }
 
             return markEntry;
-        }     
+        }
+
+
+        [HttpPost("GetStudents")]
+        public async Task<IActionResult> GetStudents([FromBody] MarkEntry markEntry)
+        {
+            var students = await _context.dbsStudent.Where(s=> s.StandardId== markEntry.StandardId).ToListAsync();
+
+            foreach (var student in students)
+            {
+                markEntry.StudentMarksDetails.Add(new StudentMarksDetails()
+                {
+                    StudentId= student.StudentId,
+                    StudentName= student.StudentName,
+                    Student = student,
+                });
+            }
+            return Ok(markEntry.StudentMarksDetails);
+        }
+
 
 
         #region Default_Post
@@ -67,6 +88,7 @@ namespace SchoolApiService.Controllers
         #endregion
 
 
+
         [HttpPost]
         public async Task<IActionResult> CreateMarks([FromBody] MarkEntry markEntry)
         {
@@ -78,37 +100,44 @@ namespace SchoolApiService.Controllers
                 }
 
                 // Validate if Subject and Students are selected
-                if (markEntry.SubjectId == 0 || markEntry.Students == null || !markEntry.Students.Any())
+                if (markEntry.SubjectId == 0)
                 {
                     return BadRequest("Please select a Subject and Students for marks entry.");
                 }
 
-                // Validate Student enrollment in the chosen Subject
-                var subject = await _context.dbsSubject.Include(s => s.Standard)
-                           .ThenInclude(std => std.Students)
-                           .Where(s => s.SubjectId == markEntry.SubjectId)
-                           .FirstOrDefaultAsync();
+                //// Validate Student enrollment in the chosen Subject
+                //var subject = await _context.dbsSubject.Include(s => s.Standard)
+                //           .ThenInclude(std => std.Students)
+                //           .Where(s => s.SubjectId == markEntry.SubjectId)
+                //           .FirstOrDefaultAsync();
 
-                if (subject == null)
-                {
-                    return NotFound("Subject not found.");
-                }
+                //if (subject == null)
+                //{
+                //    return NotFound("Subject not found.");
+                //}
 
-                // Filter Students based on enrollment in the chosen Subject 
-                var enrolledStudents = subject.Standard?.Students.Where(s => markEntry.Students.Select(st => st.StudentId).Contains(s.StudentId));
+                //// Filter Students based on enrollment in the chosen Subject 
+                ////var enrolledStudents = subject.Standard?.Students.Where(s => markEntry.Students.Select(st => st.StudentId).Contains(s.StudentId));
+                //var enrolledStudents = _context.dbsStudent.Where(s => s.StandardId == markEntry.Subject.StandardId);
 
-                // Validate if any student selected is enrolled in the Subject 
-                if (!enrolledStudents.Any())
-                {
-                    return BadRequest("Selected Students are not enrolled in the chosen Subject.");
-                }
+                //// Validate if any student selected is enrolled in the Subject 
+                //if (!enrolledStudents.Any())
+                //{
+                //    return BadRequest("Selected Students are not enrolled in the chosen Subject.");
+                //}
+
+
+
+
+
 
                 // Update Students collection with filtered enrolled students
-                markEntry.Students = enrolledStudents.ToList();
+                //markEntry.Students = enrolledStudents.ToList();
 
 
                 await _context.dbsMarkEntry.AddAsync(markEntry);
                 await _context.SaveChangesAsync();
+
             }
             catch (Exception ex)
             {
@@ -162,7 +191,7 @@ namespace SchoolApiService.Controllers
             }
 
             // Validate if Subject and Students are selected (optional for update)
-            if (markEntry.SubjectId == 0 || markEntry.Students == null || !markEntry.Students.Any())
+            if (markEntry.SubjectId == 0 )
             {
                 return BadRequest("Please select a Subject and Students for marks update.");
             }
@@ -186,33 +215,33 @@ namespace SchoolApiService.Controllers
             existingMarkEntry.ExamTypeId = markEntry.ExamTypeId;
             existingMarkEntry.TotalMarks = markEntry.TotalMarks;
             existingMarkEntry.PassMarks = markEntry.PassMarks;
-            existingMarkEntry.ObtainedScore = markEntry.ObtainedScore;
-            existingMarkEntry.Grade = markEntry.Grade;
-            existingMarkEntry.PassStatus = markEntry.PassStatus;
-            existingMarkEntry.Feedback = markEntry.Feedback;
+            //existingMarkEntry.ObtainedScore = markEntry.ObtainedScore;
+            //existingMarkEntry.Grade = markEntry.Grade;
+            //existingMarkEntry.PassStatus = markEntry.PassStatus;
+            //existingMarkEntry.Feedback = markEntry.Feedback;
 
-            // **Validation for Student updates (if applicable):**
+            //// **Validation for Student updates (if applicable):**
 
-            // If Students collection is provided in the request body:
-            if (markEntry.Students != null && markEntry.Students.Any())
-            {
-                // Validate student enrollment in the chosen Subject (same logic as HttpPost)
-                var enrolledStudents = existingMarkEntry.Subject?.Standard?.Students.Where(s => markEntry.Students.Select(st => st.StudentId).Contains(s.StudentId));
+            //// If Students collection is provided in the request body:
+            //if (markEntry.Students != null && markEntry.Students.Any())
+            //{
+            //    // Validate student enrollment in the chosen Subject (same logic as HttpPost)
+            //    var enrolledStudents = existingMarkEntry.Subject?.Standard?.Students.Where(s => markEntry.Students.Select(st => st.StudentId).Contains(s.StudentId));
 
-                // Validate if any student selected is enrolled in the Subject
-                if (!enrolledStudents.Any())
-                {
-                    return BadRequest("Selected Students are not enrolled in the chosen Subject.");
-                }
+            //    // Validate if any student selected is enrolled in the Subject
+            //    if (!enrolledStudents.Any())
+            //    {
+            //        return BadRequest("Selected Students are not enrolled in the chosen Subject.");
+            //    }
 
-                // **Update logic for Students collection:**
+            //    // **Update logic for Students collection:**
 
-                // Option 1: Replace entire Students collection (consider performance for large datasets)
-                existingMarkEntry.Students = enrolledStudents.ToList();
+            //    // Option 1: Replace entire Students collection (consider performance for large datasets)
+            //    existingMarkEntry.Students = enrolledStudents.ToList();
 
-                // Option 2: Update individual student marks within the existing collection (more performant for partial updates)
-                // This would involve iterating through markEntry.Students and updating corresponding entries in existingMarkEntry.Students
-            }
+            //    // Option 2: Update individual student marks within the existing collection (more performant for partial updates)
+            //    // This would involve iterating through markEntry.Students and updating corresponding entries in existingMarkEntry.Students
+            //}
 
             // Save changes to the database
             await _context.SaveChangesAsync();

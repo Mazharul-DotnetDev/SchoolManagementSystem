@@ -43,6 +43,7 @@ namespace SchoolApp.DAL.SchoolContext
         public DbSet<PaymentMonth> paymentMonths { get; set; }
         public DbSet<ExamScheduleStandard> dbsExamScheduleStandard { get; set; }
         public DbSet<MarkEntry> dbsMarkEntry { get; set; }
+        public DbSet<StudentMarksDetails> dbsStudentMarksDetails { get; set; }
 
 
         #endregion
@@ -93,6 +94,10 @@ namespace SchoolApp.DAL.SchoolContext
                 //    .HasComputedColumnSql("([BasicSalary] + [FestivalBonus] + [Allowance] + [MedicalAllowance] + [HousingAllowance] + [TransportationAllowance] - [SavingFund] - [Taxes])", false);
 
             });
+
+            modelBuilder.Entity<StudentMarksDetails>()
+        .HasKey(c => new { c.StudentId, c.MarkEntryId });
+
 
             #region Index
             modelBuilder.Entity<Subject>()
@@ -1441,59 +1446,63 @@ new Student
             #endregion
 
 
+
+
+
+
             // Seed MarksEntry data
-            modelBuilder.Entity<MarkEntry>().HasData(
-                new MarkEntry
-                {
-                    MarkEntryId = 1,
-                    StaffId = 1, 
-                    ExamScheduleId = 1, 
-                    ExamTypeId = 1, 
-                    SubjectId = 1, 
-                    TotalMarks = 100,
-                    PassMarks = 50,                    
-                    ObtainedScore = 75,                   
-                    PassStatus = PassFailStatus.Passed,
-                    Feedback = "Good work, keep practicing!"
-                },
-                new MarkEntry
-                {
-                    MarkEntryId = 2,
-                    StaffId = 2, 
-                    ExamScheduleId = 2, 
-                    ExamTypeId = 2, 
-                    SubjectId = 2, 
-                    TotalMarks = 150,
-                    PassMarks = 75,                    
-                    ObtainedScore = 68,
-                    PassStatus = PassFailStatus.UnderConsideration,
-                    Feedback = "Needs improvement. Please see me during office hours."
-                },
-                new MarkEntry
-                {
-                    MarkEntryId = 3,
-                    StaffId = 3,
-                    ExamScheduleId = 3, 
-                    ExamTypeId = 3, 
-                    SubjectId = 3, 
-                    TotalMarks = 50,
-                    PassMarks = 30,                    
-                    ObtainedScore = 42,
-                    Feedback = "Satisfactory performance."
-                },
-                new MarkEntry
-                {
-                    MarkEntryId = 4,
-                    StaffId = 1, 
-                    ExamScheduleId = 3, 
-                    ExamTypeId = 4,
-                    SubjectId = 1, 
-                    TotalMarks = 40,
-                    PassMarks = 25,                   
-                    ObtainedScore = 18,
-                    Feedback = "Needs significant improvement. Please attend extra help sessions."
-                }
-            );
+            //modelBuilder.Entity<MarkEntry>().HasData(
+            //    new MarkEntry
+            //    {
+            //        MarkEntryId = 1,
+            //        StaffId = 1, 
+            //        ExamScheduleId = 1, 
+            //        ExamTypeId = 1, 
+            //        SubjectId = 1, 
+            //        TotalMarks = 100,
+            //        PassMarks = 50,                    
+            //        ObtainedScore = 75,                   
+            //        PassStatus = PassFailStatus.Passed,
+            //        Feedback = "Good work, keep practicing!"
+            //    },
+            //    new MarkEntry
+            //    {
+            //        MarkEntryId = 2,
+            //        StaffId = 2, 
+            //        ExamScheduleId = 2, 
+            //        ExamTypeId = 2, 
+            //        SubjectId = 2, 
+            //        TotalMarks = 150,
+            //        PassMarks = 75,                    
+            //        ObtainedScore = 68,
+            //        PassStatus = PassFailStatus.UnderConsideration,
+            //        Feedback = "Needs improvement. Please see me during office hours."
+            //    },
+            //    new MarkEntry
+            //    {
+            //        MarkEntryId = 3,
+            //        StaffId = 3,
+            //        ExamScheduleId = 3, 
+            //        ExamTypeId = 3, 
+            //        SubjectId = 3, 
+            //        TotalMarks = 50,
+            //        PassMarks = 30,                    
+            //        ObtainedScore = 42,
+            //        Feedback = "Satisfactory performance."
+            //    },
+            //    new MarkEntry
+            //    {
+            //        MarkEntryId = 4,
+            //        StaffId = 1, 
+            //        ExamScheduleId = 3, 
+            //        ExamTypeId = 4,
+            //        SubjectId = 1, 
+            //        TotalMarks = 40,
+            //        PassMarks = 25,                   
+            //        ObtainedScore = 18,
+            //        Feedback = "Needs significant improvement. Please attend extra help sessions."
+            //    }
+            //);
 
 
 

@@ -667,7 +667,7 @@ namespace SchoolApp.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ExamScheduleStandardId"));
 
-                    b.Property<int>("ExamScheduleId")
+                    b.Property<int?>("ExamScheduleId")
                         .HasColumnType("int");
 
                     b.Property<int>("StandardId")
@@ -693,14 +693,14 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<DateTime?>("ExamDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan?>("ExamEndTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime?>("ExamEndTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<int>("ExamScheduleStandardId")
+                    b.Property<int?>("ExamScheduleStandardId")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan?>("ExamStartTime")
-                        .HasColumnType("time");
+                    b.Property<DateTime?>("ExamStartTime")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("ExamTypeId")
                         .HasColumnType("int");
@@ -1089,7 +1089,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(3498),
+                            MarkEntryDate = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3256),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1103,7 +1103,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(3512),
+                            MarkEntryDate = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3260),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1117,7 +1117,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(3519),
+                            MarkEntryDate = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3263),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1142,25 +1142,16 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<int>("ExamTypeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Feedback")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Grade")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("MarkEntryDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("ObtainedScore")
-                        .HasColumnType("int");
 
                     b.Property<int>("PassMarks")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PassStatus")
+                    b.Property<int>("StaffId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StaffId")
+                    b.Property<int>("StandardId")
                         .HasColumnType("int");
 
                     b.Property<int>("SubjectId")
@@ -1177,71 +1168,11 @@ namespace SchoolApp.DAL.Migrations
 
                     b.HasIndex("StaffId");
 
+                    b.HasIndex("StandardId");
+
                     b.HasIndex("SubjectId");
 
                     b.ToTable("MarkEntry");
-
-                    b.HasData(
-                        new
-                        {
-                            MarkEntryId = 1,
-                            ExamScheduleId = 1,
-                            ExamTypeId = 1,
-                            Feedback = "Good work, keep practicing!",
-                            Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(5409),
-                            ObtainedScore = 75,
-                            PassMarks = 50,
-                            PassStatus = 0,
-                            StaffId = 1,
-                            SubjectId = 1,
-                            TotalMarks = 100
-                        },
-                        new
-                        {
-                            MarkEntryId = 2,
-                            ExamScheduleId = 2,
-                            ExamTypeId = 2,
-                            Feedback = "Needs improvement. Please see me during office hours.",
-                            Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(5419),
-                            ObtainedScore = 68,
-                            PassMarks = 75,
-                            PassStatus = 2,
-                            StaffId = 2,
-                            SubjectId = 2,
-                            TotalMarks = 150
-                        },
-                        new
-                        {
-                            MarkEntryId = 3,
-                            ExamScheduleId = 3,
-                            ExamTypeId = 3,
-                            Feedback = "Satisfactory performance.",
-                            Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(5425),
-                            ObtainedScore = 42,
-                            PassMarks = 30,
-                            PassStatus = 0,
-                            StaffId = 3,
-                            SubjectId = 3,
-                            TotalMarks = 50
-                        },
-                        new
-                        {
-                            MarkEntryId = 4,
-                            ExamScheduleId = 3,
-                            ExamTypeId = 4,
-                            Feedback = "Needs significant improvement. Please attend extra help sessions.",
-                            Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(5428),
-                            ObtainedScore = 18,
-                            PassMarks = 25,
-                            PassStatus = 0,
-                            StaffId = 1,
-                            SubjectId = 1,
-                            TotalMarks = 40
-                        });
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>
@@ -1878,9 +1809,6 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<string>("LocalGuardianName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("MarkEntryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("MotherContactNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -1936,8 +1864,6 @@ namespace SchoolApp.DAL.Migrations
 
                     b.HasKey("StudentId");
 
-                    b.HasIndex("MarkEntryId");
-
                     b.HasIndex("StandardId");
 
                     b.HasIndex("UniqueStudentAttendanceNumber")
@@ -1963,7 +1889,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 1,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "1234567890",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4177),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3331),
                             StudentEmail = "john.doe@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "12345678901234567",
@@ -1989,7 +1915,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 1,
                             StudentBloodGroup = "B+",
                             StudentContactNumber1 = "9876543210",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4210),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3339),
                             StudentEmail = "fatima.rahman@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "12345678901234567",
@@ -2015,7 +1941,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 1,
                             StudentBloodGroup = "O+",
                             StudentContactNumber1 = "9876543211",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4224),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3344),
                             StudentEmail = "aryan.khan@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "98765432109876543",
@@ -2041,7 +1967,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 2,
                             StudentBloodGroup = "AB+",
                             StudentContactNumber1 = "9876543212",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4234),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3347),
                             StudentEmail = "tasnim.ahmed@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "76543210987654321",
@@ -2067,7 +1993,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 2,
                             StudentBloodGroup = "A-",
                             StudentContactNumber1 = "9876543213",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4245),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3350),
                             StudentEmail = "imran.khan@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "87654321098765432",
@@ -2093,7 +2019,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 2,
                             StudentBloodGroup = "B-",
                             StudentContactNumber1 = "9876543214",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4254),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3353),
                             StudentEmail = "anika.rahman@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "65432109876543210",
@@ -2119,7 +2045,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 3,
                             StudentBloodGroup = "O-",
                             StudentContactNumber1 = "9876543215",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4264),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3356),
                             StudentEmail = "rafiul.islam@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "54321098765432109",
@@ -2145,7 +2071,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 3,
                             StudentBloodGroup = "AB-",
                             StudentContactNumber1 = "9876543216",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4275),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3359),
                             StudentEmail = "zara.khan@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "43210987654321098",
@@ -2171,7 +2097,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 3,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "9876543217",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4285),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3362),
                             StudentEmail = "arif.hossain@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "32109876543210987",
@@ -2197,7 +2123,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "A-",
                             StudentContactNumber1 = "9876543218",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4295),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3365),
                             StudentEmail = "sabrina.akter@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "21098765432109876",
@@ -2223,7 +2149,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "O-",
                             StudentContactNumber1 = "9876543219",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4622),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3368),
                             StudentEmail = "rahat.hasan@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "10987654321098765",
@@ -2249,7 +2175,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "AB-",
                             StudentContactNumber1 = "9876543220",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4646),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3371),
                             StudentEmail = "asif.rahman@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "09876543210987654",
@@ -2275,7 +2201,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "9876543221",
-                            StudentDOB = new DateTime(2024, 4, 30, 0, 31, 37, 147, DateTimeKind.Local).AddTicks(4653),
+                            StudentDOB = new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3374),
                             StudentEmail = "mehnaz.khan@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "98765432109876543",
@@ -2284,6 +2210,36 @@ namespace SchoolApp.DAL.Migrations
                             TemporaryAddress = "Sylhet, Bangladesh",
                             UniqueStudentAttendanceNumber = 1012
                         });
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.StudentMarksDetails", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MarkEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Feedback")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ObtainedScore")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PassStatus")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StudentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StudentId", "MarkEntryId");
+
+                    b.HasIndex("MarkEntryId");
+
+                    b.ToTable("StudentMarksDetails");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
@@ -2477,9 +2433,7 @@ namespace SchoolApp.DAL.Migrations
                 {
                     b.HasOne("SchoolApp.Models.DataModels.ExamSchedule", "ExamSchedule")
                         .WithMany("ExamScheduleStandards")
-                        .HasForeignKey("ExamScheduleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExamScheduleId");
 
                     b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
                         .WithMany("ExamScheduleStandards")
@@ -2496,9 +2450,7 @@ namespace SchoolApp.DAL.Migrations
                 {
                     b.HasOne("SchoolApp.Models.DataModels.ExamScheduleStandard", "ExamScheduleStandard")
                         .WithMany("ExamSubjects")
-                        .HasForeignKey("ExamScheduleStandardId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ExamScheduleStandardId");
 
                     b.HasOne("SchoolApp.Models.DataModels.ExamType", "ExamType")
                         .WithMany("ExamSubjects")
@@ -2597,6 +2549,12 @@ namespace SchoolApp.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
+                        .WithMany()
+                        .HasForeignKey("StandardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SchoolApp.Models.DataModels.Subject", "Subject")
                         .WithMany()
                         .HasForeignKey("SubjectId")
@@ -2608,6 +2566,8 @@ namespace SchoolApp.DAL.Migrations
                     b.Navigation("ExamType");
 
                     b.Navigation("Staff");
+
+                    b.Navigation("Standard");
 
                     b.Navigation("Subject");
                 });
@@ -2681,15 +2641,30 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Student", b =>
                 {
-                    b.HasOne("SchoolApp.Models.DataModels.MarkEntry", null)
-                        .WithMany("Students")
-                        .HasForeignKey("MarkEntryId");
-
                     b.HasOne("SchoolApp.Models.DataModels.Standard", "Standard")
                         .WithMany("Students")
                         .HasForeignKey("StandardId");
 
                     b.Navigation("Standard");
+                });
+
+            modelBuilder.Entity("SchoolApp.Models.DataModels.StudentMarksDetails", b =>
+                {
+                    b.HasOne("SchoolApp.Models.DataModels.MarkEntry", "MarkEntry")
+                        .WithMany("StudentMarksDetails")
+                        .HasForeignKey("MarkEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SchoolApp.Models.DataModels.Student", "Student")
+                        .WithMany()
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("MarkEntry");
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.Subject", b =>
@@ -2718,7 +2693,7 @@ namespace SchoolApp.DAL.Migrations
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.MarkEntry", b =>
                 {
-                    b.Navigation("Students");
+                    b.Navigation("StudentMarksDetails");
                 });
 
             modelBuilder.Entity("SchoolApp.Models.DataModels.MonthlyPayment", b =>

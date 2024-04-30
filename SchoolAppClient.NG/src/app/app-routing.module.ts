@@ -41,12 +41,20 @@ import { StandardEditComponent } from './Components/standard/standard-edit/stand
 import { PaymentDetailsPerStudentComponent } from './Components/payment-details/payment-details-per-student/payment-details-per-student.component';
 import { StaffSalaryCreateComponent } from './Components/staff-salary/staff-salary-create/staff-salary-create.component';
 import { StaffSalaryEditComponent } from './Components/staff-salary/staff-salary-edit/staff-salary-edit.component';
+import { MarksnewEntryListComponent } from './Components/marks-new/marksnew-entry-list/marksnew-entry-list.component';
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "/marksList", pathMatch: "full" },
+  /*{ path: "", redirectTo: "/marksList", pathMatch: "full" },*/
+
+  { path: "", redirectTo: "/marksentrynewList", pathMatch: "full" },
+
   { path: "login", component: LoginComponent },
+
   /*{ path: "", redirectTo: "/attendanceList", pathMatch: "full" },*/
+
+  { path: "marksentrynewList", component: MarksnewEntryListComponent },
+
 
   { path: "marksList", component: MarksListComponent },
   { path: 'marks/add', component: MarksAddComponent },
