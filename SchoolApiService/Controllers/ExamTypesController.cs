@@ -14,7 +14,6 @@ namespace SchoolApiService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class ExamTypesController : ControllerBase
     {
         private readonly SchoolDbContext _context;

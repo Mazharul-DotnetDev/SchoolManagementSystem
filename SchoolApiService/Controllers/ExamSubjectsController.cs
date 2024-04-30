@@ -158,8 +158,8 @@ namespace SchoolApiService.Controllers
                         SubjectId = examSubjectRequest.SubjectId,
                         ExamScheduleStandardId = examSubjectRequest.ExamScheduleStandardId,
                         ExamDate = examSubjectRequest.ExamDate,
-                        ExamStartTime = examSubjectRequest.ExamStartTime,
-                        ExamEndTime = examSubjectRequest.ExamEndTime,
+                        //ExamStartTime = examSubjectRequest.ExamStartTime,
+                        //ExamEndTime = examSubjectRequest.ExamEndTime,
                         ExamTypeId = examSubjectRequest.ExamTypeId
                     };
                     _context.dbsExamSubject.Add(examSubject);

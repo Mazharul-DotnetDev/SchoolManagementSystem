@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SchoolApiService.ViewModels;
 using SchoolApp.DAL.SchoolContext;
 using SchoolApp.Models.DataModels;
 //using SchoolApp.Models.ViewModels;
@@ -24,28 +25,69 @@ namespace SchoolApiService.Controllers
 
         // GET: api/ExamSchedules
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExamSchedule>>> GetdbsExamSchedule()
+        public async Task<ActionResult<IEnumerable<ExamScheduleVM>>> GetdbsExamSchedule()
         {
-            var examSchedule = await _context.dbsExamSchedule.
-                Include(ess => ess.ExamScheduleStandards)
-                .ThenInclude(es => es.ExamSubjects)
-                .ThenInclude(esSj => esSj.Subject)
-                .ThenInclude(es => es.Standard)
+            return await _context.dbsExamSchedule.
+                Select(it => new ExamScheduleVM
+                {
+                    ExamScheduleId = it.ExamScheduleId,
+                    ExamScheduleName = it.ExamScheduleName,
+                    ExamScheduleStandards = it.ExamScheduleStandards.Select(ess => new ExamScheduleStandardForExamScheduleVM
+                    {
+                        StandardName = ess.Standard.StandardName,
+                        ExamSubjects = ess.ExamSubjects.Select(es => new ExamSubjectVM
+                        {
+                            ExamStartTime = es.ExamStartTime,
+                            ExamEndTime = es.ExamEndTime,
+                            ExamDate = es.ExamDate,
+                            ExamTypeName = es.ExamType.ExamTypeName,
+                            SubjectName = es.Subject.SubjectName,
+                            SubjectCode = es.Subject.SubjectCode
+                        })
+
+                    })
+
+                })
                 .AsNoTracking()
                 .ToListAsync();
-            return examSchedule;
+        }
 
+        public record GetExamScheduleOptionsResponse(int ExamScheduleId, string ExamScheduleName);
+
+        [HttpGet("GetExamScheduleOptions")]
+        public async Task<IEnumerable<GetExamScheduleOptionsResponse>> GetExamScheduleOptions()
+        {
+            return await _context.dbsExamSchedule
+                .Select(it => new GetExamScheduleOptionsResponse(it.ExamScheduleId, it.ExamScheduleName))
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/ExamSchedules/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ExamSchedule>> GetExamSchedule(int id)
+        public async Task<ActionResult<ExamScheduleVM>> GetExamSchedule(int id)
         {
             var examSchedule = await _context.dbsExamSchedule.
-                 Include(ess => ess.ExamScheduleStandards)
-                .ThenInclude(es => es.ExamSubjects)
-                .ThenInclude(esSj => esSj.Subject)
-                .ThenInclude(es => es.Standard)
+                Select(it => new ExamScheduleVM
+                {
+                    ExamScheduleId = it.ExamScheduleId,
+                    ExamScheduleName = it.ExamScheduleName,
+                    ExamScheduleStandards = it.ExamScheduleStandards.Select(ess => new ExamScheduleStandardForExamScheduleVM
+                    {
+                        StandardName = ess.Standard.StandardName,
+                        ExamSubjects = ess.ExamSubjects.Select(es => new ExamSubjectVM
+                        {
+                            ExamStartTime = es.ExamStartTime,
+                            ExamEndTime = es.ExamEndTime,
+                            ExamDate = es.ExamDate,
+                            ExamTypeName = es.ExamType.ExamTypeName,
+                            SubjectName = es.Subject.SubjectName,
+                            SubjectCode = es.Subject.SubjectCode
+                        })
+
+                    })
+
+                })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(it => it.ExamScheduleId == id);
 

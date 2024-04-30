@@ -132,12 +132,12 @@ namespace SchoolApiService.Controllers
                         {
                             examSubjects.Add(new ExamSubject
                             {
-                                ExamDate = examSubject.ExamDate,
-                                ExamStartTime = examSubject.ExamStartTime,
-                                ExamEndTime = examSubject.ExamEndTime,
-                                SubjectId = examSubject.SubjectId,
-                                ExamScheduleStandardId = examScheduleStandard.ExamScheduleStandardId,
-                                ExamTypeId = examSubject.ExamTypeId,
+          ExamDate = examSubject.ExamDate,
+          //ExamStartTime = examSubject.ExamStartTime,
+          //ExamEndTime = examSubject.ExamEndTime,
+          SubjectId = examSubject.SubjectId,
+          ExamScheduleStandardId = examScheduleStandard.ExamScheduleStandardId,
+          ExamTypeId = examSubject.ExamTypeId,
                             });
                         }
                     }
