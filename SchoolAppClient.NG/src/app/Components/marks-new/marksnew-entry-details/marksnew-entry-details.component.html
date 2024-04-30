@@ -1,0 +1,28 @@
+<div *ngIf="markEntry" class="mark-entry-details-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>Mark Entry Details</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>Mark Entry ID:</strong> {{ markEntry.markEntryId }}</p>
+      <p><strong>Mark Entry Date:</strong> {{ markEntry.markEntryDate | date }}</p>
+      <p><strong>Staff Name:</strong> {{ markEntry.staff?.staffName }}</p>
+      <p><strong>Exam Type:</strong> {{ markEntry.examType?.examTypeName }}</p>
+      <p><strong>Subject:</strong> {{ markEntry.subject?.subjectName }}</p>
+      <p><strong>Total Marks:</strong> {{ markEntry.totalMarks }}</p>
+      <p><strong>Pass Marks:</strong> {{ markEntry.passMarks }}</p>
+
+      <hr>
+
+      <h3>Student Marks Details</h3>
+      <div *ngFor="let student of studentDetails" class="student-details">
+        <p><strong>Student Name:</strong> {{ student.studentName }}</p>
+        <p><strong>Obtained Score:</strong> {{ student.obtainedScore }}</p>
+        <p><strong>Grade:</strong> {{ student.grade }}</p>
+        <p><strong>Pass Status:</strong> {{ student.passStatus }}</p>
+        <!-- Display other Student Marks Details here as needed -->
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

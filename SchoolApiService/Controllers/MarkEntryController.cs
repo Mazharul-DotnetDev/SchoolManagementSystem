@@ -30,6 +30,7 @@ namespace SchoolApiService.Controllers
                 .Include(m => m.ExamSchedule)
                 .Include(m => m.ExamType)
                 .Include(m => m.Subject)
+                .Include(m => m.Standard)
                 .Include(m => m.StudentMarksDetails)
                 .ThenInclude(m => m.Student)
                 .ToListAsync();
@@ -44,6 +45,7 @@ namespace SchoolApiService.Controllers
                 .Include(m => m.ExamSchedule)
                 .Include(m => m.ExamType)
                 .Include(m => m.Subject)
+                .Include(m => m.Standard)
                 .Include(m => m.StudentMarksDetails)
                 .ThenInclude(m => m.Student)
                 .FirstOrDefaultAsync(m => m.MarkEntryId == id);

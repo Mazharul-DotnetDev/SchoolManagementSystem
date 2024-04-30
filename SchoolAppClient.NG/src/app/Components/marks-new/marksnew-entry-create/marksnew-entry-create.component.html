@@ -1,0 +1,101 @@
+
+<form #entryForm="ngForm" (ngSubmit)="onSubmit()">
+
+
+  <div>
+    <label for="markEntryDate">Mark Entry Date:</label>
+    <input type="date" id="markEntryDate" name="markEntryDate" #markEntryDate="ngModel" [(ngModel)]="markEntry.markEntryDate" required>
+  </div>
+
+  <div>
+    <label for="staffId">Staff:</label>
+    <select id="staffId" name="staffId" #staffId="ngModel" [(ngModel)]="markEntry.staffId">
+      <option *ngFor="let staff of staffList" [value]="staff.staffId">{{ staff.staffName }}</option>
+    </select>
+  </div>
+
+
+  <div>
+    <label for="examScheduleId">ExamSchedule:</label>
+    <select id="examScheduleId" name="examScheduleId" #examScheduleId="ngModel" [(ngModel)]="markEntry.examScheduleId">
+      <option *ngFor="let examSchedul of examSchedulesVM" [value]="examSchedul.examScheduleId">{{ examSchedul.examScheduleName }}</option>
+    </select>
+  </div>
+
+
+  <div>
+    <label for="examTypeId">ExamType:</label>
+    <select id="examTypeId" name="examTypeId" #examTypeId="ngModel" [(ngModel)]="markEntry.examTypeId">
+      <option *ngFor="let examType of examtypes" [value]="examType.examTypeId">{{ examType.examTypeName }}</option>
+    </select>
+  </div>
+
+
+  <div>
+    <label for="subjectId">Subject:</label>
+    <select id="subjectId" name="subjectId" #subjectId="ngModel" [(ngModel)]="markEntry.subjectId">
+      <option *ngFor="let sbject of subjects" [value]="sbject.subjectId">{{ sbject.subjectName }}</option>
+    </select>
+  </div>
+
+
+  <div>
+    <label for="standardId">Standard:</label>
+    <select id="standardId" name="standardId" #standardId="ngModel" [(ngModel)]="markEntry.standardId">
+      <option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
+    </select>
+  </div>
+
+
+
+
+  <div>
+    <label for="totalMarks">Total Marks:</label>
+    <input type="number" id="totalMarks" name="totalMarks" [(ngModel)]="markEntry.totalMarks">
+  </div>
+
+  <div>
+    <label for="passMarks">Pass Marks:</label>
+    <input type="number" id="passMarks" name="passMarks" [(ngModel)]="markEntry.passMarks">
+  </div>
+
+  <button type="button" (click)="loadStudentsMark()">Load Students</button>
+
+  <!-- Display students -->
+  <div *ngIf="studentMarksDetails.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Student Id</th>
+          <th>Student Name</th>
+          <th>Obtained Score</th>
+          <th>Grade</th>
+          <th>Pass/Fail Status</th>
+          <th>Feedback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let student of studentMarksDetails">
+          <td>{{ student.studentId }}</td>
+          <td>{{ student.studentName }}</td>
+          <td><input type="number" id="obtainedScore" name="obtainedScore" #obtainedScore="ngModel" [(ngModel)]="student.obtainedScore"></td>
+          <td>
+            <select [(ngModel)]="student.grade">
+              <!-- Populate with grade options -->
+              <!-- Example: <option *ngFor="let grade of grades" [value]="grade">{{ grade }}</option> -->
+            </select>
+          </td>
+          <td>
+            <select [(ngModel)]="student.passStatus">
+              <!-- Populate with pass/fail status options -->
+              <!-- Example: <option *ngFor="let status of passFailStatus" [value]="status">{{ status }}</option> -->
+            </select>
+          </td>
+          <td><input type="text" [(ngModel)]="student.feedback"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

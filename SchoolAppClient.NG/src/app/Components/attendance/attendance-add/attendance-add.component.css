@@ -1,0 +1,138 @@
+/* General Styles */
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 32px;
+  color: #333333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+label {
+  font-weight: 600;
+  color: #555555;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+}
+
+  .form-control:focus {
+    border-color: #007bff;
+  }
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.text-danger {
+  color: #721c24;
+}
+
+/* Form Layout and Interaction */
+.form-check {
+  display: flex;
+  align-items: center;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 14px 24px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+input[type="checkbox"] {
+  margin-right: 12px;
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+}
+
+/* Additional Styles */
+textarea {
+  height: 120px;
+  resize: none;
+}
+
+/* Stunning Look Enhancements */
+.container {
+  background-color: #f8f9fa;
+  padding: 40px;
+  background-image: linear-gradient(to bottom right, #ffffff, #f8f9fa);
+}
+
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.form-control {
+  background-color: #f8f9fa;
+  border: 2px solid #ced4da;
+  transition: border-color 0.3s ease;
+}
+
+  .form-control:focus {
+    border-color: #007bff;
+  }
+
+.btn-primary {
+  background-color: #007bff;
+  border: 2px solid #007bff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 14px;
+  border-radius: 8px;
+}
+
+.text-danger {
+  font-style: italic;
+}

@@ -42,6 +42,9 @@ import { PaymentDetailsPerStudentComponent } from './Components/payment-details/
 import { StaffSalaryCreateComponent } from './Components/staff-salary/staff-salary-create/staff-salary-create.component';
 import { StaffSalaryEditComponent } from './Components/staff-salary/staff-salary-edit/staff-salary-edit.component';
 import { MarksnewEntryListComponent } from './Components/marks-new/marksnew-entry-list/marksnew-entry-list.component';
+import { MarkEntryCreateComponent } from './Components/marks-new/marksnew-entry-create/marksnew-entry-create.component';
+import { MarkEntryDetailsComponent } from './Components/marks-new/marksnew-entry-details/marksnew-entry-details.component';
+import { MarksnewEntryDeleteComponent } from './Components/marks-new/marksnew-entry-delete/marksnew-entry-delete.component';
 
 
 const routes: Routes = [
@@ -54,6 +57,13 @@ const routes: Routes = [
   /*{ path: "", redirectTo: "/attendanceList", pathMatch: "full" },*/
 
   { path: "marksentrynewList", component: MarksnewEntryListComponent },
+  { path: 'markNew-entry-create', component: MarkEntryCreateComponent },
+  { path: 'markNew-entry-details/:id', component: MarkEntryDetailsComponent },
+  {
+    path: 'markNew-entry-delete/:id', component:
+      MarksnewEntryDeleteComponent
+  },
+
 
 
   { path: "marksList", component: MarksListComponent },

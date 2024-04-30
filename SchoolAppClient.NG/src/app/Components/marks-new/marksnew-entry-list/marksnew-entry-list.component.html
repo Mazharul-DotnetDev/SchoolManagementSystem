@@ -1,38 +1,95 @@
-<div>
-  <h2>Mark Entries</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Entry ID</th>
-        <th>Date</th>
-        <th>Staff</th>
-        <th>Exam Schedule</th>
-        <th>Exam Type</th>
-        <th>Subject</th>
-        <th>Standard</th>
-        <th>Total Marks</th>
-        <th>Pass Marks</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let markEntry of markEntries">
-        <td>{{ markEntry.markEntryId }}</td>
-        <td>{{ markEntry.markEntryDate }}</td>
-        <td>{{ markEntry.staff?.staffName }}</td>
-        <td>{{ markEntry.examSchedule?.examScheduleName }}</td>
-        <td>{{ markEntry.examType?.examTypeName }}</td>
-        <td>{{ markEntry.subject?.subjectName }}</td>
-        <td>{{ markEntry.standard?.standardName }}</td>
-        <td>{{ markEntry.totalMarks }}</td>
-        <td>{{ markEntry.passMarks }}</td>
-        <td>
-          <button (click)="getStudentsDetails(markEntry)">View Students</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="staff-management">
 
+  <div class="staff-management-header">
+    <button routerLink="/markNew-entry-create" class="btn btn-primary">New Mark Entry</button>
+
+    <!--<button class="btn btn-primary" (click)="loadStaffList()">Refresh Staff Data</button>-->
+  </div>
+
+
+  <ejs-grid [dataSource]="markEntries" [allowFiltering]="true" [searchSettings]="searchOptions" [filterSettings]="filterSettings" [allowPaging]="true" [allowSorting]="true" [allowPdfExport]="true" [allowExcelExport]="true" [allowResizing]="true" [pageSettings]="pageSettings" [showColumnChooser]="true" [toolbar]="toolbarOptions" [selectionSettings]="selectionOptions" showColumnMenu="true" width="100%">
+    <e-columns>
+      <e-column field="markEntryId" headerText="Mark Entry Id" textAlign="Right" width="90"></e-column>
+
+      <e-column field="markEntryDate" headerText="Mark Entry Date" width="120"></e-column>
+
+      <e-column field="staff.staffName" headerText="Staff Name" width="120"></e-column>
+
+      <e-column field="examSchedule.examScheduleName" headerText="Exam Schedule Name" width="120"></e-column>
+
+      <e-column field="examType.examTypeName" headerText="Exam Type" width="120"></e-column>
+
+      <e-column field="subject.subjectName" headerText="Subject Name" width="120"></e-column>
+
+      <e-column field="standard.standardName" headerText="Standard Name" width="120"></e-column>
+
+      <e-column headerText="Action" width="120" textAlign="Center">
+        <ng-template #template let-data>
+          <div class="btn-group">
+            <a [routerLink]="['/markNew-entry-details/', data.markEntryId]" class="btn btn-warning">Details</a>
+            <a [routerLink]="['/sta', data.staffId]" class="btn btn-info">Edit</a>
+            <a [routerLink]="['/markNew-entry-delete/', data.markEntryId]" class="btn btn-danger">Delete</a>
+
+          </div>
+        </ng-template>
+      </e-column>
+    </e-columns>
+    <ng-template #detailTemplate let-data>
+      <div class="custom-grid"></div>
+    </ng-template>
+  </ejs-grid>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!--<div>
+    <h2>Mark Entries</h2>
+
+    <button routerLink="/markNew-entry-create" class="btn btn-primary">New Mark Entry</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Entry ID</th>
+          <th>Date</th>
+          <th>Staff</th>
+          <th>Exam Schedule</th>
+          <th>Exam Type</th>
+          <th>Subject</th>
+          <th>Standard</th>
+          <th>Total Marks</th>
+          <th>Pass Marks</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let markEntry of markEntries">
+          <td>{{ markEntry.markEntryId }}</td>
+          <td>{{ markEntry.markEntryDate }}</td>
+          <td>{{ markEntry.staff?.staffName }}</td>
+          <td>{{ markEntry.examSchedule?.examScheduleName }}</td>
+          <td>{{ markEntry.examType?.examTypeName }}</td>
+          <td>{{ markEntry.subject?.subjectName }}</td>
+          <td>{{ markEntry.standard?.standardName }}</td>
+          <td>{{ markEntry.totalMarks }}</td>
+          <td>{{ markEntry.passMarks }}</td>
+          <td>
+            <button (click)="getStudentsDetails(markEntry)">View Students</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   <div *ngFor="let markEntry of markEntries">
     <div *ngIf="markEntry.studentMarksDetails && markEntry.studentMarksDetails.length > 0">
       <h3>Students Details for Mark Entry ID: {{ markEntry.markEntryId }}</h3>
@@ -43,4 +100,4 @@
       </ul>
     </div>
   </div>
-</div>
+  </div>-->

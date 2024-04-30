@@ -2,6 +2,7 @@ import { ExamSchedule } from "./exam-schedule";
 import { Examtype } from "./examtype";
 import { Staff } from "./staff";
 import { Standard } from "./standard";
+/*import { Standard } from "./standard";*/
 import { Student } from "./student";
 import { Subject } from "./subject";
 
@@ -19,8 +20,8 @@ export class MarksEntry {
   subject?: Subject;
 
   standardId!: number;
+  /*standard?: Standard;*/
   standard?: Standard;
-
   totalMarks: number = 100;
   passMarks: number = 40;
 

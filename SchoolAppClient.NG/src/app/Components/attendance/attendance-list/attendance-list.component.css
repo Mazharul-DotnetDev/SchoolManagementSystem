@@ -1,0 +1,63 @@
+.staff-management {
+  /* Set desired width, margin, padding, etc. */
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.staff-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  margin-right: 2px;
+}
+
+
+
+/* Add this CSS to your staff-list.component.css file or any global CSS file */
+
+/* Increase font size for grid cells */
+.e-grid .e-content td,
+.e-grid .e-headercell,
+.e-grid .e-detailheadercell,
+.e-grid .e-summarycell {
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+/* Increase font size for toolbar items */
+.e-toolbar-item {
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+/* Increase font size for filter bar input */
+.e-filterbar input {
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+/* Increase font size for pager */
+.e-grid .e-pager .e-input {
+  font-size: 18px; /* Adjust the font size as needed */
+}
+
+/* Increase font size for grid action buttons */
+.e-grid .e-toolbar-item .e-btn,
+.e-grid .e-gridpager .e-btn {
+  font-size: 10px; /* Adjust the font size as needed */
+}
+
+/* Increase font size for grid group drop down */
+.e-grid .e-groupdroparea .e-groupbutton .e-tbar-btn-text,
+.e-grid .e-groupdroparea .e-groupcontainer {
+  font-size: 18px; /* Adjust the font size as needed */
+}

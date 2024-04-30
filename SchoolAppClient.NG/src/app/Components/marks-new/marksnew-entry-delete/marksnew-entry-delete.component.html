@@ -1,0 +1,12 @@
+
+<div class="delete-container">
+  <h2>Delete Mark Entry</h2>
+  <p>Are you sure you want to delete this Mark Entry?</p>
+  <form (ngSubmit)="deleteMarkEntry()" #deleteForm="ngForm">
+    <div class="form-group">
+      <label for="markEntryId">Mark Entry ID:</label>
+      <input type="number" id="markEntryId" name="markEntryId" [(ngModel)]="markEntryId" required>
+    </div>
+    <button type="submit" [disabled]="isDeleting || deleteForm.invalid">Delete</button>
+  </form>
+</div>
