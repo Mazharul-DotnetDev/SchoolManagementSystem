@@ -1,0 +1,86 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.custom-toolbar {
+  background-color: #322653;
+}
+
+.mat-toolbar,
+.mat-icon-button,
+.neumorphic-button,
+.notification-icon,
+body,
+.mat-mdc-icon-button {
+  color: #f0f0f0 !important;
+}
+
+.mat-icon-button,
+.neumorphic-button {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+  .mat-icon-button:hover,
+  .neumorphic-button:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 255, 0.5);
+  }
+
+.neumorphic-button {
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out;
+}
+
+  .neumorphic-button:hover {
+    transform: scale(1.05);
+  }
+
+.notification-icon:hover {
+  transform: scale(1.2);
+}
+
+.custom-toolbar button:not(:last-child) {
+  margin-right: 10px;
+}
+
+.custom-toolbar button.nav-link {
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+  .custom-toolbar button.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+/* Dropdown Menu Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+  .dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+  .dropdown-menu a:hover {
+    background-color: #f1f1f1;
+  }

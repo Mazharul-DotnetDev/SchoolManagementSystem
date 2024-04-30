@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AcademicMonth } from '../Models/academicmonth';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Fee } from '../Models/fee';
 import { FeeType } from '../Models/feetype';
 import { DueBalance } from '../Models/due-balance';
@@ -61,5 +61,14 @@ export class CommonServices {
   getfeePaymentDetailsByStudentId(studentId: number): Observable<any> {
     return this.http.get(`${this.apiUrl3}/GetPaymentDetailsByStudentId/${studentId}`);
   }
+
+
+  private sidebarVisibilitySubject = new BehaviorSubject<boolean>(true);
+  sidebarVisibility$ = this.sidebarVisibilitySubject.asObservable();
+
+  toggleSidebar() {
+    this.sidebarVisibilitySubject.next(!this.sidebarVisibilitySubject.value);
+  }
+
 
 }

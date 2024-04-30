@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.app-sidenav {
+  flex: 0 0 250px;
+  background-color: #333;
+  color: white;
+  padding: 20px;
+}
+
+.content {
+  position: fixed;
+  top: 80px;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+  /* Style content differently when sidebar is hidden */
+  .content.content-with-sidebar {
+    margin-left: 0;
+  }
+
+.with-sidebar {
+  left: 250px;
+  padding: 3px;
+  transition: left 0.3s ease, padding-left 0.3s ease;
+}
+
+/* Remove padding when the sidebar is hidden */
+.without-sidebar {
+  left: 25px;
+  padding: 3px;
+  transition: left 0.3s ease, padding-left 0.3s ease;
+}

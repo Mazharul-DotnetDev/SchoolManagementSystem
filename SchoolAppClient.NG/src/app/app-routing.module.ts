@@ -45,6 +45,7 @@ import { MarksnewEntryListComponent } from './Components/marks-new/marksnew-entr
 import { MarkEntryCreateComponent } from './Components/marks-new/marksnew-entry-create/marksnew-entry-create.component';
 import { MarkEntryDetailsComponent } from './Components/marks-new/marksnew-entry-details/marksnew-entry-details.component';
 import { MarksnewEntryDeleteComponent } from './Components/marks-new/marksnew-entry-delete/marksnew-entry-delete.component';
+import { DashboardComponent } from './Components/dashboard/dashboard-grid/dashboard-grid.component';
 
 
 const routes: Routes = [
@@ -132,6 +133,8 @@ const routes: Routes = [
   { path: 'standard/:id/edit', component: StandardEditComponent },
 
   { path: 'pmaymentdetails', component: PaymentDetailsPerStudentComponent },
+
+  { path: 'dashboard', component: DashboardComponent }
 
 ];
 

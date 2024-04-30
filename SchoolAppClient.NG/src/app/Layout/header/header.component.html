@@ -1,0 +1,132 @@
+<mat-toolbar class="custom-toolbar">
+  <button mat-icon-button
+          class="neumorphic-button example-icon"
+          aria-label="Toggle Sidebar"
+          (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  &nbsp;
+  <span>SMS</span>
+  &nbsp;
+
+  <!-- Dropdown Menu for Students -->
+  <div class="dropdown">
+    <button class="btn text-light dropdown-toggle" type="button" id="studentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Student
+    </button>
+    <div class="dropdown-menu" aria-labelledby="studentDropdown">
+      <a class="dropdown-item" routerLink="/standards">
+        <mat-icon>people</mat-icon>
+        Students
+      </a>
+    </div>
+  </div>
+  &nbsp;
+
+  <!-- Dropdown Menu for Employees -->
+  <div class="dropdown">
+    <button class="btn text-light dropdown-toggle" type="button" id="staffDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Employee
+    </button>
+    <div class="dropdown-menu" aria-labelledby="staffDropdown">
+      <a class="dropdown-item" routerLink="/departments">
+        <mat-icon>business</mat-icon>
+        Departments
+      </a>
+      <a class="dropdown-item" routerLink="/staff-list">
+        <mat-icon>group</mat-icon>
+        Staff
+      </a>
+      <a class="dropdown-item" routerLink="/staff-salaries">
+        <mat-icon>attach_money</mat-icon>
+        Staff Salaries
+      </a>
+    </div>
+  </div>
+  &nbsp;
+
+
+
+
+  <!-- Dropdown Menu for Attendance & Marks -->
+  <div class="dropdown">
+    <button class="btn text-light dropdown-toggle" type="button" id="staffDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Activities
+    </button>
+    <div class="dropdown-menu" aria-labelledby="staffDropdown">
+      <a class="dropdown-item" routerLink="/attendanceList">
+        <mat-icon>business</mat-icon>
+        Attendances
+      </a>      
+      <a class="dropdown-item" routerLink="/marksentrynewList">
+        <mat-icon>attach_money</mat-icon>
+        Marks Entry
+      </a>
+    </div>
+  </div>
+  &nbsp;
+
+
+
+
+
+
+  <!-- Dropdown Menu for Payments -->
+  <div class="dropdown">
+    <button class="btn text-light dropdown-toggle" type="button" id="paymentDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Payment
+    </button>
+    <div class="dropdown-menu" aria-labelledby="paymentDropdown">
+      <a class="dropdown-item" routerLink="/fee-types">
+        <mat-icon>list_alt</mat-icon>
+        Fee Types
+      </a>
+      <a class="dropdown-item" routerLink="/fees">
+        <mat-icon>attach_money</mat-icon>
+        Fee Amount
+      </a>
+      <a class="dropdown-item" routerLink="/pmaymentdetails">
+        <mat-icon>receipt</mat-icon>
+        Payment Details
+      </a>
+      <a class="dropdown-item" routerLink="/monthlypayment">
+        <mat-icon>event</mat-icon>
+        Monthly Payment
+      </a>
+      <a class="dropdown-item" routerLink="/otherpayment">
+        <mat-icon>money</mat-icon>
+        Other Payment
+      </a>
+    </div>
+  </div>
+  &nbsp;
+
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="notification-icon" aria-label="Notification icon button">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <ng-container *ngIf="login; else notLoggedIn">
+    <span class="nav-link text-light">{{ user.username }}</span>
+    <button mat-button class="neumorphic-button" (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Logout</span>
+    </button>
+  </ng-container>
+
+  <ng-template #notLoggedIn>
+    <button mat-button class="neumorphic-button" routerLink="/register">
+      <mat-icon>person_add</mat-icon>
+      <span>Register</span>
+    </button>
+    <button mat-button class="neumorphic-button" routerLink="/login">
+      <mat-icon>login</mat-icon>
+      <span>Login</span>
+    </button>
+  </ng-template>
+
+  <button mat-button routerLink="/profile" routerLinkActive="active" class="neumorphic-button">
+    <mat-icon>account_circle</mat-icon>
+    <span>Profile</span>
+  </button>
+</mat-toolbar>

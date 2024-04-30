@@ -58,5 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\app\Models\StaticImageModel\" />
+    <Folder Include="src\app\Layout\" />
   </ItemGroup>
 </Project>

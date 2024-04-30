@@ -1,0 +1,73 @@
+@mixin menu-item {
+  color: #d4d4d4;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all 0.3s;
+
+  .menu-icon {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+
+  .menu-text {
+  }
+}
+
+.sidebar {
+  background-color: #d4d4d4;
+  width: 200px;
+  padding: 20px;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  margin-top: 48px;
+}
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar li {
+    margin-bottom: 10px;
+  }
+
+    .sidebar li a {
+      @include menu-item;
+      &:hover
+
+{
+  background-color: rgb(241, 241, 241);
+  color: #6c6c6c;
+}
+
+&.active {
+  color: #000000;
+  background-color: rgb(241, 241, 241);
+}
+
+  &.active:hover {
+  }
+
+}
+
+.sub-menu {
+  padding-left: 20px;
+}
+
+.hideSidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+.showSidebar {
+  transform: translateX(0);
+  opacity: 1;
+  transition: transform 0.3s, opacity 0.3s;
+}

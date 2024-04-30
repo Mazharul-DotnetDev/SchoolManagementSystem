@@ -1,0 +1,62 @@
+.dashboard {
+  display: inline-block;
+  width: 25%;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+  .dashboard:last-child {
+    margin-right: 0;
+  }
+
+.mat-card {
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+  position: relative; /* Position relative for the icon */
+}
+
+  .mat-card .icon {
+    position: absolute;
+    top: -20px; /* Adjust vertical position of the icon */
+    left: 50%;
+    transform: translateX(-50%); /* Center the icon horizontally */
+    font-size: 36px; /* Adjust the size of the icon */
+  }
+
+.mat-card-header {
+  background-color: transparent;
+  color: white;
+}
+
+.mat-card-content {
+  padding: 20px;
+}
+
+.mat-card-title {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 36px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center
+}
+
+
+.student-card {
+  background-color: #FF5733;
+}
+
+.staff-card {
+  background-color: #5F7C8A;
+}
+
+.department-card {
+  background-color: #66BB6A;
+}
+
+.standard-card {
+  background-color: #FFC300;
+}
