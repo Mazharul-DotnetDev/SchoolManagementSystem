@@ -12,8 +12,8 @@ using SchoolApp.DAL.SchoolContext;
 namespace SchoolApp.DAL.Migrations
 {
     [DbContext(typeof(SchoolDbContext))]
-    [Migration("20240430162337_Mig3")]
-    partial class Mig3
+    [Migration("20240501130115_Mig1")]
+    partial class Mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1092,7 +1092,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 1,
                             Feedback = "Good job!",
                             Grade = 1,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(750),
+                            MarkEntryDate = new DateTime(2024, 5, 1, 19, 1, 10, 724, DateTimeKind.Local).AddTicks(4436),
                             ObtainedScore = 65,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1106,7 +1106,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 2,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(756),
+                            MarkEntryDate = new DateTime(2024, 5, 1, 19, 1, 10, 724, DateTimeKind.Local).AddTicks(4449),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1120,7 +1120,7 @@ namespace SchoolApp.DAL.Migrations
                             MarkId = 3,
                             Feedback = "Excellent work!",
                             Grade = 0,
-                            MarkEntryDate = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(761),
+                            MarkEntryDate = new DateTime(2024, 5, 1, 19, 1, 10, 724, DateTimeKind.Local).AddTicks(4457),
                             ObtainedScore = 75,
                             PassMarks = 40,
                             PassStatus = 0,
@@ -1806,6 +1806,9 @@ namespace SchoolApp.DAL.Migrations
                     b.Property<string>("FatherName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LocalGuardianContactNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -1892,7 +1895,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 1,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "1234567890",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1170),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "john.doe@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "12345678901234567",
@@ -1918,7 +1921,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 1,
                             StudentBloodGroup = "B+",
                             StudentContactNumber1 = "9876543210",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1186),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "fatima.rahman@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "12345678901234567",
@@ -1944,7 +1947,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 1,
                             StudentBloodGroup = "O+",
                             StudentContactNumber1 = "9876543211",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1195),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "aryan.khan@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "98765432109876543",
@@ -1970,7 +1973,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 2,
                             StudentBloodGroup = "AB+",
                             StudentContactNumber1 = "9876543212",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1201),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "tasnim.ahmed@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "76543210987654321",
@@ -1996,7 +1999,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 2,
                             StudentBloodGroup = "A-",
                             StudentContactNumber1 = "9876543213",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1208),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "imran.khan@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "87654321098765432",
@@ -2022,7 +2025,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 2,
                             StudentBloodGroup = "B-",
                             StudentContactNumber1 = "9876543214",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1214),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "anika.rahman@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "65432109876543210",
@@ -2048,7 +2051,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 3,
                             StudentBloodGroup = "O-",
                             StudentContactNumber1 = "9876543215",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1220),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "rafiul.islam@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "54321098765432109",
@@ -2074,7 +2077,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 3,
                             StudentBloodGroup = "AB-",
                             StudentContactNumber1 = "9876543216",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1228),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "zara.khan@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "43210987654321098",
@@ -2100,7 +2103,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 3,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "9876543217",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1234),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "arif.hossain@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "32109876543210987",
@@ -2126,7 +2129,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "A-",
                             StudentContactNumber1 = "9876543218",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1240),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "sabrina.akter@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "21098765432109876",
@@ -2152,7 +2155,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "O-",
                             StudentContactNumber1 = "9876543219",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1246),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "rahat.hasan@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "10987654321098765",
@@ -2178,7 +2181,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "AB-",
                             StudentContactNumber1 = "9876543220",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1252),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "asif.rahman@example.com",
                             StudentGender = 0,
                             StudentNIDNumber = "09876543210987654",
@@ -2204,7 +2207,7 @@ namespace SchoolApp.DAL.Migrations
                             StandardId = 4,
                             StudentBloodGroup = "A+",
                             StudentContactNumber1 = "9876543221",
-                            StudentDOB = new DateTime(2024, 4, 30, 22, 23, 32, 735, DateTimeKind.Local).AddTicks(1258),
+                            StudentDOB = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StudentEmail = "mehnaz.khan@example.com",
                             StudentGender = 1,
                             StudentNIDNumber = "98765432109876543",
@@ -2298,63 +2301,63 @@ namespace SchoolApp.DAL.Migrations
                         {
                             SubjectId = 4,
                             StandardId = 2,
-                            SubjectCode = 104,
+                            SubjectCode = 201,
                             SubjectName = "Mathematics"
                         },
                         new
                         {
                             SubjectId = 5,
                             StandardId = 2,
-                            SubjectCode = 105,
+                            SubjectCode = 202,
                             SubjectName = "Bengali"
                         },
                         new
                         {
                             SubjectId = 6,
                             StandardId = 2,
-                            SubjectCode = 106,
+                            SubjectCode = 203,
                             SubjectName = "Physics"
                         },
                         new
                         {
                             SubjectId = 7,
                             StandardId = 3,
-                            SubjectCode = 107,
+                            SubjectCode = 301,
                             SubjectName = "Mathematics"
                         },
                         new
                         {
                             SubjectId = 8,
                             StandardId = 3,
-                            SubjectCode = 108,
+                            SubjectCode = 302,
                             SubjectName = "Bengali"
                         },
                         new
                         {
                             SubjectId = 9,
                             StandardId = 3,
-                            SubjectCode = 109,
+                            SubjectCode = 303,
                             SubjectName = "Physics"
                         },
                         new
                         {
                             SubjectId = 10,
                             StandardId = 4,
-                            SubjectCode = 110,
+                            SubjectCode = 401,
                             SubjectName = "Mathematics"
                         },
                         new
                         {
                             SubjectId = 11,
                             StandardId = 4,
-                            SubjectCode = 111,
+                            SubjectCode = 402,
                             SubjectName = "Bengali"
                         },
                         new
                         {
                             SubjectId = 12,
                             StandardId = 4,
-                            SubjectCode = 112,
+                            SubjectCode = 403,
                             SubjectName = "Physics"
                         });
                 });

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolApp.Models.DataModels.StaticModel;
 
 
 
@@ -18,19 +19,23 @@ namespace SchoolApp.Models.DataModels
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
 
-        //[Required(ErrorMessage = "Admission number is required")]
+        //[Required(ErrorMessage = "Enrollment number is required")]
         public int? AdmissionNo { get; set; }
 
         //[Required(ErrorMessage = "Enrollment number is required")]
         public int? EnrollmentNo { get; set; }
 
-        [Required(ErrorMessage = "Unique Student Attendance Number is required")]
+        //[Required(ErrorMessage = "Unique Student Attendance Number is required")]
         //[Index (IsUnique = true)]
         public int UniqueStudentAttendanceNumber { get; set; }
 
         public string? StudentName { get; set; }
+        public string? ImagePath { get; set; }
 
-        public DateTime StudentDOB { get; set; } = DateTime.Now;
+        [NotMapped]
+        public ImageUpload? ImageUpload { get; set; }
+
+        public DateTime StudentDOB { get; set; }
 
         public GenderList? StudentGender { get; set; }
 
@@ -78,6 +83,7 @@ namespace SchoolApp.Models.DataModels
         //[Required(ErrorMessage = "Standard is required")]
         public int? StandardId { get; set; }
 
+        [ForeignKey("StandardId")]
         public Standard? Standard { get; set; }
 
 

@@ -51,10 +51,10 @@ export class MarksAddComponent implements OnInit {
     this.initializeForm();
 
 
-    this.studentService.getAllStudents().subscribe((data) => {
+    this.studentService.GetStudents().subscribe((data) => {
       this.student = data;
     });
-    this.subjectService.getAllSubjects().subscribe((data) => {
+    this.subjectService.getSubjects().subscribe((data) => {
       this.subject = data;
     });
     this.staffService.getAllStaffs().subscribe((data) => {

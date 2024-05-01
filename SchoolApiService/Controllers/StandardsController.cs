@@ -25,14 +25,23 @@ namespace SchoolApiService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Standard>>> GetdbsStandard()
         {
-            return await _context.dbsStandard.ToListAsync();
+            return await _context.dbsStandard
+                .Include(m => m.Subjects)
+                .Include(m => m.ExamScheduleStandards)
+                .Include(m => m.Students)
+                .ToListAsync();
         }
 
         // GET: api/Standards/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Standard>> GetStandard(int id)
         {
-            var standard = await _context.dbsStandard.FindAsync(id);
+            var standard = await _context.dbsStandard
+                .Include(m => m.Subjects)
+                .Include(m => m.ExamScheduleStandards)
+                .Include(m => m.Students)
+                .FirstOrDefaultAsync(m => m.StandardId == id);
+
 
             if (standard == null)
             {
@@ -85,6 +94,22 @@ namespace SchoolApiService.Controllers
         }
 
         // DELETE: api/Standards/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteStandard(int id)
+        //{
+        //    var standard = await _context.dbsStandard.FindAsync(id);
+        //    if (standard == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.dbsStandard.Remove(standard);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //}
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStandard(int id)
         {
@@ -94,11 +119,21 @@ namespace SchoolApiService.Controllers
                 return NotFound();
             }
 
+            // Check if there are any students referencing this standard
+            var hasStudents = await _context.dbsStudent.AnyAsync(s => s.StandardId == id);
+            if (hasStudents)
+            {
+                // Return an error message or prompt user to handle students first
+                return BadRequest("Cannot delete Standard with associated Students.");
+            }
+
             _context.dbsStandard.Remove(standard);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
+
+
 
         private bool StandardExists(int id)
         {

@@ -1,0 +1,90 @@
+<div class="student-details-container" *ngIf="student">
+  <div class="student-header">
+    <figure *ngIf="student.imagePath">
+      <img [src]="student.imagePath" alt="Student Image" width="180" />
+    </figure>
+    <h2>{{ student.studentName }} Details</h2>
+  </div>
+
+  <div class="student-info">
+    <div class="info-row">
+      <label>Student Name:</label>
+      <span>{{ student.studentName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Gender:</label>
+      <span>{{ student.studentGender }}</span>
+    </div>
+    <div class="info-row">
+      <label>Date of Birth:</label>
+      <span>{{ student.studentDOB | date }}</span>
+    </div>
+    <div class="info-row">
+      <label>Father's Name:</label>
+      <span>{{ student.fatherName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Mother's Name:</label>
+      <span>{{ student.motherName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Temporary Address:</label>
+      <span>{{ student.temporaryAddress }}</span>
+    </div>
+    <div class="info-row">
+      <label>Permanent Address:</label>
+      <span>{{ student.permanentAddress }}</span>
+    </div>
+    <div class="info-row">
+      <label>Contact Number:</label>
+      <span>{{ student.studentContactNumber1 }}</span>
+    </div>
+    <div class="info-row">
+      <label>Email:</label>
+      <span>{{ student.studentEmail }}</span>
+    </div>
+    <div class="info-row">
+      <label>Religion:</label>
+      <span>{{ student.studentReligion }}</span>
+    </div>
+    <div class="info-row">
+      <label>Blood Group:</label>
+      <span>{{ student.studentBloodGroup }}</span>
+    </div>
+    <div class="info-row">
+      <label>Nationality:</label>
+      <span>{{ student.studentNationality }}</span>
+    </div>
+    <div class="info-row">
+      <label>NID Number:</label>
+      <span>{{ student.studentNIDNumber }}</span>
+    </div>
+    <div class="info-row">
+      <label>Contact Number 2:</label>
+      <span>{{ student.studentContactNumber2 }}</span>
+    </div>
+    <div class="info-row">
+      <label>Father's NID:</label>
+      <span>{{ student.fatherNID }}</span>
+    </div>
+    <div class="info-row">
+      <label>Father's Contact Number:</label>
+      <span>{{ student.fatherContactNumber }}</span>
+    </div>
+    <div class="info-row">
+      <label>Mother's NID:</label>
+      <span>{{ student.motherNID }}</span>
+    </div>
+    <div class="info-row">
+      <label>Mother's Contact Number:</label>
+      <span>{{ student.motherContactNumber }}</span>
+    </div>
+    <div class="info-row">
+      <label>Local Guardian Name:</label>
+      <span>{{ student.localGuardianName }}</span>
+    </div>
+    <div class="info-row">
+      <label>Local Guardian Contact Number:</label>
+      <span>{{ student.localGuardianContactNumber }}</span>
+    </div>
+  </div>

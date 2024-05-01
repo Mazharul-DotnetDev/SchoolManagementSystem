@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SchoolApp.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class mig1 : Migration
+    public partial class Mig1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -355,6 +355,7 @@ namespace SchoolApp.DAL.Migrations
                     EnrollmentNo = table.Column<int>(type: "int", nullable: true),
                     UniqueStudentAttendanceNumber = table.Column<int>(type: "int", nullable: false),
                     StudentName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     StudentDOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     StudentGender = table.Column<int>(type: "int", nullable: true),
                     StudentReligion = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -563,8 +564,8 @@ namespace SchoolApp.DAL.Migrations
                     ExamTypeId = table.Column<int>(type: "int", nullable: false),
                     SubjectId = table.Column<int>(type: "int", nullable: false),
                     StandardId = table.Column<int>(type: "int", nullable: false),
-                    TotalMarks = table.Column<int>(type: "int", nullable: false),
-                    PassMarks = table.Column<int>(type: "int", nullable: false)
+                    TotalMarks = table.Column<int>(type: "int", nullable: true),
+                    PassMarks = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -981,22 +982,22 @@ namespace SchoolApp.DAL.Migrations
 
             migrationBuilder.InsertData(
                 table: "Student",
-                columns: new[] { "StudentId", "AdmissionNo", "EnrollmentNo", "FatherContactNumber", "FatherNID", "FatherName", "LocalGuardianContactNumber", "LocalGuardianName", "MotherContactNumber", "MotherNID", "MotherName", "PermanentAddress", "StandardId", "StudentBloodGroup", "StudentContactNumber1", "StudentContactNumber2", "StudentDOB", "StudentEmail", "StudentGender", "StudentNIDNumber", "StudentName", "StudentNationality", "StudentReligion", "TemporaryAddress", "UniqueStudentAttendanceNumber" },
+                columns: new[] { "StudentId", "AdmissionNo", "EnrollmentNo", "FatherContactNumber", "FatherNID", "FatherName", "ImagePath", "LocalGuardianContactNumber", "LocalGuardianName", "MotherContactNumber", "MotherNID", "MotherName", "PermanentAddress", "StandardId", "StudentBloodGroup", "StudentContactNumber1", "StudentContactNumber2", "StudentDOB", "StudentEmail", "StudentGender", "StudentNIDNumber", "StudentName", "StudentNationality", "StudentReligion", "TemporaryAddress", "UniqueStudentAttendanceNumber" },
                 values: new object[,]
                 {
-                    { 1, 1000, 2000, "9876543210", "17948678987624322", "Michael Doe", "9876543230", "Jane Smith", "9876543220", "17948678987754322", "Alice Doe", "123 Main Street, City, Country", 1, "A+", "1234567890", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3331), "john.doe@example.com", 0, "12345678901234567", "John Doe", "Bangladeshi", null, "456 Elm Street, City, Country", 1000 },
-                    { 2, 1001, 2001, "9876543220", "12345678901234567", "Abdul Rahman", "9876543240", "Kamal Ahmed", "9876543230", "12345678901234568", "Ayesha Rahman", "Dhaka, Bangladesh", 1, "B+", "9876543210", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3339), "fatima.rahman@example.com", 1, "12345678901234567", "Fatima Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1001 },
-                    { 3, 1002, 2002, "9876543221", "98765432109876544", "Rahim Khan", "9876543241", "Kamal Ahmed", "9876543231", "98765432109876545", "Fatima Khan", "Chittagong, Bangladesh", 1, "O+", "9876543211", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3344), "aryan.khan@example.com", 0, "98765432109876543", "Aryan Khan", "Bangladeshi", null, "Chittagong, Bangladesh", 1002 },
-                    { 4, 1003, 2003, "9876543222", "76543210987654322", "Mahmud Ahmed", "9876543242", "Nadia Rahman", "9876543232", "76543210987654323", "Farida Ahmed", "Sylhet, Bangladesh", 2, "AB+", "9876543212", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3347), "tasnim.ahmed@example.com", 1, "76543210987654321", "Tasnim Ahmed", "Bangladeshi", null, "Sylhet, Bangladesh", 1003 },
-                    { 5, 1004, 2004, "9876543223", "87654321098765433", "Nasir Khan", "9876543243", "Abdul Ali", "9876543233", "87654321098765434", "Sadia Khan", "Rajshahi, Bangladesh", 2, "A-", "9876543213", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3350), "imran.khan@example.com", 0, "87654321098765432", "Imran Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1004 },
-                    { 6, 1005, 2005, "9876543224", "65432109876543211", "Hasan Rahman", "9876543244", "Khaled Islam", "9876543234", "65432109876543212", "Sabina Rahman", "Dhaka, Bangladesh", 2, "B-", "9876543214", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3353), "anika.rahman@example.com", 1, "65432109876543210", "Anika Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1005 },
-                    { 7, 1006, 2006, "9876543225", "54321098765432110", "Rahman Islam", "9876543245", "Farid Ahmed", "9876543235", "54321098765432111", "Amina Islam", "Chittagong, Bangladesh", 3, "O-", "9876543215", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3356), "rafiul.islam@example.com", 0, "54321098765432109", "Rafiul Islam", "Bangladeshi", null, "Chittagong, Bangladesh", 1006 },
-                    { 8, 1007, 2007, "9876543226", "43210987654321099", "Akram Khan", "9876543246", "Ayesha Begum", "9876543236", "43210987654321100", "Taslima Khan", "Rajshahi, Bangladesh", 3, "AB-", "9876543216", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3359), "zara.khan@example.com", 1, "43210987654321098", "Zara Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1007 },
-                    { 9, 1008, 2008, "9876543227", "32109876543210988", "Kamal Hossain", "9876543247", "Salam Ahmed", "9876543237", "32109876543210989", "Nazma Hossain", "Sylhet, Bangladesh", 3, "A+", "9876543217", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3362), "arif.hossain@example.com", 0, "32109876543210987", "Arif Hossain", "Bangladeshi", null, "Sylhet, Bangladesh", 1008 },
-                    { 10, 1009, 2009, "9876543228", "21098765432109877", "Jamil Akter", "9876543248", "Khaled Rahman", "9876543238", "21098765432109878", "Rina Akter", "Dhaka, Bangladesh", 4, "A-", "9876543218", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3365), "sabrina.akter@example.com", 1, "21098765432109876", "Sabrina Akter", "Bangladeshi", null, "Dhaka, Bangladesh", 1009 },
-                    { 11, 1010, 2010, "9876543229", "10987654321098766", "Hasan Mahmud", "9876543249", "Farhana Akter", "9876543239", "10987654321098767", "Nazma Hasan", "Chittagong, Bangladesh", 4, "O-", "9876543219", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3368), "rahat.hasan@example.com", 0, "10987654321098765", "Rahat Hasan", "Bangladeshi", null, "Chittagong, Bangladesh", 1010 },
-                    { 12, 1011, 2011, "9876543230", "09876543210987655", "Rahim Rahman", "9876543250", "Kamal Hossain", "9876543240", "09876543210987656", "Sara Rahman", "Rajshahi, Bangladesh", 4, "AB-", "9876543220", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3371), "asif.rahman@example.com", 0, "09876543210987654", "Asif Rahman", "Bangladeshi", null, "Rajshahi, Bangladesh", 1011 },
-                    { 13, 1012, 2012, "9876543231", "98765432109876544", "Akram Khan", "9876543251", "Ayesha Begum", "9876543241", "98765432109876545", "Taslima Khan", "Sylhet, Bangladesh", 4, "A+", "9876543221", null, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3374), "mehnaz.khan@example.com", 1, "98765432109876543", "Mehnaz Khan", "Bangladeshi", null, "Sylhet, Bangladesh", 1012 }
+                    { 1, 1000, 2000, "9876543210", "17948678987624322", "Michael Doe", null, "9876543230", "Jane Smith", "9876543220", "17948678987754322", "Alice Doe", "123 Main Street, City, Country", 1, "A+", "1234567890", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "john.doe@example.com", 0, "12345678901234567", "John Doe", "Bangladeshi", null, "456 Elm Street, City, Country", 1000 },
+                    { 2, 1001, 2001, "9876543220", "12345678901234567", "Abdul Rahman", null, "9876543240", "Kamal Ahmed", "9876543230", "12345678901234568", "Ayesha Rahman", "Dhaka, Bangladesh", 1, "B+", "9876543210", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "fatima.rahman@example.com", 1, "12345678901234567", "Fatima Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1001 },
+                    { 3, 1002, 2002, "9876543221", "98765432109876544", "Rahim Khan", null, "9876543241", "Kamal Ahmed", "9876543231", "98765432109876545", "Fatima Khan", "Chittagong, Bangladesh", 1, "O+", "9876543211", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "aryan.khan@example.com", 0, "98765432109876543", "Aryan Khan", "Bangladeshi", null, "Chittagong, Bangladesh", 1002 },
+                    { 4, 1003, 2003, "9876543222", "76543210987654322", "Mahmud Ahmed", null, "9876543242", "Nadia Rahman", "9876543232", "76543210987654323", "Farida Ahmed", "Sylhet, Bangladesh", 2, "AB+", "9876543212", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "tasnim.ahmed@example.com", 1, "76543210987654321", "Tasnim Ahmed", "Bangladeshi", null, "Sylhet, Bangladesh", 1003 },
+                    { 5, 1004, 2004, "9876543223", "87654321098765433", "Nasir Khan", null, "9876543243", "Abdul Ali", "9876543233", "87654321098765434", "Sadia Khan", "Rajshahi, Bangladesh", 2, "A-", "9876543213", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "imran.khan@example.com", 0, "87654321098765432", "Imran Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1004 },
+                    { 6, 1005, 2005, "9876543224", "65432109876543211", "Hasan Rahman", null, "9876543244", "Khaled Islam", "9876543234", "65432109876543212", "Sabina Rahman", "Dhaka, Bangladesh", 2, "B-", "9876543214", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "anika.rahman@example.com", 1, "65432109876543210", "Anika Rahman", "Bangladeshi", null, "Dhaka, Bangladesh", 1005 },
+                    { 7, 1006, 2006, "9876543225", "54321098765432110", "Rahman Islam", null, "9876543245", "Farid Ahmed", "9876543235", "54321098765432111", "Amina Islam", "Chittagong, Bangladesh", 3, "O-", "9876543215", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "rafiul.islam@example.com", 0, "54321098765432109", "Rafiul Islam", "Bangladeshi", null, "Chittagong, Bangladesh", 1006 },
+                    { 8, 1007, 2007, "9876543226", "43210987654321099", "Akram Khan", null, "9876543246", "Ayesha Begum", "9876543236", "43210987654321100", "Taslima Khan", "Rajshahi, Bangladesh", 3, "AB-", "9876543216", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "zara.khan@example.com", 1, "43210987654321098", "Zara Khan", "Bangladeshi", null, "Rajshahi, Bangladesh", 1007 },
+                    { 9, 1008, 2008, "9876543227", "32109876543210988", "Kamal Hossain", null, "9876543247", "Salam Ahmed", "9876543237", "32109876543210989", "Nazma Hossain", "Sylhet, Bangladesh", 3, "A+", "9876543217", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "arif.hossain@example.com", 0, "32109876543210987", "Arif Hossain", "Bangladeshi", null, "Sylhet, Bangladesh", 1008 },
+                    { 10, 1009, 2009, "9876543228", "21098765432109877", "Jamil Akter", null, "9876543248", "Khaled Rahman", "9876543238", "21098765432109878", "Rina Akter", "Dhaka, Bangladesh", 4, "A-", "9876543218", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "sabrina.akter@example.com", 1, "21098765432109876", "Sabrina Akter", "Bangladeshi", null, "Dhaka, Bangladesh", 1009 },
+                    { 11, 1010, 2010, "9876543229", "10987654321098766", "Hasan Mahmud", null, "9876543249", "Farhana Akter", "9876543239", "10987654321098767", "Nazma Hasan", "Chittagong, Bangladesh", 4, "O-", "9876543219", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "rahat.hasan@example.com", 0, "10987654321098765", "Rahat Hasan", "Bangladeshi", null, "Chittagong, Bangladesh", 1010 },
+                    { 12, 1011, 2011, "9876543230", "09876543210987655", "Rahim Rahman", null, "9876543250", "Kamal Hossain", "9876543240", "09876543210987656", "Sara Rahman", "Rajshahi, Bangladesh", 4, "AB-", "9876543220", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "asif.rahman@example.com", 0, "09876543210987654", "Asif Rahman", "Bangladeshi", null, "Rajshahi, Bangladesh", 1011 },
+                    { 13, 1012, 2012, "9876543231", "98765432109876544", "Akram Khan", null, "9876543251", "Ayesha Begum", "9876543241", "98765432109876545", "Taslima Khan", "Sylhet, Bangladesh", 4, "A+", "9876543221", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "mehnaz.khan@example.com", 1, "98765432109876543", "Mehnaz Khan", "Bangladeshi", null, "Sylhet, Bangladesh", 1012 }
                 });
 
             migrationBuilder.InsertData(
@@ -1007,15 +1008,15 @@ namespace SchoolApp.DAL.Migrations
                     { 1, 1, 101, "Mathematics" },
                     { 2, 1, 102, "Bengali" },
                     { 3, 1, 103, "Physics" },
-                    { 4, 2, 104, "Mathematics" },
-                    { 5, 2, 105, "Bengali" },
-                    { 6, 2, 106, "Physics" },
-                    { 7, 3, 107, "Mathematics" },
-                    { 8, 3, 108, "Bengali" },
-                    { 9, 3, 109, "Physics" },
-                    { 10, 4, 110, "Mathematics" },
-                    { 11, 4, 111, "Bengali" },
-                    { 12, 4, 112, "Physics" }
+                    { 4, 2, 201, "Mathematics" },
+                    { 5, 2, 202, "Bengali" },
+                    { 6, 2, 203, "Physics" },
+                    { 7, 3, 301, "Mathematics" },
+                    { 8, 3, 302, "Bengali" },
+                    { 9, 3, 303, "Physics" },
+                    { 10, 4, 401, "Mathematics" },
+                    { 11, 4, 402, "Bengali" },
+                    { 12, 4, 403, "Physics" }
                 });
 
             migrationBuilder.InsertData(
@@ -1023,9 +1024,9 @@ namespace SchoolApp.DAL.Migrations
                 columns: new[] { "MarkId", "Feedback", "Grade", "MarkEntryDate", "ObtainedScore", "PassMarks", "PassStatus", "StaffId", "StudentId", "SubjectId", "TotalMarks" },
                 values: new object[,]
                 {
-                    { 1, "Good job!", 1, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3256), 65, 40, 0, 1, 1, 1, 80 },
-                    { 2, "Excellent work!", 0, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3260), 75, 40, 0, 2, 2, 2, 90 },
-                    { 3, "Excellent work!", 0, new DateTime(2024, 4, 30, 17, 4, 27, 658, DateTimeKind.Local).AddTicks(3263), 75, 40, 0, 3, 3, 3, 90 }
+                    { 1, "Good job!", 1, new DateTime(2024, 5, 1, 19, 1, 10, 724, DateTimeKind.Local).AddTicks(4436), 65, 40, 0, 1, 1, 1, 80 },
+                    { 2, "Excellent work!", 0, new DateTime(2024, 5, 1, 19, 1, 10, 724, DateTimeKind.Local).AddTicks(4449), 75, 40, 0, 2, 2, 2, 90 },
+                    { 3, "Excellent work!", 0, new DateTime(2024, 5, 1, 19, 1, 10, 724, DateTimeKind.Local).AddTicks(4457), 75, 40, 0, 3, 3, 3, 90 }
                 });
 
             migrationBuilder.CreateIndex(

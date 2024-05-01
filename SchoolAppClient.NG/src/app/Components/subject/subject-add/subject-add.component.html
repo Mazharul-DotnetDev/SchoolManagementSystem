@@ -1,0 +1,17 @@
+<form #subjectForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="subjectName">Subject Name:</label>
+    <input type="text" class="form-control" id="subjectName" name="subjectName" [(ngModel)]="model.subjectName">
+  </div>
+  <div class="form-group">
+    <label for="subjectCode">Subject Code:</label>
+    <input type="text" class="form-control" id="subjectCode" name="subjectCode" [(ngModel)]="model.subjectCode">
+  </div>
+  <div class="form-group">
+    <label for="standard">Standard:</label>
+    <select class="form-control" id="standard" name="standard" [(ngModel)]="model.standardId" required>
+      <option *ngFor="let standard of standardList" [value]="standard.standardId">{{ standard.standardName }}</option>
+    </select>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Subject</button>
+</form>

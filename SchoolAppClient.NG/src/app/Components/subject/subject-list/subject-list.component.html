@@ -1,0 +1,29 @@
+<!-- subject-list.component.html -->
+
+<div class="container">
+  <h2>Subjects</h2>
+  <a class="btn btn-success" routerLink="/subject/add">Add Subject</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Subject Name</th>
+        <th>Subject Code</th>
+        <th>Standard</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let subject of subjects">
+        <td>{{ subject.subjectId }}</td>
+        <td>{{ subject.subjectName }}</td>
+        <td>{{ subject.subjectCode }}</td>
+        <td>{{ subject.standard?.standardName }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/subject', subject.subjectId, 'edit']">Edit</a>
+          <button class="btn btn-danger" (click)="deleteSubject(subject.subjectId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -20,6 +20,13 @@
     "@angular/platform-browser": "^17.2.0",
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
+
+
+    "@fortawesome/angular-fontawesome": "*",
+    "@fortawesome/fontawesome-svg-core": "*",
+    "@fortawesome/free-solid-svg-icons": "*",
+
+
     "@syncfusion/ej2-angular-buttons": "*",
     "@syncfusion/ej2-angular-charts": "*",
     "@syncfusion/ej2-angular-grids": "*",

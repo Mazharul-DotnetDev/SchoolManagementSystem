@@ -7,32 +7,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StudentService {
-  private apiUrl = 'https://localhost:7225/api/Students';
 
   constructor(private http: HttpClient) { }
 
-  // Fetch all students
-  getAllStudents(): Observable<Student[]> {
-    return this.http.get<Student[]>(`${this.apiUrl}`);
+  apiUrl: string = "https://localhost:7225/api/Students";
+
+  public GetStudents(): Observable<Student[]> {
+    return this.http.get<Student[]>(this.apiUrl);
   }
 
-  // Fetch student by ID
-  getStudentById(id: number): Observable<Student> {
+  public GetStudent(id: number): Observable<Student> {
     return this.http.get<Student>(`${this.apiUrl}/${id}`);
   }
 
-  // Add new student
-  addStudent(student: Student): Observable<Student> {
-    return this.http.post<Student>(`${this.apiUrl}`, student);
+
+
+  public SaveStudent(student: Student): Observable<Student> {
+    return this.http.post<Student>(this.apiUrl, student);
   }
 
-  // Update existing student
-  updateStudent(id: number, student: Student): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${id}`, student);
+  public UpdateStudent(student: Student): Observable<Student> {
+    return this.http.put<Student>(`${this.apiUrl}/${student.studentId}`, student);
   }
 
-  // Delete student
-  deleteStudent(id: number): Observable<any> {
+  public DeleteStudent(id: any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

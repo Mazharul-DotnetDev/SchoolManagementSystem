@@ -25,7 +25,7 @@ namespace SchoolApiService.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Subject>>> GetdbsSubject()
         {
-            return await _context.dbsSubject.ToListAsync();
+            return await _context.dbsSubject.Include(s => s.Standard).ToListAsync();
         }
 
         // GET: api/Subjects/5

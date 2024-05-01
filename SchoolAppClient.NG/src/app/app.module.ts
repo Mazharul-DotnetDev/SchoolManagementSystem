@@ -90,6 +90,15 @@ import { ExamScheduleStandardsCreateComponent } from './Components/ExamScheduleS
 import { ExamscheduleListComponent } from './Components/examschedule/examschedule-list/examschedule-list.component';
 import { ExamscheduleEditComponent } from './Components/examschedule/examschedule-edit/examschedule-edit.component';
 import { ExamscheduleAddComponent } from './Components/examschedule/examschedule-add/examschedule-add.component';
+/*import { StudentListComponent } from './Components/student/student-list/student-list.component';*/
+import { StudentEditComponent } from './Components/student/student-edit/student-edit.component';
+import { StudentDetailsComponent } from './Components/student/student-details/student-details.component';
+import { StudentAddComponent } from './Components/student/student-add/student-add.component';
+import { SubjectListComponent } from './Components/subject/subject-list/subject-list.component';
+import { SubjectEditComponent } from './Components/subject/subject-edit/subject-edit.component';
+import { SubjectAddComponent } from './Components/subject/subject-add/subject-add.component';
+import { ListStudentComponent } from './Components/student/student-list/student-list.component';
+import { HomepageComponent } from './Components/homepage/homepage.component';
 
 
 
@@ -100,7 +109,7 @@ import { ExamscheduleAddComponent } from './Components/examschedule/examschedule
 @NgModule({
   declarations: [
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent, MarksnewEntryListComponent, MarkEntryCreateComponent, MarkEntryDetailsComponent, MarksnewEntryDeleteComponent, HeaderComponent, SidebarComponent, DashboardComponent, MainComponent, ExamScheduleStandardsListComponent, ExamScheduleStandardsEditComponent, ExamScheduleStandardsCreateComponent, ExamscheduleListComponent, ExamscheduleEditComponent, ExamscheduleAddComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent, MarksnewEntryListComponent, MarkEntryCreateComponent, MarkEntryDetailsComponent, MarksnewEntryDeleteComponent, HeaderComponent, SidebarComponent, DashboardComponent, MainComponent, ExamScheduleStandardsListComponent, ExamScheduleStandardsEditComponent, ExamScheduleStandardsCreateComponent, ExamscheduleListComponent, ExamscheduleEditComponent, ExamscheduleAddComponent, ListStudentComponent, StudentEditComponent, StudentDetailsComponent, StudentAddComponent, SubjectListComponent, SubjectEditComponent, SubjectAddComponent, HomepageComponent
     
   ],
   imports: [

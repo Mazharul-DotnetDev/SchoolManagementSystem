@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getStudentCount(): void {
-    this.studentService.getAllStudents().subscribe(students => {
+    this.studentService.GetStudents().subscribe(students => {
       this.studentCount = students.length;
     });
   }

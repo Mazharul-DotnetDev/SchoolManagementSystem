@@ -1,0 +1,166 @@
+<div class="container">
+  <h2>Add New Student</h2>
+  <form (ngSubmit)="onSubmit()" #studentForm="ngForm">
+
+    <!-- Student Name -->
+    <div class="form-group">
+      <label for="studentName">Full Name</label>
+      <input type="text" class="form-control" id="studentName" name="studentName" [(ngModel)]="students.studentName" required>
+    </div>
+
+    <!-- Image Upload -->
+    <div>
+      <label for="imageInput">Choose an Image</label>
+      <input type="file" #imageInput (change)="uploadImage(imageInput)" accept="image/*" class="form-control" />
+      <img [src]="students.imagePath" *ngIf="students.imagePath" width="150" alt="Student Image">
+    </div>
+
+    <!-- Admission Number -->
+    <div class="form-group">
+      <label for="admissionNo">Admission Number</label>
+      <input type="text" class="form-control" id="admissionNo" name="admissionNo" [(ngModel)]="students.admissionNo" required>
+    </div>
+
+    <!-- Enrollment Number -->
+    <div class="form-group">
+      <label for="enrollmentNo">Enrollment Number</label>
+      <input type="text" class="form-control" id="enrollmentNo" name="enrollmentNo" [(ngModel)]="students.enrollmentNo" required>
+    </div>
+
+    <!-- Unique Student Attendance Number -->
+    <div class="form-group">
+      <label for="uniqueStudentAttendanceNumber">Unique Student Attendance Number</label>
+      <input type="text" class="form-control" id="uniqueStudentAttendanceNumber" name="uniqueStudentAttendanceNumber" [(ngModel)]="students.uniqueStudentAttendanceNumber">
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+      <label for="studentDOB">Date of Birth</label>
+      <input type="date" class="form-control" id="studentDOB" name="studentDOB" [(ngModel)]="students.studentDOB" required>
+    </div>
+
+    <!-- Gender -->
+    <div class="form-group">
+      <label for="studentGender">Gender</label>
+      <select class="form-control" id="studentGender" name="studentGender" [(ngModel)]="students.studentGender" required>
+        <option value="" disabled selected>Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <!-- standard class -->
+    <div class="form-group">
+      <label for="standardId">Standard</label>
+      <select class="form-control" id="standardId" name="standardId" [(ngModel)]="students.standardId" required>
+        <option value="" disabled selected>Select Standard</option>
+        <option *ngFor="let standard of standards" [value]="standard.standardId">{{ standard.standardName }}</option>
+      </select>
+    </div>
+    <!-- Student Religion -->
+    <div class="form-group">
+      <label for="studentReligion">Religion</label>
+      <input type="text" class="form-control" id="studentReligion" name="studentReligion" [(ngModel)]="students.studentReligion">
+    </div>
+
+    <!-- Student Blood Group -->
+    <div class="form-group">
+      <label for="studentBloodGroup">student Blood Group</label>
+      <input type="text" class="form-control" id="studentBloodGroup" name="studentBloodGroup" [(ngModel)]="students.studentBloodGroup">
+    </div>
+
+    <!-- Student Nationality -->
+    <div class="form-group">
+      <label for="studentNationality">student Nationality</label>
+      <input type="text" class="form-control" id="studentNationality" name="studentNationality" [(ngModel)]="students.studentNationality">
+    </div>
+
+    <!-- Student NID Number -->
+    <div class="form-group">
+      <label for="studentNIDNumber">student NID Number</label>
+      <input type="text" class="form-control" id="studentNIDNumber" name="studentNIDNumber" [(ngModel)]="students.studentNIDNumber">
+    </div>
+
+    <!-- Student Contact Number 1 -->
+    <div class="form-group">
+      <label for="studentContactNumber1">student Contact Number 1</label>
+      <input type="tel" class="form-control" id="studentContactNumber1" name="studentContactNumber1" [(ngModel)]="students.studentContactNumber1">
+    </div>
+
+    <!-- Student Contact Number 2 -->
+    <div class="form-group">
+      <label for="studentContactNumber2">student Contact Number 2</label>
+      <input type="tel" class="form-control" id="studentContactNumber2" name="studentContactNumber2" [(ngModel)]="students.studentContactNumber2">
+    </div>
+
+    <!-- Student Email -->
+    <div class="form-group">
+      <label for="studentEmail">Email</label>
+      <input type="email" class="form-control" id="studentEmail" name="studentEmail" [(ngModel)]="students.studentEmail">
+    </div>
+
+    <!-- Permanent Address -->
+    <div class="form-group">
+      <label for="permanentAddress">Permanent Address</label>
+      <textarea class="form-control" id="permanentAddress" name="permanentAddress" [(ngModel)]="students.permanentAddress"></textarea>
+    </div>
+
+    <!-- Temporary Address -->
+    <div class="form-group">
+      <label for="temporaryAddress">Temporary Address</label>
+      <textarea class="form-control" id="temporaryAddress" name="temporaryAddress" [(ngModel)]="students.temporaryAddress"></textarea>
+    </div>
+
+    <!-- Father Name -->
+    <div class="form-group">
+      <label for="fatherName">Father's Name</label>
+      <input type="text" class="form-control" id="fatherName" name="fatherName" [(ngModel)]="students.fatherName">
+    </div>
+
+    <!-- Father NID -->
+    <div class="form-group">
+      <label for="fatherNID">Father's NID</label>
+      <input type="text" class="form-control" id="fatherNID" name="fatherNID" [(ngModel)]="students.fatherNID">
+    </div>
+
+    <!-- Father Contact Number -->
+    <div class="form-group">
+      <label for="fatherContactNumber">Father's Contact Number</label>
+      <input type="tel" class="form-control" id="fatherContactNumber" name="fatherContactNumber" [(ngModel)]="students.fatherContactNumber">
+    </div>
+    <!-- Mother Name -->
+    <div class="form-group">
+      <label for="motherName">Mother's Name</label>
+      <input type="text" class="form-control" id="motherName" name="motherName" [(ngModel)]="students.motherName">
+    </div>
+
+    <!-- Mother NID -->
+    <div class="form-group">
+      <label for="motherNID">Mother's NID</label>
+      <input type="text" class="form-control" id="motherNID" name="motherNID" [(ngModel)]="students.motherNID">
+    </div>
+
+    <!-- Mother Contact Number -->
+    <div class="form-group">
+      <label for="motherContactNumber">Mother's Contact Number</label>
+      <input type="tel" class="form-control" id="motherContactNumber" name="motherContactNumber" [(ngModel)]="students.motherContactNumber">
+    </div>
+
+    <!-- Local Guardian Name -->
+    <div class="form-group">
+      <label for="localGuardianName">Local Guardian's Name</label>
+      <input type="text" class="form-control" id="localGuardianName" name="localGuardianName" [(ngModel)]="students.localGuardianName">
+    </div>
+
+    <!-- Local Guardian Contact Number -->
+    <div class="form-group">
+      <label for="localGuardianContactNumber">Local Guardian's Contact Number</label>
+      <input type="tel" class="form-control" id="localGuardianContactNumber" name="localGuardianContactNumber" [(ngModel)]="students.localGuardianContactNumber">
+    </div>
+
+
+    <!-- Button to submit form -->
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>

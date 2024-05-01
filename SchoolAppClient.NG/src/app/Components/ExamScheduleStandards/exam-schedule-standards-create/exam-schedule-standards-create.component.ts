@@ -71,7 +71,7 @@ export class ExamScheduleStandardsCreateComponent implements OnInit {
   }
 
   LoadSubjects() {
-    this.subjectService.getAllSubjects().subscribe((data: Subject[]) => {
+    this.subjectService.getSubjects().subscribe((data: Subject[]) => {
       this.subjectList = data;
     }, (error) => {
       console.log('Observable emitted an error: ' + error);

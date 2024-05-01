@@ -66,7 +66,7 @@ export class MarkEntryCreateComponent implements OnInit {
 
     this.staffService.getAllStaffs().subscribe((depts: Staff[]) => this.staffList = depts);
 
-    this.subjectService.getAllSubjects().subscribe((depts: Subject[]) => this.subjects = depts);
+    this.subjectService.getSubjects().subscribe((depts: Subject[]) => this.subjects = depts);
 
     
     this.examScheduleService.GetExamSchedules().subscribe((depts: ExamScheduleVm[]) => this.examSchedulesVM = depts);

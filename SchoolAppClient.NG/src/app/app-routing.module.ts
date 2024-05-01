@@ -52,12 +52,22 @@ import { ExamscheduleEditComponent } from './Components/examschedule/examschedul
 import { ExamScheduleStandardsListComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-list/exam-schedule-standards-list.component';
 import { ExamScheduleStandardsCreateComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-create/exam-schedule-standards-create.component';
 import { ExamScheduleStandardsEditComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-edit/exam-schedule-standards-edit.component';
+import { ListStudentComponent } from './Components/student/student-list/student-list.component';
+import { StudentAddComponent } from './Components/student/student-add/student-add.component';
+import { StudentEditComponent } from './Components/student/student-edit/student-edit.component';
+import { StudentDetailsComponent } from './Components/student/student-details/student-details.component';
+import { SubjectListComponent } from './Components/subject/subject-list/subject-list.component';
+import { SubjectAddComponent } from './Components/subject/subject-add/subject-add.component';
+import { SubjectEditComponent } from './Components/subject/subject-edit/subject-edit.component';
+import { HomepageComponent } from './Components/homepage/homepage.component';
 
 
 const routes: Routes = [
   /*{ path: "", redirectTo: "/marksList", pathMatch: "full" },*/
 
-  { path: "", redirectTo: "/marksentrynewList", pathMatch: "full" },
+  /*{ path: "", redirectTo: "/marksentrynewList", pathMatch: "full" },*/
+
+  { path: "", redirectTo: "/home", pathMatch: "full" },
 
   { path: "login", component: LoginComponent },
 
@@ -153,7 +163,21 @@ const routes: Routes = [
 
   { path: 'pmaymentdetails', component: PaymentDetailsPerStudentComponent },
 
-  { path: 'dashboard', component: DashboardComponent }
+  { path: 'dashboard', component: DashboardComponent },
+
+  { path: 'student', component: ListStudentComponent, pathMatch: 'full' },
+  { path: 'student/create', component: StudentAddComponent },
+  { path: 'student/:id/edit', component: StudentEditComponent },
+  { path: 'student-details/:id', component: StudentDetailsComponent },
+
+
+  { path: 'subjects', component: SubjectListComponent },
+  { path: 'subject/add', component: SubjectAddComponent },
+  { path: 'subject/:id/edit', component: SubjectEditComponent },
+
+
+  { path: 'home', component: HomepageComponent },
+
 
 ];
 

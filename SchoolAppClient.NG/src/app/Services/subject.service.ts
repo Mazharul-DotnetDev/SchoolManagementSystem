@@ -7,27 +7,36 @@ import { Subject } from '../Models/subject';
   providedIn: 'root'
 })
 export class SubjectService {
-  private baseUrl = 'https://localhost:7225/api/Subjects';
+
+  private apiUrl = 'https://localhost:7225/api/Subjects';
 
   constructor(private http: HttpClient) { }
 
-  getAllSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(`${this.baseUrl}`);
+  // Get all subjects
+  getSubjects(): Observable<Subject[]> {
+    return this.http.get<Subject[]>(this.apiUrl);
   }
 
+  // Retrieve a specific subject by ID
   getSubjectById(id: number): Observable<Subject> {
-    return this.http.get<Subject>(`${this.baseUrl}/${id}`);
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.get<Subject>(url);
   }
 
+  // Create a new subject
   createSubject(subject: Subject): Observable<Subject> {
-    return this.http.post<Subject>(`${this.baseUrl}`, subject);
+    return this.http.post<Subject>(this.apiUrl, subject);
   }
 
-  updateSubject(id: number, subject: Subject): Observable<Subject> {
-    return this.http.put<Subject>(`${this.baseUrl}/${id}`, subject);
+  // Update an existing subject
+  updateSubject(subject: Subject): Observable<Subject> {
+    const url = `${this.apiUrl}/${subject.subjectId}`;
+    return this.http.put<Subject>(url, subject);
   }
 
-  deleteSubject(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`);
+  // Delete a subject
+  deleteSubject(id: number): Observable<Subject> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<Subject>(url);
   }
 }

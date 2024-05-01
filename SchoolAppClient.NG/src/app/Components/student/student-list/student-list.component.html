@@ -1,0 +1,59 @@
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <a routerLink="/student/create" class="btn btn-primary mb-3">Add New Student</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let student of students" style="overflow-y: scroll; height: 75vh;">
+      <div class="card border-primary">
+        <figure *ngIf="student.imagePath">
+          <img [src]="student.imagePath" width="180" />
+        </figure>
+        <div class="card-body">
+            <h5 class="card-title">{{ student.studentName }}</h5>
+            <p class="card-text">Admission No: {{ student.admissionNo }}</p>
+            <p class="card-text">Enrollment No: {{ student.enrollmentNo }}</p>
+            <p class="card-text">Date of Birth: {{ student.studentDOB }}</p>
+            <p class="card-text">Standard: {{ student.standard?.standardName }}</p>
+            <!-- Add other student details here as needed -->
+<!--  <a class="btn btn-primary" [routerLink]="['/student',
+             student.studentId, 'edit']">Edit</a>
+
+            <a [routerLink]="['/student-details', student.studentId]" class="btn btn-info">Details</a>
+
+
+            <button class="btn btn-danger" (click)="deleteStudent(student)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <a routerLink="/student/create" class="btn btn-primary mb-3">Add New Student</a>
+    </div>
+  </div>
+
+  <ejs-grid [dataSource]='students' [allowFiltering]='true' [filterSettings]='filterSettings' [allowPaging]="true" [allowSorting]="true" [allowResizing]="true" [pageSettings]="pageSettings" [showColumnChooser]='true' [toolbar]='toolbarOptions' width='auto'>
+    <e-columns>
+      <e-column field="studentId" headerText="ID" width="100"></e-column>
+      <e-column field="studentName" headerText="Name" width="150"></e-column>
+      <e-column field="admissionNo" headerText="Admission No" width="150"></e-column>
+      <e-column field="enrollmentNo" headerText="Enrollment No" width="150"></e-column>
+      <e-column field="studentDOB" headerText="Date of Birth" width="150"></e-column>
+      <e-column field="standard.standardName" headerText="Standard" width="150"></e-column>
+      <!-- Add other columns as needed -->
+      <e-column headerText="Actions" textAlign="center" width="150" class="btn-group">
+        <ng-template #template let-data>
+          <a class="btn btn-primary btn-sm" [routerLink]="['/student', data.studentId, 'edit']">Edit</a>
+          <a class="btn btn-info btn-sm mr-2" [routerLink]="['/student-details', data.studentId]">Details</a>
+          <button class="btn btn-danger btn-sm" (click)="deleteStudent(data)">Delete</button>
+        </ng-template>
+      </e-column>
+    </e-columns>
+  </ejs-grid>
+</div>
