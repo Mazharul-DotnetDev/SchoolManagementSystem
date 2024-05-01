@@ -46,6 +46,12 @@ import { MarkEntryCreateComponent } from './Components/marks-new/marksnew-entry-
 import { MarkEntryDetailsComponent } from './Components/marks-new/marksnew-entry-details/marksnew-entry-details.component';
 import { MarksnewEntryDeleteComponent } from './Components/marks-new/marksnew-entry-delete/marksnew-entry-delete.component';
 import { DashboardComponent } from './Components/dashboard/dashboard-grid/dashboard-grid.component';
+import { ExamscheduleListComponent } from './Components/examschedule/examschedule-list/examschedule-list.component';
+import { ExamscheduleAddComponent } from './Components/examschedule/examschedule-add/examschedule-add.component';
+import { ExamscheduleEditComponent } from './Components/examschedule/examschedule-edit/examschedule-edit.component';
+import { ExamScheduleStandardsListComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-list/exam-schedule-standards-list.component';
+import { ExamScheduleStandardsCreateComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-create/exam-schedule-standards-create.component';
+import { ExamScheduleStandardsEditComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-edit/exam-schedule-standards-edit.component';
 
 
 const routes: Routes = [
@@ -123,9 +129,22 @@ const routes: Routes = [
   { path: 'staff-salaries-edit/:id', component: StaffSalaryEditComponent },
   
 
-  { path: 'exam-types', component: ExamtypeListComponent, canActivate: [AuthGuard] },
-  { path: 'examType/create', component: ExamtypeAddComponent, canActivate: [AuthGuard] },
+  /*{ path: 'exam-types', component: ExamtypeListComponent, canActivate: [AuthGuard] },*/
+  { path: 'exam-types', component: ExamtypeListComponent },
+  /*{ path: 'examType/create', component: ExamtypeAddComponent, canActivate: [AuthGuard] },*/
+  { path: 'examType/create', component: ExamtypeAddComponent },
   { path: "examType/edit/:id", component: ExamtypeEditComponent, canActivate: [AuthGuard] },
+
+
+  { path: 'examSchedule', component: ExamscheduleListComponent },
+  { path: 'examSchedule/create', component: ExamscheduleAddComponent },
+
+  { path: "examSchedule/edit/:id", component: ExamscheduleEditComponent },
+
+  { path: "examScheduleStandard", component: ExamScheduleStandardsListComponent },
+  { path: "examScheduleStandard/create", component: ExamScheduleStandardsCreateComponent },
+  { path: "examScheduleStandard/edit/:id", component: ExamScheduleStandardsEditComponent },
+
 
   
   { path: 'standards', component: StandardListComponent },

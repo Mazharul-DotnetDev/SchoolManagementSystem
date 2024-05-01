@@ -49,5 +49,7 @@ export class ExamScheduleService {
   public DeleteExamSchedule(id: number): Observable<ExamSchedule> {
     return this.http.delete<ExamSchedule>(this.apiUrl + '/' + id);
   }
-}
 
+
+
+}

@@ -1,0 +1,21 @@
+
+<form [formGroup]="form" form (ngSubmit)="UpdateExamSchedule()">
+  <fieldset>
+    <legend>
+      Update ExamSchedule
+    </legend>
+
+    <label for="name">ExamScheduleName:</label>
+
+    <input id="name" class="form-control" formControlName="examScheduleName" />
+
+    <span class="alert alert-danger" *ngIf="examScheduleName.invalid && examScheduleName.errors?.['required']">
+      name  required
+    </span>
+
+
+    <hr />
+    <button type="submit">Save</button>
+
+  </fieldset>
+</form>

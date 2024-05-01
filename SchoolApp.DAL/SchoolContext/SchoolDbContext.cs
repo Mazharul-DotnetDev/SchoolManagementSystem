@@ -1168,21 +1168,21 @@ new Student
                 {
                     SubjectId = 4,
                     SubjectName = "Mathematics",
-                    SubjectCode = 104,
+                    SubjectCode = 201,
                     StandardId = 2
                 },
                 new Subject
                 {
                     SubjectId = 5,
                     SubjectName = "Bengali",
-                    SubjectCode = 105,
+                    SubjectCode = 202,
                     StandardId = 2
                 },
                 new Subject
                 {
                     SubjectId = 6,
                     SubjectName = "Physics",
-                    SubjectCode = 106,
+                    SubjectCode = 203,
                     StandardId = 2
                 },
 
@@ -1190,21 +1190,21 @@ new Student
                 {
                     SubjectId = 7,
                     SubjectName = "Mathematics",
-                    SubjectCode = 107,
+                    SubjectCode = 301,
                     StandardId = 3
                 },
                 new Subject
                 {
                     SubjectId = 8,
                     SubjectName = "Bengali",
-                    SubjectCode = 108,
+                    SubjectCode = 302,
                     StandardId = 3
                 },
                 new Subject
                 {
                     SubjectId = 9,
                     SubjectName = "Physics",
-                    SubjectCode = 109,
+                    SubjectCode = 303,
                     StandardId = 3
                 },
 
@@ -1212,21 +1212,21 @@ new Student
                 {
                     SubjectId = 10,
                     SubjectName = "Mathematics",
-                    SubjectCode = 110,
+                    SubjectCode = 401,
                     StandardId = 4
                 },
                 new Subject
                 {
                     SubjectId = 11,
                     SubjectName = "Bengali",
-                    SubjectCode = 111,
+                    SubjectCode = 402,
                     StandardId = 4
                 },
                 new Subject
                 {
                     SubjectId = 12,
                     SubjectName = "Physics",
-                    SubjectCode = 112,
+                    SubjectCode = 403,
                     StandardId = 4
                 }
 

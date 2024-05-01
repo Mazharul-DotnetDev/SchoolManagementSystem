@@ -141,16 +141,34 @@ namespace SchoolApiService.Controllers
             return CreatedAtAction("GetExamSchedule", new { id = examSchedule.ExamScheduleId }, examSchedule);
         }
 
+
         // DELETE: api/ExamSchedules/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExamSchedule(int id)
         {
+            // Find the exam schedule to be deleted
             var examSchedule = await _context.dbsExamSchedule.FindAsync(id);
             if (examSchedule == null)
             {
                 return NotFound();
             }
 
+            // Remove references from the dbsExamScheduleStandard table
+            var relatedExamScheduleStandards = await _context.dbsExamScheduleStandard
+                .Where(es => es.ExamScheduleId == id)
+                .ToListAsync();
+
+            foreach (var examScheduleStandard in relatedExamScheduleStandards)
+            {
+                // Remove the reference
+                examScheduleStandard.ExamScheduleId = null;
+                _context.Entry(examScheduleStandard).State = EntityState.Modified;
+            }
+
+            // Save changes to apply the removal of references
+            await _context.SaveChangesAsync();
+
+            // Now, delete the exam schedule
             _context.dbsExamSchedule.Remove(examSchedule);
             await _context.SaveChangesAsync();
 

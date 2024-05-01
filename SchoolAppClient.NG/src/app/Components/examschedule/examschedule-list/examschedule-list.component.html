@@ -1,0 +1,61 @@
+<div class="w-100">
+  <h4 class="text-center">
+    Exam Schedule
+  </h4>
+
+  <div class="d-flex justify-content-end">
+    <a routerLink="/examSchedule/create" class="btn btn-info">Add New</a>
+  </div>
+
+  <table class="table table-bordered table-responsive table-hover mt-2">
+    <thead>
+      <tr>
+        <th>ExamSchduleId</th>
+        <th>ExamScheduleName</th>
+        <th>ExamScheduleStandard</th>
+        <th>Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let examSchedule of examSchedules; let i = index">
+        <td>{{examSchedule.examScheduleId}}</td>
+        <td>{{examSchedule.examScheduleName}}</td>
+        <td>
+          <table class="table table-responsive table-hover">
+            <tr>
+              <th>StandardName</th>
+              <th>ExamSubject</th>
+            </tr>
+
+
+            <tr *ngFor="let examScheduleStandard of examSchedule.examScheduleStandards">
+              <td>{{examScheduleStandard.standardName}}</td>
+              <td>
+                <table class="table table-responsive table-hover">
+                  <tr>
+                    <th>Subject</th>
+                    <th>ExamType</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                  </tr>
+                  <tr *ngFor="let examSubject of examScheduleStandard.examSubjects;">
+                    <td>{{examSubject.subjectName}} ({{examSubject.subjectCode}})</td>
+                    <td>{{examSubject.examTypeName}}</td>
+                    <td>{{examSubject.examDate |date:'fullDate'}}</td>
+                    <td>{{examSubject.examStartTime |date:'shortTime'}}</td>
+                    <td>{{examSubject.examEndTime|date:'shortTime'}}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td class="btn-group">
+          <a [routerLink]="['/examSchedule/edit/', examSchedule.examScheduleId]" class="btn btn-warning">Edit</a>
+          <button class="btn btn-danger" (click)="deleteExamSchedules(examSchedule.examScheduleId)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

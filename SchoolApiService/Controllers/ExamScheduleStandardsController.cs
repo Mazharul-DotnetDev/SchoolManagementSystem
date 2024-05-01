@@ -24,26 +24,56 @@ namespace SchoolApiService.Controllers
 
         // GET: api/ExamScheduleStandards
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ExamScheduleStandard>>> GetdbsExamScheduleStandard()
+        public async Task<IEnumerable<ExamScheduleStandardVM>> GetdbsExamScheduleStandard()
         {
-            var examScheduleStandard = await _context.dbsExamScheduleStandard
-                .Include(es => es.Standard)
-                .Include(es => es.ExamSubjects)
-                .ThenInclude(esSj => esSj.Subject)
+            return await _context.dbsExamScheduleStandard
+                .Select(it => new ExamScheduleStandardVM
+                {
+                    ExamScheduleName = it.ExamSchedule.ExamScheduleName,
+                    ExamScheduleStandardId = it.ExamScheduleStandardId,
+                    ExamScheduleId = it.ExamScheduleId,
+                    StandardId = it.StandardId,
+                    StandardName = it.Standard.StandardName,
+                    ExamSubjects = it.ExamSubjects.Select(es => new ExamSubjectVM
+                    {
+                        ExamTypeId = es.ExamTypeId,
+                        SubjectId = es.SubjectId,
+                        ExamDate = es.ExamDate,
+                        ExamEndTime = es.ExamEndTime,
+                        ExamStartTime = es.ExamStartTime,
+                        ExamTypeName = es.ExamType.ExamTypeName,
+                        SubjectCode = es.Subject.SubjectCode,
+                        SubjectName = es.Subject.SubjectName,
+                    })
+                })
                 .AsNoTracking()
                 .ToListAsync();
-
-            return examScheduleStandard;
         }
 
         // GET: api/ExamScheduleStandards/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ExamScheduleStandard>> GetExamScheduleStandard(int id)
+        public async Task<ActionResult<ExamScheduleStandardVM>> GetExamScheduleStandard(int id)
         {
             var examScheduleStandard = await _context.dbsExamScheduleStandard
-                .Include(es => es.Standard)
-                .Include(es => es.ExamSubjects)
-                .ThenInclude(esSj => esSj.Subject)
+                .Select(it => new ExamScheduleStandardVM
+                {
+                    ExamScheduleName = it.ExamSchedule.ExamScheduleName,
+                    ExamScheduleStandardId = it.ExamScheduleStandardId,
+                    ExamScheduleId = it.ExamScheduleId,
+                    StandardId = it.StandardId,
+                    StandardName = it.Standard.StandardName,
+                    ExamSubjects = it.ExamSubjects.Select(es => new ExamSubjectVM
+                    {
+                        ExamTypeId = es.ExamTypeId,
+                        SubjectId = es.SubjectId,
+                        ExamDate = es.ExamDate,
+                        ExamEndTime = es.ExamEndTime,
+                        ExamStartTime = es.ExamStartTime,
+                        ExamTypeName = es.ExamType.ExamTypeName,
+                        SubjectCode = es.Subject.SubjectCode,
+                        SubjectName = es.Subject.SubjectName,
+                    })
+                })
                 .AsNoTracking()
                 .FirstOrDefaultAsync(es => es.ExamScheduleStandardId == id);
 
@@ -55,8 +85,7 @@ namespace SchoolApiService.Controllers
             return examScheduleStandard;
         }
 
-        // PUT: api/ExamScheduleStandards/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutExamScheduleStandard(int id, UpdateExamScheduleStandardVM request)
         {
@@ -69,36 +98,83 @@ namespace SchoolApiService.Controllers
             {
                 try
                 {
-                    var existingESStandard = await _context.dbsExamScheduleStandard.FirstOrDefaultAsync(es => es.ExamScheduleStandardId == id);
+                    var existingExamScheduleStandard = await _context.dbsExamScheduleStandard
+                        .Include(es => es.ExamSubjects)
+                        .FirstOrDefaultAsync(es => es.ExamScheduleStandardId == id);
 
-                    if (existingESStandard == null)
+                    if (existingExamScheduleStandard == null)
                     {
-                        return NotFound($"ESStandard with ID {id} not found.");
+                        return NotFound("Exam schedule standard Id not found.");
                     }
 
-                    if (existingESStandard.StandardId != request.StandardId)
+                    // Update ExamScheduleId if needed
+                    if (existingExamScheduleStandard.ExamScheduleId != request.ExamScheduleId)
                     {
-                        var examSubjects = await _context.dbsExamSubject.Where(it => it.ExamScheduleStandardId == id).ToListAsync();
-                        _context.dbsExamSubject.RemoveRange(examSubjects);
+                        existingExamScheduleStandard.ExamScheduleId = request.ExamScheduleId;
                     }
-                    existingESStandard.StandardId = request.StandardId;
-                    existingESStandard.ExamScheduleId = request.ExamScheduleId;
+
+                    // Update StandardId if needed
+                    if (existingExamScheduleStandard.StandardId != request.StandardId)
+                    {
+                        existingExamScheduleStandard.StandardId = request.StandardId;
+
+                        // Remove existing ExamSubjects if StandardId is changed
+
+                        _context.dbsExamSubject.RemoveRange(existingExamScheduleStandard.ExamSubjects);
+                    }
+
+                    // Update or Add ExamSubjects
+                    if (request.ExamSubjects != null)
+                    {
+                        foreach (var examSubject in request.ExamSubjects)
+                        {
+                            if (existingExamScheduleStandard.StandardId == await _context.dbsSubject
+                                .Where(s => s.SubjectId == examSubject.SubjectId)
+                                .Select(s => s.StandardId)
+                                .SingleOrDefaultAsync())
+                            {
+                                DateTime.TryParse(examSubject.ExamStartTime, out DateTime startTime);
+                                DateTime.TryParse(examSubject.ExamEndTime, out DateTime endTime);
+
+                                var existingExamSubject = existingExamScheduleStandard.ExamSubjects.FirstOrDefault(es => es.SubjectId == examSubject.SubjectId);
+
+                                if (existingExamSubject != null)
+                                {
+
+                                    existingExamSubject.ExamDate = examSubject.ExamDate;
+                                    existingExamSubject.ExamStartTime = startTime;
+                                    existingExamSubject.ExamEndTime = endTime;
+                                    existingExamSubject.ExamTypeId = examSubject.ExamTypeId;
+                                }
+                                else
+                                {
+                                    existingExamScheduleStandard.ExamSubjects.Add(new ExamSubject
+                                    {
+                                        ExamDate = examSubject.ExamDate,
+                                        ExamStartTime = startTime,
+                                        ExamEndTime = endTime,
+                                        SubjectId = examSubject.SubjectId,
+                                        ExamScheduleStandardId = existingExamScheduleStandard.ExamScheduleStandardId,
+                                        ExamTypeId = examSubject.ExamTypeId,
+                                    });
+                                }
+                            }
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
-
                     await transaction.CommitAsync();
 
-                    return Ok(existingESStandard);
+                    return NoContent();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     await transaction.RollbackAsync();
-                    return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                    throw;
                 }
             }
-
-
-
         }
+
 
         // POST: api/ExamScheduleStandards
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -118,6 +194,8 @@ namespace SchoolApiService.Controllers
 
                     var examScheduleStandard = new ExamScheduleStandard
                     {
+
+
                         ExamScheduleId = request.ExamScheduleId,
                         StandardId = request.StandardId
                     };
@@ -128,30 +206,33 @@ namespace SchoolApiService.Controllers
                     List<ExamSubject> examSubjects = [];
                     foreach (var examSubject in request.ExamSubjects)
                     {
+
                         if (request.StandardId == await _context.dbsSubject.Where(it => it.SubjectId == examSubject.SubjectId).Select(it => it.StandardId).SingleOrDefaultAsync())
                         {
+                            DateTime.TryParse(examSubject.ExamStartTime, out DateTime startTime);
+                            DateTime.TryParse(examSubject.ExamEndTime, out DateTime endTime);
+
                             examSubjects.Add(new ExamSubject
                             {
-          ExamDate = examSubject.ExamDate,
-          //ExamStartTime = examSubject.ExamStartTime,
-          //ExamEndTime = examSubject.ExamEndTime,
-          SubjectId = examSubject.SubjectId,
-          ExamScheduleStandardId = examScheduleStandard.ExamScheduleStandardId,
-          ExamTypeId = examSubject.ExamTypeId,
+                                ExamDate = examSubject.ExamDate,
+                                ExamStartTime = startTime,
+                                ExamEndTime = endTime,
+                                SubjectId = examSubject.SubjectId,
+                                ExamScheduleStandardId = examScheduleStandard.ExamScheduleStandardId,
+                                ExamTypeId = examSubject.ExamTypeId,
                             });
                         }
                     }
-                    await _context.dbsExamSubject.AddRangeAsync(examSubjects);
-                    await _context.SaveChangesAsync();
+                    if (examSubjects.Count > 0)
+                    {
+                        await _context.dbsExamSubject.AddRangeAsync(examSubjects);
+                        await _context.SaveChangesAsync();
+                    }
                     await transaction.CommitAsync();
-                    _context.dbsExamScheduleStandard.Add(examScheduleStandard);
-                    await _context.SaveChangesAsync();
-
-
                 }
                 catch (Exception)
                 {
-                    await transaction.RollbackAsync();
+                    //await transaction.RollbackAsync();
                     throw;
                 }
             }
@@ -161,7 +242,8 @@ namespace SchoolApiService.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteExamScheduleStandard(int id)
         {
-            var examScheduleStandard = await _context.dbsExamScheduleStandard.FindAsync(id);
+            var examScheduleStandard = await _context.dbsExamScheduleStandard.Include(e => e.ExamSubjects).FirstOrDefaultAsync(e => e.ExamScheduleStandardId == id);
+
             if (examScheduleStandard == null)
             {
                 return NotFound();

@@ -6,7 +6,7 @@
         public int SubjectId { get; set; }
         public int ExamTypeId { get; set; }
         public DateTime? ExamDate { get; set; }
-        public TimeSpan? ExamStartTime { get; set; }
-        public TimeSpan? ExamEndTime { get; set; }
+        public DateTime? ExamStartTime { get; set; }
+        public DateTime? ExamEndTime { get; set; }
     }
 }

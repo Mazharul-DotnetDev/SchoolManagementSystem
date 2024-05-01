@@ -1,0 +1,77 @@
+<form (ngSubmit)="OnSubmit()">
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title text-center">Update Exam Schedule Standard</h4>
+      <div class="row">
+
+        <div class="col-md-4">
+          <label for="examScheduleStandardName">Exam Schedule Name:</label>
+          <select class="form-control" id="examScheduleStandardName" name="examScheduleId" [(ngModel)]="model.examScheduleId">
+            <option value="" disabled>Choose Exam Schedule</option>
+            <option *ngFor="let examSchedule of examScheduleList" [ngValue]="examSchedule.examScheduleId">{{ examSchedule.examScheduleName }}</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="standardId">Standard Name:</label>
+          <select class="form-control" id="standardId" name="standardId" [(ngModel)]="model.standardId">
+            <option value="" disabled>Choose Standard</option>
+            <option *ngFor="let standard of standardList" [ngValue]="standard.standardId">{{ standard.standardName }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card mt-2">
+        <div class="card-body">
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-info" (click)="AddExamSubject()">Add+</button>
+          </div>
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Exam Type</th>
+                <th>Exam Date</th>
+                <th>Exam Start Time</th>
+                <th>Exam End Time</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let examSubject of model.examSubjects; let i = index">
+                <td>
+                  <select class="form-control" [id]="'subject'+i" [name]="'subject'+i" [(ngModel)]="examSubject.subjectId">
+                    <option value="" disabled>Choose Exam Subject</option>
+                    <option *ngFor="let subject of subjectList" [ngValue]="subject.subjectId">{{ subject.subjectName }}({{ subject.subjectCode }})</option>
+                  </select>
+                </td>
+                <td>
+                  <select class="form-control" [id]="'examType'+i" [name]="'examType'+i" [(ngModel)]="examSubject.examTypeId">
+                    <option value="" disabled>Choose Exam Subject</option>
+                    <option *ngFor="let type of examTypeList" [ngValue]="type.examTypeId">{{ type.examTypeName }}</option>
+                  </select>
+                </td>
+                <td>
+                  <input type="date" class="w-100" [name]="'examDate'+i" [(ngModel)]="examSubject.examDate">
+                </td>
+                <td>
+                  <input type="time" class="w-100" [name]="'examStartTime'+i" [(ngModel)]="examSubject.examStartTime">
+                </td>
+                <td>
+                  <input type="time" class="w-100" [name]="'examEndTime'+i" [(ngModel)]="examSubject.examEndTime">
+                </td>
+                <td>
+                  <button class="btn btn-warning" (click)="DeleteExamSubject(i)">-</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end mt-2">
+        <button routerLink="/examScheduleStandard" class="btn btn-info">Back to List</button>
+        <button class="btn btn-success">Save</button>
+      </div>
+    </div>
+  </div>
+</form>
+

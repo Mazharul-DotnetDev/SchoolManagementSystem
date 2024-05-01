@@ -84,6 +84,12 @@ import { HeaderComponent } from './Layout/header/header.component';
 import { SidebarComponent } from './Layout/sidebar/sidebar.component';
 import { DashboardComponent } from './Components/dashboard/dashboard-grid/dashboard-grid.component';
 import { MainComponent } from './Components/main/main.component';
+import { ExamScheduleStandardsListComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-list/exam-schedule-standards-list.component';
+import { ExamScheduleStandardsEditComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-edit/exam-schedule-standards-edit.component';
+import { ExamScheduleStandardsCreateComponent } from './Components/ExamScheduleStandards/exam-schedule-standards-create/exam-schedule-standards-create.component';
+import { ExamscheduleListComponent } from './Components/examschedule/examschedule-list/examschedule-list.component';
+import { ExamscheduleEditComponent } from './Components/examschedule/examschedule-edit/examschedule-edit.component';
+import { ExamscheduleAddComponent } from './Components/examschedule/examschedule-add/examschedule-add.component';
 
 
 
@@ -94,7 +100,7 @@ import { MainComponent } from './Components/main/main.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent, MarksnewEntryListComponent, MarkEntryCreateComponent, MarkEntryDetailsComponent, MarksnewEntryDeleteComponent, HeaderComponent, SidebarComponent, DashboardComponent, MainComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent, MarksnewEntryListComponent, MarkEntryCreateComponent, MarkEntryDetailsComponent, MarksnewEntryDeleteComponent, HeaderComponent, SidebarComponent, DashboardComponent, MainComponent, ExamScheduleStandardsListComponent, ExamScheduleStandardsEditComponent, ExamScheduleStandardsCreateComponent, ExamscheduleListComponent, ExamscheduleEditComponent, ExamscheduleAddComponent
     
   ],
   imports: [

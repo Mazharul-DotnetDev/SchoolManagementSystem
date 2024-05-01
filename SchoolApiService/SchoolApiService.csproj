@@ -17,6 +17,7 @@
   <ItemGroup>
     <Compile Remove="Controllers\EmployeesController.cs" />
     <Compile Remove="Controllers\EmployeeTypesController.cs" />
+    <Compile Remove="Controllers\ExamSubjectsController.cs" />
     <Compile Remove="Controllers\FeePaymentsController.cs" />
     <Compile Remove="Controllers\FeeStructuresController.cs" />
     <Compile Remove="Controllers\MarkEntriesController.cs" />

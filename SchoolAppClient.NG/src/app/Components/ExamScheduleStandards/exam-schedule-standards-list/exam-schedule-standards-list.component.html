@@ -1,0 +1,56 @@
+<div class="w-100">
+  <h4 class="text-center">
+    Exam Schedule Standards
+  </h4>
+  <div class="d-flex justify-content-end">
+    <a routerLink="/examScheduleStandard/create" class="btn btn-info">Add New</a>
+  </div>
+
+  <table class="table table-bordered table-responsive table-hover mt-2">
+    <thead>
+      <tr>
+        <th>Exam Schedule ID.</th>
+
+        <th>Standard Name</th>
+        <th>Exam Schedule Name</th>
+        <th>Exam Subjects</th>
+        <th>Operation</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let examScheduleStandard of examScheduleStandards; let i = index">
+        <td>{{examScheduleStandard.examScheduleStandardId}}</td>
+
+        <td>{{examScheduleStandard.standardName}}</td>
+        <td>{{examScheduleStandard.examScheduleName}}</td>
+        <td>
+
+          <table class="table table-responsive table-hover">
+            <tr>
+
+              <th>Subject</th>
+              <th>ExamType</th>
+              <th>Date</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+            </tr>
+            <tr *ngFor="let examSubject of examScheduleStandard.examSubjects;">
+              <td>{{examSubject.subjectName}} ({{examSubject.subjectCode}})</td>
+              <td>{{examSubject.examTypeName}}</td>
+              <td>{{examSubject.examDate |date:'fullDate'}}</td>
+              <td>{{examSubject.examStartTime |date:'shortTime'}}</td>
+              <td>{{examSubject.examEndTime|date:'shortTime'}}</td>
+            </tr>
+          </table>
+
+        </td>
+
+        <td class="btn-group">
+          <a [routerLink]="['/examScheduleStandard/edit/', examScheduleStandard.examScheduleStandardId]" class="btn btn-warning">Edit</a>
+          <button class="btn btn-danger" (click)="DeleteExamScheduleStandard(examScheduleStandard.examScheduleStandardId)">Delete</button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+</div>

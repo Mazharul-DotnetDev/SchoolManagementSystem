@@ -15,9 +15,13 @@
     <None Remove="src\app\Authentication\SecurityModels\auth.service.spec.ts" />
     <None Remove="src\app\Models\academic-month.spec.ts" />
     <None Remove="src\app\Models\attendance.spec.ts" />
+    <None Remove="src\app\Models\create-exam-schedule-standard-vm.spec.ts" />
+    <None Remove="src\app\Models\create-exam-subject-vm.spec.ts" />
+    <None Remove="src\app\Models\create-exam-subject-with-schedule-vm.spec.ts" />
     <None Remove="src\app\Models\department.spec.ts" />
     <None Remove="src\app\Models\due-balance.spec.ts" />
     <None Remove="src\app\Models\exam-schedule-standard-for-exam-schedule-vm.spec.ts" />
+    <None Remove="src\app\Models\exam-schedule-standard-vm.spec.ts" />
     <None Remove="src\app\Models\exam-schedule-standard.spec.ts" />
     <None Remove="src\app\Models\exam-schedule-vm.spec.ts" />
     <None Remove="src\app\Models\exam-schedule.spec.ts" />
@@ -37,9 +41,11 @@
     <None Remove="src\app\Models\staff.spec.ts" />
     <None Remove="src\app\Models\student.spec.ts" />
     <None Remove="src\app\Models\subject.spec.ts" />
+    <None Remove="src\app\Models\update-exam-schedule-standard-vm.spec.ts" />
     <None Remove="src\app\Services\attendance.service.spec.ts" />
     <None Remove="src\app\Services\common.service.spec.ts" />
     <None Remove="src\app\Services\department.service.spec.ts" />
+    <None Remove="src\app\Services\exam-schedule-standard.service.spec.ts" />
     <None Remove="src\app\Services\exam-schedule.service.spec.ts" />
     <None Remove="src\app\Services\examtype.service.service.spec.ts" />
     <None Remove="src\app\Services\examtype.service.spec.ts" />

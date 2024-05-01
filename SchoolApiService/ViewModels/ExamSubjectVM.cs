@@ -2,6 +2,8 @@
 {
     public class ExamSubjectVM
     {
+        public int? SubjectId { get; set; }
+        public int? ExamTypeId { get; set; }
         public string? ExamTypeName { get; set; }
         public string? SubjectName { get; set; }
         public int? SubjectCode { get; set; }
