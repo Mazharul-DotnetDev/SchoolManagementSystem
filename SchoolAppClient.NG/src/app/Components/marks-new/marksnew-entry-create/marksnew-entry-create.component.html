@@ -59,10 +59,10 @@
     <input type="number" id="passMarks" name="passMarks" [(ngModel)]="markEntry.passMarks">
   </div>
 
-  <button type="button" (click)="loadStudentsMark()">Load Students</button>
+  <button type="button" *ngIf="markEntry.studentMarksDetails.length == 0" (click)="loadStudentsMark()">Load Students</button>
 
   <!-- Display students -->
-  <div *ngIf="studentMarksDetails.length > 0">
+  <div *ngIf="markEntry.studentMarksDetails.length > 0">
     <table>
       <thead>
         <tr>
@@ -75,23 +75,34 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let student of studentMarksDetails">
+        <tr *ngFor="let student of markEntry.studentMarksDetails ; let i =index;">
           <td>{{ student.studentId }}</td>
           <td>{{ student.studentName }}</td>
-          <td><input type="number" id="obtainedScore" name="obtainedScore" #obtainedScore="ngModel" [(ngModel)]="student.obtainedScore"></td>
+          <td><input type="number" id="obtainedScore-{{i}}" name="obtainedScore-{{i}}" #obtainedScore="ngModel" [(ngModel)]="student.obtainedScore"></td>
           <td>
-            <select [(ngModel)]="student.grade">
-              <!-- Populate with grade options -->
-              <!-- Example: <option *ngFor="let grade of grades" [value]="grade">{{ grade }}</option> -->
+            <!--<select [(ngModel)]="student.grade">-->
+            <!-- Populate with grade options -->
+            <!--<option *ngFor="let grade of student.grade" [value]="grade">{{ grade }}</option>
+            </select>-->
+
+            <select [(ngModel)]="student.grade"name="grade-{{i}}" >
+              <option *ngFor="let grade of gradesSystemValues" [value]="grade">{{ grade }}</option>
             </select>
+
+
           </td>
           <td>
-            <select [(ngModel)]="student.passStatus">
-              <!-- Populate with pass/fail status options -->
-              <!-- Example: <option *ngFor="let status of passFailStatus" [value]="status">{{ status }}</option> -->
+            <!--<select [(ngModel)]="student.passStatus">-->
+            <!-- Populate with pass/fail status options -->
+            <!--<option *ngFor="let status of passFailStatus" [value]="status">{{ status }}</option>
+            </select>-->
+
+            <select [(ngModel)]="student.passStatus" name="passStatus-{{i}}">
+              <option *ngFor="let status of passFailStatusValues" [value]="status">{{ status }}</option>
             </select>
+
           </td>
-          <td><input type="text" [(ngModel)]="student.feedback"></td>
+          <td><input type="text" [(ngModel)]="student.feedback" name="feedback-{{i}}"></td>
         </tr>
       </tbody>
     </table>

@@ -70,7 +70,7 @@ namespace SchoolApiService.Controllers
                 {
                     StudentId= student.StudentId,
                     StudentName= student.StudentName,
-                    Student = student,
+                    //Student = student,
                 });
             }
             return Ok(markEntry.StudentMarksDetails);
@@ -139,6 +139,8 @@ namespace SchoolApiService.Controllers
 
                 await _context.dbsMarkEntry.AddAsync(markEntry);
                 await _context.SaveChangesAsync();
+                //await _context.dbsStudentMarksDetails.AddRangeAsync(markEntry.StudentMarksDetails);
+                //await _context.SaveChangesAsync();
 
             }
             catch (Exception ex)

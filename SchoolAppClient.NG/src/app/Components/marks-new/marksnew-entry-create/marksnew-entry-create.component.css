@@ -1,0 +1,78 @@
+/* General Styles */
+body {
+  font-family: sans-serif;
+  margin: 2rem;
+}
+
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  width: 120px;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+button[type="button"] {
+  background-color: #38aecc;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+/* Dynamic and Professional Styles */
+
+.form-group {
+  width: 48%; /* Adjust width for responsiveness */
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* You can add more styles here for hover effects, zebra striping, etc. */

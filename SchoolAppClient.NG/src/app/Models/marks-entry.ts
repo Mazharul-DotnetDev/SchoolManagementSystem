@@ -35,13 +35,13 @@ export class MarksEntry {
 }
 
 export enum GradesSystem {
-  A,
-  B,
-  C,
-  D,
-  E,
-  F,
-  NotApplicable
+  A = 0,
+  B = 1,
+  C = 2,
+  D = 3,
+  E = 4,
+  F = 5,
+  NotApplicable = 6
 }
 
 export enum PassFailStatus {
@@ -57,10 +57,17 @@ export enum PassFailStatus {
 export class StudentMarksDetails {
   studentId !: number;
   studentName !: string;
-  obtainedScore ?: number;
-  grade ?: string;
-  passStatus ?: string;
+  obtainedScore: number = 0;
+
+  /*grade ?: string;*/
+
+  grade!: string;//; GradesSystem = GradesSystem.A;
+
+  /*passStatus ?: string;*/
+
+  passStatus?: string;// PassFailStatus = PassFailStatus.Passed;
   feedback?: string;
+  //Student
 }
 
 

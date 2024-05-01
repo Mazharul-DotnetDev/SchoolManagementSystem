@@ -11,7 +11,7 @@ import { MarkEntryService } from '../../../Services/marks-entry.service';
 export class MarkEntryDetailsComponent implements OnInit {
   /*markEntry: MarksEntry | null = null;*/
   markEntry!: MarksEntry ;
-  studentDetails: StudentMarksDetails[] = [];
+  //studentDetails: StudentMarksDetails[] = [];
   /*markEntryId!: number;*/
   errorMessage: string | undefined;
 
@@ -31,7 +31,7 @@ export class MarkEntryDetailsComponent implements OnInit {
         /*this.markEntry = result as MarksEntry;*/
         this.markEntry = result;
         // Fetch student details for the markEntry
-        this.fetchStudentDetails();
+        //this.fetchStudentDetails();
       },
       error => {
         console.log('Error fetching MarkEntry:', error);
@@ -42,7 +42,7 @@ export class MarkEntryDetailsComponent implements OnInit {
   fetchStudentDetails(): void {
     this.markEntryService.GetStudents(this.markEntry).subscribe(
       (result: StudentMarksDetails[]) => {
-        this.studentDetails = result;
+        //this.studentDetails = result;
       },
       error => {
         console.log('Error fetching Student Details:', error);

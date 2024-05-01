@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MarksEntry, StudentMarksDetails } from '../../../Models/marks-entry';
+import { GradesSystem, MarksEntry, PassFailStatus, StudentMarksDetails } from '../../../Models/marks-entry';
 import { MarkEntryService } from '../../../Services/marks-entry.service';
 import { FormBuilder, NgForm } from '@angular/forms';
 import { Staff } from '../../../Models/staff';
@@ -26,10 +26,11 @@ import { StaffService } from '../../../Services/staff.service';
 export class MarkEntryCreateComponent implements OnInit {
 
   @ViewChild("entryForm") entryForm!: NgForm;
+  //@ViewChild("LoadData") LoadData!: HTMLElement;
 
   markEntry: MarksEntry = new MarksEntry();
 
-  studentMarksDetails: StudentMarksDetails[] = [];
+  //studentMarksDetails: StudentMarksDetails[] = [];
 
   staffList: Staff[] = [];
 
@@ -45,6 +46,12 @@ export class MarkEntryCreateComponent implements OnInit {
 
 
   examSchedulesVM: ExamScheduleVm[] = [];
+
+  // Define a property to hold enum values for the select dropdown
+  gradesSystemValues = Object.keys(GradesSystem).filter(key => isNaN(+key));
+
+  passFailStatusValues = Object.values(PassFailStatus);
+
 
   constructor(
     private fb: FormBuilder,
@@ -76,6 +83,8 @@ export class MarkEntryCreateComponent implements OnInit {
 
   onSubmit(): void {
     if (this.entryForm.valid) {
+      //alert(JSON.stringify(this.markEntry));
+      //return;
       this.markEntryService.createMarkEntry(this.markEntry).subscribe(
         (response) => {
           console.log('Mark Entry created successfully:', response);
@@ -100,7 +109,8 @@ export class MarkEntryCreateComponent implements OnInit {
   loadStudentsMark(): void {
     this.markEntryService.GetStudents(this.markEntry).subscribe(
       (students) => {
-        this.studentMarksDetails = students;
+        this.markEntry.studentMarksDetails.length = 0;
+        this.markEntry.studentMarksDetails = students;
       },
       (error) => {
         console.error('Error fetching students:', error);
