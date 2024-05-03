@@ -60,6 +60,7 @@ import { SubjectListComponent } from './Components/subject/subject-list/subject-
 import { SubjectAddComponent } from './Components/subject/subject-add/subject-add.component';
 import { SubjectEditComponent } from './Components/subject/subject-edit/subject-edit.component';
 import { HomepageComponent } from './Components/homepage/homepage.component';
+import { RegistrationComponent } from './Authentication/SecurityComponents/registration/registration.component';
 
 
 const routes: Routes = [
@@ -70,6 +71,8 @@ const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
 
   { path: "login", component: LoginComponent },
+
+  { path: 'register', component: RegistrationComponent },
 
   /*{ path: "", redirectTo: "/attendanceList", pathMatch: "full" },*/
 

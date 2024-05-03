@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, tap } from "rxjs";
 import { AuthRequest } from "./auth-request";
 import { AuthResponse } from "./auth-response";
 import { jwtDecode } from "jwt-decode";
+import { RegistrationRequest } from "./RegistrationRequest";
 
 const api: string = "https://localhost:7225/api/users/";
 
@@ -32,6 +33,12 @@ export class AuthService {
         })
       );
   }
+
+  register(user: RegistrationRequest): Observable<any> {
+    return this.http.post(api + 'register', user);
+  }
+
+
 
   private doLoginUser(data: AuthResponse) {
     this.loggedUser = data.email;
