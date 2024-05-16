@@ -23,7 +23,7 @@ export class RegistrationComponent {
     this.authService.register(this.model).subscribe(() => {
       alert('Registration successful!');
       // Optionally, navigate to another page after successful registration
-      //this.router.navigate(['/login']);
+      this.router.navigate(['/login']);
     });
   }
 }

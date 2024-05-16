@@ -34,7 +34,7 @@ This repository contains a comprehensive School Management System developed as a
 ## Collaborators
 
 This project was a collaborative effort involving:
-- [Mohammad Mazharul Islam](https://github.com/Mazharul-DotnetDev))
+- [Mohammad Mazharul Islam](https://github.com/Mazharul-DotnetDev)
 - [Sayed Zahidul Hoque](https://github.com/ProgZahidul)
 - [Tamzid-Ahammad](https://github.com/Tamzid-Ahammad)
 - [Nayem Sharif](https://github.com/Coder-Nayem)
