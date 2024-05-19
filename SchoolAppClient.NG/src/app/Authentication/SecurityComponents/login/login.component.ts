@@ -39,7 +39,8 @@ export class LoginComponent {
       .login(this.model)
       .subscribe(() => {
         alert('Login success!');
-        this.router.navigate(['/']);
+        //this.router.navigate(['/']);
+        window.location.href = '/';
       });
   }
 }

@@ -168,7 +168,7 @@ const routes: Routes = [
 
   { path: 'dashboard', component: DashboardComponent },
 
-  { path: 'student', component: ListStudentComponent, pathMatch: 'full' },
+  { path: 'student', component: ListStudentComponent, pathMatch: 'full', canActivate: [AuthGuard] },
   { path: 'student/create', component: StudentAddComponent },
   { path: 'student/:id/edit', component: StudentEditComponent },
   { path: 'student-details/:id', component: StudentDetailsComponent },
