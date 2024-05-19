@@ -29,7 +29,7 @@ export class AuthService {
         tap((response: AuthResponse) => {
           console.info(response);
           this.doLoginUser(response);
-          this.router.navigate(['/']);
+          
         })
       );
   }
@@ -57,7 +57,10 @@ export class AuthService {
     localStorage.removeItem(this.JWT_TOKEN);
     localStorage.removeItem(this.JWT_USER);
     this.isAuthenticatedSubject.next(false);
-    this.router.navigate(['/']);
+    //this.router.navigate(['/']);
+    //window.location.href = '/';
+    window.location.href = '/login';
+    localStorage.removeItem("redirectTo");
   }
 
   getCurrentAuthUser(): AuthResponse {

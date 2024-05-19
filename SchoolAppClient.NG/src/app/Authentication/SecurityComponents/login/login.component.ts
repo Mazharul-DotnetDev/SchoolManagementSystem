@@ -40,7 +40,10 @@ export class LoginComponent {
       .subscribe(() => {
         alert('Login success!');
         //this.router.navigate(['/']);
-        window.location.href = '/';
+        if (!!localStorage.getItem("redirectTo"))
+          window.location.href = '/' + localStorage.getItem("redirectTo");
+        else
+          window.location.href = '/';
       });
   }
 }

@@ -100,6 +100,7 @@ import { SubjectAddComponent } from './Components/subject/subject-add/subject-ad
 import { ListStudentComponent } from './Components/student/student-list/student-list.component';
 import { HomepageComponent } from './Components/homepage/homepage.component';
 import { RegistrationComponent } from './Authentication/SecurityComponents/registration/registration.component';
+import { AuthService } from './Authentication/SecurityModels/auth.service';
 /*import { RegistrationComponent } from './Authenticaton/SecurityComponents/registration/registration.component';*/
 
 
@@ -135,7 +136,9 @@ import { RegistrationComponent } from './Authentication/SecurityComponents/regis
 
         
   ],
-  providers: [PageService, SortService, FilterService, GroupService, EditService, AggregateService,
+  providers: [
+    AuthService,
+    PageService, SortService, FilterService, GroupService, EditService, AggregateService,
     ColumnChooserService, ColumnMenuService, ResizeService, ReorderService, SearchService,
     SelectionService, ExcelExportService, PdfExportService, DetailRowService, ToolbarService,
     provideAnimationsAsync(),
