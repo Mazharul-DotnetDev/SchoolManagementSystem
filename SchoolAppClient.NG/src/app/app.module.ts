@@ -101,6 +101,12 @@ import { ListStudentComponent } from './Components/student/student-list/student-
 import { HomepageComponent } from './Components/homepage/homepage.component';
 import { RegistrationComponent } from './Authentication/SecurityComponents/registration/registration.component';
 import { AuthService } from './Authentication/SecurityModels/auth.service';
+import { ErrorInterceptor } from './Authentication/SecurityModels/error.interceptor';
+import { AssignRoleComponent } from './Authentication/SecurityComponents/assign-role/assign-role.component';
+import { LoginComponent } from './Authentication/SecurityComponents/login/login.component';
+import { RegisterComponent } from './Authentication/SecurityComponents/register/register.component';
+import { RolesComponent } from './Authentication/SecurityComponents/roles/roles.component';
+import { UsersComponent } from './Authentication/SecurityComponents/users/users.component';
 /*import { RegistrationComponent } from './Authenticaton/SecurityComponents/registration/registration.component';*/
 
 
@@ -111,8 +117,10 @@ import { AuthService } from './Authentication/SecurityModels/auth.service';
 
 @NgModule({
   declarations: [
+
     AppComponent,
-    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent, MarksnewEntryListComponent, MarkEntryCreateComponent, MarkEntryDetailsComponent, MarksnewEntryDeleteComponent, HeaderComponent, SidebarComponent, DashboardComponent, MainComponent, ExamScheduleStandardsListComponent, ExamScheduleStandardsEditComponent, ExamScheduleStandardsCreateComponent, ExamscheduleListComponent, ExamscheduleEditComponent, ExamscheduleAddComponent, ListStudentComponent, StudentEditComponent, StudentDetailsComponent, StudentAddComponent, SubjectListComponent, SubjectEditComponent, SubjectAddComponent, HomepageComponent, RegistrationComponent
+    MarksListComponent, MarksAddComponent, MarksEditComponent, MarksDeleteComponent, AttendanceListComponent, AttendanceAddComponent, FeeListComponent, FeeEditComponent, FeeCreateComponent, FeetypeListComponent, FeetypeEditComponent, FeetypeCreateComponent, MonthlypaymentListComponent, MonthlypaymentEditComponent, MonthlypaymentDetailsComponent, MonthlypaymentCreatComponent, StaffListComponent, DepartmentListComponent, StaffSalaryListComponent, StaffCreateComponent, StaffEditComponent, ExamtypeListComponent, ExamtypeAddComponent, ExamtypeEditComponent, StaffDetailsComponent, StaffDeleteComponent, DepartmentEditComponent, DepartmentCreateComponent, OtherpaymentListComponent, OtherpaymentEditComponent, OtherpaymentDetailsComponent, OtherpaymentCreatComponent, PaymentDetailsPerStudentComponent, StandardListComponent, StandardEditComponent, StandardCreateComponent, ConfirmationDialogComponent, StaffSalaryCreateComponent, StaffSalaryEditComponent, MarksnewEntryListComponent, MarkEntryCreateComponent, MarkEntryDetailsComponent, MarksnewEntryDeleteComponent, HeaderComponent, SidebarComponent, DashboardComponent, MainComponent, ExamScheduleStandardsListComponent, ExamScheduleStandardsEditComponent, ExamScheduleStandardsCreateComponent, ExamscheduleListComponent, ExamscheduleEditComponent, ExamscheduleAddComponent, ListStudentComponent, StudentEditComponent, StudentDetailsComponent, StudentAddComponent, SubjectListComponent, SubjectEditComponent, SubjectAddComponent, HomepageComponent, RegistrationComponent,
+    AssignRoleComponent, LoginComponent, RegisterComponent, RolesComponent, UsersComponent
     
   ],
   imports: [

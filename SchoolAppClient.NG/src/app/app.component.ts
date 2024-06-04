@@ -17,8 +17,8 @@ export class AppComponent {
 
   ngOnInit() {
 
-    this.login = this.authService.isLoggedIn();
-    this.user = this.authService.getCurrentAuthUser();
+    this.login = this.authService.isLoggedIn;
+    this.user = this.authService.getCurrentAuthUser;
    
   }
 

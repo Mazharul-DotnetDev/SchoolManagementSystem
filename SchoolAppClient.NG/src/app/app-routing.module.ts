@@ -61,6 +61,10 @@ import { SubjectAddComponent } from './Components/subject/subject-add/subject-ad
 import { SubjectEditComponent } from './Components/subject/subject-edit/subject-edit.component';
 import { HomepageComponent } from './Components/homepage/homepage.component';
 import { RegistrationComponent } from './Authentication/SecurityComponents/registration/registration.component';
+import { AssignRoleComponent } from './Authentication/SecurityComponents/assign-role/assign-role.component';
+import { RolesComponent } from './Authentication/SecurityComponents/roles/roles.component';
+import { UsersComponent } from './Authentication/SecurityComponents/users/users.component';
+import { RegisterComponent } from './Authentication/SecurityComponents/register/register.component';
 
 
 const routes: Routes = [
@@ -70,9 +74,19 @@ const routes: Routes = [
 
   { path: "", redirectTo: "/home", pathMatch: "full" },
 
-  { path: "login", component: LoginComponent },
 
-  { path: 'register', component: RegistrationComponent },
+
+  { path: "register", component: RegisterComponent, },
+  { path: "login", component: LoginComponent, },
+  { path: "userlist", component: UsersComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Operator'] } },
+  { path: "role-index", component: RolesComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Operator'] } },
+  { path: "assignrole/:id", component: AssignRoleComponent, canActivate: [AuthGuard], data: { roles: ['Admin', 'Operator'] } },
+
+
+
+  //{ path: "login", component: LoginComponent },
+
+  //{ path: 'register', component: RegistrationComponent },
 
   /*{ path: "", redirectTo: "/attendanceList", pathMatch: "full" },*/
 
@@ -175,7 +189,7 @@ const routes: Routes = [
 
 
   { path: 'subjects', component: SubjectListComponent },
-  { path: 'subject/add', component: SubjectAddComponent },
+  { path: 'subject/add', component: SubjectAddComponent, data: { roles: ['Admin', 'Operator'] } },
   { path: 'subject/:id/edit', component: SubjectEditComponent },
 
 

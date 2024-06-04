@@ -1,0 +1,52 @@
+<span *ngIf="errorMessage" class="text-danger" (click)="clearMessage()">{{errorMessage}}</span>
+
+<div *ngIf="state=='list'">
+
+  <button (click)="createNew()" class="btn btn-outline-info">Create</button>
+
+  <ejs-grid [dataSource]='roles' [allowFiltering]='true' [allowPaging]="true" [allowSorting]="true" [allowResizing]="true" [allowGrouping]="false" [pageSettings]="pageSettings" [showColumnChooser]='true' showColumnMenu='true' width='auto'>
+
+    <e-columns>
+      <e-column field='id' headerText='ID' textAlign='Right' width=90></e-column>
+      <e-column field='name' headerText='Name' width=120></e-column>
+
+      <e-column headerText='Action' width='150' textAlign='Center'>
+        <ng-template #template let-data>
+          <button (click)="editRole(data)"  class="btn btn-outline-link">Edit</button>
+          <button (click)="deleteRole(data.id)"  class="btn btn-outline-link">Delete</button>
+        </ng-template>
+      </e-column>
+    </e-columns>
+
+  </ejs-grid>
+
+
+</div>
+
+<div *ngIf="state=='entry'">
+
+  <form (submit)="submitData($event)">
+    <div>
+      <input type="text" class="form-control" name="id" readonly [(ngModel)]="model.id" />
+    </div>
+    <div>
+      <input type="text"
+             class="form-control"
+             name="model.name"
+             placeholder="Role"
+             [(ngModel)]="model.name" required minlength="3" #inputRole="ngModel" />
+      <ul *ngIf="inputRole.invalid && inputRole.touched" class="text-danger">
+        <li *ngIf="inputRole.errors?.['required']">Role is required</li>
+        <li *ngIf="inputRole.errors?.['minlength']">Minimum length is 3</li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button type="submit" class="btn btn-outline-success">Submit</button>
+      <button (click)="cancel()" class="btn btn-outline-info">Cancel</button>
+    </div>
+  
+  </form>
+
+
+
+</div>

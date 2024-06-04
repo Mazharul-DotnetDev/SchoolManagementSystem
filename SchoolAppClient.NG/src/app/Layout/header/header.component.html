@@ -149,13 +149,30 @@
   </div>
   &nbsp;
 
-  <span class="example-spacer"></span>
+  <!--<span class="example-spacer"></span>
   <button mat-icon-button class="notification-icon" aria-label="Notification icon button">
     <mat-icon>notifications</mat-icon>
-  </button>
+  </button>-->
+
+  <div class="dropdown">
+    <button class="btn text-light dropdown-toggle" type="button" id="managerDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Manage
+    </button>
+    <div class="dropdown-menu" aria-labelledby="managerDropdown">
+      <a class="dropdown-item" routerLink="/userlist">
+        <mat-icon>people</mat-icon>
+        Users
+      </a>
+      <a class="dropdown-item" routerLink="/role-index">
+        <mat-icon>people</mat-icon>
+        Roles
+      </a>
+    </div>
+  </div>
+  &nbsp;
 
   <ng-container *ngIf="login">
-    <span class="nav-link text-light">{{ user.username }}</span>
+    <span class="nav-link text-light">{{ user.username }} ({{user.roles.join(',')}})</span>
     <button mat-button class="neumorphic-button" (click)="logout()">
       <mat-icon>exit_to_app</mat-icon>
       <span>Logout</span>

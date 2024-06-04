@@ -22,8 +22,8 @@ export class HeaderComponent {
   }
   ngOnInit() {
 
-    this.login = this.authService.isLoggedIn();
-    this.user = this.authService.getCurrentAuthUser();
+    this.login = this.authService.isLoggedIn;
+    this.user = this.authService.getCurrentAuthUser;
 
   }
 

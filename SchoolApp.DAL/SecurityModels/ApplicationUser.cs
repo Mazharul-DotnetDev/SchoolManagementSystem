@@ -14,7 +14,15 @@ namespace SchoolApp.Models.DataModels.SecurityModels
 
     public class UserRoleDto
     {
-        public string Id { get; set; }
+        public string? Id { get; set; }
         public string Name { get; set; }
     }
+
+    public class AssignRoleDto
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public IList<string> Role { get; set; } = [];
+    }
+
 }

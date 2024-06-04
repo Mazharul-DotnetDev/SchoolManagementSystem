@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from '../../SecurityModels/auth.service';
 import { RegistrationRequest } from '../../SecurityModels/RegistrationRequest';
 import { Router } from '@angular/router';
+import { AuthRegRequest } from '../../SecurityModels/AuthRegRequest';
 
 @Component({
   selector: 'app-registration',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent {
   @ViewChild('registrationForm') registrationForm!: NgForm;
-  model = new RegistrationRequest();
+  model = new AuthRegRequest();
 
   constructor(private authService: AuthService, private router: Router) {}
 

@@ -1,0 +1,30 @@
+
+<ejs-grid [dataSource]='UserList' [allowFiltering]='true'  [allowPaging]="true" [allowSorting]="true"  [allowResizing]="true" [allowGrouping]="false" [pageSettings]="pageSettings" [showColumnChooser]='true' showColumnMenu='true' width='auto'>
+
+  <e-columns>
+    <e-column field='id' headerText='Category ID' textAlign='Right' width=90></e-column>
+    <e-column field='userName' headerText='User Name' width=120></e-column>
+    <e-column headerText='Roles' width=120>
+
+      <ng-template #template let-data>
+        <div *ngIf="data.role">
+          <span *ngFor="let role of data.role">
+            {{role}}
+          </span>
+        </div>
+      </ng-template>
+    </e-column>
+
+    <e-column headerText='Action' width='150' textAlign='Center'>
+      <ng-template #template let-data>
+        <div class="btn-group">
+
+          <a [routerLink]="['/assignrole/', data.id]" class="btn btn-warning">
+            <i class="fa-solid fa-edit"></i>
+          </a>
+        </div>
+      </ng-template>
+    </e-column>
+  </e-columns>
+
+</ejs-grid>

@@ -1,0 +1,19 @@
+<h2>Assign Role</h2>
+<form (submit)="submit($event)">
+  <div>
+    <input type="text" class="form-control" name="id" [(ngModel)]="model.id" readonly />
+  </div>
+  <div>
+    <input type="text" class="form-control" name="userName" [(ngModel)]="model.userName" readonly />
+  </div>
+  <div>
+    <select class="form-control" name="role" placeholder="Select Roles" [(ngModel)]="model.role" multiple>
+      <option>Select Role</option>
+      <option *ngFor="let role of roles" [value]="role.name">
+        {{role.name}}
+      </option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-outline-success">Submit</button>
+</form>

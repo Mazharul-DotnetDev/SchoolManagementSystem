@@ -1,45 +1,39 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';calculateLegendShapes
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthRegRequest } from '../../SecurityModels/AuthRegRequest';
 import { AuthService } from '../../SecurityModels/auth.service';
-import { AuthRequest } from '../../SecurityModels/auth-request';
-import { calculateLegendShapes } from '@syncfusion/ej2-angular-charts';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
-export class LoginComponent {
-
-  model!: AuthRequest;
+export class RegisterComponent {
+  model!: AuthRegRequest;
   authService = inject(AuthService);
   router = inject(Router);
   route = inject(ActivatedRoute);
   constructor() {
-    this.model = new AuthRequest();
+    this.model = new AuthRegRequest();
     // redirect to home if already logged in
     if (this.authService.userValue) {
       this.router.navigate(['/']);
     }
   }
-  login(event: Event) {
+  submit(event: Event) {
     event.preventDefault();
 
     console.log(`Login: ${this.model.email} / ${this.model.password}`);
 
     this.authService
-      .login(this.model)
+      .register(this.model)
       .subscribe(() => {
         //alert('Login success!');
         //window.location.href = '/';
 
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
-        //this.router.navigateByUrl(returnUrl);
+        this.router.navigateByUrl('/login?returnUrl=' + this.route.snapshot.queryParams['returnUrl']);
 
-        window.location.href = returnUrl;
         /*this.router.navigate(['/']);*/
       });
   }

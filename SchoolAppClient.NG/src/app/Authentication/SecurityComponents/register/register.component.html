@@ -1,0 +1,51 @@
+<h1>Registration</h1>
+
+<form (submit)="submit($event)">
+  <div>
+    <input type="text" class="form-control" name="userName" placeholder="User Name" [(ngModel)]="model.userName" />
+  </div>
+  <div>
+    <input type="email" class="form-control" name="email" placeholder="Email" [(ngModel)]="model.email" />
+  </div>
+  <div>
+    <input type="password"
+           class="form-control"
+           name="model.password"
+           placeholder="Password"
+           [(ngModel)]="model.password" required minlength="6" #inputPass="ngModel" />
+    <ul *ngIf="inputPass.invalid && inputPass.touched" class="text-danger">
+      <li *ngIf="inputPass.errors?.['required']">Password is required</li>
+      <li *ngIf="inputPass.errors?.['minlength']">Minimum Password length is 6</li>
+    </ul>
+
+
+  </div>
+  <div>
+    <input type="password"
+           class="form-control"
+           name="model.comparePassword"
+           placeholder="Confirm Password"
+           [(ngModel)]="model.comparePassword" required minlength="6" #inputPassCom="ngModel" />
+    <ul *ngIf="inputPassCom.invalid && inputPassCom.touched" class="text-danger">
+      <li *ngIf="inputPassCom.errors?.['required']">Password is required</li>
+      <li *ngIf="inputPassCom.errors?.['minlength']">Minimum Password length is 6</li>
+
+
+    </ul>
+    <span class="text-danger" *ngIf="inputPassCom.value != inputPass.value">Password doesn't match'</span>
+  </div>
+  <div>
+    <select class="form-control" name="role" placeholder="Select Roles" [(ngModel)]="model.role" multiple>
+      <option value="Admin">Admin</option>
+      <option value="Manager">Manager</option>
+      <option value="Operator">Operator</option>
+      <option value="Demo">Demo</option>
+      <option value="Student">Student</option>
+      <option value="Guest">Guest</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-outline-success">Register</button>
+  <a class="btn btn-link text-dark" routerLink="/login">Already registered?</a>
+
+</form>
